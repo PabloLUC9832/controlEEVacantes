@@ -11,6 +11,9 @@ return new class extends Migration
      *
      * @return void
      */
+    /**
+    Tipos de datos que se pueden crear: https://laravel.com/docs/9.x/migrations#creating-columns
+    */
     public function up()
     {
         Schema::create('motivos', function (Blueprint $table) {
