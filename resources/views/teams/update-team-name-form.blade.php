@@ -4,7 +4,6 @@
     </x-slot>
 
     <x-slot name="description">
-        {{ __('The team\'s name and owner information.') }}
         {{ __('Nombre del equipo e información sobre el propietario.') }}
     </x-slot>
 
