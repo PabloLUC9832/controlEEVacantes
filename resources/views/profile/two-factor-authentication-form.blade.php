@@ -64,7 +64,7 @@
             @if ($showingRecoveryCodes)
                 <div class="mt-4 max-w-xl text-sm text-gray-600">
                     <p class="font-semibold">
-                        {{ __('Almacena estos códigos de recuperación en un gestor de contraseñas. Estos pueden ser usados para recuperar el acceso a tu cuenta si la autenticación de dos facores ha fallado.') }}
+                        {{ __('Almacena estos códigos de recuperación en un gestor de contraseñas. Estos pueden ser usados para recuperar el acceso a tu cuenta si la autenticación de dos factores ha fallado.') }}
                     </p>
                 </div>
 
