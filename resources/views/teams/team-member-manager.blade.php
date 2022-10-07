@@ -10,14 +10,12 @@
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('Add a new team member to your team, allowing them to collaborate with you.') }}
                     {{ __('Agrega nuevos miembros al equipo, para que colaboren contigo.') }}
                 </x-slot>
 
                 <x-slot name="form">
                     <div class="col-span-6">
                         <div class="max-w-xl text-sm text-gray-600">
-                            {{ __('Please provide the email address of the person you would like to add to this team.') }}
                             {{ __('Por favor ingresa el email de la persona que quieres agregar al equipo.') }}
                         </div>
                     </div>

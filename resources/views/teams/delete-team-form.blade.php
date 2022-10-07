@@ -9,7 +9,6 @@
 
     <x-slot name="content">
         <div class="max-w-xl text-sm text-gray-600">
-            {{ __('Once a team is deleted, all of its resources and data will be permanently deleted. Before deleting this team, please download any data or information regarding this team that you wish to retain.') }}
             {{ __('Una vez el equipo sea eliminado, la información será eliminada definitivamente. Antes de eliminar este equipo, por favor respalda la información que consideres necesaria.') }}
         </div>
 
