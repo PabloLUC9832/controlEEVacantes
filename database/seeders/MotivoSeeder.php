@@ -247,26 +247,26 @@ class MotivoSeeder extends Seeder
 
         $motivo39 = new Motivo();
         $motivo39->numeroMotivo = 39;
-        $motivo39->nombre = "SUSPENSION TEMPORAL POR SANCION. LICENCIA SIN GOCE DE SUELDO.";
+        $motivo39->nombre = "SUSPENSION TEMPORAL POR SANCION";
         $motivo39->concepto = "Para dar de BAJA al empleado que es la suspensión de los derechos y obligaciones por un tiempo determinado  que se aplica después de concluidas las investigaciones prescritas en los Contratos por haber incurrido en alguna  irregularidad en el desempeño de su trabajo y para dar de ALTA a sus suplentes.";
         $motivo39->save();
 
         $motivo40 = new Motivo();
         $motivo40->numeroMotivo = 40;
-        $motivo40->nombre = "LICENCIA CONDICIONADA.";
-        $motivo40->concepto = "Para dar de BAJA de la nómina al personal académico de planta que se le otorga Licencia sin sueldo en su(s)  plaza(s) por el tiempo que requiriera para obtener el derecho a la contratación en otra plaza de mayor categoría  obtenida mediante concurso y/o asignada por consejo técnico.";
+        $motivo40->nombre = "LICENCIA SIN GOCE DE SUELDO";
+        $motivo40->concepto = "Para dar de BAJA de la nómina al personal de planta que se le otorga de manera especial una licencia sin goce  de sueldo por ocupar un puesto de funcionario o académico en el caso de personal de confianza, no derivado de  una elección popular y dar de ALTA al interino.";
         $motivo40->save();
 
         $motivo41 = new Motivo();
         $motivo41->numeroMotivo = 41;
-        $motivo41->nombre = "SUPLENCIA";
-        $motivo41->concepto = "Es la situacion de la ausencia de un empleado del setsuv, cuando se desconoce el motivo real de ausencia del  titular, este motivo es de utilizacion temporal y debera de ser sustituido por el motivo real de ausencia.";
+        $motivo41->nombre = "LICENCIA CONDICIONADA";
+        $motivo41->concepto = "Para dar de BAJA de la nómina al personal académico de planta que se le otorga Licencia sin sueldo en su(s)  plaza(s) por el tiempo que requiriera para obtener el derecho a la contratación en otra plaza de mayor categoría  obtenida mediante concurso y/o asignada por consejo técnico.";
         $motivo41->save();
 
         $motivo42 = new Motivo();
         $motivo42->numeroMotivo = 42;
-        $motivo42->nombre = "";
-        $motivo42->concepto = "";
+        $motivo42->nombre = "SUPLENCIA";
+        $motivo42->concepto = "Es la situacion de la ausencia de un empleado del setsuv, cuando se desconoce el motivo real de ausencia del  titular, este motivo es de utilizacion temporal y debera de ser sustituido por el motivo real de ausencia.";
         $motivo42->save();
 
         $motivo43 = new Motivo();
@@ -284,13 +284,13 @@ class MotivoSeeder extends Seeder
         $motivo45 = new Motivo();
         $motivo45->numeroMotivo = 45;
         $motivo45->nombre = "MODIFICACIÓN DE INDICADOR DE CARGA";
-        $motivo45->concepto = "Para modificar los indicadores de carga (normal, adicional,transitoria,excedente,obligatoria....etc)";
+        $motivo45->concepto = "Para modificar los indicadores de carga (normal, adicional,transitoria,excedente,obligatoria....etc).";
         $motivo45->save();
 
         $motivo46 = new Motivo();
         $motivo46->numeroMotivo = 46;
-        $motivo46->nombre = "MODIFICACIÓN DE INDICADOR DE TIPO DE  INGRESO";
-        $motivo46->concepto = "Para asignar el tipo de ingreso del personal académico (Asignada o concursada)";
+        $motivo46->nombre = "MODIFICACIÓN DE INDICADOR DE TIPO DE INGRESO";
+        $motivo46->concepto = "Para asignar el tipo de ingreso del personal académico (Asignada o concursada).";
         $motivo46->save();
 
         $motivo47 = new Motivo();
@@ -313,31 +313,31 @@ class MotivoSeeder extends Seeder
 
         $motivo50 = new Motivo();
         $motivo50->numeroMotivo = 50;
-        $motivo50->nombre = "RENUNCIA.";
+        $motivo50->nombre = "RENUNCIA";
         $motivo50->concepto = "Para dar de BAJA de la nómina a los trabajadores que por voluntad expresa dan por terminada la relación de trabajo.";
         $motivo50->save();
 
         $motivo51 = new Motivo();
         $motivo51->numeroMotivo = 51;
-        $motivo51->nombre = "JUBILACION.";
+        $motivo51->nombre = "JUBILACION";
         $motivo51->concepto = "Para dar de BAJA de la nómina a los trabajadores que por voluntad expresa decidan separarse del servicio, para  someterse a los beneficios del Instituto de Pensiones del Estado.";
         $motivo51->save();
 
         $motivo52 = new Motivo();
         $motivo52->numeroMotivo = 52;
-        $motivo52->nombre = "DEFUNCION.";
+        $motivo52->nombre = "DEFUNCION";
         $motivo52->concepto = "Para dar de BAJA de la nómina a los trabajadores por término de la relación de trabajo por fallecimiento.";
         $motivo52->save();
 
         $motivo53 = new Motivo();
         $motivo53->numeroMotivo = 53;
-        $motivo53->nombre = "RESCISION DEFINITIVA POR LAUDO O  RECLAMO DE INDEMNIZACION";
+        $motivo53->nombre = "RESCISION DEFINITIVA POR LAUDO O RECLAMO DE INDEMNIZACION";
         $motivo53->concepto = "Terminacion de la relacion de trabajo por causas imputables al trabajador y sin responsabilidad para la  universidad por alguna o algunas de las causas previstas en la ley federal del trabajo y en los contratos  colectivos que la junta de conciliacion haya resuelto que fueron debidamente probados.";
         $motivo53->save();
 
         $motivo54 = new Motivo();
         $motivo54->numeroMotivo = 54;
-        $motivo54->nombre = "INHABILIDAD DICTAMINADA POR INVALIDEZ  MEDICA";
+        $motivo54->nombre = "INHABILIDAD DICTAMINADA POR INVALIDEZ MEDICA";
         $motivo54->concepto = "Para dar de BAJA de la nómina a los trabajadores, que por dictamen médico, se establece que queda impedido  para desempeñar cualquier tipo de trabajo por el resto de su vida y que origina la terminación de su relación  laboral.";
         $motivo54->save();
 
@@ -349,25 +349,25 @@ class MotivoSeeder extends Seeder
 
         $motivo56 = new Motivo();
         $motivo56->numeroMotivo = 56;
-        $motivo56->nombre = "OBJECION A LA CAPACIDAD O DESEMPEÑO. TERMINO DE INTERINATO.";
+        $motivo56->nombre = "OBJECION A LA CAPACIDAD O DESEMPEÑO. TERMINO DE INTERINATO";
         $motivo56->concepto = "Para dar de BAJA de la nómina a los trabajadores que por la facultad que tiene la Institución para señalar las  irregularidades en el desempeño del personal de nuevo ingreso, en el término establecido por el Estatuto  respectivo, da lugar a la terminación de la relación de trabajo.";
         $motivo56->save();
 
         $motivo57 = new Motivo();
         $motivo57->numeroMotivo = 57;
-        $motivo57->nombre = "TERMINO DE INTERINATO.";
+        $motivo57->nombre = "TERMINO DE INTERINATO";
         $motivo57->concepto = "Para dar de BAJA de la nómina a los trabajadores contratados como interinos, que por reincorporación  anticipada del titular a su plaza, la relación laboral se da por terminada antes de la fecha estipulada (renuncia  del titular a su licencia sin goce de sueldo).";
         $motivo57->save();
 
         $motivo58 = new Motivo();
         $motivo58->numeroMotivo = 58;
-        $motivo58->nombre = "TERMINO DE SUPLENCIA.";
+        $motivo58->nombre = "TERMINO DE SUPLENCIA";
         $motivo58->concepto = "Para dar de BAJA de la nómina a los trabajadores contratados como suplentes, que por reincorporación  anticipada del titular a su plaza, la relación laboral se da por terminada antes de la fecha estipulada (renuncia  del titular a su licencia con goce de sueldo o descarga académica).";
         $motivo58->save();
 
         $motivo59 = new Motivo();
         $motivo59->numeroMotivo = 59;
-        $motivo59->nombre = "TERMINO DE EXCESO DE TRABAJO ";
+        $motivo59->nombre = "TERMINO DE EXCESO DE TRABAJO";
         $motivo59->concepto = "TERMINO DE LA RELACION LABORAL.- Cuando concluyen las necesidades eventuales que dieron lugar a  la contratación de Personal Administrativo, Ténnico y Manual, en la Dependencia en la que no existe personal  asignado con plaza definitiva para cubrir esa actividad.";
         $motivo59->save();
 
@@ -517,7 +517,7 @@ class MotivoSeeder extends Seeder
 
         $motivo84 = new Motivo();
         $motivo84->numeroMotivo = 84;
-        $motivo84->nombre = "CANCELACIÓN DE JUSTIFICANTE DE  INASISTENCIAS";
+        $motivo84->nombre = "CANCELACIÓN DE JUSTIFICANTE DE INASISTENCIAS";
         $motivo84->concepto = "Para la cancelación justificante de una Inasistencia (Personal Académico)";
         $motivo84->save();
 
@@ -535,13 +535,13 @@ class MotivoSeeder extends Seeder
 
         $motivo87 = new Motivo();
         $motivo87->numeroMotivo = 87;
-        $motivo87->nombre = "RESCISION POR FALTA DE PROBIDAD Y  HONRADEZ";
+        $motivo87->nombre = "RESCISION POR FALTA DE PROBIDAD Y HONRADEZ";
         $motivo87->concepto = "Termino de la relacion laboral sin responsabilidad para la institucion cuando el trabajador incurra en alguna  falta que demuestre la falta de credibilidad sobre el.";
         $motivo87->save();
 
         $motivo88 = new Motivo();
         $motivo88->numeroMotivo = 88;
-        $motivo88->nombre = "LIQUIDACION CON RESPONSABILIDAD  INDEMNIZACION";
+        $motivo88->nombre = "LIQUIDACION CON RESPONSABILIDAD INDEMNIZACION";
         $motivo88->concepto = "Termino de la relacion laboral no imputable al trabajador en el que la universidad este obligada a pagar una  indeminizacion al trabajador.";
         $motivo88->save();
 
@@ -557,18 +557,281 @@ class MotivoSeeder extends Seeder
         $motivo90->concepto = "Adquisicion de la titularidad en una plaza.";
         $motivo90->save();
 
+        $motivo91 = new Motivo();
+        $motivo91->numeroMotivo = 91;
+        $motivo91->nombre = "CATEGORIZACION";
+        $motivo91->concepto = "Proceso academico para asignar la categoria que le corresponde al personal academico de nuevo ingreso de  acuerdo a su grado academico.";
+        $motivo91->save();
 
+        $motivo92 = new Motivo();
+        $motivo92->numeroMotivo = 92;
+        $motivo92->nombre = "CAMBIO DE PLAN DE ESTUDIOS (H.P.R.)";
+        $motivo92->concepto = "Son las horas no impartidas por un docente cuando por cambio de plan de estudios desaparece alguna de las  materias o reduce el numero de horas asignadas de base al empleado y sobre las cuales la universidad tiene la  obligacion de cubrir el sueldo correspondiente hasta en tanto no le sea asignada la carga que sustituya estas  horas.";
+        $motivo92->save();
 
+        $motivo93 = new Motivo();
+        $motivo93->numeroMotivo = 93;
+        $motivo93->nombre = "ASCENSO ESCALAFONARIO DEFINITIVO";
+        $motivo93->concepto = "Es la promocion definitiva a una categoria superior que recibe un empleado sindicalizado.";
+        $motivo93->save();
 
+        $motivo94 = new Motivo();
+        $motivo94->numeroMotivo = 94;
+        $motivo94->nombre = "ASCENSO ESCALAFONARIO TEMPORAL";
+        $motivo94->concepto = "Es la promocion temporal a una categoria superior que recibe un empleado sindicalizado.";
+        $motivo94->save();
 
+        $motivo95 = new Motivo();
+        $motivo95->numeroMotivo = 95;
+        $motivo95->nombre = "REINSTALACION";
+        $motivo95->concepto = "Reincorporacion de un empleado que fue rescindido y por dictamen condenatorio de la autoridad competente se  le tiene que reinstalar su trabajo.";
+        $motivo95->save();
 
+        $motivo96 = new Motivo();
+        $motivo96->numeroMotivo = 96;
+        $motivo96->nombre = "PROMOCIÓN TEMPORAL.";
+        $motivo96->concepto = "Para dar de ALTA y BAJA a un empleado de confianza, que de manera temporal pasa a ocupar otra categoría y/  o puesto";
+        $motivo96->save();
 
+        $motivo97 = new Motivo();
+        $motivo97->numeroMotivo = 97;
+        $motivo97->nombre = "PERMUTA TEMPORAL";
+        $motivo97->concepto = "Se utiliza para identificar a los ocupantes que efectuan un cambio temporal de dependencia entre dos  trabajadores con igual categoria y puesto. la plaza no se modifica, unicamente se cambia a los trabajadores de plaza.";
+        $motivo97->save();
 
+        $motivo98 = new Motivo();
+        $motivo98->numeroMotivo = 98;
+        $motivo98->nombre = "REUBICACION CON TRANSFORMACION DE  PLAZA";
+        $motivo98->concepto = "Es el cambio de adscripcion con modificacion de categoria y puesto que se efectua a traves de una negociacion  entre institucion y el sindicato que se le da a un empleado del setsuv, cuando se requiere para cubrir los datos de  la plaza.";
+        $motivo98->save();
 
+        $motivo99 = new Motivo();
+        $motivo99->numeroMotivo = 99;
+        $motivo99->nombre = "MODIFICACIÓN DE SUELDO";
+        $motivo99->concepto = "Para MODIFICAR temporalmente el pago del personal contratado como personal de eventual y honorarios  asimilados a salario.";
+        $motivo99->save();
 
+        $motivo100 = new Motivo();
+        $motivo100->numeroMotivo = 100;
+        $motivo100->nombre = "MODIFICACION FECHA DE CONTRATACION";
+        $motivo100->concepto = "Se usa para poder modificar el periodo de contratacion de las plazas temporales.";
+        $motivo100->save();
 
+        $motivo101 = new Motivo();
+        $motivo101->numeroMotivo = 101;
+        $motivo101->nombre = "MODIFICACION DE HORARIOS";
+        $motivo101->concepto = "Se usa para modificar los horarios del personal de confianza.";
+        $motivo101->save();
 
+        $motivo102 = new Motivo();
+        $motivo102->numeroMotivo = 102;
+        $motivo102->nombre = "REPORTE MARCA PLAZAS PROMEP";
+        $motivo102->concepto = "Se usa para modificar el campo de la plaza en donde se identifica como fue reportada una plaza a las entidades externas.";
+        $motivo102->save();
 
+        $motivo103 = new Motivo();
+        $motivo103->numeroMotivo = 103;
+        $motivo103->nombre = "BAJA POR ERROR DE CAPTURA";
+        $motivo103->concepto = "Se usa para todos los tipos de personal para dar de baja por algun error de captura.";
+        $motivo103->save();
+
+        $motivo104 = new Motivo();
+        $motivo104->numeroMotivo = 104;
+        $motivo104->nombre = "CAMBIO DE ADSCRIPCION TEMPORAL DE LA  PERSONA";
+        $motivo104->concepto = "Para dar de baja de manera temporal al ocupante que pasa a ocupar en otra dependencia la misma categoría.";
+        $motivo104->save();
+
+        $motivo105 = new Motivo();
+        $motivo105->numeroMotivo = 105;
+        $motivo105->nombre = "CAMBIO DE ADSCRIPCION DEFINITIVA DE LA PERSONA";
+        $motivo105->concepto = "Para dar de baja de manera definitiva al ocupante que pasa a ocupar en otra dependencia la misma categoría.";
+        $motivo105->save();
+
+        $motivo106 = new Motivo();
+        $motivo106->numeroMotivo = 106;
+        $motivo106->nombre = "MODIFICAR HORAS ACADEMICO PLAN  ANTERIOR";
+        $motivo106->concepto = "Modificar las horas del plan anterior.";
+        $motivo106->save();
+
+        $motivo107 = new Motivo();
+        $motivo107->numeroMotivo = 107;
+        $motivo107->nombre = "MODIFICA INDICADOR SUELDO PARTIDO";
+        $motivo107->concepto = "Para modificar el sueldo partido de un académico.";
+        $motivo107->save();
+
+        $motivo108 = new Motivo();
+        $motivo108->numeroMotivo = 108;
+        $motivo108->nombre = "CAMBIO DE TIPO DE PERSONAL";
+        $motivo108->concepto = "Para dar de baja al personal eventual o de honorarios asimilados a salario por cambio de tipo de personal.";
+        $motivo108->save();
+
+        $motivo109 = new Motivo();
+        $motivo109->numeroMotivo = 109;
+        $motivo109->nombre = "DESCUENTO POR INASISTENCIAS PERSONAL  DE APOYO Y EVENTUAL";
+        $motivo109->concepto = "Para realizar descuentos por inasistencia personal de apoyo y eventual";
+        $motivo109->save();
+
+        $motivo110 = new Motivo();
+        $motivo110->numeroMotivo = 110;
+        $motivo110->nombre = "MODIFICACIÓN DE CARGA";
+        $motivo110->concepto = "Para asignar carga faltante.";
+        $motivo110->save();
+
+        $motivo111 = new Motivo();
+        $motivo111->numeroMotivo = 111;
+        $motivo111->nombre = "ALTA TEMPORAL PERSONAL EVENTAL Y DE  APOYO";
+        $motivo111->concepto = "Para dar de alta al personal Eventual y de Apoyo en el formato de requerimientos.";
+        $motivo111->save();
+
+        $motivo112 = new Motivo();
+        $motivo112->numeroMotivo = 112;
+        $motivo112->nombre = "BAJA ESPECIAL PERSONAL EVENTUAL";
+        $motivo112->concepto = "Se usa para dar de baja al personal de Eventual y de Honorarios Asimilados a salario sin quita el registro de cargas.";
+        $motivo112->save();
+
+        $motivo113 = new Motivo();
+        $motivo113->numeroMotivo = 113;
+        $motivo113->nombre = "MODIFICACION DE HORAS PENDIENTES";
+        $motivo113->concepto = "Para modificar Horas pendientes.";
+        $motivo113->save();
+
+        $motivo114 = new Motivo();
+        $motivo114->numeroMotivo = 114;
+        $motivo114->nombre = "BAJA POR CIERRE DE EXPERIENCIA EDUCATIVA";
+        $motivo114->concepto = "Para dar de Baja a los academicos por cierre de una experiencia educativa.";
+        $motivo114->save();
+
+        $motivo115 = new Motivo();
+        $motivo115->numeroMotivo = 115;
+        $motivo115->nombre = "MODIFICA INDICADOR DE FORMATO";
+        $motivo115->concepto = "Para modificar el indicador de si la captura del formato de personal academico fue con formato original 'O' o con copia 'C'.";
+        $motivo115->save();
+
+        $motivo116 = new Motivo();
+        $motivo116->numeroMotivo = 116;
+        $motivo116->nombre = "ACTUALIZACION DE FECHAS POR CAMBIO DE  SEMESTRE";
+        $motivo116->concepto = "CAMBIO DE FECHAS EN PLAZAS, OCUPANTES Y SUPLENTES POR CAMBIO DE SEMESTRE  PROFESORES DE ASIGNATURA.";
+        $motivo116->save();
+
+        $motivo117 = new Motivo();
+        $motivo117->numeroMotivo = 117;
+        $motivo117->nombre = "BAJAS Y CAMBIOS MOVIMIENTOS MOTIVO 112";
+        $motivo117->concepto = "Para hacer cambios y bajas a los movimientos de personal de apoyo que tengan motivo 112.";
+        $motivo117->save();
+
+        $motivo118 = new Motivo();
+        $motivo118->numeroMotivo = 118;
+        $motivo118->nombre = "EXCESO DE TRABAJO E";
+        $motivo118->concepto = "Para exceso de trabajo de plazas diferentes a las 90000.";
+        $motivo118->save();
+
+        $motivo119 = new Motivo();
+        $motivo119->numeroMotivo = 119;
+        $motivo119->nombre = "MARCA AÑO Y OFICIO DE PLAZAS AUTORIZADAS";
+        $motivo119->concepto = "Se usa para modificar en Plazas el año y el numero de oficio de las plazas autorizadas";
+        $motivo119->save();
+
+        $motivo120 = new Motivo();
+        $motivo120->numeroMotivo = 120;
+        $motivo120->nombre = "OCUPADA NORMAL CONGELADA";
+        $motivo120->concepto = "Para dar de alta a los titulares de una plaza que se mantendra congelada sin suplente o interino hasta que la  ocupe el tutular";
+        $motivo120->save();
+
+        $motivo121 = new Motivo();
+        $motivo121->numeroMotivo = 121;
+        $motivo121->nombre = "FUNCIONARIOS COBRAN COMO ACADEMICO";
+        $motivo121->concepto = "Para incorporar a los funcionarios que cobran como acacdemicos.";
+        $motivo121->save();
+
+        $motivo122 = new Motivo();
+        $motivo122->numeroMotivo = 122;
+        $motivo122->nombre = "DESTITUCION DEL CARGO ";
+        $motivo122->concepto = "Termino de la relacion laboralsin responsabilidad para la institucion cuando un funcionario incurra en alguna falta.";
+        $motivo122->save();
+
+        $motivo123 = new Motivo();
+        $motivo123->numeroMotivo = 123;
+        $motivo123->nombre = "DESCARGA ACADEMICA TOTAL POR COMISION  INSTITUCIONAL ADMVA";
+        $motivo123->concepto = "Para dar de ALTA a los suplentes del personal académico, que deja de impartir por un tiempo determinado, toda  su carga académica, para realizar en la propia institución, actividades distintas a las de su nombramiento. Se  utiliza para las funciones administrativas.";
+        $motivo123->save();
+
+        $motivo124 = new Motivo();
+        $motivo124->numeroMotivo = 124;
+        $motivo124->nombre = "DESCARGA ACADEMICA PARCIAL POR  COMISION INSTITUCIONAL ADMVA";
+        $motivo124->concepto = "Para dar de ALTA a los suplentes del personal académico, que deja de impartir por un tiempo determinado,  parte de su carga académica, para realizar en la propia institución, actividades distintas a las de su  nombramiento. Se utiliza para las funciones administrativas.";
+        $motivo124->save();
+
+        $motivo125 = new Motivo();
+        $motivo125->numeroMotivo = 125;
+        $motivo125->nombre = "LICENCIA POR PATERNIDAD";
+        $motivo125->concepto = "Para dar de ALTA a los suplentes del personal que se ausenta hasta por 5 dias a partir del nacimiento de su hijo (a).";
+        $motivo125->save();
+
+        $motivo126 = new Motivo();
+        $motivo126->numeroMotivo = 126;
+        $motivo126->nombre = "REUBICACION TEMPORAL EN POSGRADO";
+        $motivo126->concepto = "Para dar de ALTA a los suplentes del personal académico de planta, que deja de impartir temporalmente EE en  licenciatura para impartir en Posgrado.";
+        $motivo126->save();
+
+        $motivo127 = new Motivo();
+        $motivo127->numeroMotivo = 127;
+        $motivo127->nombre = "CONCLUSION DE OBRA A TIEMPO DETERMINADO";
+        $motivo127->concepto = "Para dar la Baja a los trabajadores eventuales y de honorarios asimilados a salario cuando se cloncluye un proyecto.";
+        $motivo127->save();
+
+        $motivo128 = new Motivo();
+        $motivo128->numeroMotivo = 128;
+        $motivo128->nombre = "TERMINO DE VIGENCIA MIGRATORIA";
+        $motivo128->concepto = "Para dar de Baja al personal extranjero que tine vencido su documento migratorio.";
+        $motivo128->save();
+
+        $motivo129 = new Motivo();
+        $motivo129->numeroMotivo = 129;
+        $motivo129->nombre = "PAGO UNICO ANUAL HONORARIOS ASIMILADOS";
+        $motivo129->concepto = "Para registrar el pago unico anual al personal de honorarios asimilados a salario.";
+        $motivo129->save();
+
+        $motivo130 = new Motivo();
+        $motivo130->numeroMotivo = 130;
+        $motivo130->nombre = "RESCISION DE CONTRATO";
+        $motivo130->concepto = "Termino de la relación laboral en la Institución.";
+        $motivo130->save();
+
+        $motivo131 = new Motivo();
+        $motivo131->numeroMotivo = 131;
+        $motivo131->nombre = "LICENCIA SIN GOCE DE SUELDO POR  DESEMPEÑO DE CARGO PUBLICO";
+        $motivo131->concepto = "Para dar de BAJA de la nómina al personal de planta que se le otorga una licencia sin goce de sueldo por ocupar  un puesto de funcionario público, no derivado de una elección popular y dar de alta al interino.";
+        $motivo131->save();
+
+        $motivo132 = new Motivo();
+        $motivo132->numeroMotivo = 132;
+        $motivo132->nombre = "PROMOCION A PUESTO DIRECTIVO";
+        $motivo132->concepto = "Para dar de ALTA y BAJA a un Personal Academico o de Mandos Medios y Superiores, que por proceso de  promoción se modifica su salario.";
+        $motivo132->save();
+
+        $motivo133 = new Motivo();
+        $motivo133->numeroMotivo = 133;
+        $motivo133->nombre = "REGISTRO DE HORAS DE EXTRACLASE";
+        $motivo133->concepto = "PARA REGISTRAR LAS HORAS DE EXTRACLASE (GENERACION Y APLICACION DEL  CONOCIMIENTO, GESTION ACADEMICA Y TUTORIAS).";
+        $motivo133->save();
+
+        $motivo134 = new Motivo();
+        $motivo134->numeroMotivo = 134;
+        $motivo134->nombre = "ALTA TEMPORAL GRAT.EXT";
+        $motivo134->concepto = "PARA DAR DE ALTA LA GRATIFICACIÓN EXTRAORDINARIA.";
+        $motivo134->save();
+
+        $motivo135 = new Motivo();
+        $motivo135->numeroMotivo = 135;
+        $motivo135->nombre = "MODIFICACION DE FUNCIONES";
+        $motivo135->concepto = "Modificar la clave y nombre del puesto funcional con el que fue creado el renglon presupuestal de personal  eventual de acuerdo a las actividades que desempeña el trabajador, sin que ello represente un cambio de sueldo  o total de horas.";
+        $motivo135->save();
+
+        $motivo999 = new Motivo();
+        $motivo999->numeroMotivo = 999;
+        $motivo999->nombre = "NO PAGO";
+        $motivo999->concepto = "No, pago para identificar que no es posible descontarle a esa persona ya que no percibe sueldo.";
+        $motivo999->save();
 
     }
 }
