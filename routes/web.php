@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MotivoController;
+use App\Models\Motivo;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*Route::get('/', function () {
+    return view('welcome');
+});*/
+
 Route::get('/', function () {
+    (new Motivo())->importToDB();
+    dd('done');
     return view('welcome');
 });
 
@@ -33,3 +40,5 @@ Route::middleware([
 });*/
 Route::resource('/motivos',\App\Http\Controllers\MotivoController::class);
 
+Route::get('import',[MotivoController::class,'create']);
+Route::post('import',[MotivoController::class,'store']);
