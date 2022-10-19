@@ -17,7 +17,7 @@ class Motivo extends Model
         //foreach (array_slice($g,0,1) as $file){
         $files = glob($path);
         foreach ($files as $file){
-            /*
+/*
             $data = array_map('str_getcsv',file($file));
 
             foreach ($data as $row){
@@ -31,8 +31,8 @@ class Motivo extends Model
                 ]
                 );
             }
-            unlink($file);*/
-
+            unlink($file);
+*/
             ProcessCSVUpload::dispatch($file);
 
         }

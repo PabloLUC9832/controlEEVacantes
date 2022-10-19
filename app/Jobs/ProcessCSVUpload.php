@@ -33,47 +33,29 @@ class ProcessCSVUpload implements ShouldQueue
      */
     public function handle()
     {
-/*        Redis::throttle('upload-csv')->allow(1)->every(20)->then(function (){
-        //JOB LOGIC
-            dump('processing this file:---', $this->file);
-            $data = array_map('str_getcsv',file($this->file));
-
-                foreach ($data as $row){
-                    //dd($row);
-                    Motivo::updateOrCreate(
-                    [
-                        'numeroMotivo'=>$row[0]
-                    ],[
-                        'nombre'=>$row[1],
-                        'concepto'=>$row[2]
-                    ]
-                    );
-                }
-                dump('terminado:---', $this->file);
-                unlink($this->file);
-
-        }, function (){
-            return $this->release(10);
-        });*/
-
-
-
         $data = array_map('str_getcsv',file($this->file));
 
         foreach ($data as $row){
             //dd($row);
-            
+
+            /*echo '<pre>';
+            print_r($row[1]);
+            die();
+            echo '</pre>';*/
+
+
             Motivo::updateOrCreate(
             [
                 'numeroMotivo'=>$row[0],
                 //'nombre'=>$row[1],
-                //'concepto'=>$row[2]                
+                //'concepto'=>$row[2]
             ],[
                 'nombre'=>$row[1],
                 'concepto'=>$row[2]
+
             ]
             );
-            
+
         }
         unlink($this->file);
     }

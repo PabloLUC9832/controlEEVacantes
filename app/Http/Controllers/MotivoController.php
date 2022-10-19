@@ -47,7 +47,7 @@ class MotivoController extends Controller
         $file = file($request->file->getRealPath());
         $data = array_slice($file,1);
 
-        $parts = (array_chunk($data,80));
+        $parts = (array_chunk($data,3000));
 
         foreach($parts as $index=>$part){
             $fileName = resource_path('pending-files/'.date('y-m-d-H-i-s').$index. '.csv');

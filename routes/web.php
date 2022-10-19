@@ -19,8 +19,8 @@ use App\Models\Motivo;
 });*/
 
 Route::get('/', function () {
-    (new Motivo())->importToDB();
-    dd('done');
+    //(new Motivo())->importToDB();
+    //dd('done');
     return view('welcome');
 });
 
