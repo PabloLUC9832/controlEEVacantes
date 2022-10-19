@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Motivo;
 use App\Http\Requests\StoreMotivoRequest;
 use App\Http\Requests\UpdateMotivoRequest;
+use Illuminate\Support\Facades\DB;
 
 class MotivoController extends Controller
 {
@@ -15,7 +16,10 @@ class MotivoController extends Controller
      */
     public function index()
     {
-        //
+        $motivos = DB::table('motivos')->get();
+        //$motivos = DB::table('motivos')->select();
+        return view('motivosIndex', ['motivos' => $motivos]);
+        //return view('motivosIndex',compact('motivos'));
     }
 
     /**

@@ -26,3 +26,10 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+/*PRUEBA DE MOTIVOS*/
+/*Route::get('/motivos', function () {
+    return view('motivosIndex');
+});*/
+Route::resource('/motivos',\App\Http\Controllers\MotivoController::class);
+
