@@ -40,5 +40,5 @@ Route::middleware([
 });*/
 Route::resource('/motivos',\App\Http\Controllers\MotivoController::class);
 
-Route::get('import',[MotivoController::class,'create']);
-Route::post('import',[MotivoController::class,'store']);
+Route::get('import',[MotivoController::class,'create'])->name('import');
+Route::post('import',[MotivoController::class,'store'])->name('import');
