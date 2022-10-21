@@ -45,7 +45,7 @@ class MotivoController extends Controller
         ]);
 
         $file = file($request->file->getRealPath());
-        $data = array_slice($file,1);
+        $data = array_slice($file,0);
 
         $parts = (array_chunk($data,3000));
 

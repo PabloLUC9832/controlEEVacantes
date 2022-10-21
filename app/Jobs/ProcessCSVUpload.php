@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use PHPUnit\Exception;
 
 class ProcessCSVUpload implements ShouldQueue
 {
@@ -37,23 +38,16 @@ class ProcessCSVUpload implements ShouldQueue
 
         foreach ($data as $row){
             //dd($row);
-
-            /*echo '<pre>';
-            print_r($row[1]);
-            die();
-            echo '</pre>';*/
-
-
+            //var_dump($row);
+            //die();
             Motivo::updateOrCreate(
-            [
-                'numeroMotivo'=>$row[0],
-                //'nombre'=>$row[1],
-                //'concepto'=>$row[2]
-            ],[
-                'nombre'=>$row[1],
-                'concepto'=>$row[2]
+                [
+                    'numeroMotivo' => $row[0],
+                ], [
+                    'nombre' => $row[1],
+                    'concepto' => $row[2]
 
-            ]
+                ]
             );
 
         }
