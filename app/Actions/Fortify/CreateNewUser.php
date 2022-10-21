@@ -34,9 +34,12 @@ class CreateNewUser implements CreatesNewUsers
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
-            ]), function (User $user) {
-                $this->createTeam($user);
-            });
+            ])
+            , function (User $user) {
+                //Se desabilita la función de que al crear una nueva cuenta esta se cree su equipo personal
+                //$this->createTeam($user);
+            }
+            );
         });
     }
 

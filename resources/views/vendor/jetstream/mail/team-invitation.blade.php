@@ -1,5 +1,6 @@
 @component('mail::message')
-{{ __('You have been invited to join the :team team!', ['team' => $invitation->team->name]) }}
+{{--{{ __('You have been invited to join the :team team!', ['team' => $invitation->team->name]) }}--}}
+{{--{{ __('You have been invited to join the :team team!', ['team' => $invitation->team->name]) }}--}}
 {{ __('Has sido invitado a unirte a  :team team!', ['team' => $invitation->team->name]) }}
 
 @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::registration()))
