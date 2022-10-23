@@ -17,8 +17,9 @@ class MotivoController extends Controller
     public function index()
     {
         $motivos = DB::table('motivos')->get();
+        $listaMotivos = Motivo::all();
         //$motivos = DB::table('motivos')->select();
-        return view('motivosIndex', ['motivos' => $motivos]);
+        return view('motivosIndex', ['motivos' => $motivos], compact('listaMotivos'));
         //return view('motivosIndex',compact('motivos'));
     }
 
