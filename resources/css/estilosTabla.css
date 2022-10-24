@@ -1,0 +1,21 @@
+.table th, .table td{
+    @apply border border-gray-500 px-4 py-2;
+}
+
+.table th{
+    @apply text-gray-800;
+}
+
+.table tbody tr:nth-child(2n+1){
+    @apply bg-gray-200;
+}
+
+.table{
+    @apply text-sm;
+    @apply w-2/3;
+    @apply m-auto;
+}
+
+.container{
+    @apply object-center
+}
