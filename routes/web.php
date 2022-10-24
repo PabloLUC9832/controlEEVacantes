@@ -18,10 +18,21 @@ use App\Models\Motivo;
     return view('welcome');
 });*/
 
-Route::get('/', function () {
+//Route::get('/', function () {
     //(new Motivo())->importToDB();
     //dd('done');
-    return view('welcome');
+    //return view('welcome');
+    //return view('dashboard');
+//});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified','team'
+])->group(function () {
+    Route::get('/', function () {
+        return view('dashboard');
+    });
 });
 
 Route::middleware([
