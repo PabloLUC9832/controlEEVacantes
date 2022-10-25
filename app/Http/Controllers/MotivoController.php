@@ -30,7 +30,7 @@ class MotivoController extends Controller
      */
     public function create()
     {
-        return view('import');
+        return view('importVacantes');
     }
 
     /**
@@ -56,7 +56,7 @@ class MotivoController extends Controller
         }
         (new Motivo())->importToDB();
         session()->flash('status','esparando por importar');
-        return redirect("import");
+        return redirect("importVacantes");
     }
 
     /**

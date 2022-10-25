@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MotivoController;
+use App\Http\Controllers\VacanteController;
 use App\Models\Motivo;
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +54,8 @@ Route::resource('/motivos',\App\Http\Controllers\MotivoController::class);
 
 Route::get('import',[MotivoController::class,'create'])->name('import');
 Route::post('import',[MotivoController::class,'store'])->name('import');
+
+Route::resource('/vacantes',\App\Http\Controllers\VacanteController::class);
+
+Route::get('importVacantes',[VacanteController::class,'create'])->name('importVacantes');
+Route::post('importVacantes',[VacanteController::class,'store'])->name('importVacantes');
