@@ -70,8 +70,8 @@
     <div class="form-group">
         <h2>Selecciona el motivo</h2>
         <select class="form-control">
-            @foreach($listaMotivos as $motivo)
-            <option>{{$motivo->nombre}}</option>
+            @foreach($listaVacantes as $vacante)
+            <option>{{$vacante->nombre}}</option>
             @endforeach
         </select>
     </div>
