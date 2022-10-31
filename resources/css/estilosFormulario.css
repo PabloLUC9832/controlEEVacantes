@@ -1,0 +1,44 @@
+.nav{
+    @apply h-16;
+    @apply flex;
+    @apply justify-end;
+    @apply py-4; 
+    @apply px-16;
+}
+
+form{
+    @apply place-items-center;
+    @apply bg-white;
+    @apply w-full;
+    @apply p-4;
+    @apply border-gray-100;
+    @apply shadow-xl;
+    @apply rounded-lg;
+    @apply grid grid-cols-1;
+}
+
+/*input{
+    @apply bg-red-800;/*no
+    @apply items-center;
+    @apply my-2;/*si
+    @apply w-1/3;/*si
+    @apply p-2;/*no
+    @apply text-lg;/*no
+    @apply rounded;/*no
+    @apply placeholder-gray-900;/*si
+}*/
+
+input{
+    @apply bg-red-800;
+    @apply items-center;
+    @apply my-2;
+    @apply w-1/3;
+    @apply p-2;
+    @apply text-lg;
+    @apply rounded;
+    @apply placeholder-gray-900;
+}
+
+.btn{
+    @apply bg-blue-500;
+}

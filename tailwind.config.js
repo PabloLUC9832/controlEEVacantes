@@ -13,7 +13,24 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                roboto:['Roboto'],
+                gill:['gill-sans-mt'],
+
             },
+            colors:{
+                'azul-primario':'#18529D',
+                'azul-secundario':'#007BFF',
+                'azul-terciario':'#0D47A1',
+                'color-icon':'#2196F3',
+                'verde-primario':'#28AD56',
+                'negro-primario':'#000000',
+                'blanco-primario':'#FFFFFF',
+                'background2':'ECEFF1',
+                'background-sidebar':'#EDF0F5',
+                'color-sidebar-opciones':'#979DAA',
+                'rojo-primario':'#F9614D',
+                'rojo-secundario':'F44336',
+            }
         },
     },
 

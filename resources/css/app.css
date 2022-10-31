@@ -1,4 +1,5 @@
 @import 'estilosTabla.css';
+@import 'estilosFormulario.css';
 
 @tailwind base;
 @tailwind components;
