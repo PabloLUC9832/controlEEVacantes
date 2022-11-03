@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\Motivo;
 use App\Http\Requests\StoreMotivoRequest;
 use App\Http\Requests\UpdateMotivoRequest;
@@ -11,7 +12,7 @@ class MotivoController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function index()

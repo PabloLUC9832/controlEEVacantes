@@ -54,57 +54,69 @@
                                 @csrf
                                     <div class="col-span-6">
                                         <label for="periodo" class="labelForms">Periodo</label>
-                                        <input type="text" name="periodo" id="periodo" class="inputForms" placeholder="Ej. " required>
+                                        <input type="text" name="periodo" id="periodo" class="inputForms" placeholder="Ej. 01 AGO. 2022 AL 31 ENE. 2023" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numZona" class="labelForms">Número de zona</label>
-                                        <input type="number" name="numZona" id="numZona" class="inputForms" placeholder="Ej. " required>
+                                        <input type="number" name="numZona" id="numZona" class="inputForms" placeholder="Ej. 1" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numDependencia" class="labelForms">Número de dependencia</label>
-                                        <input type="number" name="numDependencia" id="numDependencia" class="inputForms" placeholder="Ej. " required>
+                                        <input type="number" name="numDependencia" id="numDependencia" class="inputForms" placeholder="Ej. 11304" required>
                                     </div>
 
+{{--
                                     <div class="col-span-6">
                                         <label for="numArea" class="labelForms">Número de área</label>
-                                        <input type="number" name="numArea" id="numArea" class="inputForms" placeholder="Ej. " required>
+                                        <input type="number" name="numArea" id="numArea" class="inputForms" placeholder="Ej. 3" required>
                                     </div>
+--}}
+                                    <div class="col-span-6">
+                                        <label for="numArea" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Número de área</label>
+                                        <select name="numArea" id="numArea" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option selected>Selecciona el número de area</option>
+                                            @foreach($areas as $area)
 
+                                            <option value="{{$area->id}}"> {{ $area->id }} - {{ $area->descripcion_corta}} </option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
                                     <div class="col-span-6">
                                         <label for="numPrograma" class="labelForms">Número de programa</label>
-                                        <input type="number" name="numPrograma" id="numPrograma" class="inputForms" placeholder="Ej. " required>
+                                        <input type="number" name="numPrograma" id="numPrograma" class="inputForms" placeholder="Ej. 14143" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numPlaza" class="labelForms">Número de plaza</label>
-                                        <input type="number" name="numPlaza" id="numPlaza" class="inputForms" placeholder="Ej. " required>
+                                        <input type="number" name="numPlaza" id="numPlaza" class="inputForms" placeholder="Ej. 1523" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numHoras" class="labelForms">Número de horas</label>
-                                        <input type="number" name="numHoras" id="numHoras" class="inputForms" placeholder="Ej. " required>
+                                        <input type="number" name="numHoras" id="numHoras" class="inputForms" placeholder="Ej. 6" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numMateria" class="labelForms">Número de materia</label>
-                                        <input type="number" name="numMateria" id="numMateria" class="inputForms" placeholder="Ej. " required>
+                                        <input type="number" name="numMateria" id="numMateria" class="inputForms" placeholder="Ej. 28375" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="nombreMateria" class="labelForms">Nombre de la materia</label>
-                                        <input type="text" name="nombreMateria" id="nombreMateria" class="inputForms" placeholder="Ej. " required>
+                                        <input type="text" name="nombreMateria" id="nombreMateria" class="inputForms" placeholder="Ej. MET. ESTAD. PARA LA INVES" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="grupo" class="labelForms">Grupo</label>
-                                        <input type="text" name="grupo" id="grupo" class="inputForms" placeholder="Ej. " required>
+                                        <input type="text" name="grupo" id="grupo" class="inputForms" placeholder="Ej. SEC1" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numMotivo" class="labelForms">Número del motivo</label>
-                                        <input type="text" name="numMotivo" id="numMotivo" class="inputForms" placeholder="Ej. " required>
+                                        <input type="text" name="numMotivo" id="numMotivo" class="inputForms" placeholder="Ej. 14" required>
                                     </div>
 
                                     <div class="col-span-6">
@@ -125,7 +137,7 @@
                                     <div class="col-span-6">
                                         <label for="observaciones" class="labelForms">Observaciones</label>
                                         <div class="mt-1">
-                                            <textarea id="observaciones" name="observaciones" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Ej."></textarea>
+                                            <textarea id="observaciones" name="observaciones" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Ej. Alguna observación"></textarea>
                                         </div>
                                     </div>
 
@@ -161,7 +173,7 @@
 
                                     <div class="col-span-6">
                                         <label for="bancoHorasDisponible" class="labelForms">Banco de horas disponible</label>
-                                        <input type="text" name="bancoHorasDisponible" id="bancoHorasDisponible" class="inputForms" placeholder="Ej. ">
+                                        <input type="number" name="bancoHorasDisponible" id="bancoHorasDisponible" class="inputForms" placeholder="Ej. ">
                                     </div>
 
                                 </div>
