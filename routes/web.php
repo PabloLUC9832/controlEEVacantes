@@ -71,7 +71,7 @@ Route::controller(VacanteController::class)->group(function (){
         Route::get('/vacante/create',  'create')->name('create');
         Route::post('/vacante',  'store')->name('store');
         Route::delete('/vacante/destroy/{id}',  'destroy')->name('destroy');
-        
+
     });
 
 /*    Route::get('/vacante',  'index') ->name('vacante.index');
