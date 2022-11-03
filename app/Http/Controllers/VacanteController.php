@@ -31,8 +31,7 @@ class VacanteController extends Controller
      */
     public function create()
     {
-        //return view('importVacantes');
-        return view('crearVacante');
+        return view('vacante.create');
     }
 
     /**
@@ -41,33 +40,9 @@ class VacanteController extends Controller
      * @param  \App\Http\Requests\StoreVacanteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    /*public function store(StoreVacanteRequest $request)
+    public function store(StoreVacanteRequest $request)
     {
-
-        //
-        $request->validate([
-            'file' => 'required|mimes:csv,txt'
-        ]);
-
-        $file = file($request->file->getRealPath());
-        $data = array_slice($file,1);
-
-        $parts = (array_chunk($data,11));
-
-        foreach($parts as $index=>$part){
-            $fileName = resource_path('pending-files/'.date('y-m-d-H-i-s').$index. '.csv');
-            file_put_contents($fileName,$part);
-        }
-        (new Vacante())->importToDB();
-        session()->flash('status','esparando por importar');
-        return redirect("importVacantes");
-    }*/
-
-    public function store(Request $request){
-
-        //return 'store';
         $vacante = new Vacante();
-
         $vacante->periodo=$request->periodo;
         $vacante->numZona=$request->numZona;
         $vacante->numDependencia=$request->numDependencia;
@@ -82,7 +57,7 @@ class VacanteController extends Controller
 
         $vacante->save();
 
-        return redirect()->route('vacantes.index');
+        return redirect()->route('dashboard');
     }
 
     /**

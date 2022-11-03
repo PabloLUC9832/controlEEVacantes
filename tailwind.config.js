@@ -7,6 +7,7 @@ module.exports = {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './node_modules/flowbite/**/*.js'
     ],
 
     theme: {
@@ -25,11 +26,11 @@ module.exports = {
                 'verde-primario':'#28AD56',
                 'negro-primario':'#000000',
                 'blanco-primario':'#FFFFFF',
-                'background2':'ECEFF1',
+                'background2':'#ECEFF1',
                 'background-sidebar':'#EDF0F5',
                 'color-sidebar-opciones':'#979DAA',
                 'rojo-primario':'#F9614D',
-                'rojo-secundario':'F44336',
+                'rojo-secundario':'#F44336',
             }
         },
     },
@@ -38,5 +39,8 @@ module.exports = {
         center:true,
     },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [require('@tailwindcss/forms'),
+              require('@tailwindcss/typography'),
+              require('flowbite/plugin'),
+    ],
 };

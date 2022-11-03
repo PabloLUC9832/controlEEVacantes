@@ -55,12 +55,18 @@ Route::resource('/motivos',\App\Http\Controllers\MotivoController::class);
 Route::get('import',[MotivoController::class,'create'])->name('import');
 Route::post('import',[MotivoController::class,'store'])->name('import');
 
-Route::resource('/vacantes',\App\Http\Controllers\VacanteController::class);
-Route::get('/vacantes', [VacanteController::class, 'index']) ->name('vacantes.index');
+/*Route::resource('/vacantes',\App\Http\Controllers\VacanteController::class);
+Route::get('/vacantes', [VacanteController::class, 'index']) ->name('vacantes.index');*/
 
 //Crear
+/*
 Route::get('/crearVacante', [VacanteController::class, 'create']) ->name('crearVacante.create');
 Route::post('/crearVacante', [VacanteController::class, 'store']) ->name('crearVacante.store');
+*/
+Route::controller(VacanteController::class)->group(function (){
+    Route::get('/vacante', [VacanteController::class, 'create'])->name('vacante.create');
+    Route::post('/vacante', [VacanteController::class, 'store'])->name('vacante.store');;
+});
 
 //Eliminar y Editar
 Route::resource('vacantes', VacanteController::class);
