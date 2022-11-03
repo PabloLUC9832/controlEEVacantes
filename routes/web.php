@@ -64,10 +64,20 @@ Route::get('/crearVacante', [VacanteController::class, 'create']) ->name('crearV
 Route::post('/crearVacante', [VacanteController::class, 'store']) ->name('crearVacante.store');
 */
 Route::controller(VacanteController::class)->group(function (){
-    Route::get('/vacante',  'index') ->name('vacante.index');
+
+    Route::name('vacante.')->group(function (){
+
+        Route::get('/vacante',  'index') ->name('index');
+        Route::get('/vacante/create',  'create')->name('create');
+        Route::post('/vacante',  'store')->name('store');
+        Route::delete('/vacante/destroy/{id}',  'destroy')->name('destroy');
+        
+    });
+
+/*    Route::get('/vacante',  'index') ->name('vacante.index');
     Route::get('/vacante/create',  'create')->name('vacante.create');
     Route::post('/vacante',  'store')->name('vacante.store');
-    Route::delete('/vacante/destroy/{id}',  'destroy')->name('vacante.destroy');
+    Route::delete('/vacante/destroy/{id}',  'destroy')->name('vacante.destroy');*/
 });
 
 //Eliminar y Editar
