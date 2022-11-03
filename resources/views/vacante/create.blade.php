@@ -30,7 +30,19 @@
                 <div class="md:col-span-1">
                     <div class="px-4 sm:px-5">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">Registrar nueva Experiencia Educativa Vacante</h3>
-                        <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p>
+                        <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
+                        <p><b>Recuerda que los datos obligatiorios son:</b></p>
+                        <li>Periodo</li>
+                        <li>Número de zona</li>
+                        <li>Número de dependencia</li>
+                        <li>Número de área</li>
+                        <li>Número de programa</li>
+                        <li>Número de plaza</li>
+                        <li>Número de horas</li>
+                        <li>Número de materia</li>
+                        <li>Nombre de materia</li>
+                        <li>Grupo</li>
+                        <li>Motivo</li>
                     </div>
                 </div>
                 <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
@@ -42,57 +54,57 @@
                                 @csrf
                                     <div class="col-span-6">
                                         <label for="periodo" class="labelForms">Periodo</label>
-                                        <input type="text" name="periodo" id="periodo" class="inputForms" placeholder="Ej. ">
+                                        <input type="text" name="periodo" id="periodo" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numZona" class="labelForms">Número de zona</label>
-                                        <input type="text" name="numZona" id="numZona" class="inputForms" placeholder="Ej. ">
+                                        <input type="number" name="numZona" id="numZona" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numDependencia" class="labelForms">Número de dependencia</label>
-                                        <input type="text" name="numDependencia" id="numDependencia" class="inputForms" placeholder="Ej. ">
+                                        <input type="number" name="numDependencia" id="numDependencia" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numArea" class="labelForms">Número de área</label>
-                                        <input type="text" name="numArea" id="numArea" class="inputForms" placeholder="Ej. ">
+                                        <input type="number" name="numArea" id="numArea" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numPrograma" class="labelForms">Número de programa</label>
-                                        <input type="text" name="numPrograma" id="numPrograma" class="inputForms" placeholder="Ej. ">
+                                        <input type="number" name="numPrograma" id="numPrograma" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numPlaza" class="labelForms">Número de plaza</label>
-                                        <input type="text" name="numPlaza" id="numPlaza" class="inputForms" placeholder="Ej. ">
+                                        <input type="number" name="numPlaza" id="numPlaza" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numHoras" class="labelForms">Número de horas</label>
-                                        <input type="text" name="numHoras" id="numHoras" class="inputForms" placeholder="Ej. ">
+                                        <input type="number" name="numHoras" id="numHoras" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numMateria" class="labelForms">Número de materia</label>
-                                        <input type="text" name="numMateria" id="numMateria" class="inputForms" placeholder="Ej. ">
+                                        <input type="number" name="numMateria" id="numMateria" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="nombreMateria" class="labelForms">Nombre de la materia</label>
-                                        <input type="text" name="nombreMateria" id="nombreMateria" class="inputForms" placeholder="Ej. ">
+                                        <input type="text" name="nombreMateria" id="nombreMateria" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="grupo" class="labelForms">Grupo</label>
-                                        <input type="text" name="grupo" id="grupo" class="inputForms" placeholder="Ej. ">
+                                        <input type="text" name="grupo" id="grupo" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numMotivo" class="labelForms">Número del motivo</label>
-                                        <input type="text" name="numMotivo" id="numMotivo" class="inputForms" placeholder="Ej. ">
+                                        <input type="text" name="numMotivo" id="numMotivo" class="inputForms" placeholder="Ej. " required>
                                     </div>
 
                                     <div class="col-span-6">
