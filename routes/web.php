@@ -55,7 +55,18 @@ Route::resource('/motivos',\App\Http\Controllers\MotivoController::class);
 Route::get('import',[MotivoController::class,'create'])->name('import');
 Route::post('import',[MotivoController::class,'store'])->name('import');
 
-Route::resource('/vacantes',\App\Http\Controllers\VacanteController::class);
+Route::controller(VacanteController::class)->group(function (){
+
+    Route::name('vacante.')->group(function (){
+
+        Route::get('/vacante',  'index') ->name('index');
+        Route::get('/vacante/create',  'create')->name('create');
+        Route::post('/vacante',  'store')->name('store');
+        Route::delete('/vacante/destroy/{id}',  'destroy')->name('destroy');
+
+    });
+
+});
 
 Route::get('importVacantes',[VacanteController::class,'create'])->name('importVacantes');
 Route::post('importVacantes',[VacanteController::class,'store'])->name('importVacantes');
