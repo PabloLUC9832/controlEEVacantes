@@ -64,12 +64,14 @@ Route::get('/crearVacante', [VacanteController::class, 'create']) ->name('crearV
 Route::post('/crearVacante', [VacanteController::class, 'store']) ->name('crearVacante.store');
 */
 Route::controller(VacanteController::class)->group(function (){
-    Route::get('/vacante', [VacanteController::class, 'create'])->name('vacante.create');
-    Route::post('/vacante', [VacanteController::class, 'store'])->name('vacante.store');;
+    Route::get('/vacante',  'index') ->name('vacante.index');
+    Route::get('/vacante/create',  'create')->name('vacante.create');
+    Route::post('/vacante',  'store')->name('vacante.store');
+    Route::delete('/vacante/destroy/{id}',  'destroy')->name('vacante.destroy');
 });
 
 //Eliminar y Editar
-Route::resource('vacantes', VacanteController::class);
+//Route::resource('vacantes', VacanteController::class);
 
 Route::get('importVacantes',[VacanteController::class,'create'])->name('importVacantes');
 Route::post('importVacantes',[VacanteController::class,'store'])->name('importVacantes');

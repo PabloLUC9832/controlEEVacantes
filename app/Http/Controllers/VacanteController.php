@@ -17,11 +17,9 @@ class VacanteController extends Controller
      */
     public function index()
     {
-        //
         $vacantes = DB::table('vacantes')->get();
         $listaVacantes = Vacante::all();
-        //$motivos = DB::table('motivos')->select();
-        return view('vacantesIndex', ['vacantes' => $vacantes], compact('listaVacantes'));
+        return view('vacante.index',['vacantes' => $vacantes,compact($listaVacantes)]);
     }
 
     /**
@@ -107,11 +105,8 @@ class VacanteController extends Controller
      */
     public function destroy($id)
     {
-        //
-        $vacante = Vacante::find($id);
-
+        $vacante = Vacante::findOrFail($id);
         $vacante->delete();
-
-        return redirect()->route('vacantes.index');
+        return redirect()->route('vacante.index');
     }
 }
