@@ -30,9 +30,7 @@ class VacanteController extends Controller
      */
     public function create()
     {
-        $areas = DB::table('areas')->get();
-        $listaAreas = Area::all();
-        return view('vacante.create',['areas' => $areas,compact($listaAreas)]);
+        return view('vacante.create');
     }
 
     /**
@@ -47,7 +45,8 @@ class VacanteController extends Controller
         $vacante->periodo=$request->periodo;
         $vacante->numZona=$request->numZona;
         $vacante->numDependencia=$request->numDependencia;
-        $vacante->numArea=$request->numArea;
+        //$vacante->numArea=$request->numArea;
+        $vacante->numArea=3;
         $vacante->numPrograma=$request->numPrograma;
         $vacante->numPlaza=$request->numPlaza;
         $vacante->numHoras=$request->numHoras;
@@ -55,6 +54,14 @@ class VacanteController extends Controller
         $vacante->nombreMateria=$request->nombreMateria;
         $vacante->grupo=$request->grupo;
         $vacante->numMotivo=$request->numMotivo;
+        $vacante->tipoAsignacion=$request->tipoAsignacion;
+        $vacante->numPersonalDocente=$request->numPersonalDocente;
+        $vacante->plan=$request->plan;
+        $vacante->observaciones=$request->observaciones;
+        $vacante->fechaApertura=$request->fechaApertura;
+        $vacante->fechaCierre=$request->fechaCierre;
+        $vacante->fechaRenuncia=$request->fechaRenuncia;
+        $vacante->bancoHorasDisponible=$request->bancoHorasDisponible;
 
         $vacante->save();
 

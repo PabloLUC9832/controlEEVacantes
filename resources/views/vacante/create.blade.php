@@ -51,129 +51,166 @@
                         <div class="overflow-hidden shadow sm:rounded-md">
                             <div class="bg-white px-4 py-5 sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
-                                @csrf
+                                    @csrf
                                     <div class="col-span-6">
                                         <label for="periodo" class="labelForms">Periodo</label>
-                                        <input type="text" name="periodo" id="periodo" class="inputForms" placeholder="Ej. 01 AGO. 2022 AL 31 ENE. 2023" required>
+                                        <input type="text" name="periodo" id="periodo" class="inputForms"
+                                               placeholder="Ej. 01 AGO. 2022 AL 31 ENE. 2023" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numZona" class="labelForms">Número de zona</label>
-                                        <input type="number" name="numZona" id="numZona" class="inputForms" placeholder="Ej. 1" required>
+                                        <input type="number" name="numZona" id="numZona" class="inputForms"
+                                               placeholder="Ej. 1" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numDependencia" class="labelForms">Número de dependencia</label>
-                                        <input type="number" name="numDependencia" id="numDependencia" class="inputForms" placeholder="Ej. 11304" required>
+                                        <input type="number" name="numDependencia" id="numDependencia"
+                                               class="inputForms" placeholder="Ej. 11304" required>
                                     </div>
 
-{{--
                                     <div class="col-span-6">
                                         <label for="numArea" class="labelForms">Número de área</label>
-                                        <input type="number" name="numArea" id="numArea" class="inputForms" placeholder="Ej. 3" required>
+                                        <input type="text" name="numArea" id="numArea" class="inputForms" disabled
+                                               value="3 ECONOMICO ADMINISTRATIVA">
                                     </div>
---}}
-                                    <div class="col-span-6">
-                                        <label for="numArea" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Número de área</label>
-                                        <select name="numArea" id="numArea" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected>Selecciona el número de area</option>
-                                            @foreach($areas as $area)
 
-                                            <option value="{{$area->id}}"> {{ $area->id }} - {{ $area->descripcion_corta}} </option>
-                                            @endforeach
-
-                                        </select>
-                                    </div>
                                     <div class="col-span-6">
                                         <label for="numPrograma" class="labelForms">Número de programa</label>
-                                        <input type="number" name="numPrograma" id="numPrograma" class="inputForms" placeholder="Ej. 14143" required>
+                                        <input type="number" name="numPrograma" id="numPrograma" class="inputForms"
+                                               placeholder="Ej. 14143" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numPlaza" class="labelForms">Número de plaza</label>
-                                        <input type="number" name="numPlaza" id="numPlaza" class="inputForms" placeholder="Ej. 1523" required>
+                                        <input type="number" name="numPlaza" id="numPlaza" class="inputForms"
+                                               placeholder="Ej. 1523" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numHoras" class="labelForms">Número de horas</label>
-                                        <input type="number" name="numHoras" id="numHoras" class="inputForms" placeholder="Ej. 6" required>
+                                        <input type="number" name="numHoras" id="numHoras" class="inputForms"
+                                               placeholder="Ej. 6" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numMateria" class="labelForms">Número de materia</label>
-                                        <input type="number" name="numMateria" id="numMateria" class="inputForms" placeholder="Ej. 28375" required>
+                                        <input type="number" name="numMateria" id="numMateria" class="inputForms"
+                                               placeholder="Ej. 28375" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="nombreMateria" class="labelForms">Nombre de la materia</label>
-                                        <input type="text" name="nombreMateria" id="nombreMateria" class="inputForms" placeholder="Ej. MET. ESTAD. PARA LA INVES" required>
+                                        <input type="text" name="nombreMateria" id="nombreMateria" class="inputForms"
+                                               placeholder="Ej. MET. ESTAD. PARA LA INVES" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="grupo" class="labelForms">Grupo</label>
-                                        <input type="text" name="grupo" id="grupo" class="inputForms" placeholder="Ej. SEC1" required>
+                                        <input type="text" name="grupo" id="grupo" class="inputForms"
+                                               placeholder="Ej. SEC1"
+                                               required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numMotivo" class="labelForms">Número del motivo</label>
-                                        <input type="text" name="numMotivo" id="numMotivo" class="inputForms" placeholder="Ej. 14" required>
+                                        <input type="text" name="numMotivo" id="numMotivo" class="inputForms"
+                                               placeholder="Ej. 14" required>
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="tipoAsignacion" class="labelForms">Tipo de asignación</label>
-                                        <input type="text" name="tipoAsignacion" id="tipoAsignacion" class="inputForms" placeholder="Ej. ">
+                                        <input type="text" name="tipoAsignacion" id="tipoAsignacion" class="inputForms"
+                                               placeholder="Ej. ">
                                     </div>
 
                                     <div class="col-span-6">
-                                        <label for="numPersonalDocente" class="labelForms">Número personal del docente</label>
-                                        <input type="text" name="numPersonalDocente" id="numPersonalDocente" class="inputForms" placeholder="Ej. ">
+                                        <label for="numPersonalDocente" class="labelForms">Número personal del
+                                            docente</label>
+                                        <input type="number" name="numPersonalDocente" id="numPersonalDocente"
+                                               class="inputForms" placeholder="Ej. ">
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="plan" class="labelForms">Plan</label>
-                                        <input type="text" name="plan" id="plan" class="inputForms" placeholder="Ej. ">
+                                        <input type="number" name="plan" id="plan" class="inputForms" placeholder="Ej. ">
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="observaciones" class="labelForms">Observaciones</label>
                                         <div class="mt-1">
-                                            <textarea id="observaciones" name="observaciones" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Ej. Alguna observación"></textarea>
+                                        <textarea id="observaciones" name="observaciones" rows="3"
+                                                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                                  placeholder="Ej. Alguna observación"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                         <label for="fechaApertura" class="labelForms">Fecha de apertura</label>
                                         <div class="relative">
-                                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                                            <div
+                                                class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                     fill="currentColor" viewBox="0 0 20 20"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
                                             </div>
-                                            <input datepicker type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Selecciona la fecha" id="fechaApertura" name="fechaApertura">
+                                            <input datepicker type="text"
+                                                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   placeholder="Selecciona la fecha" id="fechaApertura"
+                                                   name="fechaApertura">
                                         </div>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                         <label for="fechaCierre" class="labelForms">Fecha de cierre</label>
                                         <div class="relative">
-                                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                                            <div
+                                                class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                     fill="currentColor" viewBox="0 0 20 20"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
                                             </div>
-                                            <input datepicker type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Selecciona la fecha" id="fechaCierre" name="fechaCierre">
+                                            <input datepicker type="text"
+                                                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   placeholder="Selecciona la fecha" id="fechaCierre"
+                                                   name="fechaCierre">
                                         </div>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                         <label for="fechaRenuncia" class="labelForms">Fecha de renuncia</label>
                                         <div class="relative">
-                                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                                            <div
+                                                class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                     fill="currentColor" viewBox="0 0 20 20"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
                                             </div>
-                                            <input datepicker type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Selecciona la fecha" id="fechaRenuncia" name="fechaRenuncia">
+                                            <input datepicker type="text"
+                                                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   placeholder="Selecciona la fecha" id="fechaRenuncia"
+                                                   name="fechaRenuncia">
                                         </div>
                                     </div>
 
                                     <div class="col-span-6">
-                                        <label for="bancoHorasDisponible" class="labelForms">Banco de horas disponible</label>
-                                        <input type="number" name="bancoHorasDisponible" id="bancoHorasDisponible" class="inputForms" placeholder="Ej. ">
+                                        <label for="bancoHorasDisponible" class="labelForms">Banco de horas
+                                            disponible</label>
+                                        <input type="number" name="bancoHorasDisponible" id="bancoHorasDisponible"
+                                               class="inputForms" placeholder="Ej. ">
                                     </div>
 
                                 </div>
@@ -182,6 +219,8 @@
                                 <button type="submit" class="btnGuardar">Registar Vacante</button>
                             </div>
                         </div>
+                    </form>
+                </div>
                     </form>
                 </div>
             </div>
