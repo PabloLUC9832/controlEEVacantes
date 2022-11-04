@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('dependencias', function (Blueprint $table) {
-            $table->id();
+            $table->integer('clave')->primary();
+            $table->text('nombre');
             $table->timestamps();
         });
     }
