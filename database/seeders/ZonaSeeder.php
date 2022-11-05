@@ -25,15 +25,15 @@ class ZonaSeeder extends Seeder
         $zona2->save();
 
         $zona3 = new Zona();
-        $zona3->nombre = "Orizaba Cordoba";
+        $zona3->nombre = "Orizaba-Cordoba";
         $zona3->save();
 
         $zona4 = new Zona();
-        $zona4->nombre = "Poza rica Tuxpan";
+        $zona4->nombre = "Poza Rica-Tuxpan";
         $zona4->save();
 
         $zona5 = new Zona();
-        $zona5->nombre = "Coatzacoalcos Minatitlan";
+        $zona5->nombre = "Coatzacoalcos-Minatitlan";
         $zona5->save();
 
     }

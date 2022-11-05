@@ -84,5 +84,37 @@ class DependenciaSeeder extends Seeder
         $dependencia12->nombre="FACULTAD DE CONTADURÍA Y ADMINISTRACIÓN";
         $dependencia12->save();
 
+        /* ENSAÑANZA ABIERTA XALAPA*/
+        $dependencia13 = new Dependencia();
+        $dependencia13->clave=11701;
+        $dependencia13->nombre="DIRECCIÓN GENERAL DEL SISTEMA DE ENSEÑANZA ABIERTA";
+        $dependencia13->save();
+
+        /* ENSAÑANZA ABIERTA VERACRUZ*/
+        $dependencia14 = new Dependencia();
+        $dependencia14->clave=22701;
+        $dependencia14->nombre="COORDINACION ACADEMICA REG. DE ENSEÑANZA ABIERTA";
+        $dependencia14->save();
+
+        /* ENSAÑANZA ABIERTA ORIZABA CORDOBA*/
+        $dependencia14 = new Dependencia();
+        $dependencia14->clave=31701;
+        $dependencia14->nombre="COORDINACION ACADEMICA REG. DE ENSEÑANZA ABIERTA";
+        $dependencia14->save();
+
+        /* ENSAÑANZA ABIERTA POZA RICA TUXPAN*/
+        $dependencia14 = new Dependencia();
+        $dependencia14->clave=41701;
+        $dependencia14->nombre="COORDINACION ACADEMICA REG. DE ENSEÑANZA ABIERTA";
+        $dependencia14->save();
+
+        /* ENSAÑANZA ABIERTA COATZACOALCOS MINATITLAN*/
+        $dependencia14 = new Dependencia();
+        $dependencia14->clave=51701;
+        $dependencia14->nombre="COORDINACION ACADEMICA REG. DE ENSEÑANZA ABIERTA";
+        $dependencia14->save();
+
+
+
     }
 }
