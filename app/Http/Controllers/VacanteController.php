@@ -119,4 +119,40 @@ class VacanteController extends Controller
         $vacante->delete();
         return redirect()->route('vacante.index');
     }
+
+    /**
+     * Mostrar la vista
+     */
+    public function import(Request $request){
+
+        return view('vacante.import');
+
+    }
+
+    /**
+     * Carga el archivo CSV
+     */
+    public function uploadCSV(Request $request){
+
+
+        $request->validate([
+            'file' => 'required|mimes:csv,txt'
+        ]);
+
+        $file = file($request->file->getRealPath());
+        $data = array_slice($file,1);
+
+        $parts = (array_chunk($data,11));
+
+        foreach($parts as $index=>$part){
+            $fileName = resource_path('pending-files/'.date('y-m-d-H-i-s').$index. '.csv');
+            file_put_contents($fileName,$part);
+        }
+        (new Vacante())->importToDB();
+        session()->flash('status','esparando por importar');
+        return redirect()->route("vacante.index");
+
+
+    }
+
 }

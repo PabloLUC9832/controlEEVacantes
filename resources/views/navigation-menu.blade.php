@@ -15,7 +15,7 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Inicio') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('import') }}">
+                    <x-jet-nav-link href="{{ route('vacante.import') }}" :active="request()->routeIs('vacante.import')">
                         {{ __('Cargar CSV inicial') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('dashboard') }}">

@@ -46,10 +46,6 @@ Route::middleware([
     })->name('dashboard');
 });
 
-/*PRUEBA DE MOTIVOS*/
-/*Route::get('/motivos', function () {
-    return view('motivosIndex');
-});*/
 Route::resource('/motivos',\App\Http\Controllers\MotivoController::class);
 
 Route::get('import',[MotivoController::class,'create'])->name('import');
@@ -64,9 +60,9 @@ Route::controller(VacanteController::class)->group(function (){
         Route::post('/vacante',  'store')->name('store');
         Route::delete('/vacante/destroy/{id}',  'destroy')->name('destroy');
 
+        Route::get('/vacante/import',  'import')->name('import');
+        Route::post('/vacante/upload','uploadCSV')->name('upload');
+
     });
 
 });
-
-Route::get('importVacantes',[VacanteController::class,'create'])->name('importVacantes');
-Route::post('importVacantes',[VacanteController::class,'store'])->name('importVacantes');
