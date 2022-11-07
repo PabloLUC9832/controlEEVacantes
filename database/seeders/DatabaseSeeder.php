@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
          ]);*/
 
-        $this->call([
-            //MotivoSeeder::class,
+/*        $this->call([
+            MotivoSeeder::class,
             ZonaSeeder::class,
             DependenciaSeeder::class,
             ProgramaSeeder::class,
-        ]);
+        ]);*/
 
     }
 }
