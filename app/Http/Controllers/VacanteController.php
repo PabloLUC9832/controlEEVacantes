@@ -134,7 +134,7 @@ class VacanteController extends Controller
      */
     public function uploadCSV(Request $request){
 
-
+        //https://stackoverflow.com/questions/28757076/php-how-to-return-false-with-file-for-an-empty-csv-file
         $request->validate([
             'file' => 'required|mimes:csv,txt'
         ]);

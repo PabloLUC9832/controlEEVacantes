@@ -31,6 +31,8 @@
                         <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click para subir el archivo</span></p>
                         <p class="text-xs text-gray-500 dark:text-gray-400">Formato aceptado: CSV</p>
                     </div>
+                    <p id="file-upload-filename"></p>
+                    <p id="file-upload-msj"></p>
                     <input id="file" name="file" type="file" class="hidden" required accept="text/csv">
                 </label>
 
