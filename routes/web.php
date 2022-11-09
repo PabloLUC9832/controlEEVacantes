@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\VacanteController;
 use App\Models\Motivo;
+use App\Http\Controllers\ZonaDependenciaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,3 +68,6 @@ Route::controller(VacanteController::class)->group(function (){
     });
 
 });
+
+//Route::get('zonaDependencia', [ZonaDependenciaController::class, 'index']);
+Route::post('api/fetch-dependencias', [ZonaDependenciaController::class, 'fetchDependencia']);

@@ -19,37 +19,7 @@
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
-            <div class="mt-4">
-                <!--x-jet-label for="Dependencia" value="{{ __('Dependencia') }}" /-->
-                <label for="zona" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Zona</label>
-                <select id="zona" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="zona">
-                    <option selected="">Selecciona tu zona</option>
-                    @php
-                        $listaZonas = App\Http\Controllers\ZonaController::listaZona();
-
-                    @endphp
-                    @foreach($listaZonas as $zonas)
-                        <option value="{{$zonas->id}}" name="zona">{{$zonas->nombre}}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="mt-4">
-                <!--x-jet-label for="Dependencia" value="{{ __('Dependencia') }}" /-->
-                <label for="dependencias" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Dependencia</label>
-                <select id="dependencias" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="dependencia">
-                    <option selected="">Selecciona tu dependencia</option>
-
-                    @php
-                        $lista = App\Http\Controllers\ZonaDependenciaProgramaController::consultaDependencias($zonas->id);
-                    @endphp
-
-                    @foreach($lista as $consulta)
-                        {{--<option value="{{$lista->clave}}" name="zona">{{$dependencias->nombre}}</option>--}}
-                        <option value="{{$consulta->clave_dependencia}}" name="zona">{{$consulta->clave_dependencia}}</option>
-                    @endforeach
-                </select>
-            </div>
+            
 
             <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Contraseña') }}" />
