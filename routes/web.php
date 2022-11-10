@@ -69,5 +69,4 @@ Route::controller(VacanteController::class)->group(function (){
 
 });
 
-//Route::get('zonaDependencia', [ZonaDependenciaController::class, 'index']);
 Route::post('api/fetch-dependencias', [ZonaDependenciaController::class, 'fetchDependencia']);

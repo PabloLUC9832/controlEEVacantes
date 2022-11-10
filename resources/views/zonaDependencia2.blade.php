@@ -1,6 +1,8 @@
+{{--
     <form>
+--}}
         <div class="form-group mb-3">
-            <select  id="zona-dropdown" class="form-control">
+            <select  id="zona-dropdown" class="form-control" name="zona">
                 <option value="">Selecciona la zona</option>
                 @foreach ($zonas as $data)
                 <option value="{{$data->id}}">
@@ -10,16 +12,18 @@
             </select>
         </div>
         <div class="form-group mb-3">
-            <select id="dependencia-dropdown" class="form-control">
+            <select id="dependencia-dropdown" class="form-control" name="dependencia">
             </select>
         </div>
+{{--
     </form>
+--}}
 
-  
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-  
+
 
             $('#zona-dropdown').on('change', function () {
                 var idZonaSeleccionada = this.value;
@@ -34,14 +38,14 @@
                     },
                     dataType: 'json',
                     success: function (result) {
-                        $('#dependencia-dropdown').html('<option value=""> Selecciona la dependencia</option>');
+                        $('#dependencia-dropdown').html('<option> Selecciona la dependencia</option>');
                         $.each(result.dependencias, function (key, value) {
-                            $("#dependencia-dropdown").append('<option value="' + value.id_zona + '">' + value.clave_dependencia + " "+ value.nombre + '</option>');
+                            $("#dependencia-dropdown").append('<option value="' + value.clave_dependencia + '">' + value.clave_dependencia + " "+ value.nombre + '</option>');
                         });
                     }
                 });
             });
-  
+
 
         });
     </script>
