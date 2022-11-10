@@ -59,7 +59,6 @@
                                             {{ __('Crear nuevo equipo') }}
                                         </x-jet-dropdown-link>
                                     @endcan
-                                    <!-- @include('zonaDependencia2') -->
 
                                     <div class="border-t border-gray-100"></div>
 

@@ -18,9 +18,8 @@ class VacanteController extends Controller
      */
     public function index()
     {
-        $vacantes = DB::table('vacantes')->get();
         $listaVacantes = Vacante::all();
-        return view('vacante.index',['vacantes' => $vacantes,compact($listaVacantes)]);
+        return view('vacante.index',['vacantes' => $listaVacantes]);
     }
 
     /**
