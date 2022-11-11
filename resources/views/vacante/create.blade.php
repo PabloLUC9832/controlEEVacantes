@@ -120,9 +120,15 @@
                                     </div>
 
                                     <div class="col-span-6">
-                                        <label for="numMotivo" class="labelForms">Número del motivo</label>
-                                        <input type="text" name="numMotivo" id="numMotivo" class="inputForms"
-                                               placeholder="Ej. 14" required>
+                                        <label for="numMotivo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Motivo</label>
+                                        <select  id="numMotivo" name="numMotivo" class="estiloSelect">
+                                            <option value="">Selecciona el motivo</option>
+                                            @foreach ($motivos as $data)
+                                                <option value="{{$data->numeroMotivo}}">
+                                                    {{$data->numeroMotivo}} {{$data->nombre}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="col-span-6">
