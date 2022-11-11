@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\Programa;
 use App\Models\Vacante;
 use App\Http\Requests\StoreVacanteRequest;
 use App\Http\Requests\UpdateVacanteRequest;
@@ -29,7 +30,10 @@ class VacanteController extends Controller
      */
     public function create()
     {
-        return view('vacante.create');
+        $listaProgramas = Programa::all();
+        $user = auth()->user();
+
+        return view('vacante.create',['programas' => $listaProgramas,'user' => $user]);
     }
 
     /**

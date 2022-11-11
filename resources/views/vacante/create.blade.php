@@ -61,13 +61,13 @@
                                     <div class="col-span-6">
                                         <label for="numZona" class="labelForms">Número de zona</label>
                                         <input type="number" name="numZona" id="numZona" class="inputForms"
-                                               placeholder="Ej. 1" required>
+                                                 value="{{$user->zona}}" readonly="readonly">
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numDependencia" class="labelForms">Número de dependencia</label>
                                         <input type="number" name="numDependencia" id="numDependencia"
-                                               class="inputForms" placeholder="Ej. 11304" required>
+                                               class="inputForms" value="{{$user->dependencia}}" readonly="readonly">
                                     </div>
 
                                     <div class="col-span-6">
@@ -77,9 +77,15 @@
                                     </div>
 
                                     <div class="col-span-6">
-                                        <label for="numPrograma" class="labelForms">Número de programa</label>
-                                        <input type="number" name="numPrograma" id="numPrograma" class="inputForms"
-                                               placeholder="Ej. 14143" required>
+                                        <label for="numPrograma" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Programa</label>
+                                        <select  id="numPrograma" name="numPrograma" class="estiloSelect">
+                                            <option value="">Selecciona el programa</option>
+                                            @foreach ($programas as $data)
+                                                <option value="{{$data->clave}}">
+                                                    {{$data->clave}} {{$data->nombre}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="col-span-6">
