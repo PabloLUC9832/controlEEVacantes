@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\VacanteController;
-use App\Models\Motivo;
 use App\Http\Controllers\ZonaDependenciaController;
 
 /*
@@ -47,8 +46,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-
-Route::resource('/motivos',\App\Http\Controllers\MotivoController::class);
 
 Route::get('import',[MotivoController::class,'create'])->name('import');
 Route::post('import',[MotivoController::class,'store'])->name('import');
