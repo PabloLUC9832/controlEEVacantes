@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\Dependencia;
 use App\Models\Programa;
 use App\Models\Vacante;
 use App\Models\Motivo;
 use App\Http\Requests\StoreVacanteRequest;
 use App\Http\Requests\UpdateVacanteRequest;
+use App\Models\Zona;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +23,19 @@ class VacanteController extends Controller
     public function index()
     {
         $listaVacantes = Vacante::all();
-        return view('vacante.index',['vacantes' => $listaVacantes]);
+        $user = auth()->user();
+        //$users = DB::table('users')
+        //                ->where('votes', '=', 100)
+        //                ->where('age', '>', 35)
+        //                ->get();
+        //$nombreZona = Zona::where('id','=',$user->zona)->get('nombre');
+        //$nombreDependencia = Dependencia::all('nombre')->where('clave','=',$user->dependencia);
+
+        $nombreZona = DB::table('zonas')->where('id','=',$user->zona)->get('nombre');
+        $nombreDependencia = DB::table('dependencias')->where('clave','=',$user->dependencia)->get('nombre');
+
+
+        return view('vacante.index',['vacantes' => $listaVacantes,'user' => $user,'nombreZona'=>$nombreZona,'nombreDependencia'=>$nombreDependencia]);
     }
 
     /**
@@ -70,7 +84,8 @@ class VacanteController extends Controller
 
         $vacante->save();
 
-        return redirect()->route('dashboard');
+        //return redirect()->route('dashboard');
+        return redirect()->route('vacante.index');
     }
 
     /**
@@ -92,9 +107,13 @@ class VacanteController extends Controller
      */
     public function edit($id)
     {
-        //
-        $vacante = Vacante::find($id);
-        return view('editarVacante', compact('vacante'));
+        $vacante = Vacante::findOrFail($id);
+
+        $listaProgramas = Programa::all();
+        $listaMotivos = Motivo::all();
+        $user = auth()->user();
+
+        return view('vacante.edit', compact('vacante'),['programas' => $listaProgramas,'user' => $user, 'motivos' => $listaMotivos]);
     }
 
     /**
@@ -106,10 +125,9 @@ class VacanteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $vacante = Vacante::find($id);
+        $vacante = Vacante::findOrFail($id);
         $vacante->update($request->all());
-        return redirect()->route('vacantes.index');
+        return redirect()->route('vacante.index');
     }
 
     /**

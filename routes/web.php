@@ -59,6 +59,9 @@ Route::controller(VacanteController::class)->group(function (){
         Route::post('/vacante',  'store')->name('store');
         Route::delete('/vacante/destroy/{id}',  'destroy')->name('destroy');
 
+        Route::get('/vacante/edit/{id}','edit')->name('edit');
+        Route::post('/vacante/update/{id}','update')->name('update');
+
         Route::get('/vacante/import',  'import')->name('import');
         Route::post('/vacante/upload','uploadCSV')->name('upload');
 

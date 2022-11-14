@@ -19,6 +19,23 @@
     <!--Menu-->
     @livewire('navigation-menu')
 
+    <div class="p-6 md:mx-10 md:my-5 md:w-auto bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">Datos de la dependencia</h5>
+
+        <div class=" grid grid-cols-2">
+
+            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">N° de área <span class="font-bold">3</span> </p>
+            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">Nombre de área <span class="font-bold">Económico Administrativa </span> </p>
+            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">N° de dependencia <span class="font-bold"> {{$user->dependencia}} </span> </p>
+            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">Nombre de la dependencia  <span class="font-bold"> {{$nombreDependencia}} </span> </p>
+            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">N° de zona <span class="font-bold"> {{$user->zona}} </span> </p>
+            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">Nombre de la zona <span class="font-bold"> {{$nombreZona}} </span> </p>
+
+        </div>
+
+    </div>
+
+
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -50,7 +67,15 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($vacantes as $vacante)
+
+            @if(count($vacantes)<=0)
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="py-4 px-6">
+                        No se han encontrado vacantes
+                    </td>
+                </tr>
+            @else
+                @foreach($vacantes as $vacante)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -77,23 +102,8 @@
                     </td>
 
                     <td class="py-4 px-6 text-right">
-                        {{--<a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>--}}
-                        {{--                        <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>--}}
-                        <button
-                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            type="button" data-modal-toggle="edit-modal{{$vacante->id}}">Editar
-                        </button>
-
+                        <a href="{{route('vacante.edit',$vacante->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
                     </td>
-
-                    {{--                    <td class="py-4 px-6 text-right">
-                                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>
-                                            <form action="{{route('vacante.destroy', $vacante->id)}}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                    <button type="submit" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Eliminar</button>
-                                            </form>
-                                        </td>--}}
 
                     <td class="py-4 px-6 text-right">
                         <button type="button"
@@ -103,8 +113,8 @@
 
                 </tr>
                 @include('vacante.modalConfirmacionEliminar')
-                @include('vacante.modalEditarVacante')
-            @endforeach
+               @endforeach
+            @endif
             </tbody>
         </table>
     </div>
