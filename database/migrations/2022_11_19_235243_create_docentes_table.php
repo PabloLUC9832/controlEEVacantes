@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('nombre');
             $table->text('apellidoPaterno');
             $table->text('apellidoMaterno');
-            $table->text('email');
+            $table->text('email')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\VacanteController;
 use App\Http\Controllers\ZonaDependenciaController;
+use App\Http\Controllers\DocenteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,3 +71,13 @@ Route::controller(VacanteController::class)->group(function (){
 });
 
 Route::post('api/fetch-dependencias', [ZonaDependenciaController::class, 'fetchDependencia']);
+
+Route::controller(DocenteController::class)->group(function (){
+
+    Route::name('docente.')->group(function (){
+
+        Route::get('/docente/create',  'create')->name('create');
+
+    });
+
+});
