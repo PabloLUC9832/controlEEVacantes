@@ -77,6 +77,8 @@ Route::controller(DocenteController::class)->group(function (){
     Route::name('docente.')->group(function (){
 
         Route::get('/docente/create',  'create')->name('create');
+        Route::post('/docente',  'store')->name('store');
+
 
     });
 

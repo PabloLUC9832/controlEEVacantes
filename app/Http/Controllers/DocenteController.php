@@ -36,7 +36,17 @@ class DocenteController extends Controller
      */
     public function store(StoreDocenteRequest $request)
     {
-        //
+        $docente = new Docente();
+        $docente->nPersonal = $request->nPersonal;
+        $docente->nombre = $request->nombre;
+        $docente->apellidoPaterno = $request->apellidoPaterno;
+        $docente->apellidoMaterno = $request->apellidoMaterno;
+        $docente->email = $request->email;
+
+        $docente->save();
+
+        //return redirect()->route('vacante.index');
+        return redirect()->route('dashboard');
     }
 
     /**
