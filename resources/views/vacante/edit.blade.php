@@ -137,11 +137,23 @@
                                            value="{{$vacante->tipoAsignacion}}">
                                 </div>
 
-                                <div class="col-span-6">
+{{--                                <div class="col-span-6">
                                     <label for="numPersonalDocente" class="labelForms">Número personal del
                                         docente</label>
                                     <input type="number" name="numPersonalDocente" id="numPersonalDocente"
                                            class="inputForms" value="{{$vacante->numPersonalDocente}}">
+                                </div>--}}
+
+                                <div class="col-span-6">
+                                    <label for="numPersonalDocente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
+                                    <select  id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect">
+                                        <option value="{{$vacante->numPersonalDocente}}">{{$vacante->numPersonalDocente}}</option>
+                                        @foreach ($docentes as $data)
+                                            <option value="{{$data->nPersonal}}">
+                                                {{$data->nPersonal}} {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="col-span-6">

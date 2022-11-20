@@ -138,10 +138,15 @@
                                     </div>
 
                                     <div class="col-span-6">
-                                        <label for="numPersonalDocente" class="labelForms">Número personal del
-                                            docente</label>
-                                        <input type="number" name="numPersonalDocente" id="numPersonalDocente"
-                                               class="inputForms" placeholder="Ej. ">
+                                        <label for="numPersonalDocente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
+                                        <select  id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect">
+                                            <option value="">Selecciona el n° de personal</option>
+                                            @foreach ($docentes as $data)
+                                                <option value="{{$data->nPersonal}}">
+                                                    {{$data->nPersonal}} {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="col-span-6">

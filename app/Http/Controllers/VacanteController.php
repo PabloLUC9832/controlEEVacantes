@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\Dependencia;
+use App\Models\Docente;
 use App\Models\Programa;
 use App\Models\Vacante;
 use App\Models\Motivo;
@@ -47,9 +48,14 @@ class VacanteController extends Controller
     {
         $listaProgramas = Programa::all();
         $listaMotivos = Motivo::all();
+        $listaDocentes = Docente::all();
         $user = auth()->user();
 
-        return view('vacante.create',['programas' => $listaProgramas,'user' => $user, 'motivos' => $listaMotivos]);
+        return view('vacante.create',['programas' => $listaProgramas,
+                                           'user' => $user,
+                                           'motivos' => $listaMotivos,
+                                           'docentes' => $listaDocentes,
+                                          ]);
     }
 
     /**
@@ -111,9 +117,14 @@ class VacanteController extends Controller
 
         $listaProgramas = Programa::all();
         $listaMotivos = Motivo::all();
+        $listaDocentes = Docente::all();
         $user = auth()->user();
 
-        return view('vacante.edit', compact('vacante'),['programas' => $listaProgramas,'user' => $user, 'motivos' => $listaMotivos]);
+        return view('vacante.edit', compact('vacante'),['programas' => $listaProgramas,
+                                                                      'user' => $user,
+                                                                      'motivos' => $listaMotivos,
+                                                                      'docentes' => $listaDocentes,
+                                                                     ]);
     }
 
     /**
