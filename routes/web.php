@@ -76,8 +76,14 @@ Route::controller(DocenteController::class)->group(function (){
 
     Route::name('docente.')->group(function (){
 
+        Route::get('/docente',  'index') ->name('index');
         Route::get('/docente/create',  'create')->name('create');
         Route::post('/docente',  'store')->name('store');
+        Route::delete('/docente/destroy/{id}',  'destroy')->name('destroy');
+
+        Route::get('/docente/edit/{id}','edit')->name('edit');
+        Route::post('/docente/update/{id}','update')->name('update');
+
 
 
     });

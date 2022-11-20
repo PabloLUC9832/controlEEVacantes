@@ -13,7 +13,7 @@ class UpdateDocenteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,22 @@ class UpdateDocenteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nPersonal'=> 'required|numeric|min:1',
+            'nombre'=> 'required|string|min:1',
+            'apellidoPaterno'=> 'required|string|min:1',
+            'apellidoMaterno'=> 'required|string|min:1',
+            'email'=> 'nullable|email',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'nPersonal.required' => 'El número de personal es obligatorio',
+            'nombre.required' => 'El nombre es obligatorio',
+            'apellidoPaterno.required' => 'El apellido paterno es obligatorio',
+            'apellidoMaterno.required' => 'El apellido materno es obligatorio',
+        ];
+    }
+
 }

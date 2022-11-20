@@ -228,7 +228,7 @@
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                            <button type="submit" class="btnGuardar">Registar Vacante</button>
+                            <button type="submit" class="btnGuardar">Actualizar Vacante</button>
                         </div>
                     </div>
                 </form>

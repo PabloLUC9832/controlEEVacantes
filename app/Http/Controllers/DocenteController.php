@@ -16,6 +16,8 @@ class DocenteController extends Controller
     public function index()
     {
         //
+        $listaDocentes = Docente::all();
+        return view('docente.index',['docentes' => $listaDocentes]);
     }
 
     /**
@@ -45,8 +47,7 @@ class DocenteController extends Controller
 
         $docente->save();
 
-        //return redirect()->route('vacante.index');
-        return redirect()->route('dashboard');
+        return redirect()->route('docente.index');
     }
 
     /**
@@ -66,9 +67,12 @@ class DocenteController extends Controller
      * @param  \App\Models\Docente  $docente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Docente $docente)
+    public function edit($nPersonal)
     {
         //
+        $docente = Docente::where('nPersonal',$nPersonal)->firstOrFail();
+        return view('docente.edit', compact('docente'));
+
     }
 
     /**
@@ -78,9 +82,25 @@ class DocenteController extends Controller
      * @param  \App\Models\Docente  $docente
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDocenteRequest $request, Docente $docente)
+    public function update(UpdateDocenteRequest $request, $nPersonal)
     {
-        //
+        $docente = Docente::where('nPersonal',$nPersonal)->firstOrFail();
+        $noPersonal = $request->nPersonal;
+        $nombre = $request->nombre;
+        $apellidoPaterno = $request->apellidoPaterno;
+        $apellidoMaterno = $request->apellidoMaterno;
+        $email = $request->email;
+
+
+        //$docente->update($request->all());
+        $docente->update([
+            'nPersonal' => $noPersonal,
+            'nombre' => $nombre,
+            'apellidoPaterno' => $apellidoPaterno,
+            'apellidoMaterno' => $apellidoMaterno,
+            'email' => $email,
+        ]);
+        return redirect()->route('docente.index');
     }
 
     /**
@@ -89,8 +109,11 @@ class DocenteController extends Controller
      * @param  \App\Models\Docente  $docente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Docente $docente)
+    public function destroy($nPersonal)
     {
-        //
+        $docente = Docente::where('nPersonal',$nPersonal)->firstOrFail();
+        $docente->delete($nPersonal);
+        return redirect()->route('docente.index');
+
     }
 }
