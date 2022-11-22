@@ -19,23 +19,6 @@
     <!--Menu-->
     @livewire('navigation-menu')
 
-    <div class="p-6 md:mx-10 md:my-5 md:w-auto bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">Datos de la dependencia</h5>
-
-        <div class=" grid grid-cols-2">
-
-            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">N° de área <span class="font-bold">3</span> </p>
-            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">Nombre de área <span class="font-bold">Económico Administrativa </span> </p>
-            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">N° de dependencia <span class="font-bold"> {{$user->dependencia}} </span> </p>
-            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">Nombre de la dependencia  <span class="font-bold"> {{$nombreDependencia}} </span> </p>
-            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">N° de zona <span class="font-bold"> {{$user->zona}} </span> </p>
-            <p class="grid-cols-1 mb-3 font-normal text-gray-700 dark:text-gray-400">Nombre de la zona <span class="font-bold"> {{$nombreZona}} </span> </p>
-
-        </div>
-
-    </div>
-
-
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -57,6 +40,9 @@
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Plaza
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    <span class="sr-only">Ver Información</span>
                 </th>
                 <th scope="col" class="py-3 px-6">
                     <span class="sr-only">Editar</span>
@@ -101,11 +87,17 @@
                         {{$vacante->numPlaza}}
                     </td>
 
-                    <td class="py-4 px-6 text-right">
+                    <td class="py-4 px-2 text-right">
+                        <button type="button"
+                                class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
+                                data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
+                    </td>
+
+                    <td class="py-4 px-2 text-right">
                         <a href="{{route('vacante.edit',$vacante->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
                     </td>
 
-                    <td class="py-4 px-6 text-right">
+                    <td class="py-4 px-2 text-right">
                         <button type="button"
                                 class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                 data-modal-toggle="delete-modal{{$vacante->id}}">Eliminar</button>
@@ -113,6 +105,7 @@
 
                 </tr>
                 @include('vacante.modalConfirmacionEliminar')
+                @include('vacante.modalVisualizarVacante')
                @endforeach
             @endif
             </tbody>

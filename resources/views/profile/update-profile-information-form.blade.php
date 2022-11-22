@@ -64,6 +64,42 @@
             <x-jet-label for="email" value="{{ __('Email') }}" />
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
+        
+        <!-- Número de área -->
+        <div class="col-span-6 sm:col-span-4 py-4">
+            <x-jet-label for="name" value="{{ __('Área') }}" />
+            <x-jet-input id="name" type="text" class="mt-1 block w-full" value="3" readonly/>
+        </div>
+
+        <!-- Área -->
+        <div class="col-span-6 sm:col-span-4 py-2">
+            <x-jet-label for="name" value="{{ __('Nombre del área') }}" />
+            <x-jet-input id="name" type="text" class="mt-1 block w-full" value="ECONÓMICO ADMINISTRATIVO" readonly/>
+        </div>
+
+        <!-- Número de dependencia -->
+        <div class="col-span-6 sm:col-span-4 py-3">
+            <x-jet-label for="name" value="{{ __('Número de Dependencia') }}" />
+            <x-jet-input id="name" type="text" class="mt-1 block w-full" value="{{$numeroDependencia = DB::table('users')->select('dependencia')->where('dependencia','=',Auth::user()->dependencia)->value('dependencia');}}" readonly/>
+        </div>
+
+        <!-- Dependencia -->
+        <div class="col-span-6 sm:col-span-4 py-3">
+            <x-jet-label for="name" value="{{ __('Dependencia') }}" />
+            <x-jet-input id="name" type="text" class="mt-1 block w-full" value="{{$nombreDependencia = DB::table('dependencias')->select('nombre')->where('clave','=',Auth::user()->dependencia)->value('nombre');}}" readonly/>
+        </div>
+
+        <!-- Número de zona -->
+        <div class="col-span-6 sm:col-span-4 py-3">
+            <x-jet-label for="name" value="{{ __('Número de zona') }}" />
+            <x-jet-input id="name" type="text" class="mt-1 block w-full" value="{{$numeroZona = DB::table('users')->select('zona')->where('zona','=',Auth::user()->zona)->value('zona');}}" readonly/>
+        </div>
+
+        <!-- Zona -->
+        <div class="col-span-6 sm:col-span-4 py-3">
+            <x-jet-label for="name" value="{{ __('Zona') }}" />
+            <x-jet-input id="name" type="text" class="mt-1 block w-full" value="{{$nombreZona = DB::table('zonas')->select('nombre')->where('id','=',Auth::user()->zona)->value('nombre');}}" readonly/>
+        </div>
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) && ! $this->user->hasVerifiedEmail())
                 <p class="text-sm mt-2">
