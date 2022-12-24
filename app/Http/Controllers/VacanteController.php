@@ -12,6 +12,7 @@ use App\Http\Requests\StoreVacanteRequest;
 use App\Http\Requests\UpdateVacanteRequest;
 use App\Models\Zona;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class VacanteController extends Controller
@@ -23,8 +24,8 @@ class VacanteController extends Controller
      */
     public function index()
     {
-        $listaVacantes = Vacante::all();
-        $user = auth()->user();
+        //$listaVacantes = Vacante::all();
+        //$user = auth()->user();
         //$users = DB::table('users')
         //                ->where('votes', '=', 100)
         //                ->where('age', '>', 35)
@@ -32,11 +33,23 @@ class VacanteController extends Controller
         //$nombreZona = Zona::where('id','=',$user->zona)->get('nombre');
         //$nombreDependencia = Dependencia::all('nombre')->where('clave','=',$user->dependencia);
 
-        $nombreZona = DB::table('zonas')->where('id','=',$user->zona)->get('nombre');
-        $nombreDependencia = DB::table('dependencias')->where('clave','=',$user->dependencia)->get('nombre');
+        //Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin')
+        //$listaVacantes = Vacante::all();
+        $user = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
+
+        if ($user){
+            $listaVacantes = Vacante::all();
+        }else{
+            $listaVacantes = Vacante::where('numZona','=',auth()->user()->zona)->get();
+        }
+
+        //$nombreZona = DB::table('zonas')->where('id','=',$user->zona)->get('nombre');
+        //$nombreDependencia = DB::table('dependencias')->where('clave','=',$user->dependencia)->get('nombre');
 
 
-        return view('vacante.index',['vacantes' => $listaVacantes,'user' => $user,'nombreZona'=>$nombreZona,'nombreDependencia'=>$nombreDependencia]);
+
+        return view('vacante.index',['vacantes' => $listaVacantes]);
+        //return view('vacante.index',['vacantes' => $listaVacantes,'user' => $user,'nombreZona'=>$nombreZona,'nombreDependencia'=>$nombreDependencia]);
     }
 
     /**
