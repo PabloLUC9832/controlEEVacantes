@@ -47,10 +47,10 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-
+/*
 Route::get('import',[MotivoController::class,'create'])->name('import');
 Route::post('import',[MotivoController::class,'store'])->name('import');
-
+*/
 Route::controller(VacanteController::class)->group(function (){
 
     Route::name('vacante.')->group(function (){
