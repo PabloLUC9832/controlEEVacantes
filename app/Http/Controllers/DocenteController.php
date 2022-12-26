@@ -41,8 +41,7 @@ class DocenteController extends Controller
      */
     public function store(StoreDocenteRequest $request)
     {
-        $user = Auth::user();
-        event(new LogUserActivity($user));
+
 
         $docente = new Docente();
         $docente->nPersonal = $request->nPersonal;
@@ -52,6 +51,12 @@ class DocenteController extends Controller
         $docente->email = $request->email;
 
         $docente->save();
+
+
+        $user = Auth::user();
+        $data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
+
+        event(new LogUserActivity($user,"Creación de Docente",$data));
 
         return redirect()->route('docente.index');
     }

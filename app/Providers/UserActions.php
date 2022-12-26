@@ -32,10 +32,13 @@ class UserActions
         //$current_timestamp = Carbon::now()->toDateTimeString();
         $current_timestamp = now();
         $userInfo = $event->user;
+
         $saveActivity = DB::table('log_user_activity')->insert(
             [
                 'name' => $userInfo->name,
                 'email' => $userInfo->email,
+                'action' => $event->action,
+                'data' => $event->data,
                 'created_at' => $current_timestamp,
                 'updated_at' => $current_timestamp,
             ]

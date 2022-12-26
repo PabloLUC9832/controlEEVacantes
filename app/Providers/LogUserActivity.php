@@ -15,16 +15,20 @@ class LogUserActivity
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $user;
+    public $action;
+    public $data;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user,$action,$data)
     {
         //
         $this->user = $user;
+        $this->action = $action;
+        $this->data = $data;
     }
 
     /**
