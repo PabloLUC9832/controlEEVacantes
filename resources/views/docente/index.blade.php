@@ -19,6 +19,8 @@
     <!--Menu-->
     @livewire('navigation-menu')
 
+    <a href="{{ route('docente.export') }}" target="_blank" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 absolute  right-0 mr-9">Generar reporte</a>
+
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -98,6 +100,9 @@
 
     <a title="Añadir Docente" href="{{ route('docente.create') }}"
        class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">+ <br> Añadir Docente</a>
+
+    <a title="Generar Reporte" target="_blank" href="{{ route('docente.export') }}"
+       class="btn fixed z-90 bottom-32 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">Generar Reporte</a>
 
 </div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Docente;
 use App\Http\Requests\StoreDocenteRequest;
 use App\Http\Requests\UpdateDocenteRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DocenteController extends Controller
 {
@@ -15,7 +16,7 @@ class DocenteController extends Controller
      */
     public function index()
     {
-        //
+        //https://youtu.be/XeYd_kYkUJE
         $listaDocentes = Docente::all();
         return view('docente.index',['docentes' => $listaDocentes]);
     }
@@ -116,4 +117,22 @@ class DocenteController extends Controller
         return redirect()->route('docente.index');
 
     }
+    /**
+     * Genera el archivo pdf, a partir de la vista proporcioanda
+     * https://github.com/barryvdh/laravel-dompdf
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+        $listaDocentes = Docente::all();
+        $pdf = Pdf::loadView('pdf.template', [
+            'docentes' => $listaDocentes,
+        ]);
+        //lo muestra en el navegador
+        return $pdf->stream();
+        //descarga directa
+        //return $pdf->download('Docentes.pdf');
+        //return view('pdf.template',['docentes' => $listaDocentes]);
+    }
+
 }

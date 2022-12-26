@@ -24,17 +24,7 @@ class VacanteController extends Controller
      */
     public function index()
     {
-        //$listaVacantes = Vacante::all();
-        //$user = auth()->user();
-        //$users = DB::table('users')
-        //                ->where('votes', '=', 100)
-        //                ->where('age', '>', 35)
-        //                ->get();
-        //$nombreZona = Zona::where('id','=',$user->zona)->get('nombre');
-        //$nombreDependencia = Dependencia::all('nombre')->where('clave','=',$user->dependencia);
 
-        //Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin')
-        //$listaVacantes = Vacante::all();
         $user = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
 
         if ($user){
@@ -43,13 +33,7 @@ class VacanteController extends Controller
             $listaVacantes = Vacante::where('numZona','=',auth()->user()->zona)->get();
         }
 
-        //$nombreZona = DB::table('zonas')->where('id','=',$user->zona)->get('nombre');
-        //$nombreDependencia = DB::table('dependencias')->where('clave','=',$user->dependencia)->get('nombre');
-
-
-
         return view('vacante.index',['vacantes' => $listaVacantes]);
-        //return view('vacante.index',['vacantes' => $listaVacantes,'user' => $user,'nombreZona'=>$nombreZona,'nombreDependencia'=>$nombreDependencia]);
     }
 
     /**

@@ -84,6 +84,7 @@ Route::controller(DocenteController::class)->group(function (){
         Route::get('/docente/edit/{id}','edit')->name('edit');
         Route::post('/docente/update/{id}','update')->name('update');
 
+        Route::get('/docente/export','export')->name('export');
 
 
     });
