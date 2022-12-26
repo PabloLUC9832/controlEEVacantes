@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Docente;
 use App\Http\Requests\StoreDocenteRequest;
 use App\Http\Requests\UpdateDocenteRequest;
+use App\Providers\LogUserActivity;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
 class DocenteController extends Controller
 {
@@ -39,6 +41,9 @@ class DocenteController extends Controller
      */
     public function store(StoreDocenteRequest $request)
     {
+        $user = Auth::user();
+        event(new LogUserActivity($user));
+
         $docente = new Docente();
         $docente->nPersonal = $request->nPersonal;
         $docente->nombre = $request->nombre;
