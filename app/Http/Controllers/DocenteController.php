@@ -52,10 +52,8 @@ class DocenteController extends Controller
 
         $docente->save();
 
-
         $user = Auth::user();
         $data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
-
         event(new LogUserActivity($user,"Creación de Docente",$data));
 
         return redirect()->route('docente.index');
@@ -111,6 +109,11 @@ class DocenteController extends Controller
             'apellidoMaterno' => $apellidoMaterno,
             'email' => $email,
         ]);
+
+        $user = Auth::user();
+        $data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
+        event(new LogUserActivity($user,"Edición de Docente ID: $request->nPersonal",$data));
+
         return redirect()->route('docente.index');
     }
 
@@ -124,6 +127,12 @@ class DocenteController extends Controller
     {
         $docente = Docente::where('nPersonal',$nPersonal)->firstOrFail();
         $docente->delete($nPersonal);
+
+        $user = Auth::user();
+        //$data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
+        $data = "Eliminación Docente ID: $nPersonal";
+        event(new LogUserActivity($user,"Eliminación de Docente ID $nPersonal",$data));
+
         return redirect()->route('docente.index');
 
     }
@@ -138,6 +147,11 @@ class DocenteController extends Controller
         $pdf = Pdf::loadView('pdf.template', [
             'docentes' => $listaDocentes,
         ]);
+
+        $user = Auth::user();
+        $data = "Generación de Reporte de Docentes";
+        event(new LogUserActivity($user,"Generación de Reporte de Docentes",$data));
+
         //lo muestra en el navegador
         return $pdf->stream();
         //descarga directa
