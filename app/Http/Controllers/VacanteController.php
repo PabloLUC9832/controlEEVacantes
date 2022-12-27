@@ -11,6 +11,7 @@ use App\Models\Motivo;
 use App\Http\Requests\StoreVacanteRequest;
 use App\Http\Requests\UpdateVacanteRequest;
 use App\Models\Zona;
+use App\Providers\LogUserActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -87,6 +88,17 @@ class VacanteController extends Controller
 
         $vacante->save();
 
+        $user = Auth::user();
+        $data = $request->periodo .  " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
+                . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo
+                . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
+                . " " . $request->observaciones . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia
+                . " " . $request->bancoHorasDisponible ;
+
+
+
+        event(new LogUserActivity($user,"Creación de Vacante",$data));
+
         //return redirect()->route('dashboard');
         return redirect()->route('vacante.index');
     }
@@ -135,6 +147,15 @@ class VacanteController extends Controller
     {
         $vacante = Vacante::findOrFail($id);
         $vacante->update($request->all());
+
+        $user = Auth::user();
+        $data = $request->periodo .  " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
+                . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo
+                . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
+                . " " . $request->observaciones . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia
+                . " " . $request->bancoHorasDisponible ;
+        event(new LogUserActivity($user,"Actualización de Vacante ID $id ",$data));
+
         return redirect()->route('vacante.index');
     }
 
@@ -148,6 +169,11 @@ class VacanteController extends Controller
     {
         $vacante = Vacante::findOrFail($id);
         $vacante->delete();
+
+        $user = Auth::user();
+        $data = "Eliminación de Vacante ID: $id";
+        event(new LogUserActivity($user,"Eliminación de Vacante ID: $id",$data));
+
         return redirect()->route('vacante.index');
     }
 
@@ -181,6 +207,12 @@ class VacanteController extends Controller
         }
         (new Vacante())->importToDB();
         session()->flash('status','esparando por importar');
+
+        $user = Auth::user();
+        $data = $request->file->getClientOriginalName();
+        //var_dump($request->file);
+        event(new LogUserActivity($user,"Importación de archivo CSV",$data));
+
         return redirect()->route("vacante.index");
 
 

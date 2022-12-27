@@ -112,7 +112,7 @@ class DocenteController extends Controller
 
         $user = Auth::user();
         $data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
-        event(new LogUserActivity($user,"Edición de Docente ID: $request->nPersonal",$data));
+        event(new LogUserActivity($user,"Actualización de Docente ID: $request->nPersonal",$data));
 
         return redirect()->route('docente.index');
     }
@@ -130,7 +130,7 @@ class DocenteController extends Controller
 
         $user = Auth::user();
         //$data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
-        $data = "Eliminación Docente ID: $nPersonal";
+        $data = "Eliminación de Docente ID: $nPersonal";
         event(new LogUserActivity($user,"Eliminación de Docente ID $nPersonal",$data));
 
         return redirect()->route('docente.index');
