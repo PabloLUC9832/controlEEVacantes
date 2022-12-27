@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Providers\LogUserActivity;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;

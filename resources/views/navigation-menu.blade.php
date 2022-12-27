@@ -31,6 +31,10 @@
                             {{ __('Gestión de Docentes') }}
                         </x-jet-nav-link>
 
+                        <x-jet-nav-link href="{{ route('bitacora.index') }}" :active="request()->routeIs('bitacora.index')">
+                            {{ __('Bitácora') }}
+                        </x-jet-nav-link>
+
                     @else
 
                         <x-jet-nav-link href="{{ route('vacante.index') }}" :active="request()->routeIs('vacante.index')">

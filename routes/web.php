@@ -5,6 +5,7 @@ use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\VacanteController;
 use App\Http\Controllers\ZonaDependenciaController;
 use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\LogUserActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,16 @@ Route::controller(DocenteController::class)->group(function (){
 
         Route::get('/docente/export','export')->name('export');
 
+
+    });
+
+});
+
+Route::controller(LogUserActivityController::class)->group(function (){
+
+    Route::name('bitacora.')->group(function (){
+
+        Route::get('/bitacora',  'index') ->name('index');
 
     });
 
