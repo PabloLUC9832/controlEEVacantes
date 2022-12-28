@@ -13,14 +13,84 @@ class LogUserActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = trim($request->get('search'));
+        $radioButton = $request->get('tipo');
+
         $bitacora = DB::table('log_user_activity')
             ->select('name', 'email','action','data','created_at')
-            ->get();
+            ->where('name','LIKE','%'.$search.'%')
+            ->orWhere('email','LIKE','%'.$search.'%')
+            ->orWhere('data','LIKE','%'.$search.'%')
+            ->orWhere('created_at','LIKE','%'.$search.'%')
+            ->paginate(10)
+            ;
 
-        return view('logUserActivity.index',['bitacora' => $bitacora]);
+        if(isset($radioButton)){
+
+            switch ($radioButton){
+
+                case "fecha":
+                    $bitacora = DB::table('log_user_activity')
+                        ->select('name', 'email','action','data','created_at')
+                        ->where('created_at','LIKE','%'.$search.'%')
+                        ->orderBy('created_at', 'asc')
+                        ->paginate(15)
+                    ;
+                break;
+
+                case "nombre":
+                    $bitacora = DB::table('log_user_activity')
+                        ->select('name', 'email','action','data','created_at')
+                        ->where('name','LIKE','%'.$search.'%')
+                        ->orderBy('name', 'asc')
+                        ->paginate(15)
+                    ;
+                break;
+
+                case "correo":
+                    $bitacora = DB::table('log_user_activity')
+                        ->select('name', 'email','action','data','created_at')
+                        ->where('email','LIKE','%'.$search.'%')
+                        ->orderBy('email', 'asc')
+                        ->paginate(15)
+                    ;
+                break;
+
+                case "accion":
+                    $bitacora = DB::table('log_user_activity')
+                        ->select('name', 'email','action','data','created_at')
+                        ->where('action','LIKE','%'.$search.'%')
+                        ->orderBy('action', 'asc')
+                        ->paginate(15)
+                    ;
+                break;
+
+                case "cambios":
+                    $bitacora = DB::table('log_user_activity')
+                        ->select('name', 'email','action','data','created_at')
+                        ->where('data','LIKE','%'.$search.'%')
+                        ->orderBy('data', 'asc')
+                        ->paginate(15)
+                    ;
+                break;
+
+                default:
+                    $bitacora = DB::table('log_user_activity')
+                        ->select('name', 'email','action','data','created_at')
+                        ->where('name','LIKE','%'.$search.'%')
+                        ->orWhere('email','LIKE','%'.$search.'%')
+                        ->orWhere('data','LIKE','%'.$search.'%')
+                        ->orWhere('created_at','LIKE','%'.$search.'%')
+                        ->paginate(15)
+                    ;
+
+            }
+
+        }
+
+        return view('logUserActivity.index',compact('bitacora','search'));
     }
 
     /**
