@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateDocenteRequest;
 use App\Providers\LogUserActivity;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DocenteController extends Controller
 {
@@ -16,11 +18,86 @@ class DocenteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = trim($request->get('search'));
+        $radioButton = $request->get('tipo');
+
         //https://youtu.be/XeYd_kYkUJE
-        $listaDocentes = Docente::all();
-        return view('docente.index',['docentes' => $listaDocentes]);
+        $docentes = DB::table('docentes')
+            ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+            ->where('nPersonal','LIKE','%'.$search.'%')
+            ->orWhere('nombre','LIKE','%'.$search.'%')
+            ->orWhere('apellidoPaterno','LIKE','%'.$search.'%')
+            ->orWhere('apellidoMaterno','LIKE','%'.$search.'%')
+            ->orWhere('email','LIKE','%'.$search.'%')
+            ->orderBy('nPersonal','asc')
+            ->paginate(15);
+
+        if(isset($radioButton)){
+
+            switch ($radioButton){
+
+                case "numPersonal":
+                    $vacantes = DB::table('docentes')
+                    ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                        ->where('nPersonal','LIKE','%'.$search.'%')
+                        ->orderBy('nPersonal', 'asc')
+                        ->paginate(15)
+                    ;
+                break;
+
+                case "nombre":
+                    $vacantes = DB::table('docentes')
+                        ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                        ->where('nombre','LIKE','%'.$search.'%')
+                        ->orderBy('nombre', 'asc')
+                        ->paginate(15)
+                    ;
+                break;
+
+                case "apellidoPaterno":
+                    $vacantes = DB::table('docentes')
+                        ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                        ->where('apellidoPaterno','LIKE','%'.$search.'%')
+                        ->orderBy('apellidoPaterno', 'asc')
+                        ->paginate(15)
+                    ;
+                break;
+
+                case "apellidoMaterno":
+                    $vacantes = DB::table('docentes')
+                        ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                        ->where('apellidoMaterno','LIKE','%'.$search.'%')
+                        ->orderBy('apellidoMaterno', 'asc')
+                        ->paginate(15)
+                    ;
+                break;
+
+                case "email":
+                    $vacantes = DB::table('docentes')
+                        ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                        ->where('email','LIKE','%'.$search.'%')
+                        ->orderBy('email', 'asc')
+                        ->paginate(15)
+                    ;
+                break;
+
+                default:
+                    $vacantes = DB::table('docentes')
+                    ->where('nPersonal','LIKE','%'.$search.'%')
+                    ->orWhere('nombre','LIKE','%'.$search.'%')
+                    ->orWhere('apellidoPaterno','LIKE','%'.$search.'%')
+                    ->orWhere('apellidoMaterno','LIKE','%'.$search.'%')
+                    ->orWhere('email','LIKE','%'.$search.'%')
+                    ->orderBy('nPersonal','asc')
+                    ->paginate(15)
+                    ;
+            }
+
+        }
+
+        return view('docente.index', compact('docentes','search'));
     }
 
     /**
