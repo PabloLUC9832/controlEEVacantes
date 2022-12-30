@@ -11,7 +11,7 @@ class EnsureHasTeam
     {
         if (!auth()->user()->isMemberOfATeam()) {
             //return redirect()->route('teams.create');
-            return redirect('user/profile');//->route('/wel');
+            return redirect('join');//->route('/wel');
         }
         $this->ensureUserHasCurrentTeamSet();
         return $next($request);
