@@ -22,12 +22,10 @@ use App\Http\Controllers\LogUserActivityController;
     return view('welcome');
 });*/
 
-//Route::get('/', function () {
-    //(new Motivo())->importToDB();
-    //dd('done');
-    //return view('welcome');
-    //return view('dashboard');
-//});
+Route::get('join', function () {
+    return view('joinTeam');
+});
+
 
 Route::middleware([
     'auth:sanctum',
@@ -48,10 +46,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-/*
-Route::get('import',[MotivoController::class,'create'])->name('import');
-Route::post('import',[MotivoController::class,'store'])->name('import');
-*/
+
 Route::controller(VacanteController::class)->group(function (){
 
     Route::name('vacante.')->group(function (){
