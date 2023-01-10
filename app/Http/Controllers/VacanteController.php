@@ -149,7 +149,7 @@ class VacanteController extends Controller
                         ->orWhere('observaciones','LIKE','%'.$search.'%')
                         ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
                         ->orderBy('nombreMateria','asc')
-                        ->paginate(15)
+                        //->paginate(15)
                     ;
             }
 
@@ -159,8 +159,18 @@ class VacanteController extends Controller
             $vacantes = DB::table('vacantes')->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
         'observaciones','fechaRenuncia','bancoHorasDisponible')
-        ->where('numZona','=',auth()->user()->zona)->get()
-        ->orWhere('periodo','LIKE','%'.$search.'%')
+        ->where('numDependencia','=',auth()->user()->dependencia)
+        ->orWhere(function ($query) use ($search){
+            //Request $request;
+            //$search = trim($request->get('search'));
+            $query->where('numPrograma','LIKE','%'.$search.'%')
+                  ->where('numDependencia','=',auth()->user()->dependencia)
+                  ;
+
+        })
+
+        //->where('periodo','LIKE','%'.$search.'%')
+        /*
         ->orWhere('numZona','LIKE','%'.$search.'%')
         ->orWhere('numDependencia','LIKE','%'.$search.'%')
         ->orWhere('numArea','LIKE','%'.$search.'%')
@@ -178,8 +188,10 @@ class VacanteController extends Controller
         ->orWhere('fechaCierre','LIKE','%'.$search.'%')
         ->orWhere('observaciones','LIKE','%'.$search.'%')
         ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
+                */
         ->orderBy('nombreMateria','asc')
-        ->paginate(15);
+        ->paginate(15)
+            ;
 
         if(isset($radioButton)){
 
