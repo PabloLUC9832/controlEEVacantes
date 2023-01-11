@@ -52,7 +52,7 @@ class VacanteController extends Controller
         ->orWhere('fechaCierre','LIKE','%'.$search.'%')
         ->orWhere('observaciones','LIKE','%'.$search.'%')
         ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
-        ->orderBy('nombreMateria','asc')
+        ->orderBy('nombreMateria','desc')
         ->paginate(15);
 
         if(isset($radioButton)){
@@ -65,7 +65,7 @@ class VacanteController extends Controller
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('numPrograma','LIKE','%'.$search.'%')
-                        ->orderBy('numPrograma', 'asc')
+                        ->orderBy('numPrograma', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -76,7 +76,7 @@ class VacanteController extends Controller
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('nombreMateria','LIKE','%'.$search.'%')
-                        ->orderBy('nombreMateria', 'asc')
+                        ->orderBy('nombreMateria', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -87,7 +87,7 @@ class VacanteController extends Controller
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('numHoras','LIKE','%'.$search.'%')
-                        ->orderBy('numHoras', 'asc')
+                        ->orderBy('numHoras', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -98,7 +98,7 @@ class VacanteController extends Controller
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('grupo','LIKE','%'.$search.'%')
-                        ->orderBy('grupo', 'asc')
+                        ->orderBy('grupo', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -109,7 +109,7 @@ class VacanteController extends Controller
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('plan','LIKE','%'.$search.'%')
-                        ->orderBy('plan', 'asc')
+                        ->orderBy('plan', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -120,7 +120,7 @@ class VacanteController extends Controller
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('numPlaza','LIKE','%'.$search.'%')
-                        ->orderBy('numPlaza', 'asc')
+                        ->orderBy('numPlaza', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -148,48 +148,114 @@ class VacanteController extends Controller
                         ->orWhere('fechaCierre','LIKE','%'.$search.'%')
                         ->orWhere('observaciones','LIKE','%'.$search.'%')
                         ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
-                        ->orderBy('nombreMateria','asc')
-                        //->paginate(15)
+                        ->orderBy('nombreMateria','desc')
+                        ->paginate(15)
                     ;
             }
 
         }
 
         }else{
+
             $vacantes = DB::table('vacantes')->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
         'observaciones','fechaRenuncia','bancoHorasDisponible')
-        ->where('numDependencia','=',auth()->user()->dependencia)
-        ->orWhere(function ($query) use ($search){
-            //Request $request;
-            //$search = trim($request->get('search'));
+        ->where(function ($query) use ($search){
             $query->where('numPrograma','LIKE','%'.$search.'%')
-                  ->where('numDependencia','=',auth()->user()->dependencia)
-                  ;
-
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
         })
-
-        //->where('periodo','LIKE','%'.$search.'%')
-        /*
-        ->orWhere('numZona','LIKE','%'.$search.'%')
-        ->orWhere('numDependencia','LIKE','%'.$search.'%')
-        ->orWhere('numArea','LIKE','%'.$search.'%')
-        ->orWhere('numPrograma','LIKE','%'.$search.'%')
-        ->orWhere('numPlaza','LIKE','%'.$search.'%')
-        ->orWhere('numHoras','LIKE','%'.$search.'%')
-        ->orWhere('numMateria','LIKE','%'.$search.'%')
-        ->orWhere('nombreMateria','LIKE','%'.$search.'%')
-        ->orWhere('grupo','LIKE','%'.$search.'%')
-        ->orWhere('numMotivo','LIKE','%'.$search.'%')
-        ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
-        ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
-        ->orWhere('plan','LIKE','%'.$search.'%')
-        ->orWhere('fechaApertura','LIKE','%'.$search.'%')
-        ->orWhere('fechaCierre','LIKE','%'.$search.'%')
-        ->orWhere('observaciones','LIKE','%'.$search.'%')
-        ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
-                */
-        ->orderBy('nombreMateria','asc')
+        ->orWhere(function ($query) use ($search){
+            $query->where('numHoras','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('periodo','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('numZona','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('numArea','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('numPrograma','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('numPlaza','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('numHoras','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('numMateria','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('nombreMateria','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('grupo','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('numMotivo','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('tipoAsignacion','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('numPersonalDocente','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('plan','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('fechaApertura','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('fechaCierre','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('observaciones','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orWhere(function ($query) use ($search){
+            $query->where('observaciones','LIKE','%'.$search.'%')
+                ->where('fechaRenuncia','=',auth()->user()->dependencia)
+            ;
+        })
+        ->orderBy('nombreMateria','desc')
         ->paginate(15)
             ;
 
@@ -198,15 +264,19 @@ class VacanteController extends Controller
             switch ($radioButton){
 
                 case "programa":
+
                     $vacantes = DB::table('vacantes')
                         ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
-                        ->where('numZona','=',auth()->user()->zona)->get()
-                        ->orWhere('numPrograma','LIKE','%'.$search.'%')
-                        ->orderBy('numPrograma', 'asc')
+                        ->where(function ($query) use ($search){
+                            $query->where('numPrograma','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orderBy('numPrograma', 'desc')
                         ->paginate(15)
-                    ;
+                        ;
                 break;
 
                 case "experienciaEducativa":
@@ -214,9 +284,12 @@ class VacanteController extends Controller
                         ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
-                        ->orWhere('numZona','=',auth()->user()->zona)->get()
-                        ->where('nombreMateria','LIKE','%'.$search.'%')
-                        ->orderBy('nombreMateria', 'asc')
+                        ->where(function ($query) use ($search){
+                            $query->where('nombreMateria','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orderBy('nombreMateria', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -226,9 +299,12 @@ class VacanteController extends Controller
                         ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
-                        ->where('numZona','=',auth()->user()->zona)->get()
-                        ->orWhere('numHoras','LIKE','%'.$search.'%')
-                        ->orderBy('numHoras', 'asc')
+                        ->where(function ($query) use ($search){
+                            $query->where('numHoras','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orderBy('numHoras', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -238,9 +314,12 @@ class VacanteController extends Controller
                         ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
-                        ->where('numZona','=',auth()->user()->zona)->get()
-                        ->orWhere('grupo','LIKE','%'.$search.'%')
-                        ->orderBy('grupo', 'asc')
+                        ->where(function ($query) use ($search){
+                            $query->where('grupo','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orderBy('grupo', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -250,9 +329,12 @@ class VacanteController extends Controller
                         ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
-                        ->where('numZona','=',auth()->user()->zona)->get()
-                        ->orWhere('plan','LIKE','%'.$search.'%')
-                        ->orderBy('plan', 'asc')
+                        ->where(function ($query) use ($search){
+                            $query->where('plan','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orderBy('plan', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -262,9 +344,12 @@ class VacanteController extends Controller
                         ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
-                        ->where('numZona','=',auth()->user()->zona)->get()
-                        ->orWhere('numPlaza','LIKE','%'.$search.'%')
-                        ->orderBy('numPlaza', 'asc')
+                        ->where(function ($query) use ($search){
+                            $query->where('numPlaza','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orderBy('numPlaza', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -274,31 +359,109 @@ class VacanteController extends Controller
                         ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
-                        ->where('numZona','=',auth()->user()->zona)->get()
-                        ->orWhere('periodo','LIKE','%'.$search.'%')
-                        ->orWhere('numZona','LIKE','%'.$search.'%')
-                        ->orWhere('numDependencia','LIKE','%'.$search.'%')
-                        ->orWhere('numArea','LIKE','%'.$search.'%')
-                        ->orWhere('numPrograma','LIKE','%'.$search.'%')
-                        ->orWhere('numPlaza','LIKE','%'.$search.'%')
-                        ->orWhere('numHoras','LIKE','%'.$search.'%')
-                        ->orWhere('numMateria','LIKE','%'.$search.'%')
-                        ->orWhere('nombreMateria','LIKE','%'.$search.'%')
-                        ->orWhere('grupo','LIKE','%'.$search.'%')
-                        ->orWhere('numMotivo','LIKE','%'.$search.'%')
-                        ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
-                        ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
-                        ->orWhere('plan','LIKE','%'.$search.'%')
-                        ->orWhere('fechaApertura','LIKE','%'.$search.'%')
-                        ->orWhere('fechaCierre','LIKE','%'.$search.'%')
-                        ->orWhere('observaciones','LIKE','%'.$search.'%')
-                        ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
-                        ->orderBy('nombreMateria','asc')
+
+                        ->where(function ($query) use ($search){
+                            $query->where('numPrograma','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('numHoras','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('periodo','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('numZona','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('numArea','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('numPrograma','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('numPlaza','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('numHoras','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('numMateria','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('nombreMateria','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('grupo','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('numMotivo','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('tipoAsignacion','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('numPersonalDocente','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('plan','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('fechaApertura','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('fechaCierre','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('observaciones','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('observaciones','LIKE','%'.$search.'%')
+                                ->where('fechaRenuncia','=',auth()->user()->dependencia)
+                            ;
+                        })
+                        
+                        ->orderBy('nombreMateria','desc')
                         ->paginate(15)
                     ;
-            }
+                }
 
-        }
+            }
 
         }
 

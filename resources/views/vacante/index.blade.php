@@ -174,7 +174,7 @@
             @endif
             </tbody>
         </table>
-
+        {{ $vacantes->links() }}
     </div>
 
     <a title="Añadir EE Vacante" href="{{ route('vacante.create') }}"
