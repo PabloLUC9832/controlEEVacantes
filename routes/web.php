@@ -5,6 +5,7 @@ use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\VacanteController;
 use App\Http\Controllers\ZonaDependenciaController;
 use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\ExperienciaEducativaController;
 use App\Http\Controllers\LogUserActivityController;
 
 /*
@@ -92,6 +93,22 @@ Route::controller(LogUserActivityController::class)->group(function (){
     Route::name('bitacora.')->group(function (){
 
         Route::get('/bitacora',  'index') ->name('index');
+
+    });
+
+});
+
+Route::controller(ExperienciaEducativaController::class)->group(function (){
+
+    Route::name('experienciaEducativa.')->group(function (){
+
+        Route::get('/experienciaEducativa',  'index') ->name('index');
+        Route::get('/experienciaEducativa/create',  'create')->name('create');
+        Route::post('/experienciaEducativa',  'store')->name('store');
+        Route::delete('/experienciaEducativa/destroy/{id}',  'destroy')->name('destroy');
+
+        Route::get('/experienciaEducativa/edit/{id}','edit')->name('edit');
+        Route::post('/experienciaEducativa/update/{id}','update')->name('update');
 
     });
 
