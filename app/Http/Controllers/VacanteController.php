@@ -31,10 +31,11 @@ class VacanteController extends Controller
         $user = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
 
         if ($user){
-            $vacantes = DB::table('vacantes')->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+            $vacantes = DB::table('vacantes')->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
         'observaciones','fechaRenuncia','bancoHorasDisponible')
         ->where('periodo','LIKE','%'.$search.'%')
+        ->where('clavePeriodo','LIKE','%'.$search.'%')
         ->orWhere('numZona','LIKE','%'.$search.'%')
         ->orWhere('numDependencia','LIKE','%'.$search.'%')
         ->orWhere('numArea','LIKE','%'.$search.'%')
@@ -44,6 +45,7 @@ class VacanteController extends Controller
         ->orWhere('numMateria','LIKE','%'.$search.'%')
         ->orWhere('nombreMateria','LIKE','%'.$search.'%')
         ->orWhere('grupo','LIKE','%'.$search.'%')
+        ->orWhere('subGrupo','LIKE','%'.$search.'%')
         ->orWhere('numMotivo','LIKE','%'.$search.'%')
         ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
         ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
@@ -61,8 +63,8 @@ class VacanteController extends Controller
 
                 case "programa":
                     $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('numPrograma','LIKE','%'.$search.'%')
                         ->orderBy('numPrograma', 'desc')
@@ -72,8 +74,8 @@ class VacanteController extends Controller
 
                 case "experienciaEducativa":
                     $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('nombreMateria','LIKE','%'.$search.'%')
                         ->orderBy('nombreMateria', 'desc')
@@ -83,8 +85,8 @@ class VacanteController extends Controller
 
                 case "horas":
                     $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('numHoras','LIKE','%'.$search.'%')
                         ->orderBy('numHoras', 'desc')
@@ -94,8 +96,8 @@ class VacanteController extends Controller
 
                 case "grupo":
                     $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('grupo','LIKE','%'.$search.'%')
                         ->orderBy('grupo', 'desc')
@@ -105,8 +107,8 @@ class VacanteController extends Controller
 
                 case "plan":
                     $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('plan','LIKE','%'.$search.'%')
                         ->orderBy('plan', 'desc')
@@ -116,8 +118,8 @@ class VacanteController extends Controller
 
                 case "plaza":
                     $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('numPlaza','LIKE','%'.$search.'%')
                         ->orderBy('numPlaza', 'desc')
@@ -127,8 +129,8 @@ class VacanteController extends Controller
 
                 default:
                     $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where('periodo','LIKE','%'.$search.'%')
                         ->orWhere('numZona','LIKE','%'.$search.'%')
@@ -157,8 +159,8 @@ class VacanteController extends Controller
 
         }else{
 
-            $vacantes = DB::table('vacantes')->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+            $vacantes = DB::table('vacantes')->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
         'observaciones','fechaRenuncia','bancoHorasDisponible')
         ->where(function ($query) use ($search){
             $query->where('numPrograma','LIKE','%'.$search.'%')
@@ -175,6 +177,11 @@ class VacanteController extends Controller
                 ->where('numDependencia','=',auth()->user()->dependencia)
             ;
         })
+        ->orWhere(function ($query) use ($search){
+            $query->where('clavePeriodo','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })        
         ->orWhere(function ($query) use ($search){
             $query->where('numZona','LIKE','%'.$search.'%')
                 ->where('numDependencia','=',auth()->user()->dependencia)
@@ -215,6 +222,11 @@ class VacanteController extends Controller
                 ->where('numDependencia','=',auth()->user()->dependencia)
             ;
         })
+        ->orWhere(function ($query) use ($search){
+            $query->where('subGrupo','LIKE','%'.$search.'%')
+                ->where('numDependencia','=',auth()->user()->dependencia)
+            ;
+        })        
         ->orWhere(function ($query) use ($search){
             $query->where('numMotivo','LIKE','%'.$search.'%')
                 ->where('numDependencia','=',auth()->user()->dependencia)
@@ -266,8 +278,8 @@ class VacanteController extends Controller
                 case "programa":
 
                     $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where(function ($query) use ($search){
                             $query->where('numPrograma','LIKE','%'.$search.'%')
@@ -281,8 +293,8 @@ class VacanteController extends Controller
 
                 case "experienciaEducativa":
                     $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where(function ($query) use ($search){
                             $query->where('nombreMateria','LIKE','%'.$search.'%')
@@ -295,9 +307,9 @@ class VacanteController extends Controller
                 break;
 
                 case "horas":
-                    $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        $vacantes = DB::table('vacantes')
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where(function ($query) use ($search){
                             $query->where('numHoras','LIKE','%'.$search.'%')
@@ -310,7 +322,7 @@ class VacanteController extends Controller
                 break;
 
                 case "grupo":
-                    $vacantes = DB::table('vacantes')
+                        $vacantes = DB::table('vacantes')
                         ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
                         'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
@@ -325,9 +337,9 @@ class VacanteController extends Controller
                 break;
 
                 case "plan":
-                    $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        $vacantes = DB::table('vacantes')
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where(function ($query) use ($search){
                             $query->where('plan','LIKE','%'.$search.'%')
@@ -340,9 +352,9 @@ class VacanteController extends Controller
                 break;
 
                 case "plaza":
-                    $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        $vacantes = DB::table('vacantes')
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
                         ->where(function ($query) use ($search){
                             $query->where('numPlaza','LIKE','%'.$search.'%')
@@ -355,9 +367,9 @@ class VacanteController extends Controller
                 break;
 
                 default:
-                    $vacantes = DB::table('vacantes')
-                        ->select('id','periodo','numZona','numDependencia','numArea','numPrograma',
-                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                        $vacantes = DB::table('vacantes')
+                        ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                        'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                         'observaciones','fechaRenuncia','bancoHorasDisponible')
 
                         ->where(function ($query) use ($search){
@@ -375,6 +387,11 @@ class VacanteController extends Controller
                                 ->where('numDependencia','=',auth()->user()->dependencia)
                             ;
                         })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('clavePeriodo','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })                        
                         ->orWhere(function ($query) use ($search){
                             $query->where('numZona','LIKE','%'.$search.'%')
                                 ->where('numDependencia','=',auth()->user()->dependencia)
@@ -415,6 +432,11 @@ class VacanteController extends Controller
                                 ->where('numDependencia','=',auth()->user()->dependencia)
                             ;
                         })
+                        ->orWhere(function ($query) use ($search){
+                            $query->where('subGrupo','LIKE','%'.$search.'%')
+                                ->where('numDependencia','=',auth()->user()->dependencia)
+                            ;
+                        })                        
                         ->orWhere(function ($query) use ($search){
                             $query->where('numMotivo','LIKE','%'.$search.'%')
                                 ->where('numDependencia','=',auth()->user()->dependencia)
