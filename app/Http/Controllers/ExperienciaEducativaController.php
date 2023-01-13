@@ -55,8 +55,8 @@ class ExperienciaEducativaController extends Controller
                 case "horas":
                     $experienciasEducativas = DB::table('experiencia_educativas')
                     ->select('nrc','nombre','horas')
-                    ->where('apellidoPaterno','LIKE','%'.$search.'%')
-                    ->orderBy('apellidoPaterno', 'asc')
+                    ->where('horas','LIKE','%'.$search.'%')
+                    ->orderBy('horas', 'asc')
                     ->paginate(15)
                     ;
                 break;
@@ -110,7 +110,7 @@ class ExperienciaEducativaController extends Controller
         return redirect()->route('experienciaEducativa.index');
     }
 
-    
+
     /**
      * Display the specified resource.
      *

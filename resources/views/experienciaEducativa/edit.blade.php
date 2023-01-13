@@ -56,7 +56,7 @@
                                 </div>
 
                                 <div class="col-span-6">
-                                    <label for="horas" class="labelForms">Apellido paterno del docente</label>
+                                    <label for="horas" class="labelForms">Horas</label>
                                     <input type="number" name="horas" id="horas" class="inputForms"
                                            value="{{$experienciaEducativa->horas}}" required>
                                 </div>

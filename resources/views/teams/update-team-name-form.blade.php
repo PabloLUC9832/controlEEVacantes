@@ -30,13 +30,15 @@
                         type="text"
                         class="mt-1 block w-full"
                         wire:model.defer="state.name"
-                        :disabled="! Gate::check('update', $team)" />
-
+                        {{--:disabled="! Gate::check('update', $team)" />--}}
+                        />
             <x-jet-input-error for="name" class="mt-2" />
         </div>
     </x-slot>
 
-    @if (Gate::check('update', $team))
+    {{--@if (Gate::check('update', $team))--}}
+    @if ( Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin') )
+
         <x-slot name="actions">
             <x-jet-action-message class="mr-3" on="saved">
                 {{ __('Guardado.') }}
@@ -46,5 +48,9 @@
                 {{ __('Guardar') }}
             </x-jet-button>
         </x-slot>
+
     @endif
+
+
+    {{--@endif--}}
 </x-jet-form-section>

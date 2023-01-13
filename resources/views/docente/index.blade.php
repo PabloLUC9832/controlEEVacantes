@@ -19,8 +19,6 @@
     <!--Menu-->
     @livewire('navigation-menu')
 
-    <a href="{{ route('docente.export') }}" target="_blank" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 absolute  right-0 mr-2">Generar reporte</a>
-
     <form action="{{route('docente.index')}}" method="GET" value="{{$search}}">
         <div class="flex shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
 

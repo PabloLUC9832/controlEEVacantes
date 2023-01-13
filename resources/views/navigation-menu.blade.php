@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-0 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-6 sm:-my-px sm:ml-10 sm:flex">
 
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Inicio') }}
@@ -20,23 +20,23 @@
                     @if ( Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin') )
 
                         <x-jet-nav-link href="{{ route('vacante.import') }}" :active="request()->routeIs('vacante.import')">
-                            {{ __('Cargar CSV inicial') }}
+                            {{ __('Cargar CSV') }}
                         </x-jet-nav-link>
 
                         <x-jet-nav-link href="{{ route('vacante.index') }}" :active="request()->routeIs('vacante.index')">
-                            {{ __('Gestión de E.E. Vacantes') }}
+                            {{ __('E.E. Vacantes') }}
                         </x-jet-nav-link>
 
                         <x-jet-nav-link href="{{ route('docente.index') }}" :active="request()->routeIs('docente.index')">
-                            {{ __('Gestión de Docentes') }}
+                            {{ __('Docentes') }}
                         </x-jet-nav-link>
 
                         <x-jet-nav-link href="{{ route('experienciaEducativa.index') }}" :active="request()->routeIs('experienciaEducativa.index')">
-                            {{ __('Gestión de Experiencias Educativas') }}
+                            {{ __('Experiencias Educativas') }}
                         </x-jet-nav-link>
 
                         <x-jet-nav-link href="{{ route('periodo.index') }}" :active="request()->routeIs('periodo.index')">
-                            {{ __('Gestión de Periodos') }}
+                            {{ __('Periodos') }}
                         </x-jet-nav-link>
 
                         <x-jet-nav-link href="{{ route('bitacora.index') }}" :active="request()->routeIs('bitacora.index')">
@@ -46,7 +46,7 @@
                     @else
 
                         <x-jet-nav-link href="{{ route('vacante.index') }}" :active="request()->routeIs('vacante.index')">
-                            {{ __('Gestión de E.E. Vacantes') }}
+                            {{ __('E.E. Vacantes') }}
                         </x-jet-nav-link>
 
                     @endif

@@ -62,13 +62,13 @@
                                 </div>
 
                                 <div class="col-span-6">
-                                    <label for="clavePeriodo" class="labelForms">Nombre del docente</label>
+                                    <label for="clavePeriodo" class="labelForms">Clave de periodo</label>
                                     <input type="text" name="clavePeriodo" id="clavePeriodo" class="inputForms"
                                            placeholder="Ej. 202351" required>
                                 </div>
 
                                 <div class="col-span-6">
-                                    <label for="descripcion" class="labelForms">Apellido paterno del docente</label>
+                                    <label for="descripcion" class="labelForms">Descripción</label>
                                     <input type="text" name="descripcion" id="descripcion" class="inputForms"
                                            placeholder="01 AGO. 2022 AL 31 ENE. 2023" required>
                                 </div>

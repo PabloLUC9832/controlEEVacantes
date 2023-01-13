@@ -2,6 +2,7 @@
 
 namespace App\Actions\Jetstream;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Jetstream\Contracts\UpdatesTeamNames;
@@ -18,14 +19,23 @@ class UpdateTeamName implements UpdatesTeamNames
      */
     public function update($user, $team, array $input)
     {
-        Gate::forUser($user)->authorize('update', $team);
+        //Gate::forUser($user)->authorize('update', $team);
 
-        Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-        ])->validateWithBag('updateTeamName');
+        $user = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
 
-        $team->forceFill([
-            'name' => $input['name'],
-        ])->save();
+        if ($user) {
+
+
+
+            Validator::make($input, [
+                'name' => ['required', 'string', 'max:255'],
+            ])->validateWithBag('updateTeamName');
+
+            $team->forceFill([
+                'name' => $input['name'],
+            ])->save();
+
+        }
+
     }
 }
