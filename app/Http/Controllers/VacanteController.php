@@ -8,6 +8,7 @@ use App\Models\Docente;
 use App\Models\Programa;
 use App\Models\Vacante;
 use App\Models\Motivo;
+use App\Models\ExperienciaEducativa;
 use App\Http\Requests\StoreVacanteRequest;
 use App\Http\Requests\UpdateVacanteRequest;
 use App\Models\Zona;
@@ -500,12 +501,14 @@ class VacanteController extends Controller
         $listaProgramas = Programa::all();
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
+        $listaExperienciasEducativas = ExperienciaEducativa::all();
         $user = auth()->user();
 
         return view('vacante.create',['programas' => $listaProgramas,
                                            'user' => $user,
                                            'motivos' => $listaMotivos,
                                            'docentes' => $listaDocentes,
+                                           'experienciasEducativas' => $listaExperienciasEducativas,
                                           ]);
     }
 
@@ -519,6 +522,7 @@ class VacanteController extends Controller
     {
         $vacante = new Vacante();
         $vacante->periodo=$request->periodo;
+        $vacante->clavePeriodo=$request->clavePeriodo;
         $vacante->numZona=$request->numZona;
         $vacante->numDependencia=$request->numDependencia;
         //$vacante->numArea=$request->numArea;
@@ -529,6 +533,7 @@ class VacanteController extends Controller
         $vacante->numMateria=$request->numMateria;
         $vacante->nombreMateria=$request->nombreMateria;
         $vacante->grupo=$request->grupo;
+        $vacante->subGrupo=$request->subGrupo;
         $vacante->numMotivo=$request->numMotivo;
         $vacante->tipoAsignacion=$request->tipoAsignacion;
         $vacante->numPersonalDocente=$request->numPersonalDocente;
@@ -542,8 +547,8 @@ class VacanteController extends Controller
         $vacante->save();
 
         $user = Auth::user();
-        $data = $request->periodo .  " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
-                . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo
+        $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
+                . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
                 . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
                 . " " . $request->observaciones . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia
                 . " " . $request->bancoHorasDisponible ;
@@ -580,12 +585,14 @@ class VacanteController extends Controller
         $listaProgramas = Programa::all();
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
+        $listaExperienciasEducativas = ExperienciaEducativa::all();
         $user = auth()->user();
 
         return view('vacante.edit', compact('vacante'),['programas' => $listaProgramas,
                                                                       'user' => $user,
                                                                       'motivos' => $listaMotivos,
                                                                       'docentes' => $listaDocentes,
+                                                                      'experienciasEducativas' => $listaExperienciasEducativas,
                                                                      ]);
     }
 
@@ -598,12 +605,55 @@ class VacanteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $vacante = Vacante::findOrFail($id);
-        $vacante->update($request->all());
+        //$vacante = Vacante::findOrFail($id);
+        //$vacante->update($request->all());
+        /*
+        $pizza  = "piece1 piece2 piece3 piece4 piece5 piece6";
+        $pieces = explode(" ", $pizza);
+        echo $pieces[0]; // piece1
+        echo $pieces[1]; // piece2       
+        */
+        $materia = $request->numMateria;
+        $materiaCompleta = explode("-",$materia);
+        //dd($materiaCompleta);
+        $ncr = $materiaCompleta[0];
+        $nombreEE = $materiaCompleta[1];
+        
+
+        $vacante = new Vacante();
+        $vacante=Vacante::findOrFail($id);
+        $vacante->periodo=$request->periodo;
+        $vacante->clavePeriodo=$request->clavePeriodo;
+        $vacante->numZona=$request->numZona;
+        $vacante->numDependencia=$request->numDependencia;
+        //$vacante->numArea=$request->numArea;
+        $vacante->numArea=3;
+        $vacante->numPrograma=$request->numPrograma;
+        $vacante->numPlaza=$request->numPlaza;
+        $vacante->numHoras=$request->numHoras;
+
+        /*$vacante->numMateria=$request->numMateria;
+        $vacante->nombreMateria=$request->nombreMateria;*/
+        $vacante->numMateria= $materiaCompleta[0];
+        $vacante->nombreMateria=$materiaCompleta[1];
+        
+        $vacante->grupo=$request->grupo;
+        $vacante->subGrupo=$request->subGrupo;
+        $vacante->numMotivo=$request->numMotivo;
+        $vacante->tipoAsignacion=$request->tipoAsignacion;
+        $vacante->numPersonalDocente=$request->numPersonalDocente;
+        $vacante->plan=$request->plan;
+        $vacante->observaciones=$request->observaciones;
+        $vacante->fechaApertura=$request->fechaApertura;
+        $vacante->fechaCierre=$request->fechaCierre;
+        $vacante->fechaRenuncia=$request->fechaRenuncia;
+        $vacante->bancoHorasDisponible=$request->bancoHorasDisponible;
+
+        $vacante->save();
 
         $user = Auth::user();
-        $data = $request->periodo .  " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
-                . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo
+        $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
+                . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
                 . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
                 . " " . $request->observaciones . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia
                 . " " . $request->bancoHorasDisponible ;

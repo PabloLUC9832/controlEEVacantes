@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             DependenciaSeeder::class,
             ProgramaSeeder::class,
             ZonaDependenciaSeeder::class,
+            PeriodoSeeder::class,
         ]);
 
     }

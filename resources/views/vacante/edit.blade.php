@@ -59,6 +59,12 @@
                                 </div>
 
                                 <div class="col-span-6">
+                                    <label for="clavePeriodo" class="labelForms">Clave Periodo</label>
+                                    <input type="text" name="clavePeriodo" id="clavePeriodo" class="inputForms"
+                                           required value="{{$vacante->clavePeriodo}}">
+                                </div>
+
+                                <div class="col-span-6">
                                     <label for="numZona" class="labelForms">Número de zona</label>
                                     <input type="number" name="numZona" id="numZona" class="inputForms"
                                            value="{{$user->zona}}" readonly="readonly">
@@ -101,22 +107,42 @@
                                 </div>
 
                                 <div class="col-span-6">
-                                    <label for="numMateria" class="labelForms">Número de materia</label>
-                                    <input type="number" name="numMateria" id="numMateria" class="inputForms"
-                                           required value="{{$vacante->numMateria}}">
+                                    <label for="numMateria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">NRC</label>
+                                    <select  id="numMateria" name="numMateria" class="estiloSelect">
+                                        <option value="{{$vacante->numMateria}}-{{$vacante->nombreMateria}}">{{$vacante->numMateria}} {{$vacante->nombreMateria}}</option>                                        
+                                        @foreach ($experienciasEducativas as $data)
+                                            <option value="{{$data->nrc}}-{{$data->nombre}}">
+                                                {{$data->nrc}} {{$data->nombre}}
+                                            </option>
+                                        @endforeach                                        
+                                    </select>
+                                    
                                 </div>
-
+                                {{--
                                 <div class="col-span-6">
-                                    <label for="nombreMateria" class="labelForms">Nombre de la materia</label>
-                                    <input type="text" name="nombreMateria" id="nombreMateria" class="inputForms"
-                                           required value="{{$vacante->nombreMateria}}">
+                                    <label for="nombreMateria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Nombre de la Experiencia Educativa</label>
+                                    <select  id="nombreMateria" name="nombreMateria" class="estiloSelect">
+                                        <option value="{{$vacante->nombreMateria}}">{{$vacante->nombreMateria}}</option>
+                                        @foreach ($experienciasEducativas as $data)
+                                            <option value="{{$data->nombre}}">
+                                                {{$data->nombre}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
-
+                                --}}
                                 <div class="col-span-6">
                                     <label for="grupo" class="labelForms">Grupo</label>
                                     <input type="text" name="grupo" id="grupo" class="inputForms"
                                            required
                                            value="{{$vacante->grupo}}">
+                                </div>
+
+                                <div class="col-span-6">
+                                    <label for="subGrupo" class="labelForms">Sub Grupo</label>
+                                    <input type="text" name="subGrupo" id="subGrupo" class="inputForms"
+                                           required
+                                           value="{{$vacante->subGrupo}}">
                                 </div>
 
                                 <div class="col-span-6">
