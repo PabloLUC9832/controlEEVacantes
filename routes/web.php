@@ -69,6 +69,7 @@ Route::controller(VacanteController::class)->group(function (){
 });
 
 Route::post('api/fetch-dependencias', [ZonaDependenciaController::class, 'fetchDependencia']);
+Route::post('api/fetch-nombreExperienciaEducativa', [VacanteController::class, 'fetchNombreExperienciaEducativa']);
 
 Route::controller(DocenteController::class)->group(function (){
 
@@ -130,4 +131,3 @@ Route::controller(PeriodoController::class)->group(function (){
     });
 
 });
-

@@ -59,6 +59,12 @@
                                     </div>
 
                                     <div class="col-span-6">
+                                        <label for="clavePeriodo" class="labelForms">Clave Periodo</label>
+                                        <input type="text" name="clavePeriodo" id="clavePeriodo" class="inputForms"
+                                               placeholder="202351" required>
+                                    </div>
+
+                                    <div class="col-span-6">
                                         <label for="numZona" class="labelForms">Número de zona</label>
                                         <input type="number" name="numZona" id="numZona" class="inputForms"
                                                  value="{{$user->zona}}" readonly="readonly">
@@ -100,22 +106,19 @@
                                                placeholder="Ej. 6" required>
                                     </div>
 
-                                    <div class="col-span-6">
-                                        <label for="numMateria" class="labelForms">Número de materia</label>
-                                        <input type="number" name="numMateria" id="numMateria" class="inputForms"
-                                               placeholder="Ej. 28375" required>
-                                    </div>
-
-                                    <div class="col-span-6">
-                                        <label for="nombreMateria" class="labelForms">Nombre de la materia</label>
-                                        <input type="text" name="nombreMateria" id="nombreMateria" class="inputForms"
-                                               placeholder="Ej. MET. ESTAD. PARA LA INVES" required>
-                                    </div>
+                                    @include('vacante.selectNrcNombreCreate')
 
                                     <div class="col-span-6">
                                         <label for="grupo" class="labelForms">Grupo</label>
                                         <input type="text" name="grupo" id="grupo" class="inputForms"
                                                placeholder="Ej. SEC1"
+                                               required>
+                                    </div>
+
+                                    <div class="col-span-6">
+                                        <label for="subGrupo" class="labelForms">Sub Grupo</label>
+                                        <input type="text" name="subGrupo" id="subGrupo" class="inputForms"
+                                               placeholder="Ej. 19"
                                                required>
                                     </div>
 
