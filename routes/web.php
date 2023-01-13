@@ -113,3 +113,5 @@ Route::controller(ExperienciaEducativaController::class)->group(function (){
     });
 
 });
+
+Route::post('api/fetch-nombreExperienciaEducativa', [VacanteController::class, 'fetchNombreExperienciaEducativa']);
