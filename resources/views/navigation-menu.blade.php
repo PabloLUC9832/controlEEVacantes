@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-3 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-0 sm:-my-px sm:ml-10 sm:flex">
 
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Inicio') }}
@@ -33,6 +33,10 @@
 
                         <x-jet-nav-link href="{{ route('experienciaEducativa.index') }}" :active="request()->routeIs('experienciaEducativa.index')">
                             {{ __('Gestión de Experiencias Educativas') }}
+                        </x-jet-nav-link>
+
+                        <x-jet-nav-link href="{{ route('periodo.index') }}" :active="request()->routeIs('periodo.index')">
+                            {{ __('Gestión de Periodos') }}
                         </x-jet-nav-link>
 
                         <x-jet-nav-link href="{{ route('bitacora.index') }}" :active="request()->routeIs('bitacora.index')">

@@ -7,6 +7,7 @@ use App\Http\Controllers\ZonaDependenciaController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\ExperienciaEducativaController;
 use App\Http\Controllers\LogUserActivityController;
+use App\Http\Controllers\PeriodoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,3 +114,20 @@ Route::controller(ExperienciaEducativaController::class)->group(function (){
     });
 
 });
+
+Route::controller(PeriodoController::class)->group(function (){
+
+    Route::name('periodo.')->group(function (){
+
+        Route::get('/periodo',  'index') ->name('index');
+        Route::get('/periodo/create',  'create')->name('create');
+        Route::post('/periodo',  'store')->name('store');
+        Route::delete('/periodo/destroy/{id}',  'destroy')->name('destroy');
+
+        Route::get('/periodo/edit/{id}','edit')->name('edit');
+        Route::post('/periodo/update/{id}','update')->name('update');
+
+    });
+
+});
+
