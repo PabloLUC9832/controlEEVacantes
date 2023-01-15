@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('vacantes', function (Blueprint $table) {
             $table->id();
             $table->text('periodo');
+            $table->text('clavePeriodo');
             $table->integer('numZona');
             $table->integer('numDependencia');
             $table->integer('numArea');
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->integer('numMateria');
             $table->text('nombreMateria');
             $table->text('grupo');
+            $table->text('subGrupo');
             $table->integer('numMotivo');
             $table->text('tipoAsignacion')->nullable();
             $table->integer('numPersonalDocente')->nullable();

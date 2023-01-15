@@ -85,6 +85,7 @@ class DocenteController extends Controller
 
                 default:
                     $vacantes = DB::table('docentes')
+                    ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
                     ->where('nPersonal','LIKE','%'.$search.'%')
                     ->orWhere('nombre','LIKE','%'.$search.'%')
                     ->orWhere('apellidoPaterno','LIKE','%'.$search.'%')

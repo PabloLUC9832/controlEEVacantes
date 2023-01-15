@@ -5,7 +5,9 @@ use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\VacanteController;
 use App\Http\Controllers\ZonaDependenciaController;
 use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\ExperienciaEducativaController;
 use App\Http\Controllers\LogUserActivityController;
+use App\Http\Controllers\PeriodoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +69,7 @@ Route::controller(VacanteController::class)->group(function (){
 });
 
 Route::post('api/fetch-dependencias', [ZonaDependenciaController::class, 'fetchDependencia']);
+Route::post('api/fetch-nombreExperienciaEducativa', [VacanteController::class, 'fetchNombreExperienciaEducativa']);
 
 Route::controller(DocenteController::class)->group(function (){
 
@@ -92,6 +95,38 @@ Route::controller(LogUserActivityController::class)->group(function (){
     Route::name('bitacora.')->group(function (){
 
         Route::get('/bitacora',  'index') ->name('index');
+
+    });
+
+});
+
+Route::controller(ExperienciaEducativaController::class)->group(function (){
+
+    Route::name('experienciaEducativa.')->group(function (){
+
+        Route::get('/experienciaEducativa',  'index') ->name('index');
+        Route::get('/experienciaEducativa/create',  'create')->name('create');
+        Route::post('/experienciaEducativa',  'store')->name('store');
+        Route::delete('/experienciaEducativa/destroy/{id}',  'destroy')->name('destroy');
+
+        Route::get('/experienciaEducativa/edit/{id}','edit')->name('edit');
+        Route::post('/experienciaEducativa/update/{id}','update')->name('update');
+
+    });
+
+});
+
+Route::controller(PeriodoController::class)->group(function (){
+
+    Route::name('periodo.')->group(function (){
+
+        Route::get('/periodo',  'index') ->name('index');
+        Route::get('/periodo/create',  'create')->name('create');
+        Route::post('/periodo',  'store')->name('store');
+        Route::delete('/periodo/destroy/{id}',  'destroy')->name('destroy');
+
+        Route::get('/periodo/edit/{id}','edit')->name('edit');
+        Route::post('/periodo/update/{id}','update')->name('update');
 
     });
 

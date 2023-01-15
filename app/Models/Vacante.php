@@ -13,6 +13,7 @@ class Vacante extends Model{
     protected $fillable = [
         'id',
         'periodo',
+        'clavePeriodo',
         'numZona',
         'numDependencia',
         'numArea',
@@ -22,6 +23,7 @@ class Vacante extends Model{
         'numMateria',
         'nombreMateria',
         'grupo',
+        'subGrupo',
         'numMotivo',
         'tipoAsignacion',
         'numPersonalDocente',

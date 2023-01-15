@@ -24,6 +24,7 @@ class LogUserActivityController extends Controller
             ->orWhere('email','LIKE','%'.$search.'%')
             ->orWhere('data','LIKE','%'.$search.'%')
             ->orWhere('created_at','LIKE','%'.$search.'%')
+            ->orderBy('created_at','desc')
             ->paginate(10)
             ;
 
@@ -35,7 +36,7 @@ class LogUserActivityController extends Controller
                     $bitacora = DB::table('log_user_activity')
                         ->select('name', 'email','action','data','created_at')
                         ->where('created_at','LIKE','%'.$search.'%')
-                        ->orderBy('created_at', 'asc')
+                        ->orderBy('created_at', 'desc')
                         ->paginate(15)
                     ;
                 break;
@@ -83,6 +84,7 @@ class LogUserActivityController extends Controller
                         ->orWhere('email','LIKE','%'.$search.'%')
                         ->orWhere('data','LIKE','%'.$search.'%')
                         ->orWhere('created_at','LIKE','%'.$search.'%')
+                        ->orderBy('created_at','desc')
                         ->paginate(15)
                     ;
 

@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lista de Docentes</title>
+    <title>Lista de Experiencias Educativas</title>
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
     <!-- Scripts -->
@@ -19,7 +19,7 @@
     <!--Menu-->
     @livewire('navigation-menu')
 
-    <form action="{{route('docente.index')}}" method="GET" value="{{$search}}">
+    <form action="{{route('experienciaEducativa.index')}}" method="GET" value="{{$search}}">
         <div class="flex shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
 
             <button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Filtrar <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
@@ -30,8 +30,8 @@
 
                     <li>
                         <div class="flex items-center">
-                            <input id="numPersonal" type="radio" value="numPersonal" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="numPersonal" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">N° de Personal</label>
+                            <input id="nrc" type="radio" value="nrc" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="nrc" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">NRC</label>
                         </div>
                     </li>
 
@@ -44,24 +44,11 @@
 
                     <li>
                         <div class="flex items-center">
-                            <input id="apellidoPaterno" type="radio" value="apellidoPaterno" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="apellidoPaterno" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Apellido Paterno</label>
+                            <input id="horas" type="radio" value="horas" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="horas" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Horas</label>
                         </div>
                     </li>
 
-                    <li>
-                        <div class="flex items-center">
-                            <input id="apellidoMaterno" type="radio" value="apellidoMaterno" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="apellidoMaterno" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Apellido Materno</label>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="flex items-center">
-                            <input id="email" type="radio" value="email" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="email" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-                        </div>
-                    </li>
                 </ul>
             </div>
 
@@ -81,19 +68,13 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="py-3 px-6">
-                    N° de personal
+                    NRC
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Nombre
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Apellido Paterno
-                </th>
-                <th scope="col" class="py-3 px-6">
-                    Apellido Materno
-                </th>
-                <th scope="col" class="py-3 px-6">
-                    Email
+                    Horas
                 </th>
                 <th scope="col" class="py-3 px-6">
                     <span class="sr-only">Editar</span>
@@ -105,59 +86,48 @@
             </thead>
             <tbody>
 
-            @if(count($docentes)<=0)
+            @if(count($experienciasEducativas)<=0)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="py-4 px-6">
-                        No se han encontrado docentes
+                        No se han encontrado Experiencias Educativas
                     </td>
                 </tr>
             @else
-                @foreach($docentes as $docente)
+                @foreach($experienciasEducativas as $experienciaEducativa)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$docente->nPersonal}}
+                            {{$experienciaEducativa->nrc}}
                         </th>
 
                         <td class="py-4 px-6">
-                            {{$docente->nombre}}
+                            {{$experienciaEducativa->nombre}}
                         </td>
 
                         <td class="py-4 px-6">
-                            {{$docente->apellidoPaterno}}
-                        </td>
-
-                        <td class="py-4 px-6">
-                            {{$docente->apellidoMaterno}}
-                        </td>
-
-                        <td class="py-4 px-6">
-                            {{$docente->email}}
+                            {{$experienciaEducativa->horas}}
                         </td>
 
                         <td class="py-4 px-6 text-right">
-                            <a href="{{route('docente.edit',$docente->nPersonal)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
+                            <a href="{{route('experienciaEducativa.edit',$experienciaEducativa->nrc)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
                         </td>
 
                         <td class="py-4 px-6 text-right">
                             <button type="button"
                                     class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                    data-modal-toggle="delete-modal{{$docente->nPersonal}}">Eliminar</button>
+                                    data-modal-toggle="delete-modal{{$experienciaEducativa->nrc}}">Eliminar</button>
                         </td>
 
                     </tr>
-                    @include('docente.modalConfirmacionEliminar')
+                    @include('experienciaEducativa.modalConfirmacionEliminar')
                 @endforeach
             @endif
             </tbody>
         </table>
     </div>
 
-    <a title="Añadir Docente" href="{{ route('docente.create') }}"
-       class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">+ <br> Añadir Docente</a>
-
-    <a title="Generar Reporte" target="_blank" href="{{ route('docente.export') }}"
-       class="btn fixed z-90 bottom-32 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">Generar Reporte</a>
+    <a title="Añadir E.E" href="{{ route('experienciaEducativa.create') }}"
+       class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">+ <br> Añadir E.E</a>
 
 </div>
 

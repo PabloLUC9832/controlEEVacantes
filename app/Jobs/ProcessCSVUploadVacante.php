@@ -40,16 +40,18 @@ class ProcessCSVUploadVacante implements ShouldQueue
             Vacante::updateOrCreate(
                 [
                     'periodo' => $row[0],
-                    'numZona' => $row[1],
-                    'numDependencia' => $row[2],
-                    'numArea' => $row[3],
-                    'numPrograma' => $row[4],
-                    'numPlaza' => $row[5],
-                    'numHoras' => $row[6],
-                    'numMateria' => $row[7],
-                    'nombreMateria' => $row[8],
-                    'grupo' => $row[9],
-                    'numMotivo' => $row[10]
+                    'clavePeriodo' => $row[1],
+                    'numZona' => $row[2],
+                    'numDependencia' => $row[3],
+                    'numArea' => $row[4],
+                    'numPrograma' => $row[5],
+                    'numPlaza' => $row[6],
+                    'numHoras' => $row[7],
+                    'numMateria' => $row[8],
+                    'nombreMateria' => $row[9],
+                    'grupo' => $row[10],
+                    'subGrupo' => $row[11],
+                    'numMotivo' => $row[12]
                 ], [
                     /*'tipoAsignacion' => $row[11],
                     'numPersonalDocente' => $row[12],

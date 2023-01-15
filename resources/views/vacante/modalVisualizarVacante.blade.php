@@ -15,6 +15,9 @@
                         <label class="labelForms">Periodo: {{$vacante->periodo}}</label>   
                     </div>
                     <div class="col-span-6">
+                        <label class="labelForms">Clave Periodo: {{$vacante->clavePeriodo}}</label>   
+                    </div>
+                    <div class="col-span-6">
                         <label class="labelForms">Número de zona: {{$vacante->numZona}}</label>   
                     </div>
                     <div class="col-span-6">
@@ -37,6 +40,9 @@
                     </div>
                     <div class="col-span-6">
                         <label class="labelForms">Grupo: {{$vacante->grupo}}</label>   
+                    </div>
+                    <div class="col-span-6">
+                        <label class="labelForms">Sub Grupo: {{$vacante->subGrupo}}</label>   
                     </div>
                     <div class="col-span-6">
                         <label class="labelForms">Motivo: {{$vacante->numMotivo}}</label>   
