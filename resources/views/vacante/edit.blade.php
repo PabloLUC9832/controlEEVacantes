@@ -52,18 +52,11 @@
                         <div class="bg-white px-4 py-5 sm:p-6">
                             <div class="grid grid-cols-6 gap-6">
                                 @csrf
-                                {{--
-                                <div class="col-span-6">
-                                    <label for="periodo" class="labelForms">Periodo</label>
-                                    <input type="text" name="periodo" id="periodo" class="inputForms"
-                                           required value="{{$vacante->periodo}}">
-                                </div>
-                                --}}
 
                                 <div class="col-span-6">
                                     <label for="periodo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Periodo</label>
                                     <select  id="periodo" name="periodo" class="estiloSelect">
-                                        <option value="">{{$vacante->periodo}} {{$vacante->clavePeriodo}}</option>
+                                        <option value="{{$vacante->periodo}}-{{$vacante->clavePeriodo}}">{{$vacante->periodo}}-{{$vacante->clavePeriodo}}</option>
                                         @foreach ($periodos as $data)
                                             <option value="{{$data->nPeriodo}}-{{$data->clavePeriodo}}">
                                                 {{$data->nPeriodo}}-{{$data->clavePeriodo}}-{{$data->descripcion}}
