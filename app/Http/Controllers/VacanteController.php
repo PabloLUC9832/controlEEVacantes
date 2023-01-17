@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Area;
 use App\Models\Dependencia;
 use App\Models\Docente;
+use App\Models\Periodo;
 use App\Models\Programa;
 use App\Models\Vacante;
 use App\Models\Motivo;
@@ -182,7 +183,7 @@ class VacanteController extends Controller
             $query->where('clavePeriodo','LIKE','%'.$search.'%')
                 ->where('numDependencia','=',auth()->user()->dependencia)
             ;
-        })        
+        })
         ->orWhere(function ($query) use ($search){
             $query->where('numZona','LIKE','%'.$search.'%')
                 ->where('numDependencia','=',auth()->user()->dependencia)
@@ -227,7 +228,7 @@ class VacanteController extends Controller
             $query->where('subGrupo','LIKE','%'.$search.'%')
                 ->where('numDependencia','=',auth()->user()->dependencia)
             ;
-        })        
+        })
         ->orWhere(function ($query) use ($search){
             $query->where('numMotivo','LIKE','%'.$search.'%')
                 ->where('numDependencia','=',auth()->user()->dependencia)
@@ -392,7 +393,7 @@ class VacanteController extends Controller
                             $query->where('clavePeriodo','LIKE','%'.$search.'%')
                                 ->where('numDependencia','=',auth()->user()->dependencia)
                             ;
-                        })                        
+                        })
                         ->orWhere(function ($query) use ($search){
                             $query->where('numZona','LIKE','%'.$search.'%')
                                 ->where('numDependencia','=',auth()->user()->dependencia)
@@ -437,7 +438,7 @@ class VacanteController extends Controller
                             $query->where('subGrupo','LIKE','%'.$search.'%')
                                 ->where('numDependencia','=',auth()->user()->dependencia)
                             ;
-                        })                        
+                        })
                         ->orWhere(function ($query) use ($search){
                             $query->where('numMotivo','LIKE','%'.$search.'%')
                                 ->where('numDependencia','=',auth()->user()->dependencia)
@@ -478,7 +479,7 @@ class VacanteController extends Controller
                                 ->where('fechaRenuncia','=',auth()->user()->dependencia)
                             ;
                         })
-                        
+
                         ->orderBy('nombreMateria','desc')
                         ->paginate(15)
                     ;
@@ -502,6 +503,8 @@ class VacanteController extends Controller
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
+        $listaPeriodos = Periodo::all();
+
         $user = auth()->user();
 
         return view('vacante.create',['programas' => $listaProgramas,
@@ -509,6 +512,7 @@ class VacanteController extends Controller
                                            'motivos' => $listaMotivos,
                                            'docentes' => $listaDocentes,
                                            'experienciasEducativas' => $listaExperienciasEducativas,
+                                           'periodos' => $listaPeriodos,
                                           ]);
     }
 
@@ -520,9 +524,18 @@ class VacanteController extends Controller
      */
     public function store(StoreVacanteRequest $request)
     {
+
+        $periodoCompleto = $request->periodo;
+        $periodoPartes = explode("-",$periodoCompleto);
+
         $vacante = new Vacante();
+        /*
         $vacante->periodo=$request->periodo;
         $vacante->clavePeriodo=$request->clavePeriodo;
+        */
+        $vacante->periodo=$periodoPartes[0];
+        $vacante->clavePeriodo=$periodoPartes[1];
+
         $vacante->numZona=$request->numZona;
         $vacante->numDependencia=$request->numDependencia;
         //$vacante->numArea=$request->numArea;
@@ -586,6 +599,8 @@ class VacanteController extends Controller
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
+        $listaPeriodos = Periodo::all();
+
         $user = auth()->user();
 
         return view('vacante.edit', compact('vacante'),['programas' => $listaProgramas,
@@ -593,6 +608,7 @@ class VacanteController extends Controller
                                                                       'motivos' => $listaMotivos,
                                                                       'docentes' => $listaDocentes,
                                                                       'experienciasEducativas' => $listaExperienciasEducativas,
+                                                                      'periodos' => $listaPeriodos,
                                                                      ]);
     }
 
@@ -606,8 +622,64 @@ class VacanteController extends Controller
     public function update(Request $request, $id)
     {
         $vacante = Vacante::findOrFail($id);
-        $vacante->update($request->all());
+        //$vacante->update($request->all());
         //dd($request);
+
+        $periodoCompleto = $request->periodo;
+        $periodoPartes = explode("-",$periodoCompleto);
+
+        $periodo=$periodoPartes[0];
+        $clavePeriodo=$periodoPartes[1];
+
+        $numZona=$request->numZona;
+        $numDependencia=$request->numDependencia;
+
+        $numArea=3;
+        $numPrograma=$request->numPrograma;
+        $numPlaza=$request->numPlaza;
+        $numHoras=$request->numHoras;
+        $numMateria=$request->numMateria;
+        $nombreMateria=$request->nombreMateria;
+        $grupo=$request->grupo;
+        $subGrupo=$request->subGrupo;
+        $numMotivo=$request->numMotivo;
+        $tipoAsignacion=$request->tipoAsignacion;
+        $numPersonalDocente=$request->numPersonalDocente;
+        $plan=$request->plan;
+        $observaciones=$request->observaciones;
+        $fechaApertura=$request->fechaApertura;
+        $fechaCierre=$request->fechaCierre;
+        $fechaRenuncia=$request->fechaRenuncia;
+        $bancoHorasDisponible=$request->bancoHorasDisponible;
+
+
+
+        $vacante->update([
+            'periodo' => $periodo ,
+            'clavePeriodo' => $clavePeriodo ,
+            'numZona' => $numZona ,
+            'numDependencia' => $numDependencia ,
+            'numArea' => 3 ,
+            'numPrograma' => $numPrograma ,
+            'numPlaza' => $numPlaza ,
+            'numHoras' => $numHoras ,
+            'numMateria' => $numMateria ,
+            'nombreMateria' => $nombreMateria ,
+            'grupo' => $grupo ,
+            'subGrupo' => $subGrupo ,
+            'numMotivo' => $numMotivo ,
+            'tipoAsignacion' => $tipoAsignacion ,
+            'numPersonalDocente' => $numPersonalDocente ,
+            'plan' => $plan ,
+            'observaciones' => $observaciones ,
+            'fechaApertura' => $fechaApertura ,
+            'fechaCierre' => $fechaCierre ,
+            'fechaRenuncia' => $fechaRenuncia ,
+            'bancoHorasDisponible' => $bancoHorasDisponible ,
+        ]);
+
+
+
 
         $user = Auth::user();
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
