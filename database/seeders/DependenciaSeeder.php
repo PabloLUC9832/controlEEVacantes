@@ -16,6 +16,11 @@ class DependenciaSeeder extends Seeder
     public function run()
     {
         /* --- DEPENDENCIAS XALAPA --- */
+        $dependencia = new Dependencia();
+        $dependencia->clave=01;
+        $dependencia->nombre="DIRECCIÓN GENERAL DEL ÁREA ACADÉMICA ECONÓMICO ADMINISTRATIVA";
+        $dependencia->save();
+
         $dependencia1 = new Dependencia();
         $dependencia1->clave=11301;
         $dependencia1->nombre="FACULTAD DE CONTADURÍA Y ADMINISTRACIÓN";
