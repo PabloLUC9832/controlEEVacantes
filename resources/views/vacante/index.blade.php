@@ -21,7 +21,6 @@
 
     <form action="{{route('vacante.index')}}" method="GET" value="{{$search}}">
         <div class="flex shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
-
             <button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Filtrar <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
 
             <!-- Dropdown menu -->
@@ -30,45 +29,25 @@
 
                     <li>
                         <div class="flex items-center">
-                            <input id="programa" type="radio" value="programa" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="programa" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Programa</label>
+                            <input id="todas" type="radio" value="todas" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="todas" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Todas</label>
                         </div>
                     </li>
 
                     <li>
                         <div class="flex items-center">
-                            <input id="experienciaEducativa" type="radio" value="experienciaEducativa" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="experienciaEducativa" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Experiencia Educativa</label>
+                            <input id="vacante" type="radio" value="vacante" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="vacante" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vacantes</label>
                         </div>
                     </li>
 
                     <li>
                         <div class="flex items-center">
-                            <input id="horas" type="radio" value="horas" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="horas" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Horas</label>
+                            <input id="noVacante" type="radio" value="noVacante" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="noVacante" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No Vacantes</label>
                         </div>
                     </li>
 
-                    <li>
-                        <div class="flex items-center">
-                            <input id="grupo" type="radio" value="grupo" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="grupo" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Grupo</label>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="flex items-center">
-                            <input id="plan" type="radio" value="plan" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="plan" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Plan</label>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="flex items-center">
-                            <input id="plaza" type="radio" value="plaza" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="plaza" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Plaza</label>
-                        </div>
-                    </li>
                 </ul>
             </div>
 
