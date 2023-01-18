@@ -9,6 +9,9 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
     <!-- Scripts -->
+    <!-- <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite('node_modules/flowbite/dist/flowbite.js')
     @livewireStyles
@@ -19,7 +22,7 @@
     <!--Menu-->
     @livewire('navigation-menu')
 
-    <form action="{{route('vacante.index')}}" method="GET" value="{{$search}}">
+    <form action="{{route('vacante.index')}}" method="GET" value="{{$search,$radioButton}}">
         <div class="flex shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
             <button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Filtrar <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
 
@@ -29,21 +32,23 @@
 
                     <li>
                         <div class="flex items-center">
-                            <input id="todas" type="radio" value="todas" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="todas" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Todas</label>
+
+                            <input id="toda" type="radio" value="toda" name="tipoV" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="toda" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Todas</label>
+
                         </div>
                     </li>
 
                     <li>
                         <div class="flex items-center">
-                            <input id="vacante" type="radio" value="vacante" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <input id="vacante" type="radio" value="vacante" name="tipoV" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                             <label for="vacante" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vacantes</label>
                         </div>
                     </li>
 
                     <li>
                         <div class="flex items-center">
-                            <input id="noVacante" type="radio" value="noVacante" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <input id="noVacante" type="radio" value="noVacante" name="tipoV" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                             <label for="noVacante" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No Vacantes</label>
                         </div>
                     </li>
@@ -160,6 +165,17 @@
             class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">+ <br> Añadir EE Vacante</a>
 
 </div>
+
+
+<script type='text/javascript'>
+
+    $(document).ready(function() {
+        $('input[name=tipoV]').change(function(){
+            $('form').submit();
+        });
+    });
+
+</script>
 
 </body>
 </html>

@@ -27,35 +27,124 @@ class VacanteController extends Controller
      */
     public function index(Request $request)
     {
+        //https://stackoverflow.com/questions/18564205/html-submit-form-on-radio-button-check
         $search = trim($request->get('search'));
-        $radioButton = $request->get('tipo');
-        $type = $request->get('type');
+        $radioButton = $request->get('tipoV');
 
         $user = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
 
         if ($user){
 
-            if(isset($type)){
-                //https://laravel.com/docs/9.x/queries
-                switch ($type){
+            $vacantes = DB::table('vacantes')->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                'observaciones','fechaRenuncia','bancoHorasDisponible')
+                ->where('periodo','LIKE','%'.$search.'%')
+                ->where('clavePeriodo','LIKE','%'.$search.'%')
+                ->orWhere('numZona','LIKE','%'.$search.'%')
+                ->orWhere('numDependencia','LIKE','%'.$search.'%')
+                ->orWhere('numArea','LIKE','%'.$search.'%')
+                ->orWhere('numPrograma','LIKE','%'.$search.'%')
+                ->orWhere('numPlaza','LIKE','%'.$search.'%')
+                ->orWhere('numHoras','LIKE','%'.$search.'%')
+                ->orWhere('numMateria','LIKE','%'.$search.'%')
+                ->orWhere('nombreMateria','LIKE','%'.$search.'%')
+                ->orWhere('grupo','LIKE','%'.$search.'%')
+                ->orWhere('subGrupo','LIKE','%'.$search.'%')
+                ->orWhere('numMotivo','LIKE','%'.$search.'%')
+                ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
+                ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
+                ->orWhere('plan','LIKE','%'.$search.'%')
+                ->orWhere('fechaApertura','LIKE','%'.$search.'%')
+                ->orWhere('fechaCierre','LIKE','%'.$search.'%')
+                ->orWhere('observaciones','LIKE','%'.$search.'%')
+                ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
+                ->orderBy('nombreMateria','desc')
+                ->paginate(15);
 
-                    case 'todo':
+            if(isset($radioButton)){
 
-                    break;
+                switch ($radioButton){
+
+                    case "toda":
+                        $vacantes = DB::table('vacantes')
+                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'observaciones','fechaRenuncia','bancoHorasDisponible')
+                            ->where('numPrograma','LIKE','%'.$search.'%')
+                            ->orderBy('numPrograma', 'desc')
+                            ->paginate(15)
+                        ;
+                        break;
+
+                    case "vacante":
+                        $vacantes = DB::table('vacantes')
+                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'observaciones','fechaRenuncia','bancoHorasDisponible')
+                            ->where(function ($query) use ($search){
+                                $query->whereNull('numPersonalDocente')
+                                       ->where('nombreMateria','LIKE','%'.$search.'%')
+                                       ;
+                            })
+                            //->where('nombreMateria','LIKE','%'.$search.'%')
+                            ->orderBy('nombreMateria', 'desc')
+                            ->paginate(15)
+                        ;
+                        break;
+
+                    case "noVacante":
+                        $vacantes = DB::table('vacantes')
+                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'observaciones','fechaRenuncia','bancoHorasDisponible')
+                            ->where(function ($query) use ($search){
+                                $query->whereNotNull('numPersonalDocente')
+                                    ->where('nombreMateria','LIKE','%'.$search.'%')
+                                ;
+                            })
+                            ->orderBy('numHoras', 'desc')
+                            ->paginate(15)
+                        ;
+                        break;
 
 
+                    default:
+                        $vacantes = DB::table('vacantes')
+                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'observaciones','fechaRenuncia','bancoHorasDisponible')
+                            ->where('periodo','LIKE','%'.$search.'%')
+                            ->orWhere('numZona','LIKE','%'.$search.'%')
+                            ->orWhere('numDependencia','LIKE','%'.$search.'%')
+                            ->orWhere('numArea','LIKE','%'.$search.'%')
+                            ->orWhere('numPrograma','LIKE','%'.$search.'%')
+                            ->orWhere('numPlaza','LIKE','%'.$search.'%')
+                            ->orWhere('numHoras','LIKE','%'.$search.'%')
+                            ->orWhere('numMateria','LIKE','%'.$search.'%')
+                            ->orWhere('nombreMateria','LIKE','%'.$search.'%')
+                            ->orWhere('grupo','LIKE','%'.$search.'%')
+                            ->orWhere('numMotivo','LIKE','%'.$search.'%')
+                            ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
+                            ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
+                            ->orWhere('plan','LIKE','%'.$search.'%')
+                            ->orWhere('fechaApertura','LIKE','%'.$search.'%')
+                            ->orWhere('fechaCierre','LIKE','%'.$search.'%')
+                            ->orWhere('observaciones','LIKE','%'.$search.'%')
+                            ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
+                            ->orderBy('nombreMateria','desc')
+                            ->paginate(15)
+                        ;
                 }
 
             }
 
-
-
-
         }else{
+
 
         }
 
-        return view('vacante.index', compact('vacantes','search'));
+        return view('vacante.index', compact('vacantes','search','radioButton'));
+
     }
 
     /**
