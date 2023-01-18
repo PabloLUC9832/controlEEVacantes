@@ -142,9 +142,15 @@
                                 </div>
 
                                 <div class="col-span-6">
-                                    <label for="tipoAsignacion" class="labelForms">Tipo de asignación</label>
-                                    <input type="text" name="tipoAsignacion" id="tipoAsignacion" class="inputForms"
-                                           value="{{$vacante->tipoAsignacion}}">
+                                    <label for="tipoAsignacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Asignación</label>
+                                    <select  id="tipoAsignacion" name="tipoAsignacion" class="estiloSelect">
+                                        <option value="{{$vacante->tipoAsignacion}}">{{$vacante->tipoAsignacion}}</option>
+                                        @foreach ($tiposAsignacion as $data)
+                                            <option value="{{$data->tipo}}">
+                                                {{$data->tipo}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
 {{--                                <div class="col-span-6">
