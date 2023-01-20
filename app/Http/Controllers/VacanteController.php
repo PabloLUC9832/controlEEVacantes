@@ -198,6 +198,7 @@ class VacanteController extends Controller
         $vacante->numPersonalDocente=$request->numPersonalDocente;
         $vacante->plan=$request->plan;
         $vacante->observaciones=$request->observaciones;
+        $vacante->fechaAsignacion=$request->fechaAsignacion;
         $vacante->fechaApertura=$request->fechaApertura;
         $vacante->fechaCierre=$request->fechaCierre;
         $vacante->fechaRenuncia=$request->fechaRenuncia;
@@ -209,7 +210,7 @@ class VacanteController extends Controller
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
                 . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
                 . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
-                . " " . $request->observaciones . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia
+                . " " . $request->observaciones . " " . $request->fechaAsignacion . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia
                 . " " . $request->bancoHorasDisponible ;
 
 
@@ -295,6 +296,7 @@ class VacanteController extends Controller
         $numPersonalDocente=$request->numPersonalDocente;
         $plan=$request->plan;
         $observaciones=$request->observaciones;
+        $fechaAsignacion=$request->fechaAsignacion;
         $fechaApertura=$request->fechaApertura;
         $fechaCierre=$request->fechaCierre;
         $fechaRenuncia=$request->fechaRenuncia;
@@ -320,6 +322,7 @@ class VacanteController extends Controller
             'numPersonalDocente' => $numPersonalDocente ,
             'plan' => $plan ,
             'observaciones' => $observaciones ,
+            'fechaAsignacion' => $fechaAsignacion ,
             'fechaApertura' => $fechaApertura ,
             'fechaCierre' => $fechaCierre ,
             'fechaRenuncia' => $fechaRenuncia ,
@@ -333,7 +336,7 @@ class VacanteController extends Controller
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
                 . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
                 . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
-                . " " . $request->observaciones . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia
+                . " " . $request->observaciones . " " . $request->fechaAsignacion . " " .$request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia
                 . " " . $request->bancoHorasDisponible ;
         event(new LogUserActivity($user,"Actualización de Vacante ID $id ",$data));
 

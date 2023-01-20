@@ -31,9 +31,10 @@ return new class extends Migration
             $table->text('tipoAsignacion')->nullable();
             $table->integer('numPersonalDocente')->nullable();
             $table->integer('plan')->nullable();
+            $table->text('observaciones')->nullable();
+            $table->text('fechaAsignacion')->nullable();
             $table->text('fechaApertura')->nullable();
             $table->text('fechaCierre')->nullable();
-            $table->text('observaciones')->nullable();
             $table->text('fechaRenuncia')->nullable();
             $table->integer('bancoHorasDisponible')->nullable();
             $table->timestamps();
