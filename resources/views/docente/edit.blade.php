@@ -30,15 +30,13 @@
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Actualizar Docente</h3>
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Recuerda que los datos obligatiorios son:</b></p>
-                    <li>Número de personal</li>
                     <li>Nombre</li>
                     <li>Apellido Paterno</li>
-                    <li>Apellido Materno</li>
                 </div>
             </div>
             <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
 
-                <form action="{{ route('docente.update',$docente->nPersonal) }}" method="POST">
+                <form action="{{ route('docente.update',$docente->id) }}" method="POST">
                     <div class="overflow-hidden shadow sm:rounded-md">
                         <div class="bg-white px-4 py-5 sm:p-6">
                             <div class="grid grid-cols-6 gap-6">
@@ -47,7 +45,7 @@
                                 <div class="col-span-6">
                                     <label for="nPersonal" class="labelForms">Número de personal</label>
                                     <input type="number" name="nPersonal" id="nPersonal" class="inputForms"
-                                           required value="{{$docente->nPersonal}}">
+                                           value="{{$docente->nPersonal}}">
                                 </div>
 
                                 <div class="col-span-6">
@@ -65,7 +63,7 @@
                                 <div class="col-span-6">
                                     <label for="apellidoMaterno" class="labelForms">Apellido materno del docente</label>
                                     <input type="text" name="apellidoMaterno" id="apellidoMaterno" class="inputForms"
-                                           value="{{$docente->apellidoMaterno}}" required>
+                                           value="{{$docente->apellidoMaterno}}" >
                                 </div>
 
                                 <div class="col-span-6">
