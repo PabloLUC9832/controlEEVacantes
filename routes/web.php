@@ -64,7 +64,6 @@ Route::controller(VacanteController::class)->group(function (){
         Route::get('/vacante/import',  'import')->name('import');
         Route::post('/vacante/upload','uploadCSV')->name('upload');
 
-        Route::get('/vacante/category',  'category')->name('category');
     });
 
 });
