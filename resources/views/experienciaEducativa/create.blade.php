@@ -30,7 +30,7 @@
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Registrar nueva Experiencia Educativa</h3>
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Recuerda que los datos obligatiorios son:</b></p>
-                    <li>NRC</li>
+                    <li>Número de Materia</li>
                     <li>Nombre</li>
                     <li>Horas</li>
                 </div>
@@ -56,9 +56,15 @@
                                 @csrf
 
                                 <div class="col-span-6">
+                                    <label for="numMateria" class="labelForms">Número de Materia</label>
+                                    <input type="number" name="numMateria" id="numMateria" class="inputForms"
+                                           placeholder="Ej. 15123" required>
+                                </div>
+
+                                <div class="col-span-6">
                                     <label for="nrc" class="labelForms">NRC</label>
                                     <input type="number" name="nrc" id="nrc" class="inputForms"
-                                           placeholder="Ej. 15123" required>
+                                           placeholder="Ej. 69477">
                                 </div>
 
                                 <div class="col-span-6">

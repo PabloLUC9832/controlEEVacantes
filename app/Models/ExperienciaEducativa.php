@@ -9,9 +9,10 @@ class ExperienciaEducativa extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'nrc';
+    //protected $primaryKey = 'nrc';
 
     protected $fillable = [
+        'numMateria',
         'nrc',
         'nombre',
         'horas',
