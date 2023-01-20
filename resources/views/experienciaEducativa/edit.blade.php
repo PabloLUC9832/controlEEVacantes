@@ -30,23 +30,29 @@
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Actualizar Experiencia Educativa</h3>
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Recuerda que los datos obligatiorios son:</b></p>
-                    <li>NRC</li>
+                    <li>Número de Materia</li>
                     <li>Nombre</li>
                     <li>Horas</li>
                 </div>
             </div>
             <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
 
-                <form action="{{ route('experienciaEducativa.update',$experienciaEducativa->nrc) }}" method="POST">
+                <form action="{{ route('experienciaEducativa.update',$experienciaEducativa->id) }}" method="POST">
                     <div class="overflow-hidden shadow sm:rounded-md">
                         <div class="bg-white px-4 py-5 sm:p-6">
                             <div class="grid grid-cols-6 gap-6">
                                 @csrf
 
                                 <div class="col-span-6">
+                                    <label for="numMateria" class="labelForms">NRC</label>
+                                    <input type="number" name="numMateria" id="numMateria" class="inputForms"
+                                           required value="{{$experienciaEducativa->numMateria}}">
+                                </div>
+
+                                <div class="col-span-6">
                                     <label for="nrc" class="labelForms">NRC</label>
                                     <input type="number" name="nrc" id="nrc" class="inputForms"
-                                           required value="{{$experienciaEducativa->nrc}}">
+                                           value="{{$experienciaEducativa->nrc}}">
                                 </div>
 
                                 <div class="col-span-6">

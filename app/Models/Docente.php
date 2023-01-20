@@ -10,9 +10,10 @@ class Docente extends Model
     use HasFactory;
 
     //https://laravel.com/docs/9.x/eloquent#primary-keys
-    protected $primaryKey = 'nPersonal';
+    //protected $primaryKey = 'id';
 
     protected $fillable = [
+        'id',
         'nPersonal',
         'nombre',
         'apellidoPaterno',

@@ -25,7 +25,8 @@ class StoreExperienciaEducativaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nrc'=> 'required|numeric|min:1',
+            'numMateria'=> 'required|numeric|min:1',
+            'nrc'=> 'nullable|numeric|min:1',
             'nombre'=> 'required|string|min:1',
             'horas'=> 'required|string|min:1',
         ];
@@ -34,7 +35,7 @@ class StoreExperienciaEducativaRequest extends FormRequest
     public function messages()
     {
         return [
-          'nrc.required' => 'El NRC de la ExperienciaEducativa es obligatorio',
+          'numMateria.required' => 'El número de la Experiencia Educativa es obligatorio',
           'nombre.required' => 'El nombre es obligatorio',
           'horas.required' => 'El número de horas es obligatorio',
         ];

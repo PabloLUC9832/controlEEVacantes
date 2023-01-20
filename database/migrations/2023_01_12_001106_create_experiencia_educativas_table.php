@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('experiencia_educativas', function (Blueprint $table) {
-            $table->integer('nrc')->primary();
+            $table->id();
+            $table->integer('numMateria');
+            $table->integer('nrc')->nullable();
             $table->text('nombre');
             $table->integer('horas');
             $table->timestamps();

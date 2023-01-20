@@ -25,7 +25,7 @@ class DocenteController extends Controller
 
         //https://youtu.be/XeYd_kYkUJE
         $docentes = DB::table('docentes')
-            ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+            ->select('id','nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
             ->where('nPersonal','LIKE','%'.$search.'%')
             ->orWhere('nombre','LIKE','%'.$search.'%')
             ->orWhere('apellidoPaterno','LIKE','%'.$search.'%')
@@ -39,8 +39,8 @@ class DocenteController extends Controller
             switch ($radioButton){
 
                 case "numPersonal":
-                    $vacantes = DB::table('docentes')
-                    ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                    $docentes = DB::table('docentes')
+                        ->select('id','nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
                         ->where('nPersonal','LIKE','%'.$search.'%')
                         ->orderBy('nPersonal', 'asc')
                         ->paginate(15)
@@ -48,8 +48,8 @@ class DocenteController extends Controller
                 break;
 
                 case "nombre":
-                    $vacantes = DB::table('docentes')
-                        ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                    $docentes = DB::table('docentes')
+                        ->select('id','nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
                         ->where('nombre','LIKE','%'.$search.'%')
                         ->orderBy('nombre', 'asc')
                         ->paginate(15)
@@ -57,8 +57,8 @@ class DocenteController extends Controller
                 break;
 
                 case "apellidoPaterno":
-                    $vacantes = DB::table('docentes')
-                        ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                    $docentes = DB::table('docentes')
+                        ->select('id','nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
                         ->where('apellidoPaterno','LIKE','%'.$search.'%')
                         ->orderBy('apellidoPaterno', 'asc')
                         ->paginate(15)
@@ -66,8 +66,8 @@ class DocenteController extends Controller
                 break;
 
                 case "apellidoMaterno":
-                    $vacantes = DB::table('docentes')
-                        ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                    $docentes = DB::table('docentes')
+                        ->select('id','nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
                         ->where('apellidoMaterno','LIKE','%'.$search.'%')
                         ->orderBy('apellidoMaterno', 'asc')
                         ->paginate(15)
@@ -75,8 +75,8 @@ class DocenteController extends Controller
                 break;
 
                 case "email":
-                    $vacantes = DB::table('docentes')
-                        ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                    $docentes = DB::table('docentes')
+                        ->select('id','nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
                         ->where('email','LIKE','%'.$search.'%')
                         ->orderBy('email', 'asc')
                         ->paginate(15)
@@ -84,8 +84,8 @@ class DocenteController extends Controller
                 break;
 
                 default:
-                    $vacantes = DB::table('docentes')
-                    ->select('nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
+                    $docentes = DB::table('docentes')
+                        ->select('id','nPersonal','nombre','apellidoPaterno','apellidoMaterno','email')
                     ->where('nPersonal','LIKE','%'.$search.'%')
                     ->orWhere('nombre','LIKE','%'.$search.'%')
                     ->orWhere('apellidoPaterno','LIKE','%'.$search.'%')
@@ -152,10 +152,11 @@ class DocenteController extends Controller
      * @param  \App\Models\Docente  $docente
      * @return \Illuminate\Http\Response
      */
-    public function edit($nPersonal)
+    public function edit($id)
     {
         //
-        $docente = Docente::where('nPersonal',$nPersonal)->firstOrFail();
+        //$docente = Docente::where('id',$id)->firstOrFail();
+        $docente = Docente::findOrFail($id);
         return view('docente.edit', compact('docente'));
 
     }
@@ -167,9 +168,11 @@ class DocenteController extends Controller
      * @param  \App\Models\Docente  $docente
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDocenteRequest $request, $nPersonal)
+    //public function update(UpdateDocenteRequest $request, $nPersonal)
+    public function update(UpdateDocenteRequest $request, $id)
     {
-        $docente = Docente::where('nPersonal',$nPersonal)->firstOrFail();
+        //$docente = Docente::where('nPersonal',$nPersonal)->firstOrFail();
+        $docente = Docente::findOrFail($id);
         $noPersonal = $request->nPersonal;
         $nombre = $request->nombre;
         $apellidoPaterno = $request->apellidoPaterno;
@@ -199,15 +202,18 @@ class DocenteController extends Controller
      * @param  \App\Models\Docente  $docente
      * @return \Illuminate\Http\Response
      */
-    public function destroy($nPersonal)
+    //public function destroy($nPersonal)
+    public function destroy($id)
     {
-        $docente = Docente::where('nPersonal',$nPersonal)->firstOrFail();
-        $docente->delete($nPersonal);
+        //$docente = Docente::where('nPersonal',$nPersonal)->firstOrFail();
+        $docente = Docente::findOrFail($id);
+        //$docente->delete($nPersonal);
+        $docente->delete();
 
         $user = Auth::user();
         //$data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
-        $data = "Eliminación de Docente ID: $nPersonal";
-        event(new LogUserActivity($user,"Eliminación de Docente ID $nPersonal",$data));
+        $data = "Eliminación de Docente ID: $docente->nPersonal";
+        event(new LogUserActivity($user,"Eliminación de Docente ID $docente->nPersonal",$data));
 
         return redirect()->route('docente.index');
 
