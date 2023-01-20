@@ -7,6 +7,7 @@ use App\Models\Dependencia;
 use App\Models\Docente;
 use App\Models\Periodo;
 use App\Models\Programa;
+use App\Models\TipoAsignacion;
 use App\Models\Vacante;
 use App\Models\Motivo;
 use App\Models\ExperienciaEducativa;
@@ -159,6 +160,7 @@ class VacanteController extends Controller
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
         $listaPeriodos = Periodo::all();
+        $listaTiposAsignacion = TipoAsignacion::all();
 
         $user = auth()->user();
 
@@ -168,6 +170,7 @@ class VacanteController extends Controller
                                            'docentes' => $listaDocentes,
                                            'experienciasEducativas' => $listaExperienciasEducativas,
                                            'periodos' => $listaPeriodos,
+                                           'tiposAsignacion' => $listaTiposAsignacion,
                                           ]);
     }
 
@@ -255,6 +258,7 @@ class VacanteController extends Controller
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
         $listaPeriodos = Periodo::all();
+        $listaTiposAsignacion = TipoAsignacion::all();
 
         $user = auth()->user();
 
@@ -264,6 +268,7 @@ class VacanteController extends Controller
                                                                       'docentes' => $listaDocentes,
                                                                       'experienciasEducativas' => $listaExperienciasEducativas,
                                                                       'periodos' => $listaPeriodos,
+                                                                      'tiposAsignacion' => $listaTiposAsignacion,
                                                                      ]);
     }
 

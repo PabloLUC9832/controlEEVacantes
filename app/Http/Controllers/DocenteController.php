@@ -119,8 +119,6 @@ class DocenteController extends Controller
      */
     public function store(StoreDocenteRequest $request)
     {
-
-
         $docente = new Docente();
         $docente->nPersonal = $request->nPersonal;
         $docente->nombre = $request->nombre;

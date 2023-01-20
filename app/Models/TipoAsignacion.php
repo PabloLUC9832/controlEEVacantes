@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Zona extends Model
+class TipoAsignacion extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nPersonal',
-        'nombre',
-        'apellidoPaterno',
-        'apellidoMaterno',
-        'email',
+        'id',
+        'tipo',
+        'descripcion',
     ];
 
     protected $guarded = [];

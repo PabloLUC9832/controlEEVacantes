@@ -36,10 +36,10 @@ class StoreDocenteRequest extends FormRequest
     public function messages()
     {
         return [
-          'nPersonal.required' => 'El número de personal es obligatorio',
-          'nombre.required' => 'El nombre es obligatorio',
-          'apellidoPaterno.required' => 'El apellido paterno es obligatorio',
-          'apellidoMaterno.required' => 'El apellido materno es obligatorio',
+            'nPersonal.required' => 'El número de personal es obligatorio',
+            'nombre.required' => 'El nombre es obligatorio',
+            'apellidoPaterno.required' => 'El apellido paterno es obligatorio',
+            'apellidoMaterno.required' => 'El apellido materno es obligatorio',
         ];
     }
 

@@ -114,7 +114,7 @@ class ExperienciaEducativaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Docente  $docente
+     * @param  \App\Models\ExperienciaEducativa  $experienciaEducativa
      * @return \Illuminate\Http\Response
      */
     public function show(ExperienciaEducativa $experienciaEducativa)
@@ -145,12 +145,12 @@ class ExperienciaEducativaController extends Controller
      */
     public function update(UpdateExperienciaEducativaRequest $request, $nrc)
     {
-        $docente = ExperienciaEducativa::where('nrc',$nrc)->firstOrFail();
+        $ee = ExperienciaEducativa::where('nrc',$nrc)->firstOrFail();
         $nrc = $request->nrc;
         $nombre = $request->nombre;
         $horas = $request->horas;
 
-        $docente->update([
+        $ee->update([
             'nrc' => $nrc,
             'nombre' => $nombre,
             'horas' => $horas,

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tipo_asignacions', function (Blueprint $table) {
             $table->id();
             $table->text('tipo');
-            $table->text('descripción');
+            $table->text('descripcion')->nullable();
             $table->timestamps();
         });
     }

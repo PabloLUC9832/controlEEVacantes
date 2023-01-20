@@ -10,4 +10,12 @@ class Motivo extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'numeroMotivo',
+        'nombre',
+        'concepto',
+    ];
+
+    protected $guarded = [];
+
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMotivoRequest extends FormRequest
+class StoreTipoAsignacionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,23 +21,21 @@ class UpdateMotivoRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+    //https://laravel.com/docs/9.x/validation#form-request-validation
     public function rules()
     {
         return [
-            //
-            'numeroMotivo'=> 'required|numeric|min:1',
-            'nombre'=> 'required|string|min:1',
-            'concepto'=> 'required|string|min:1',
+            'tipo'=> 'required|string|min:1',
         ];
     }
 
     public function messages()
     {
         return [
-            'numeroMotivo.required' => 'El número de motivo es obligatorio',
-            'nombre.required' => 'El nombre es obligatorio',
-            'concepto.required' => 'El concepto es obligatorio',
+            'tipo.required' => 'El tipo de asignaciones obligatorio',
         ];
     }
+
+
 
 }

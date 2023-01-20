@@ -17,13 +17,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('motivos', function (Blueprint $table) {
-            //$table->id();
-            $table->integer('numeroMotivo')->primary();
-            //$table->integer('numeroMotivo');
+            $table->id();
+            $table->integer('numeroMotivo');
             $table->text('nombre');
             $table->text('concepto');
-            //$table->string('nombre');
-            //$table->string('concepto');
             $table->timestamps();
         });
     }
