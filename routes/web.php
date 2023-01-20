@@ -61,6 +61,7 @@ Route::controller(VacanteController::class)->group(function (){
 
         Route::get('/vacante/edit/{id}','edit')->name('edit');
         Route::post('/vacante/update/{id}','update')->name('update');
+        Route::post('/vacante/updateE/{id}','updateE')->name('updateE');
 
         Route::get('/vacante/import',  'import')->name('import');
         Route::post('/vacante/upload','uploadCSV')->name('upload');

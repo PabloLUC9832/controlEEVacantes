@@ -251,14 +251,28 @@ class VacanteController extends Controller
 
         $user = auth()->user();
 
-        return view('vacante.edit', compact('vacante'),['programas' => $listaProgramas,
-                                                                      'user' => $user,
-                                                                      'motivos' => $listaMotivos,
-                                                                      'docentes' => $listaDocentes,
-                                                                      'experienciasEducativas' => $listaExperienciasEducativas,
-                                                                      'periodos' => $listaPeriodos,
-                                                                      'tiposAsignacion' => $listaTiposAsignacion,
-                                                                     ]);
+        $userEditor = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
+
+        if($userEditor){
+            return view('vacante.edit', compact('vacante'),['programas' => $listaProgramas,
+                'user' => $user,
+                'motivos' => $listaMotivos,
+                'docentes' => $listaDocentes,
+                'experienciasEducativas' => $listaExperienciasEducativas,
+                'periodos' => $listaPeriodos,
+                'tiposAsignacion' => $listaTiposAsignacion,
+            ]);
+        }else{
+            return view('vacante.editEditor', compact('vacante'),['programas' => $listaProgramas,
+                'user' => $user,
+                'motivos' => $listaMotivos,
+                'docentes' => $listaDocentes,
+                'experienciasEducativas' => $listaExperienciasEducativas,
+                'periodos' => $listaPeriodos,
+                'tiposAsignacion' => $listaTiposAsignacion,
+            ]);
+        }
+
     }
 
     /**
@@ -338,6 +352,29 @@ class VacanteController extends Controller
                 . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
                 . " " . $request->observaciones . " " . $request->fechaAsignacion . " " .$request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia
                 . " " . $request->bancoHorasDisponible ;
+        event(new LogUserActivity($user,"Actualización de Vacante ID $id ",$data));
+
+        return redirect()->route('vacante.index');
+    }
+
+    public function updateE(Request $request, $id)
+    {
+        $vacante = Vacante::findOrFail($id);
+
+        $observaciones=$request->observaciones;
+        $fechaAsignacion=$request->fechaAsignacion;
+        $fechaCierre=$request->fechaCierre;
+        $fechaRenuncia=$request->fechaRenuncia;
+
+        $vacante->update([
+            'observaciones' => $observaciones ,
+            'fechaAsignacion' => $fechaAsignacion ,
+            'fechaCierre' => $fechaCierre ,
+            'fechaRenuncia' => $fechaRenuncia ,
+        ]);
+
+        $user = Auth::user();
+        $data = $request->observaciones . " " . $request->fechaAsignacion . " " . $request->fechaCierre . " " . $request->fechaRenuncia ;
         event(new LogUserActivity($user,"Actualización de Vacante ID $id ",$data));
 
         return redirect()->route('vacante.index');
