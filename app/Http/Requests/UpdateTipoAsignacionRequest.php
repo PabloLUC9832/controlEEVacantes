@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateDocenteRequest extends FormRequest
+class UpdateTipoAsignacionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,20 +24,14 @@ class UpdateDocenteRequest extends FormRequest
     public function rules()
     {
         return [
-            'nPersonal'=> 'nullable|numeric|min:1',
-            'nombre'=> 'required|string|min:1',
-            'apellidoPaterno'=> 'required|string|min:1',
-            'apellidoMaterno'=> 'nullable|string|min:1',
-            'email'=> 'nullable|email',
+            'tipo'=> 'required|string|min:1',
         ];
     }
 
     public function messages()
     {
         return [
-            'nombre.required' => 'El nombre es obligatorio',
-            'apellidoPaterno.required' => 'El apellido paterno es obligatorio',
+            'tipo.required' => 'El tipo de asignaciones obligatorio',
         ];
     }
-
 }

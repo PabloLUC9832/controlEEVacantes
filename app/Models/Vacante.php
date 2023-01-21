@@ -28,11 +28,13 @@ class Vacante extends Model{
         'tipoAsignacion',
         'numPersonalDocente',
         'plan',
+        'observaciones',
+        'fechaAsignacion',
         'fechaApertura',
         'fechaCierre',
-        'observaciones',
         'fechaRenuncia',
-        'bancoHorasDisponible'
+        'bancoHorasDisponible',
+        'archivo',
     ];
 
     protected $guarded = [];

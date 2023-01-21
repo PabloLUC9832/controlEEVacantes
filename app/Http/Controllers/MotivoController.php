@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Area;
 use App\Models\Motivo;
 use App\Http\Requests\StoreMotivoRequest;
 use App\Http\Requests\UpdateMotivoRequest;
+use App\Providers\LogUserActivity;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MotivoController extends Controller
@@ -15,9 +17,64 @@ class MotivoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = trim($request->get('search'));
+        $radioButton = $request->get('tipo');
 
+        $motivos = DB::table('motivos')
+            ->select('id','numeroMotivo','nombre','concepto')
+            ->where('numeroMotivo','LIKE','%'.$search.'%')
+            ->orWhere('nombre','LIKE','%'.$search.'%')
+            ->orWhere('concepto','LIKE','%'.$search.'%')
+            ->orderBy('numeroMotivo','asc')
+            ->cursorPaginate(15);
+
+        if(isset($radioButton)){
+
+            switch ($radioButton){
+
+                case "numeroMotivo":
+                    $motivos = DB::table('motivos')
+                        ->select('id','numeroMotivo','nombre','concepto')
+                        ->where('numeroMotivo','LIKE','%'.$search.'%')
+                        ->orderBy('numeroMotivo', 'asc')
+                        ->paginate(15)
+                    ;
+                    break;
+
+                case "nombre":
+                    $motivos = DB::table('motivos')
+                        ->select('id','numeroMotivo','nombre','concepto')
+                        ->where('nombre','LIKE','%'.$search.'%')
+                        ->orderBy('nombre', 'asc')
+                        ->paginate(15)
+                    ;
+                    break;
+
+                case "concepto":
+                    $motivos = DB::table('motivos')
+                        ->select('id','numeroMotivo','nombre','concepto')
+                        ->where('concepto','LIKE','%'.$search.'%')
+                        ->orderBy('concepto', 'asc')
+                        ->paginate(15)
+                    ;
+                    break;
+
+                default:
+                    $motivos = DB::table('motivos')
+                        ->select('id','numeroMotivo','nombre','concepto')
+                        ->where('numeroMotivo','LIKE','%'.$search.'%')
+                        ->orWhere('nombre','LIKE','%'.$search.'%')
+                        ->orWhere('concepto','LIKE','%'.$search.'%')
+                        ->orderBy('numeroMotivo','asc')
+                        ->paginate(15)
+                    ;
+            }
+
+        }
+
+        return view('motivo.index', compact('motivos','search'));
     }
 
     /**
@@ -27,7 +84,7 @@ class MotivoController extends Controller
      */
     public function create()
     {
-
+        return view('motivo.create');
     }
 
     /**
@@ -38,7 +95,18 @@ class MotivoController extends Controller
      */
     public function store(StoreMotivoRequest $request)
     {
+        $motivo = new Motivo();
+        $motivo->numeroMotivo = $request->numeroMotivo;
+        $motivo->nombre = $request->nombre;
+        $motivo->concepto = $request->concepto;
 
+        $motivo->save();
+
+        $user = Auth::user();
+        $data = $request->numeroMotivo ." ". $request->nombre ." ". $request->concepto;
+        event(new LogUserActivity($user,"Creación de Motivo",$data));
+
+        return redirect()->route('motivo.index');
     }
 
     /**
@@ -58,9 +126,11 @@ class MotivoController extends Controller
      * @param  \App\Models\Motivo  $motivo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Motivo $motivo)
+    public function edit($id)
     {
         //
+        $motivo = Motivo::where('id',$id)->firstOrFail();
+        return view('motivo.edit', compact('motivo'));
     }
 
     /**
@@ -70,9 +140,25 @@ class MotivoController extends Controller
      * @param  \App\Models\Motivo  $motivo
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMotivoRequest $request, Motivo $motivo)
+    public function update(UpdateMotivoRequest $request, $id)
     {
         //
+        $motivo = Motivo::where('id',$id)->firstOrFail();
+        $numeroMotivo = $request->numeroMotivo;
+        $nombre = $request->nombre;
+        $concepto = $request->concepto;
+
+        $motivo->update([
+            'numeroMotivo' => $numeroMotivo,
+            'nombre' => $nombre,
+            'concepto' => $concepto,
+        ]);
+
+        $user = Auth::user();
+        $data = $request->numeroMotivo ." ". $request->nombre ." ". $request->concepto;
+        event(new LogUserActivity($user,"Actualización del Motivo ID: $request->id",$data));
+
+        return redirect()->route('motivo.index');
     }
 
     /**
@@ -81,8 +167,16 @@ class MotivoController extends Controller
      * @param  \App\Models\Motivo  $motivo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Motivo $motivo)
+    public function destroy($id)
     {
         //
+        $motivo = Motivo::where('id',$id)->firstOrFail();
+        $motivo->delete($id);
+
+        $user = Auth::user();
+        $data = "Eliminación del Motivo N°: $id";
+        event(new LogUserActivity($user,"Eliminación del Motivo ID $id",$data));
+
+        return redirect()->route('motivo.index');
     }
 }

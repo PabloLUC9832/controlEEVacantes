@@ -15,7 +15,13 @@ class ZonaDependenciaSeeder extends Seeder
      */
     public function run()
     {
-        
+
+        $zonaDependencia = new Zona_Dependencia();
+        $zonaDependencia->id_zona = 1;
+        $zonaDependencia->clave_dependencia = 01;
+        $zonaDependencia->nombre = "DIRECCIÓN GENERAL DEL ÁREA ACADÉMICA ECONÓMICO ADMINISTRATIVA";
+        $zonaDependencia->save();
+
         $zonaDependencia1 = new Zona_Dependencia();
         $zonaDependencia1->id_zona = 1;
         $zonaDependencia1->clave_dependencia = 11301;

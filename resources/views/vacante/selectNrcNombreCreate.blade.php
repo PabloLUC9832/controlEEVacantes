@@ -6,12 +6,12 @@
                     <option value="{{$data->nrc}}">
                             {{$data->nrc}}
                     </option>
-                @endforeach                                        
+                @endforeach
             </select>
         </div>
 
         <div class="col-span-6">
-            <label for="nombreMateria-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Experiencia Educativa</label-->
+            <label for="nombreMateria-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Experiencia Educativa</label>
             <select id="nombreMateria-dropdown" class="estiloSelect" name="nombreMateria">
             </select>
         </div>
@@ -28,7 +28,7 @@
                     url: "{{url('api/fetch-nombreExperienciaEducativa')}}",
                     type: "POST",
                     data: {
-                        nrc: nrcMateriaSeleccionada,                        
+                        nrc: nrcMateriaSeleccionada,
                         _token: '{{csrf_token()}}'
                     },
                     dataType: 'json',

@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('docentes', function (Blueprint $table) {
+        Schema::create('tipo_asignacions', function (Blueprint $table) {
             $table->id();
-            $table->integer('nPersonal')->nullable();
-            $table->text('nombre');
-            $table->text('apellidoPaterno');
-            $table->text('apellidoMaterno')->nullable();
-            $table->text('email')->nullable();
+            $table->text('tipo');
+            $table->text('descripcion')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('docentes');
+        Schema::dropIfExists('tipo_asignacions');
     }
 };

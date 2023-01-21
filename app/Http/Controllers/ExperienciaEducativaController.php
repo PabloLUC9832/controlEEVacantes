@@ -23,7 +23,7 @@ class ExperienciaEducativaController extends Controller
         $radioButton = $request->get('tipo');
 
         $experienciasEducativas = DB::table('experiencia_educativas')
-            ->select('nrc','nombre','horas')
+            ->select('id','numMateria','nrc','nombre','horas')
             ->where('nrc','LIKE','%'.$search.'%')
             ->orWhere('nombre','LIKE','%'.$search.'%')
             ->orWhere('horas','LIKE','%'.$search.'%')
@@ -34,9 +34,18 @@ class ExperienciaEducativaController extends Controller
 
             switch ($radioButton){
 
+                case "numMateria":
+                    $experienciasEducativas = DB::table('experiencia_educativas')
+                    ->select('id','numMateria','nrc','nombre','horas')
+                    ->where('numMateria','LIKE','%'.$search.'%')
+                    ->orderBy('numMateria', 'asc')
+                    ->paginate(15)
+                    ;
+                break;
+
                 case "nrc":
                     $experienciasEducativas = DB::table('experiencia_educativas')
-                    ->select('nrc','nombre','horas')
+                    ->select('id','numMateria','nrc','nombre','horas')
                     ->where('nrc','LIKE','%'.$search.'%')
                     ->orderBy('nrc', 'asc')
                     ->paginate(15)
@@ -45,7 +54,7 @@ class ExperienciaEducativaController extends Controller
 
                 case "nombre":
                     $experienciasEducativas = DB::table('experiencia_educativas')
-                    ->select('nrc','nombre','horas')
+                    ->select('id','numMateria','nrc','nombre','horas')
                     ->where('nombre','LIKE','%'.$search.'%')
                     ->orderBy('nombre', 'asc')
                     ->paginate(15)
@@ -54,7 +63,7 @@ class ExperienciaEducativaController extends Controller
 
                 case "horas":
                     $experienciasEducativas = DB::table('experiencia_educativas')
-                    ->select('nrc','nombre','horas')
+                    ->select('id','numMateria','nrc','nombre','horas')
                     ->where('horas','LIKE','%'.$search.'%')
                     ->orderBy('horas', 'asc')
                     ->paginate(15)
@@ -63,7 +72,7 @@ class ExperienciaEducativaController extends Controller
 
                 default:
                     $experienciasEducativas = DB::table('experiencia_educativas')
-                    ->select('nrc','nombre','horas')
+                    ->select('id','numMateria','nrc','nombre','horas')
                     ->where('nrc','LIKE','%'.$search.'%')
                     ->orWhere('nombre','LIKE','%'.$search.'%')
                     ->orWhere('horas','LIKE','%'.$search.'%')
@@ -97,6 +106,7 @@ class ExperienciaEducativaController extends Controller
     {
 
         $ee = new ExperienciaEducativa();
+        $ee->numMateria = $request->numMateria;
         $ee->nrc = $request->nrc;
         $ee->nombre = $request->nombre;
         $ee->horas = $request->horas;
@@ -104,7 +114,7 @@ class ExperienciaEducativaController extends Controller
         $ee->save();
 
         $user = Auth::user();
-        $data = $request->nrc ." ". $request->nombre ." ". $request->horas;
+        $data = $request->numMateria ." " . $request->nrc ." ". $request->nombre ." ". $request->horas;
         event(new LogUserActivity($user,"Creación de Experiencia Educativa",$data));
 
         return redirect()->route('experienciaEducativa.index');
@@ -114,7 +124,7 @@ class ExperienciaEducativaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Docente  $docente
+     * @param  \App\Models\ExperienciaEducativa  $experienciaEducativa
      * @return \Illuminate\Http\Response
      */
     public function show(ExperienciaEducativa $experienciaEducativa)
@@ -128,10 +138,11 @@ class ExperienciaEducativaController extends Controller
      * @param  \App\Models\ExperienciaEducativa  $experienciaEducativa
      * @return \Illuminate\Http\Response
      */
-    public function edit($nrc)
+    public function edit($id)
     {
         //
-        $experienciaEducativa = ExperienciaEducativa::where('nrc',$nrc)->firstOrFail();
+        //$experienciaEducativa = ExperienciaEducativa::where('nrc',$nrc)->firstOrFail();
+        $experienciaEducativa = ExperienciaEducativa::findOrFail($id);
         return view('experienciaEducativa.edit', compact('experienciaEducativa'));
 
     }
@@ -143,21 +154,24 @@ class ExperienciaEducativaController extends Controller
      * @param  \App\Models\ExperienciaEducativa  $experienciaEducativa
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateExperienciaEducativaRequest $request, $nrc)
+    public function update(UpdateExperienciaEducativaRequest $request, $id)
     {
-        $docente = ExperienciaEducativa::where('nrc',$nrc)->firstOrFail();
+        //$docente = ExperienciaEducativa::where('nrc',$nrc)->firstOrFail();
+        $experienciaEducativa = ExperienciaEducativa::findOrFail($id);
+        $numMateria = $request->numMateria;
         $nrc = $request->nrc;
         $nombre = $request->nombre;
         $horas = $request->horas;
 
-        $docente->update([
+        $experienciaEducativa->update([
+            'numMateria' => $numMateria,
             'nrc' => $nrc,
             'nombre' => $nombre,
             'horas' => $horas,
         ]);
 
         $user = Auth::user();
-        $data = $request->nrc ." ". $request->nombre ." ". $request->horas;
+        $data = $request->numMateria ." ".$request->nrc ." ". $request->nombre ." ". $request->horas;
         event(new LogUserActivity($user,"Actualización de Experiencia Educativa ID: $request->nrc",$data));
 
         return redirect()->route('experienciaEducativa.index');
@@ -169,14 +183,15 @@ class ExperienciaEducativaController extends Controller
      * @param  \App\Models\ExperienciaEducativa  $experienciaEducativa
      * @return \Illuminate\Http\Response
      */
-    public function destroy($nrc)
+    public function destroy($id)
     {
-        $ee = ExperienciaEducativa::where('nrc',$nrc)->firstOrFail();
-        $ee->delete($nrc);
+        //$ee = ExperienciaEducativa::where('nrc',$nrc)->firstOrFail();
+        $ee = ExperienciaEducativa::findOrFail($id);
+        $ee->delete();
 
         $user = Auth::user();
-        $data = "Eliminación de la Experiencia Educativa ID: $nrc";
-        event(new LogUserActivity($user,"Eliminación de la Experiencia Educativa ID $nrc",$data));
+        $data = "Eliminación de la Experiencia Educativa ID: $id";
+        event(new LogUserActivity($user,"Eliminación de la Experiencia Educativa ID $id",$data));
 
         return redirect()->route('experienciaEducativa.index');
 

@@ -12,71 +12,74 @@
             <div class="p-6 text-justify">
                 <form action="{{ route('vacante.update',$vacante->id) }}" method="POST">
                     <div class="col-span-6">
-                        <label class="labelForms">Periodo: {{$vacante->periodo}}</label>   
+                        <label class="labelForms">Periodo: {{$vacante->periodo}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Clave Periodo: {{$vacante->clavePeriodo}}</label>   
+                        <label class="labelForms">Clave Periodo: {{$vacante->clavePeriodo}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de zona: {{$vacante->numZona}}</label>   
+                        <label class="labelForms">Número de zona: {{$vacante->numZona}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de dependencia: {{$vacante->numDependencia}}</label>   
+                        <label class="labelForms">Número de dependencia: {{$vacante->numDependencia}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de área: {{$vacante->numArea}}</label>   
+                        <label class="labelForms">Número de área: {{$vacante->numArea}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de programa: {{$vacante->numPrograma}}</label>   
+                        <label class="labelForms">Número de programa: {{$vacante->numPrograma}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de plaza: {{$vacante->numPlaza}}</label>   
+                        <label class="labelForms">Número de plaza: {{$vacante->numPlaza}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de horas: {{$vacante->numHoras}}</label>   
+                        <label class="labelForms">Número de horas: {{$vacante->numHoras}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de materia: {{$vacante->numMateria}}</label>   
+                        <label class="labelForms">Número de materia: {{$vacante->numMateria}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Grupo: {{$vacante->grupo}}</label>   
+                        <label class="labelForms">Grupo: {{$vacante->grupo}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Sub Grupo: {{$vacante->subGrupo}}</label>   
+                        <label class="labelForms">Sub Grupo: {{$vacante->subGrupo}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Motivo: {{$vacante->numMotivo}}</label>   
+                        <label class="labelForms">Motivo: {{$vacante->numMotivo}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Tipo de asignación: {{$vacante->tipoAsignacion}}</label>   
+                        <label class="labelForms">Tipo de asignación: {{$vacante->tipoAsignacion}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número personal del docente: {{$vacante->numPersonalDocente}}</label>   
+                        <label class="labelForms">Número personal del docente: {{$vacante->numPersonalDocente}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Plan: {{$vacante->plan}}</label>   
+                        <label class="labelForms">Plan: {{$vacante->plan}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Fecha de apertura: {{$vacante->fechaApertura}}</label>   
+                        <label class="labelForms">Fecha de apertura: {{$vacante->fechaApertura}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Fecha de cierre: {{$vacante->fechaCierre}}</label>   
+                        <label class="labelForms">Fecha de cierre: {{$vacante->fechaCierre}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Observaciones: {{$vacante->observaciones}}</label>   
+                        <label class="labelForms">Observaciones: {{$vacante->observaciones}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Fecha de renuncia: {{$vacante->fechaRenuncia}}</label>   
+                        <label class="labelForms">Fecha de renuncia: {{$vacante->fechaRenuncia}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Banco de horas disponible: {{$vacante->bancoHorasDisponible}}</label>   
+                        <label class="labelForms">Banco de horas disponible: {{$vacante->bancoHorasDisponible}}</label>
+                    </div>
+                    <div class="col-span-6">
+                        <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}">Documento: {{$vacante->archivo}}</a>
                     </div>
                 </form>
             </div>
             <div class="p-2 text-center">
                 <button data-modal-toggle="view-modal{{$vacante->id}}" type="button" class="text-white bg-gray-700 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Regresar</button>
             </div>
-            
+
         </div>
     </div>
 </div>

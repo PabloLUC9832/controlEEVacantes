@@ -13,7 +13,7 @@ class UpdateMotivoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,19 @@ class UpdateMotivoRequest extends FormRequest
     {
         return [
             //
+            'numeroMotivo'=> 'required|numeric|min:1',
+            'nombre'=> 'required|string|min:1',
+            'concepto'=> 'required|string|min:1',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'numeroMotivo.required' => 'El número de motivo es obligatorio',
+            'nombre.required' => 'El nombre es obligatorio',
+            'concepto.required' => 'El concepto es obligatorio',
+        ];
+    }
+
 }

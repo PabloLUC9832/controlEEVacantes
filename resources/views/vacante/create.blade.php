@@ -33,9 +33,6 @@
                         <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                         <p><b>Recuerda que los datos obligatiorios son:</b></p>
                         <li>Periodo</li>
-                        <li>Número de zona</li>
-                        <li>Número de dependencia</li>
-                        <li>Número de área</li>
                         <li>Número de programa</li>
                         <li>Número de plaza</li>
                         <li>Número de horas</li>
@@ -47,7 +44,7 @@
                 </div>
                 <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
 
-                    <form action="{{ route('vacante.store') }}" method="POST">
+                    <form action="{{ route('vacante.store') }}" method="POST" enctype="multipart/form-data">
                         <div class="overflow-hidden shadow sm:rounded-md">
                             <div class="bg-white px-4 py-5 sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
@@ -148,9 +145,15 @@
                                     </div>
 
                                     <div class="col-span-6">
-                                        <label for="tipoAsignacion" class="labelForms">Tipo de asignación</label>
-                                        <input type="text" name="tipoAsignacion" id="tipoAsignacion" class="inputForms"
-                                               placeholder="Ej. ">
+                                        <label for="tipoAsignacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Asignación</label>
+                                        <select  id="tipoAsignacion" name="tipoAsignacion" class="estiloSelect">
+                                            <option value="">Selecciona el tipo de asignación</option>
+                                            @foreach ($tiposAsignacion as $data)
+                                                <option value="{{$data->tipo}}">
+                                                    {{$data->tipo}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="col-span-6">
@@ -179,7 +182,27 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                        <label for="fechaAsignacion" class="labelForms">Fecha de asignación</label>
+                                        <div class="relative">
+                                            <div
+                                                class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                     fill="currentColor" viewBox="0 0 20 20"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                            </div>
+                                            <input datepicker type="text"
+                                                   class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   placeholder="Selecciona la fecha" id="fechaAsignacion"
+                                                   name="fechaAsignacion">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                                         <label for="fechaApertura" class="labelForms">Fecha de apertura</label>
                                         <div class="relative">
                                             <div
@@ -199,7 +222,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                                         <label for="fechaCierre" class="labelForms">Fecha de cierre</label>
                                         <div class="relative">
                                             <div
@@ -219,7 +242,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                                         <label for="fechaRenuncia" class="labelForms">Fecha de renuncia</label>
                                         <div class="relative">
                                             <div
@@ -244,6 +267,12 @@
                                             disponible</label>
                                         <input type="number" name="bancoHorasDisponible" id="bancoHorasDisponible"
                                                class="inputForms" placeholder="Ej. ">
+                                    </div>
+
+                                    <div class="col-span-6">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file">Documento</label>
+                                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file" type="file" accept=".pdf" name="file">
+                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Formato permitido: PDF</p>
                                     </div>
 
                                 </div>

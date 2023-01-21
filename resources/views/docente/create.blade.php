@@ -30,10 +30,8 @@
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Registrar nuevo docente</h3>
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Recuerda que los datos obligatiorios son:</b></p>
-                    <li>Número de personal</li>
                     <li>Nombre</li>
                     <li>Apellido Paterno</li>
-                    <li>Apellido Materno</li>
                 </div>
             </div>
             <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
@@ -59,7 +57,7 @@
                                 <div class="col-span-6">
                                     <label for="nPersonal" class="labelForms">Número de personal</label>
                                     <input type="number" name="nPersonal" id="nPersonal" class="inputForms"
-                                           placeholder="Ej. 1523" required>
+                                           placeholder="Ej. 1523">
                                 </div>
 
                                 <div class="col-span-6">
@@ -77,7 +75,7 @@
                                 <div class="col-span-6">
                                     <label for="apellidoMaterno" class="labelForms">Apellido materno del docente</label>
                                     <input type="text" name="apellidoMaterno" id="apellidoMaterno" class="inputForms"
-                                           placeholder="Ej. López" required>
+                                           placeholder="Ej. López">
                                 </div>
 
                                 <div class="col-span-6">
