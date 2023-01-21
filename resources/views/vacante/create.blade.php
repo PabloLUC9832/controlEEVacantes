@@ -44,7 +44,7 @@
                 </div>
                 <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
 
-                    <form action="{{ route('vacante.store') }}" method="POST">
+                    <form action="{{ route('vacante.store') }}" method="POST" enctype="multipart/form-data">
                         <div class="overflow-hidden shadow sm:rounded-md">
                             <div class="bg-white px-4 py-5 sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
@@ -267,6 +267,12 @@
                                             disponible</label>
                                         <input type="number" name="bancoHorasDisponible" id="bancoHorasDisponible"
                                                class="inputForms" placeholder="Ej. ">
+                                    </div>
+
+                                    <div class="col-span-6">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file">Documento</label>
+                                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file" type="file" accept=".pdf" name="file">
+                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Formato permitido: PDF</p>
                                     </div>
 
                                 </div>

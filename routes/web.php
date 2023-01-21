@@ -29,7 +29,6 @@ Route::get('join', function () {
     return view('joinTeam');
 });
 
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

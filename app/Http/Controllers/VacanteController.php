@@ -48,7 +48,7 @@ class VacanteController extends Controller
                         $vacantes = DB::table('vacantes')
                             ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
                                 'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
-                                'observaciones','fechaRenuncia','bancoHorasDisponible')
+                                'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->whereNull('numPersonalDocente')
                             ->orderBy('numDependencia', 'desc')
                             ->paginate(15)
@@ -59,7 +59,7 @@ class VacanteController extends Controller
                         $vacantes = DB::table('vacantes')
                             ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
                                 'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
-                                'observaciones','fechaRenuncia','bancoHorasDisponible')
+                                'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->whereNotNull('numPersonalDocente')
                             ->orderBy('numDependencia', 'desc')
                             ->paginate(15)
@@ -93,7 +93,7 @@ class VacanteController extends Controller
                         $vacantes = DB::table('vacantes')
                             ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
                                 'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
-                                'observaciones','fechaRenuncia','bancoHorasDisponible')
+                                'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->where(function ($query) use ($search){
                                 $query->whereNull('numPersonalDocente')
                                     ->where('numDependencia','=',auth()->user()->dependencia)
@@ -110,7 +110,7 @@ class VacanteController extends Controller
                         $vacantes = DB::table('vacantes')
                             ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
                                 'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
-                                'observaciones','fechaRenuncia','bancoHorasDisponible')
+                                'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->where(function ($query) use ($search){
                                 $query->whereNotNull('numPersonalDocente')
                                     ->where('numDependencia','=',auth()->user()->dependencia)
@@ -174,6 +174,9 @@ class VacanteController extends Controller
         $periodoCompleto = $request->periodo;
         $periodoPartes = explode("-",$periodoCompleto);
 
+
+        $fileName = time() ."_" . $request->file->getClientOriginalName();
+
         $vacante = new Vacante();
         /*
         $vacante->periodo=$request->periodo;
@@ -203,6 +206,11 @@ class VacanteController extends Controller
         $vacante->fechaCierre=$request->fechaCierre;
         $vacante->fechaRenuncia=$request->fechaRenuncia;
         $vacante->bancoHorasDisponible=$request->bancoHorasDisponible;
+
+        if (isset($request->file) ){
+            $request->file('file')->storeAs('/', $fileName, 'azure');
+            $vacante->archivo = $fileName;
+        }
 
         $vacante->save();
 
@@ -285,8 +293,6 @@ class VacanteController extends Controller
     public function update(Request $request, $id)
     {
         $vacante = Vacante::findOrFail($id);
-        //$vacante->update($request->all());
-        //dd($request);
 
         $periodoCompleto = $request->periodo;
         $periodoPartes = explode("-",$periodoCompleto);
@@ -316,7 +322,13 @@ class VacanteController extends Controller
         $fechaRenuncia=$request->fechaRenuncia;
         $bancoHorasDisponible=$request->bancoHorasDisponible;
 
-
+        if (isset($request->file) ){
+            $fileName = time() ."_" . $request->file->getClientOriginalName();
+            $request->file('file')->storeAs('/', $fileName, 'azure');
+            $archivo = $fileName;
+        }else{
+            $archivo = $vacante->archivo;
+        }
 
         $vacante->update([
             'periodo' => $periodo ,
@@ -341,6 +353,7 @@ class VacanteController extends Controller
             'fechaCierre' => $fechaCierre ,
             'fechaRenuncia' => $fechaRenuncia ,
             'bancoHorasDisponible' => $bancoHorasDisponible ,
+            'archivo' => $archivo ,
         ]);
 
 
@@ -439,6 +452,24 @@ class VacanteController extends Controller
 
     }
 
+    public function uploadFile(Request $request){
+
+        /*$request->validate([
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
+        ]);*/
+
+        if($request->file()) {
+            //$fileName = time().'_'.$request->file->getClientOriginalName();
+            $fileName = $request->file->getClientOriginalName();
+            // save file to azure blob virtual directory uplaods in your container
+            $filePath = $request->file('file')->storeAs('/', $fileName, 'azure');
+
+            return back()
+                ->with('success','File has been uploaded.');
+
+        }
+    }
+
     public function fetchNombreExperienciaEducativa(Request $request)
     {
         $data['nombreExperienciaEducativa'] = ExperienciaEducativa::where("nrc", $request->nrc)
@@ -452,7 +483,7 @@ class VacanteController extends Controller
 
          $vacantes = DB::table('vacantes')->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
             'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
-            'observaciones','fechaRenuncia','bancoHorasDisponible')
+            'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
             ->where('periodo','LIKE','%'.$search.'%')
             ->where('clavePeriodo','LIKE','%'.$search.'%')
             ->orWhere('numZona','LIKE','%'.$search.'%')
@@ -484,7 +515,7 @@ class VacanteController extends Controller
 
         $vacantes = DB::table('vacantes')->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
             'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
-            'observaciones','fechaRenuncia','bancoHorasDisponible')
+            'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
             ->where(function ($query) use ($search,$user){
                 $query->where('periodo','LIKE','%'.$search.'%')
                     //->where('numDependencia','=',auth()->user()->dependencia)
