@@ -57,7 +57,7 @@ class ProgramaSeeder extends Seeder
 
         $programa9 = new Programa();
         $programa9->clave = 14146;
-        $programa9->nombre = "SISTEMAS COMPUTACIONALES ADMINISTRATIVOS ";
+        $programa9->nombre = "SISTEMAS COMPUTACIONALES ADMINISTRATIVOS";
         $programa9->save();
 
         $programa10 = new Programa();

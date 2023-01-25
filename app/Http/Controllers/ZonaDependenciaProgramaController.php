@@ -18,7 +18,7 @@ class ZonaDependenciaProgramaController extends Controller
     {
         $search = trim($request->get('search'));
 
-        $listaZonaDependenciaPrograma = DB::table('v_zona_dependencia_programa')
+        $listaZonaDependenciaPrograma = DB::table('zona__dependencia__programas')
             ->select('id_zona','nombre_zona','clave_dependencia','nombre_dependencia','clave_programa','nombre_programa','horasIniciales','horasUtilizadas','horasDisponibles')
             ->where('id_zona','LIKE','%'.$search.'%')
             ->orWhere('clave_dependencia','LIKE','%'.$search.'%')

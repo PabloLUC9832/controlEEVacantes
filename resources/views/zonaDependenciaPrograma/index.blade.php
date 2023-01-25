@@ -126,6 +126,7 @@
             @endif
             </tbody>
         </table>
+        {{ $listaZonaDependenciaPrograma->links() }}
     </div>
 
 </div>
