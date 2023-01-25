@@ -23,6 +23,9 @@ return new class extends Migration
             $table->foreign('id_zona')->references('id')->on('zonas');
             $table->foreign('clave_dependencia')->references('clave')->on('dependencias');
             $table->foreign('clave_programa')->references('clave')->on('programas');
+            $table->integer('horasIniciales')->nullable();
+            $table->integer('horasUtilizadas')->nullable();
+            $table->integer('horasDisponibles')->nullable();
 
             $table->timestamps();
         });

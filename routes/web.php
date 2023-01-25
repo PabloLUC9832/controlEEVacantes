@@ -5,6 +5,7 @@ use App\Http\Controllers\TipoAsignacionController;
 use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\VacanteController;
 use App\Http\Controllers\ZonaDependenciaController;
+use App\Http\Controllers\ZonaDependenciaProgramaController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\ExperienciaEducativaController;
 use App\Http\Controllers\LogUserActivityController;
@@ -178,6 +179,16 @@ Route::controller(ZonaController::class)->group(function (){
 
         Route::get('/zona/edit/{id}','edit')->name('edit');
         Route::post('/zona/update/{id}','update')->name('update');
+
+    });
+
+});
+
+Route::controller(ZonaDependenciaProgramaController::class)->group(function (){
+
+    Route::name('zonaDependenciaPrograma.')->group(function (){
+
+        Route::get('/zonaDependenciaPrograma',  'index') ->name('index');
 
     });
 

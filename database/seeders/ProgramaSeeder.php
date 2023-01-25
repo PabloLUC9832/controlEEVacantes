@@ -15,7 +15,7 @@ class ProgramaSeeder extends Seeder
      */
     public function run()
     {
-        $programa1 = new Programa();
+        /*$programa1 = new Programa();
         $programa1->clave = 13116;
         $programa1->nombre = "HOTELERIA Y TURISMO";
         $programa1->save();
@@ -23,7 +23,7 @@ class ProgramaSeeder extends Seeder
         $programa2 = new Programa();
         $programa2->clave = 13118;
         $programa2->nombre = "CARRERA DE TECNICO SUPERIOR UNIVERSITARIO EN GESTION ADUANAL";
-        $programa2->save();
+        $programa2->save();*/
 
         $programa3 = new Programa();
         $programa3->clave = 14140;
@@ -140,7 +140,7 @@ class ProgramaSeeder extends Seeder
         $programa25->nombre = "DESARROLLO DEL TALENTO HUMANO EN LAS ORG";
         $programa25->save();
 
-        $programa26 = new Programa();
+        /*$programa26 = new Programa();
         $programa26->clave = 15125;
         $programa26->nombre = "ESPECIALIZACION EN ESTUDIOS DE OPINION";
         $programa26->save();
@@ -334,7 +334,7 @@ class ProgramaSeeder extends Seeder
         $programa64->clave = 17145;
         $programa64->nombre = "DOCTORADO EN CIENCIAS ADMINISTRATIVAS Y GESTION PARA EL DESARROLLO";
         $programa64->save();
-        
+
         $programa65 = new Programa();
         $programa65->clave = 17146;
         $programa65->nombre = "DOCTORADO EN CIENCIAS DE LA COMPUTACION";
@@ -354,7 +354,7 @@ class ProgramaSeeder extends Seeder
         $programa69->clave = 18101;
         $programa69->nombre = "DIPLOMADO EN ADMINISTRACION FINANCIERA";
         $programa69->save();
-        
+
         $programa70 = new Programa();
         $programa70->clave = 18110;
         $programa70->nombre = "DIPLOMADO EN INFORMATICA";
@@ -374,7 +374,7 @@ class ProgramaSeeder extends Seeder
         $programa73->clave = 18171;
         $programa73->nombre = "DIPLOMADO CURRICULUM DE HIGH SCOPE";
         $programa73->save();
-        
+
         $programa74 = new Programa();
         $programa74->clave = 18172;
         $programa74->nombre = "DIPLOMADO EN MEDICINA FORENSE";
@@ -394,7 +394,7 @@ class ProgramaSeeder extends Seeder
         $programa77->clave = 18175;
         $programa77->nombre = "DIPLOMADO EN ESTADISTICA";
         $programa77->save();
-        
+
         $programa78 = new Programa();
         $programa78->clave = 18183;
         $programa78->nombre = "DIPLOMADO SOBRE SANGRE Y COMPONENTES SEGUROS";
@@ -414,7 +414,7 @@ class ProgramaSeeder extends Seeder
         $programa81->clave = 18188;
         $programa81->nombre = "DIPLOMADO EN MULTIMEDIA";
         $programa81->save();
-        
+
         $programa82 = new Programa();
         $programa82->clave = 18190;
         $programa82->nombre = "DIPLOMADO EN GESTION MUNICIPAL";
@@ -434,7 +434,7 @@ class ProgramaSeeder extends Seeder
         $programa85->clave = 18195;
         $programa85->nombre = "DIPLOMADO DE DESARROLLO DE HABILIDADES APLICADAS EN SALUD PUBLICA";
         $programa85->save();
-        
+
         $programa86 = new Programa();
         $programa86->clave = 18519;
         $programa86->nombre = "CONGRESO INTERNACIONAL EN SISTEMAS COMPUTACIONALES ADMINISTRATIVOS";
@@ -454,7 +454,7 @@ class ProgramaSeeder extends Seeder
         $programa89->clave = 18537;
         $programa89->nombre = "CONG.INTERNACIONAL DE INVESIGACION EN LAS CIENCIAS Y SUSTENTABILIDAD (CICS) 2014";
         $programa89->save();
-        
+
         $programa90 = new Programa();
         $programa90->clave = 18551;
         $programa90->nombre = "CONGRESO INTERNACIONAL DE INVESTIGACION DE LAS CIENCIAS Y SUSTENTABILIDAD 2015";
@@ -474,7 +474,7 @@ class ProgramaSeeder extends Seeder
         $programa93->clave = 18571;
         $programa93->nombre = "TALLER VIDA EN MARTE";
         $programa93->save();
-        
+
         $programa94 = new Programa();
         $programa94->clave = 18574;
         $programa94->nombre = "ASAMBLEA ANFECA";
@@ -494,7 +494,7 @@ class ProgramaSeeder extends Seeder
         $programa97->clave = 18655;
         $programa97->nombre = "DIPLOMADO EN GUIA DE TURISTAS";
         $programa97->save();
-        
+
         $programa98 = new Programa();
         $programa98->clave = 18666;
         $programa98->nombre = "DIPLOMADO EN SISTEMAS DE GESTION DE LA CALIDAD";
@@ -514,7 +514,7 @@ class ProgramaSeeder extends Seeder
         $programa101->clave = 18745;
         $programa101->nombre = "DIPLOMADO CIENCIAS DE DATOS";
         $programa101->save();
-        
+
         $programa102 = new Programa();
         $programa102->clave = 26300;
         $programa102->nombre = "COORDINACION DEL PROG.EST.INT.REG.Y DES.AMERICA-EUROPA";
@@ -534,7 +534,7 @@ class ProgramaSeeder extends Seeder
         $programa105->clave = 33140;
         $programa105->nombre = "SISTEMA INTEGRAL DE INFORMACION SOBRE INSTITUCIONES DE EDUCACION";
         $programa105->save();
-        
+
         $programa106 = new Programa();
         $programa106->clave = 33151;
         $programa106->nombre = "COGRESO INTERNACIONAL HORIZONTES DE LA CONTADURIA EN LAS CIENCIAS SOCIALES";
@@ -554,7 +554,7 @@ class ProgramaSeeder extends Seeder
         $programa109->clave = 34202;
         $programa109->nombre = "CONSULTA Y SERVICIOS DE LABORATORIO";
         $programa109->save();
-        
+
         $programa110 = new Programa();
         $programa110->clave = 34211;
         $programa110->nombre = "ADMINISTRANDO MI ESTANCIA";
@@ -574,7 +574,7 @@ class ProgramaSeeder extends Seeder
         $programa113->clave = 34350;
         $programa113->nombre = "CONVENIO UV-DICONSA";
         $programa113->save();
-        
+
         $programa114 = new Programa();
         $programa114->clave = 34381;
         $programa114->nombre = "ASISTENCIA TECNICA Y SOPORTE PARA LA OPTIMIZACION DE FLUJOS DE INFORMACION";
@@ -594,7 +594,7 @@ class ProgramaSeeder extends Seeder
         $programa117->clave = 34436;
         $programa117->nombre = "INCUBADORA DE EMPRESAS DEL IIESCA";
         $programa117->save();
-        
+
         $programa118 = new Programa();
         $programa118->clave = 34465;
         $programa118->nombre = "POR UNA VIDA LIBRE DE VIOLENCIA IVM-UV";
@@ -614,7 +614,7 @@ class ProgramaSeeder extends Seeder
         $programa121->clave = 34487;
         $programa121->nombre = "ESTUDIO DE OPINION PARA EL AREA LIMONARIA";
         $programa121->save();
-        
+
         $programa122 = new Programa();
         $programa122->clave = 34507;
         $programa122->nombre = "EVALUACION EXTERNA AFTERSCHOOL 2015 TAMSA-UV";
@@ -634,7 +634,7 @@ class ProgramaSeeder extends Seeder
         $programa125->clave = 34525;
         $programa125->nombre = "EVALUACION 2016 AFTERSCHOOL";
         $programa125->save();
-        
+
         $programa126 = new Programa();
         $programa126->clave = 34539;
         $programa126->nombre = "ENCUESTAIVM IMPACTO CAMPAÑA 2016";
@@ -654,7 +654,7 @@ class ProgramaSeeder extends Seeder
         $programa129->clave = 34556;
         $programa129->nombre = "EVAL. CONSEJOS DISTRITALES OPLE-UV";
         $programa129->save();
-        
+
         $programa130 = new Programa();
         $programa130->clave = 34570;
         $programa130->nombre = "EXPEDIENTE ELECTRONICO BLOCKCHAIN";
@@ -674,7 +674,7 @@ class ProgramaSeeder extends Seeder
         $programa133->clave = 34597;
         $programa133->nombre = "ESTUDIO ENCUESTA COPAES U.V.";
         $programa133->save();
-        
+
         $programa134 = new Programa();
         $programa134->clave = 34601;
         $programa134->nombre = "EXAMEN CONSEJEROS 2020-2021 OPLE UV";
@@ -694,7 +694,7 @@ class ProgramaSeeder extends Seeder
         $programa137->clave = 41828;
         $programa137->nombre = "EQUIP., CREACION Y ENSEÑ.DE CONT. ACCESIBLE PARA PERSONAS CON DISCAP.VIS:UNA G.M";
         $programa137->save();
-        
+
         $programa138 = new Programa();
         $programa138->clave = 43103;
         $programa138->nombre = "MEJORA DE LA CALIDAD DE LOS PROG. ACADEM. MED. EL DES. DE UN SIST. DE APRE. DIST";
@@ -714,7 +714,7 @@ class ProgramaSeeder extends Seeder
         $programa141->clave = 47478;
         $programa141->nombre = "MEJ.PE Y CA DES ECO-ADM XAL";
         $programa141->save();
-        
+
         $programa142 = new Programa();
         $programa142->clave = 47479;
         $programa142->nombre = "FOR. Y CON.CAL.EDU.DES ECO-ADM VER.";
@@ -734,7 +734,7 @@ class ProgramaSeeder extends Seeder
         $programa145->clave = 47493;
         $programa145->nombre = "P-INT.FOR.CAP.Y COM.DES ECO-ADM COA";
         $programa145->save();
-        
+
         $programa146 = new Programa();
         $programa146->clave = 49103;
         $programa146->nombre = "ACTUALIZACION Y MODIFICACION DE LOS PLANES Y PROGRAMAS DE ESTUDIO";
@@ -743,7 +743,7 @@ class ProgramaSeeder extends Seeder
         $programa147 = new Programa();
         $programa147->clave = 49201;
         $programa147->nombre = "ADMINISTRACION, ADMON. DE EMPRESAS TURISTICAS Y CONTADURIA";
-        $programa147->save();
- 
+        $programa147->save();*/
+
     }
 }

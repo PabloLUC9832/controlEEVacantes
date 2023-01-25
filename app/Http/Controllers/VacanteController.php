@@ -143,7 +143,9 @@ class VacanteController extends Controller
      */
     public function create()
     {
-        $listaProgramas = Programa::all();
+        //$listaProgramas = Programa::all();
+        $listaProgramas = DB::table('v_zona_dependencia_programa')
+            ->select('clave_programa','nombre_programa');
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
