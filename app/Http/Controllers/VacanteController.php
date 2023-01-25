@@ -31,6 +31,7 @@ class VacanteController extends Controller
         //https://stackoverflow.com/questions/18564205/html-submit-form-on-radio-button-check
         $search = trim($request->get('search'));
         $radioButton = $request->get('tipoV');
+        $isDeleted = false;
 
         $user = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
 
@@ -61,6 +62,18 @@ class VacanteController extends Controller
                                 'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->whereNotNull('numPersonalDocente')
+                            ->orderBy('numDependencia', 'desc')
+                            ->paginate(15)
+                        ;
+                    break;
+
+                    case "vacanteCerrada":
+                        $isDeleted = true;
+                        $vacantes = DB::table('vacantes')
+                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
+                            ->whereNotNull('deleted_at')
                             ->orderBy('numDependencia', 'desc')
                             ->paginate(15)
                         ;
@@ -122,6 +135,22 @@ class VacanteController extends Controller
 
                     break;
 
+                    case "vacanteCerrada":
+                        $isDeleted = true;
+                        $vacantes = DB::table('vacantes')
+                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
+                            ->where(function ($query) use ($search){
+                                $query->where('numDependencia','=',auth()->user()->dependencia)
+                                      ->whereNotNull('deleted_at')
+                                      ;
+                            })
+                            ->orderBy('numDependencia', 'desc')
+                            ->paginate(15)
+                        ;
+                        break;
+
                     default:
                         $vacantes = $this->busquedaEditor($search,$userE);
 
@@ -132,7 +161,7 @@ class VacanteController extends Controller
 
         }
 
-        return view('vacante.index', compact('vacantes','search','radioButton'));
+        return view('vacante.index', compact('vacantes','search','radioButton','isDeleted'));
 
     }
 
@@ -482,28 +511,108 @@ class VacanteController extends Controller
     public function busqueda($search){
 
          $vacantes = DB::table('vacantes')->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-            'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
-            'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
-            ->where('periodo','LIKE','%'.$search.'%')
-            ->where('clavePeriodo','LIKE','%'.$search.'%')
-            ->orWhere('numZona','LIKE','%'.$search.'%')
-            ->orWhere('numDependencia','LIKE','%'.$search.'%')
-            ->orWhere('numArea','LIKE','%'.$search.'%')
-            ->orWhere('numPrograma','LIKE','%'.$search.'%')
-            ->orWhere('numPlaza','LIKE','%'.$search.'%')
-            ->orWhere('numHoras','LIKE','%'.$search.'%')
-            ->orWhere('numMateria','LIKE','%'.$search.'%')
-            ->orWhere('nombreMateria','LIKE','%'.$search.'%')
-            ->orWhere('grupo','LIKE','%'.$search.'%')
-            ->orWhere('subGrupo','LIKE','%'.$search.'%')
-            ->orWhere('numMotivo','LIKE','%'.$search.'%')
-            ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
-            ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
-            ->orWhere('plan','LIKE','%'.$search.'%')
-            ->orWhere('fechaApertura','LIKE','%'.$search.'%')
-            ->orWhere('fechaCierre','LIKE','%'.$search.'%')
-            ->orWhere('observaciones','LIKE','%'.$search.'%')
-            ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
+            'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre','observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
+            //->where('periodo','LIKE','%'.$search.'%')
+            ->where(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('periodo','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('clavePeriodo','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('numZona','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('numDependencia','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('numArea','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('numPrograma','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('numPlaza','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->where(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('numHoras','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('numMateria','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->where(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('nombreMateria','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('grupo','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('subGrupo','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('numMotivo','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('tipoAsignacion','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('numPersonalDocente','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('plan','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('fechaApertura','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('fechaCierre','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('observaciones','LIKE','%'.$search.'%')
+                      ;
+            })
+            ->orWhere(function($query) use ($search){
+                $query->whereNull('deleted_at')
+                      ->where('fechaRenuncia','LIKE','%'.$search.'%')
+                      ;
+            })
             ->orderBy('numDependencia','desc')
             ->paginate(15);
 
@@ -518,93 +627,110 @@ class VacanteController extends Controller
             'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
             ->where(function ($query) use ($search,$user){
                 $query->where('periodo','LIKE','%'.$search.'%')
-                    //->where('numDependencia','=',auth()->user()->dependencia)
-                    ->where('numDependencia','=',$user->dependencia)
+                       ->whereNull('deleted_at')
+                       ->where('numDependencia','=',$user->dependencia)
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('clavePeriodo','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
+                      ->where('numDependencia','=',$user->dependencia)
+                      ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('numPrograma','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('numPlaza','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('numHoras','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('numMateria','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('nombreMateria','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('grupo','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('subGrupo','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('numMotivo','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('tipoAsignacion','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('numPersonalDocente','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('plan','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('fechaApertura','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('fechaCierre','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('observaciones','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('fechaRenuncia','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orWhere(function ($query) use ($search,$user){
                 $query->where('bancoHorasDisponible','LIKE','%'.$search.'%')
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
             ->orderBy('numPrograma','desc')

@@ -39,6 +39,7 @@ return new class extends Migration
             $table->integer('bancoHorasDisponible')->nullable();
             $table->text('archivo')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
