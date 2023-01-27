@@ -94,8 +94,8 @@
                                     <select  id="numPrograma" name="numPrograma" class="estiloSelect">
                                         <option value="{{$vacante->numPrograma}}">{{$vacante->numPrograma}}</option>
                                         @foreach ($programas as $data)
-                                            <option value="{{$data->clave}}">
-                                                {{$data->clave}} {{$data->nombre}}
+                                            <option value="{{$data->clave_programa}}">
+                                                {{$data->nombre_zona}} {{$data->clave_programa}} {{$data->nombre_programa}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -152,13 +152,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-{{--                                <div class="col-span-6">
-                                    <label for="numPersonalDocente" class="labelForms">Número personal del
-                                        docente</label>
-                                    <input type="number" name="numPersonalDocente" id="numPersonalDocente"
-                                           class="inputForms" value="{{$vacante->numPersonalDocente}}">
-                                </div>--}}
 
                                 <div class="col-span-6">
                                     <label for="numPersonalDocente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>

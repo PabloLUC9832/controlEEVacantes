@@ -14,7 +14,9 @@ use App\Models\ExperienciaEducativa;
 use App\Http\Requests\StoreVacanteRequest;
 use App\Http\Requests\UpdateVacanteRequest;
 use App\Models\Zona;
+use App\Models\Zona_Dependencia_Programa;
 use App\Providers\LogUserActivity;
+use App\Providers\OperacionHorasVacante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -172,9 +174,7 @@ class VacanteController extends Controller
      */
     public function create()
     {
-        //$listaProgramas = Programa::all();
-        $listaProgramas = DB::table('v_zona_dependencia_programa')
-            ->select('clave_programa','nombre_programa');
+        $listaProgramas = Zona_Dependencia_Programa::all();
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
@@ -245,6 +245,8 @@ class VacanteController extends Controller
 
         $vacante->save();
 
+
+
         $user = Auth::user();
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
                 . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
@@ -281,7 +283,7 @@ class VacanteController extends Controller
     {
         $vacante = Vacante::findOrFail($id);
 
-        $listaProgramas = Programa::all();
+        $listaProgramas = Zona_Dependencia_Programa::all();
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
@@ -387,6 +389,35 @@ class VacanteController extends Controller
             'archivo' => $archivo ,
         ]);
 
+/*        $horasInicialesEE = DB::table('zona__dependencia__programas')
+                              ->select('horasIniciales')
+                              ->where('clave_programa','=',$numPrograma)
+                              ->value('horasIniciales')
+                             ;*/
+/*        $horasInicialesEE = DB::table('zona__dependencia__programas')
+                              ->select('horasDisponibles')
+                              ->where('clave_programa','=',$numPrograma)
+                              ->value('horasDisponibles')
+                             ;
+
+        $horasInicialesEEID = DB::table('zona__dependencia__programas')
+                              ->select('id')
+                              ->where('clave_programa','=',$numPrograma)
+                              ->value('id')
+                             ;
+
+        $horasDisponibles =  $horasInicialesEE - $bancoHorasDisponible;
+        //dd($horasDisponibles);
+        //dd($horasDisponibles);
+        //die();
+        $zonaDependenciaProg = Zona_Dependencia_Programa::findOrFail($horasInicialesEEID);
+        $zonaDependenciaProg->update([
+            'horasDisponibles' => $horasDisponibles,
+        ]);*/
+
+        if (!empty($bancoHorasDisponible)){
+            event(new OperacionHorasVacante($bancoHorasDisponible,$numPrograma));
+        }
 
 
 

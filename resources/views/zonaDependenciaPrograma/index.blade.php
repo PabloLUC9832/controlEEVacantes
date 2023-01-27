@@ -89,6 +89,15 @@
                 <th scope="col" class="py-3 px-6">
                     Programa Educativo
                 </th>
+                <th scope="col" class="py-3 px-6">
+                    Horas Iniciales
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Horas Usadas
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Horas Disponibles
+                </th>
                 <!--th scope="col" class="py-3 px-6">
                     <span class="sr-only">Editar</span>
                 </th>
@@ -119,6 +128,18 @@
 
                         <td class="py-4 px-6">
                             {{$zonaDependenciaPrograma->nombre_programa}}
+                        </td>
+
+                        <td class="py-4 px-6">
+                            {{$zonaDependenciaPrograma->horasIniciales}}
+                        </td>
+
+                        <td class="py-4 px-6">
+                            {{$zonaDependenciaPrograma->horasUtilizadas}}
+                        </td>
+
+                        <td class="py-4 px-6">
+                            {{$zonaDependenciaPrograma->horasDisponibles}}
                         </td>
 
                     </tr>
