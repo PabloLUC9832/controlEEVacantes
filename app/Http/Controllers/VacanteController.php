@@ -206,7 +206,13 @@ class VacanteController extends Controller
         $periodoPartes = explode("-",$periodoCompleto);
 
 
-        $fileName = time() ."_" . $request->file->getClientOriginalName();
+        //$fileName = time() ."_" . $request->file->getClientOriginalName();
+
+        if($request->file()){
+            $fileName = time() ."_" . $request->file->getClientOriginalName();
+        }
+
+
 
         $vacante = new Vacante();
         /*
@@ -245,7 +251,9 @@ class VacanteController extends Controller
 
         $vacante->save();
 
-
+        if (!empty($request->bancoHorasDisponible)){
+            event(new OperacionHorasVacante($request->bancoHorasDisponible,$request->numPrograma));
+        }
 
         $user = Auth::user();
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
@@ -389,38 +397,10 @@ class VacanteController extends Controller
             'archivo' => $archivo ,
         ]);
 
-/*        $horasInicialesEE = DB::table('zona__dependencia__programas')
-                              ->select('horasIniciales')
-                              ->where('clave_programa','=',$numPrograma)
-                              ->value('horasIniciales')
-                             ;*/
-/*        $horasInicialesEE = DB::table('zona__dependencia__programas')
-                              ->select('horasDisponibles')
-                              ->where('clave_programa','=',$numPrograma)
-                              ->value('horasDisponibles')
-                             ;
-
-        $horasInicialesEEID = DB::table('zona__dependencia__programas')
-                              ->select('id')
-                              ->where('clave_programa','=',$numPrograma)
-                              ->value('id')
-                             ;
-
-        $horasDisponibles =  $horasInicialesEE - $bancoHorasDisponible;
-        //dd($horasDisponibles);
-        //dd($horasDisponibles);
-        //die();
-        $zonaDependenciaProg = Zona_Dependencia_Programa::findOrFail($horasInicialesEEID);
-        $zonaDependenciaProg->update([
-            'horasDisponibles' => $horasDisponibles,
-        ]);*/
-
         if (!empty($bancoHorasDisponible)){
             event(new OperacionHorasVacante($bancoHorasDisponible,$numPrograma));
         }
-
-
-
+        
         $user = Auth::user();
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
                 . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
