@@ -251,8 +251,8 @@ class VacanteController extends Controller
 
         $vacante->save();
 
-        if (!empty($request->bancoHorasDisponible)){
-            event(new OperacionHorasVacante($request->bancoHorasDisponible,$request->numPrograma));
+        if (!empty($request->bancoHorasDisponible) && !empty($request->tipoAsignacion)){
+            event(new OperacionHorasVacante($request->bancoHorasDisponible,$request->numPrograma,$request->tipoAsignacion));
         }
 
         $user = Auth::user();
@@ -397,10 +397,10 @@ class VacanteController extends Controller
             'archivo' => $archivo ,
         ]);
 
-        if (!empty($bancoHorasDisponible)){
-            event(new OperacionHorasVacante($bancoHorasDisponible,$numPrograma));
+        if (!empty($bancoHorasDisponible) && !empty($tipoAsignacion)){
+            event(new OperacionHorasVacante($bancoHorasDisponible,$numPrograma,$tipoAsignacion));
         }
-        
+
         $user = Auth::user();
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
                 . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo

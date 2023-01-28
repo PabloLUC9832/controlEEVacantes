@@ -29,25 +29,31 @@ class Operacion
      */
     public function handle(OperacionHorasVacante $event)
     {
-        //
-        $horasInicialesEE = DB::table('zona__dependencia__programas')
-            ->select('horasDisponibles')
-            ->where('clave_programa','=',$event->numPrograma)
-            ->value('horasDisponibles')
-        ;
 
-        $programaID = DB::table('zona__dependencia__programas')
-            ->select('id')
-            ->where('clave_programa','=',$event->numPrograma)
-            ->value('id')
-        ;
+        if( $event->tipoAsignacion !== "Complemento de carga" && $event->tipoAsignacion !== "Carga obligatoria"){
+        //if( strcmp($event->tipoAsignacion,"Complemento de carga") !==0 || strcmp($event->tipoAsignacion,"Carga obligatoria") !==0 ){
+        //if( strcmp($event->tipoAsignacion,"Carga obligatoria") !=0 ){
 
-        $horasDisponibles =  $horasInicialesEE - $event->horasEE;
+            $horasInicialesEE = DB::table('zona__dependencia__programas')
+                ->select('horasDisponibles')
+                ->where('clave_programa','=',$event->numPrograma)
+                ->value('horasDisponibles')
+            ;
 
-        $zonaDependenciaProg = Zona_Dependencia_Programa::findOrFail($programaID);
-        $zonaDependenciaProg->update([
-            'horasDisponibles' => $horasDisponibles,
-        ]);
+            $programaID = DB::table('zona__dependencia__programas')
+                ->select('id')
+                ->where('clave_programa','=',$event->numPrograma)
+                ->value('id')
+            ;
+
+            $horasDisponibles =  $horasInicialesEE - $event->horasEE;
+
+            $zonaDependenciaProg = Zona_Dependencia_Programa::findOrFail($programaID);
+            $zonaDependenciaProg->update([
+                'horasDisponibles' => $horasDisponibles,
+            ]);
+
+        }
 
     }
 }

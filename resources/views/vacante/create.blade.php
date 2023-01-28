@@ -251,8 +251,7 @@
                                     </div>
 
                                     <div class="col-span-6">
-                                        <label for="bancoHorasDisponible" class="labelForms">Banco de horas
-                                            disponible</label>
+                                        <label for="bancoHorasDisponible" class="labelForms">Banco de horas</label>
                                         <input type="number" name="bancoHorasDisponible" id="bancoHorasDisponible"
                                                class="inputForms" placeholder="Ej. ">
                                     </div>

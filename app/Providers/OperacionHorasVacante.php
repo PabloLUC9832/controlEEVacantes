@@ -16,17 +16,18 @@ class OperacionHorasVacante
 
     public $numPrograma;
     public $horasEE;
+    public $tipoAsignacion;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($horasEE,$numPrograma)
+    public function __construct($horasEE,$numPrograma,$tipoAsignacion)
     {
         //
         $this->numPrograma = $numPrograma;
         $this->horasEE = $horasEE;
-
+        $this->tipoAsignacion = $tipoAsignacion;
     }
 
     /**

@@ -72,8 +72,9 @@
                         <label class="labelForms">Banco de horas disponible: {{$vacante->bancoHorasDisponible}}</label>
                     </div>
                     <div class="col-span-6">
-                        <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}">Documento: {{$vacante->archivo}}</a>
+                        <p class="text-gray-500 dark:text-black-400">Documento: <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">{{$vacante->archivo}}</a> </p>
                     </div>
+
                 </form>
             </div>
             <div class="p-2 text-center">
