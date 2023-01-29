@@ -130,6 +130,9 @@ Route::controller(PeriodoController::class)->group(function (){
         Route::get('/periodo/edit/{id}','edit')->name('edit');
         Route::post('/periodo/update/{id}','update')->name('update');
 
+        Route::post('/periodo/updatePA/{id}','updatePA')->name('updatePA');
+
+
     });
 
 });

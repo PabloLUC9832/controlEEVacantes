@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('nPeriodo');
             $table->text('clavePeriodo');
             $table->text('descripcion');
+            $table->boolean('actual')->nullable();
             $table->timestamps();
         });
     }

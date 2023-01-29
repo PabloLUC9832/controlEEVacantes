@@ -9,6 +9,8 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
     <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite('node_modules/flowbite/dist/flowbite.js')
     @livewireStyles
@@ -76,6 +78,15 @@
                 <th scope="col" class="py-3 px-6">
                     Descripción
                 </th>
+                <th scope="col" class="py-3 px-6">
+                    Periodo Actual
+                </th>
+                <th scope="col" class="py-3 px-6">
+
+                </th>
+                <th scope="col" class="py-3 px-6">
+
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -101,6 +112,26 @@
                         <td class="py-4 px-6">
                             {{$periodo->descripcion}}
                         </td>
+
+                        @if($periodo->actual)
+
+                            <td class="py-4 px-6">
+                                <form id="formPeriodoActual" action="{{ route('periodo.updatePA',$periodo->id) }}" method="POST">
+                                    @csrf
+                                    <input checked onchange="this.form.submit()" type="checkbox" id="cbActual" name="actual" value="False" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                </form>
+                            </td>
+
+                        @else
+
+                            <td class="py-4 px-6">
+                                <form id="formPeriodoActual" action="{{ route('periodo.updatePA',$periodo->id) }}" method="POST">
+                                    @csrf
+                                    <input onchange="this.form.submit()" type="checkbox" id="cbActual" name="actual" value="True" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                </form>
+                            </td>
+
+                        @endif
 
                         <td class="py-4 px-6 text-right">
                             <a href="{{route('periodo.edit',$periodo->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>

@@ -20,7 +20,7 @@ class PeriodoController extends Controller
         $radioButton = $request->get('tipo');
 
         $periodos = DB::table('periodos')
-            ->select('id','nPeriodo', 'clavePeriodo','descripcion')
+            ->select('id','nPeriodo', 'clavePeriodo','descripcion','actual')
             ->where('nPeriodo','LIKE','%'.$search.'%')
             ->orWhere('clavePeriodo','LIKE','%'.$search.'%')
             ->orWhere('descripcion','LIKE','%'.$search.'%')
@@ -42,7 +42,7 @@ class PeriodoController extends Controller
 
                 case "clavePeriodo":
                     $periodos = DB::table('periodos')
-                        ->select('id','nPeriodo', 'clavePeriodo','descripcion')
+                        ->select('id','nPeriodo', 'clavePeriodo','descripcion','actual')
                         ->where('clavePeriodo','LIKE','%'.$search.'%')
                         ->orderBy('clavePeriodo', 'desc')
                         ->paginate(15)
@@ -51,7 +51,7 @@ class PeriodoController extends Controller
 
                 case "descripcion":
                     $periodos = DB::table('periodos')
-                        ->select('id','nPeriodo', 'clavePeriodo','descripcion')
+                        ->select('id','nPeriodo', 'clavePeriodo','descripcion','actual')
                         ->where('descripcion','LIKE','%'.$search.'%')
                         ->orderBy('descripcion', 'desc')
                         ->paginate(15)
@@ -60,7 +60,7 @@ class PeriodoController extends Controller
 
                 default:
                     $periodos = DB::table('periodos')
-                        ->select('id','nPeriodo', 'clavePeriodo','descripcion')
+                        ->select('id','nPeriodo', 'clavePeriodo','descripcion','actual')
                         ->where('nPeriodo','LIKE','%'.$search.'%')
                         ->orWhere('clavePeriodo','LIKE','%'.$search.'%')
                         ->orWhere('descripcion','LIKE','%'.$search.'%')
@@ -89,7 +89,7 @@ class PeriodoController extends Controller
         $periodo->save();
 
         $user = Auth::user();
-        $data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
+        $data = $request->nPeriodo ." ". $request->clavePeriodo ." ". $request->descripcion . " ";
         event(new LogUserActivity($user,"Creación de Periodo",$data));
 
         return redirect()->route('periodo.index');
@@ -120,12 +120,38 @@ class PeriodoController extends Controller
         ]);
 
         $user = Auth::user();
-        $data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
+        $data = $nPeriodo ." ". $clavePeriodo ." ". $descripcion . " ";
         event(new LogUserActivity($user,"Actualización de Periodo ID: $request->nPeriodo",$data));
 
         return redirect()->route('periodo.index');
 
     }
+
+    public function updatePA(Request $request, $id)
+    {
+        $periodo = Periodo::where('id', $id)->firstOrFail();
+
+        $actual = $request->actual;
+        $valBo = false;
+        if($actual){
+            $valBo = true;
+        }else{
+            $valBo = false;
+        }
+
+        $periodo->update([
+            //'actual'=>$actual,
+            'actual'=>$valBo,
+        ]);
+
+        $user = Auth::user();
+        $data = $periodo->nPeriodo . " " . $periodo->descripcion;
+        event(new LogUserActivity($user,"Se fijo como periodo actual Actualización de Periodo ID: $periodo->clavePeriodo",$data));
+
+        return redirect()->route('periodo.index');
+
+    }
+
 
     public function destroy($id)
     {
