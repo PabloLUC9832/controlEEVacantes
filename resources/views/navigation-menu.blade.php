@@ -72,6 +72,14 @@
                                         {{ __('Motivos') }}
                                     </x-jet-dropdown-link>
 
+                                    <x-jet-dropdown-link href="{{ route('zona.index') }}">
+                                        {{ __('Zonas') }}
+                                    </x-jet-dropdown-link>
+
+                                    <x-jet-dropdown-link href="{{ route('zonaDependencia.index') }}">
+                                        {{ __('Dependencias') }}
+                                    </x-jet-dropdown-link>
+
                                 </x-slot>
 
                             </x-jet-dropdown>

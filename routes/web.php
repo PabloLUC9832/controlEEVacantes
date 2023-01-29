@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TipoAsignacionController;
 use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\VacanteController;
+use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\ZonaDependenciaController;
 use App\Http\Controllers\ZonaDependenciaProgramaController;
 use App\Http\Controllers\DocenteController;
@@ -72,6 +73,7 @@ Route::controller(VacanteController::class)->group(function (){
 
 Route::post('api/fetch-dependencias', [ZonaDependenciaController::class, 'fetchDependencia']);
 Route::post('api/fetch-nombreExperienciaEducativa', [VacanteController::class, 'fetchNombreExperienciaEducativa']);
+Route::post('api/fetch-idNombreZona', [ZonaDependenciaController::class, 'fetchIdNombreZona']);
 
 Route::controller(DocenteController::class)->group(function (){
 
@@ -189,6 +191,22 @@ Route::controller(ZonaDependenciaProgramaController::class)->group(function (){
     Route::name('zonaDependenciaPrograma.')->group(function (){
 
         Route::get('/zonaDependenciaPrograma',  'index') ->name('index');
+
+    });
+
+});
+
+Route::controller(ZonaDependenciaController::class)->group(function (){
+
+    Route::name('zonaDependencia.')->group(function (){
+
+        Route::get('/zonaDependencia',  'index') ->name('index');
+        Route::get('/zonaDependencia/create',  'create')->name('create');
+        Route::post('/zonaDependencia',  'store')->name('store');
+        Route::delete('/zonaDependencia/destroy/{id}',  'destroy')->name('destroy');
+
+        Route::get('/zonaDependencia/edit/{id}','edit')->name('edit');
+        Route::post('/zonaDependencia/update/{id}','update')->name('update');
 
     });
 
