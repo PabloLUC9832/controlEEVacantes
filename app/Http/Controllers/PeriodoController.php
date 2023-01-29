@@ -134,15 +134,60 @@ class PeriodoController extends Controller
         $actual = $request->actual;
         $valBo = false;
         if($actual){
-            $valBo = true;
+            //$valBo = true;
+            $periodo->update([
+                //'actual'=>$actual,
+                'actual'=>true,
+            ]);
+
+            $periodoID = DB::table('periodos')
+                ->select('id')
+                ->where('id','=',$id)
+                ->value('id')
+            ;
+
+            $aPeriodo = str_split($periodoID);
+
+            $otrosPeriodos = Db::table('periodos')
+                ->whereNotIn('id',$aPeriodo)
+                ->update([
+                    'actual' => false,
+                ])
+
+            ;
+
         }else{
-            $valBo = false;
+            //$valBo = false;
+            $periodo->update([
+                //'actual'=>$actual,
+                'actual'=>false,
+            ]);
+
         }
 
-        $periodo->update([
+/*        $periodo->update([
             //'actual'=>$actual,
             'actual'=>$valBo,
-        ]);
+        ]);*/
+
+/*        $periodoID = DB::table('periodos')
+            ->select('id')
+            ->where('id','=',$id)
+            ->value('id')
+            ;*/
+
+        //dd($periodoID);
+        //$aPeriodo = str_split($periodoID);
+        //$iPeriodo = (integer) $periodoID;
+
+/*        $otrosPeriodos = Db::table('periodos')
+                         ->whereNotIn('id',$aPeriodo)
+                         ->update([
+                             'actual' => false,
+                         ])
+
+                         ;*/
+
 
         $user = Auth::user();
         $data = $periodo->nPeriodo . " " . $periodo->descripcion;
