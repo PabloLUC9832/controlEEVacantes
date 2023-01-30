@@ -282,7 +282,7 @@ class VacanteController extends Controller
         $vacante->save();
 
         if (!empty($request->bancoHorasDisponible) && !empty($request->tipoAsignacion)){
-            event(new OperacionHorasVacante($request->bancoHorasDisponible,$request->numPrograma,$request->tipoAsignacion));
+            event(new OperacionHorasVacante($request->bancoHorasDisponible,$request->numPrograma,$request->tipoContratacion,$request->tipoAsignacion));
         }
 
         $user = Auth::user();
@@ -429,8 +429,8 @@ class VacanteController extends Controller
             'archivo' => $archivo ,
         ]);
 
-        if (!empty($bancoHorasDisponible) && !empty($tipoAsignacion)){
-            event(new OperacionHorasVacante($bancoHorasDisponible,$numPrograma,$tipoAsignacion));
+        if (!empty($bancoHorasDisponible) && !empty($tipoAsignacion) && !empty($tipoContratacion)){
+            event(new OperacionHorasVacante($bancoHorasDisponible,$numPrograma,$tipoContratacion,$tipoAsignacion));
         }
 
         $user = Auth::user();
