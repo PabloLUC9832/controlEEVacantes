@@ -63,6 +63,24 @@
                                            required>
                                 </div>
 
+                                <div class="col-span-6">
+                                    <label for="horasIniciales" class="labelForms">Horas Iniciales</label>
+                                    <input type="number" name="horasIniciales" id="horasIniciales" class="inputForms"
+                                           placeholder="Ej. 150" required>
+                                </div>
+
+                                <div class="col-span-6">
+                                    <label for="horasUtilizadas" class="labelForms">Horas Utilizadas</label>
+                                    <input type="number" name="horasUtilizadas" id="horasUtilizadas" class="inputForms"
+                                           placeholder="Ej. 10" required>
+                                </div>
+
+                                <div class="col-span-6">
+                                    <label for="horasDisponibles" class="labelForms">Horas Disponibles</label>
+                                    <input type="number" name="horasDisponibles" id="horasDisponibles" class="inputForms"
+                                           placeholder="Ej. 140" required>
+                                </div>
+
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
