@@ -87,6 +87,9 @@
                     Nombre de la dependencia
                 </th>
                 <th scope="col" class="py-3 px-6">
+                    <span class="sr-only">Reporte</span>
+                </th>
+                <th scope="col" class="py-3 px-6">
                     <span class="sr-only">Editar</span>
                 </th>
                 <th scope="col" class="py-3 px-6">
@@ -120,6 +123,10 @@
 
                         <td class="py-4 px-6">
                             {{$dependencia->nombre_dependencia}}
+                        </td>
+
+                        <td class="py-4 px-6 text-right">
+                            <a href="{{route('zonaDependencia.reporte',$dependencia->clave_dependencia)}}" class="text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Reporte</a>
                         </td>
 
                         <td class="py-4 px-6 text-right">

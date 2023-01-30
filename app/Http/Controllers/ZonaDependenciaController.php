@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreZonaDependenciaRequest;
 use App\Models\Dependencia;
+use App\Models\Vacante;
 use Illuminate\Http\Request;
 use App\Models\Zona_Dependencia;
 use App\Models\Zona;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Providers\LogUserActivity;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class ZonaDependenciaController extends Controller
@@ -224,4 +226,20 @@ class ZonaDependenciaController extends Controller
 
         return response()->json($data);
     }
+
+    public function reporte($id)
+    {
+        $listaVacantes = Vacante::where('numDependencia',$id)->get();
+        $dependencia = Zona_Dependencia::where('clave_dependencia',$id)->value('nombre_dependencia');
+        $pdf = Pdf::loadView('pdf.templateVacantesPorDependencia', compact(
+                'listaVacantes','dependencia')
+        );
+
+        $user = Auth::user();
+        $data = "Generación de Reporte de Experiencias Vacantes de la dependencia: $id";
+        event(new LogUserActivity($user,"Generación de Reporte de Experiencias Educativas",$data));
+        return $pdf->stream();
+
+    }
+
 }
