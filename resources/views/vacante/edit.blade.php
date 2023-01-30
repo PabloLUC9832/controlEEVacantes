@@ -136,6 +136,15 @@
                                 </div>
 
                                 <div class="col-span-6">
+                                    <label for="tipoContratacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Contratación</label>
+                                    <select  id="tipoContratacion" name="tipoContratacion" class="estiloSelect">
+                                        <option value="{{$vacante->tipoContratacion}}">{{$vacante->tipoContratacion}}</option>
+                                        <option value="IOD">Contratación IOD</option>
+                                        <option value="IPP">Contratación IPP</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-span-6">
                                     <label for="tipoAsignacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Asignación</label>
                                     <select  id="tipoAsignacion" name="tipoAsignacion" class="estiloSelect">
                                         <option value="{{$vacante->tipoAsignacion}}">{{$vacante->tipoAsignacion}}</option>
