@@ -68,13 +68,13 @@
                                 <div class="col-span-6">
                                     <label for="numZona" class="labelForms">Número de zona</label>
                                     <input type="number" name="numZona" id="numZona" class="inputForms"
-                                           value="{{$user->zona}}" readonly="readonly">
+                                           value="{{$vacante->numZona}}" readonly="readonly">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="numDependencia" class="labelForms">Número de dependencia</label>
                                     <input type="number" name="numDependencia" id="numDependencia"
-                                           class="inputForms" value="{{$user->dependencia}}" readonly="readonly">
+                                           class="inputForms" value="{{$vacante->numDependencia}}" readonly="readonly">
                                 </div>
 
                                 <div class="col-span-6">

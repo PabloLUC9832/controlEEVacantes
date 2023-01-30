@@ -219,6 +219,8 @@ Route::controller(ZonaDependenciaController::class)->group(function (){
         Route::get('/zonaDependencia/edit/{id}','edit')->name('edit');
         Route::post('/zonaDependencia/update/{id}','update')->name('update');
 
+        Route::get('/zonaDependencia/reporte/{claveDependencia}','reporte')->name('reporte');
+
     });
 
 });
