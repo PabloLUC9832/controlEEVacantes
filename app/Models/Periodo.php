@@ -13,7 +13,8 @@ class Periodo extends Model
         'id',
         'nPeriodo',
         'clavePeriodo',
-        'descripcion'
+        'descripcion',
+        'actual',
     ];
 
 

@@ -36,7 +36,7 @@
                     success: function (result) {
                         $('#dependencia-dropdown').html('<option> Selecciona la dependencia</option>');
                         $.each(result.dependencias, function (key, value) {
-                            $("#dependencia-dropdown").append('<option value="' + value.clave_dependencia + '">' + value.clave_dependencia + " "+ value.nombre + '</option>');
+                            $("#dependencia-dropdown").append('<option value="' + value.clave_dependencia + '">' + value.clave_dependencia + " "+ value.nombre_dependencia + '</option>');
                         });
                     }
                 });

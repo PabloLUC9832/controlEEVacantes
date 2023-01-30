@@ -20,7 +20,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         LogUserActivity::class =>[
             UserActions::class
-        ]
+        ],
+        OperacionHorasVacante::class => [
+            Operacion::class
+        ],
     ];
 
     /**

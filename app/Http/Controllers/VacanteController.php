@@ -14,7 +14,9 @@ use App\Models\ExperienciaEducativa;
 use App\Http\Requests\StoreVacanteRequest;
 use App\Http\Requests\UpdateVacanteRequest;
 use App\Models\Zona;
+use App\Models\Zona_Dependencia_Programa;
 use App\Providers\LogUserActivity;
+use App\Providers\OperacionHorasVacante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +33,7 @@ class VacanteController extends Controller
         //https://stackoverflow.com/questions/18564205/html-submit-form-on-radio-button-check
         $search = trim($request->get('search'));
         $radioButton = $request->get('tipoV');
+        $isDeleted = false;
 
         $user = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
 
@@ -46,10 +49,17 @@ class VacanteController extends Controller
 
                     case "vacante":
                         $vacantes = DB::table('vacantes')
-                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                            ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
                                 'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
-                            ->whereNull('numPersonalDocente')
+                            ->join('periodos',function ($join){
+                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                                    ->where('periodos.actual',"=",1)
+                                    ->whereNull('deleted_at')
+                                    ->whereNull('numPersonalDocente')
+                                ;
+                            })
+                            ///->whereNull('numPersonalDocente')
                             ->orderBy('numDependencia', 'desc')
                             ->paginate(15)
                         ;
@@ -57,10 +67,35 @@ class VacanteController extends Controller
 
                     case "noVacante":
                         $vacantes = DB::table('vacantes')
-                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                            ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
                                 'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
-                            ->whereNotNull('numPersonalDocente')
+                            ->join('periodos',function ($join){
+                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                                    ->where('periodos.actual',"=",1)
+                                    ->whereNull('deleted_at')
+                                    ->whereNotNull('numPersonalDocente')
+                                ;
+                            })
+                            //->whereNotNull('numPersonalDocente')
+                            ->orderBy('numDependencia', 'desc')
+                            ->paginate(15)
+                        ;
+                    break;
+
+                    case "vacanteCerrada":
+                        $isDeleted = true;
+                        $vacantes = DB::table('vacantes')
+                            ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
+                            ->join('periodos',function ($join){
+                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                                    ->where('periodos.actual',"=",1)
+                                    ->whereNotNull('deleted_at')
+                                ;
+                            })
+                            //->whereNotNull('deleted_at')
                             ->orderBy('numDependencia', 'desc')
                             ->paginate(15)
                         ;
@@ -94,9 +129,12 @@ class VacanteController extends Controller
                             ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
                                 'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
-                            ->where(function ($query) use ($search){
-                                $query->whereNull('numPersonalDocente')
-                                    ->where('numDependencia','=',auth()->user()->dependencia)
+                            ->join('periodos', function($join) use ($user){
+                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                                    ->where('periodos.actual',"=",1)
+                                    ->where('numDependencia','=',$user->dependencia)
+                                    ->whereNull('deleted_at')
+                                    ->whereNull('numPersonalDocente')
                                 ;
                             })
                             ->orderBy('numPrograma', 'desc')
@@ -111,9 +149,12 @@ class VacanteController extends Controller
                             ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
                                 'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
-                            ->where(function ($query) use ($search){
-                                $query->whereNotNull('numPersonalDocente')
-                                    ->where('numDependencia','=',auth()->user()->dependencia)
+                            ->join('periodos', function($join) use ($user){
+                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                                    ->where('periodos.actual',"=",1)
+                                    ->where('numDependencia','=',$user->dependencia)
+                                    ->whereNull('deleted_at')
+                                    ->whereNotNull('numPersonalDocente')
                                 ;
                             })
                             ->orderBy('numPrograma', 'desc')
@@ -121,6 +162,24 @@ class VacanteController extends Controller
                         ;
 
                     break;
+
+                    case "vacanteCerrada":
+                        $isDeleted = true;
+                        $vacantes = DB::table('vacantes')
+                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
+                            ->join('periodos', function($join) use ($user){
+                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                                    ->where('periodos.actual',"=",1)
+                                    ->where('numDependencia','=',$user->dependencia)
+                                    ->whereNotNull('deleted_at')
+                                ;
+                            })
+                            ->orderBy('numDependencia', 'desc')
+                            ->paginate(15)
+                        ;
+                        break;
 
                     default:
                         $vacantes = $this->busquedaEditor($search,$userE);
@@ -132,7 +191,7 @@ class VacanteController extends Controller
 
         }
 
-        return view('vacante.index', compact('vacantes','search','radioButton'));
+        return view('vacante.index', compact('vacantes','search','radioButton','isDeleted'));
 
     }
 
@@ -143,7 +202,7 @@ class VacanteController extends Controller
      */
     public function create()
     {
-        $listaProgramas = Programa::all();
+        $listaProgramas = Zona_Dependencia_Programa::all();
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
@@ -175,7 +234,13 @@ class VacanteController extends Controller
         $periodoPartes = explode("-",$periodoCompleto);
 
 
-        $fileName = time() ."_" . $request->file->getClientOriginalName();
+        //$fileName = time() ."_" . $request->file->getClientOriginalName();
+
+        if($request->file()){
+            $fileName = time() ."_" . $request->file->getClientOriginalName();
+        }
+
+
 
         $vacante = new Vacante();
         /*
@@ -214,6 +279,10 @@ class VacanteController extends Controller
 
         $vacante->save();
 
+        if (!empty($request->bancoHorasDisponible) && !empty($request->tipoAsignacion)){
+            event(new OperacionHorasVacante($request->bancoHorasDisponible,$request->numPrograma,$request->tipoAsignacion));
+        }
+
         $user = Auth::user();
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
                 . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
@@ -250,7 +319,7 @@ class VacanteController extends Controller
     {
         $vacante = Vacante::findOrFail($id);
 
-        $listaProgramas = Programa::all();
+        $listaProgramas = Zona_Dependencia_Programa::all();
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
@@ -356,8 +425,9 @@ class VacanteController extends Controller
             'archivo' => $archivo ,
         ]);
 
-
-
+        if (!empty($bancoHorasDisponible) && !empty($tipoAsignacion)){
+            event(new OperacionHorasVacante($bancoHorasDisponible,$numPrograma,$tipoAsignacion));
+        }
 
         $user = Auth::user();
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
@@ -480,30 +550,41 @@ class VacanteController extends Controller
 
 
     public function busqueda($search){
+         /*
+           select * from [dbo].[vacantes] v
+           inner join [dbo].[periodos] p
+           on v.clavePeriodo = p.clavePeriodo
+           and p.actual = 1
+         */
+         $vacantes = DB::table('vacantes')->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea',               'numPrograma','numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion', 'numPersonalDocente','plan','fechaApertura','fechaCierre','observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
+            ->join('periodos', function($join){
+                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                     ->where('periodos.actual',"=",1)
+                     ->whereNull('deleted_at')
+                     ;
+            })
 
-         $vacantes = DB::table('vacantes')->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-            'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
-            'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
-            ->where('periodo','LIKE','%'.$search.'%')
-            ->where('clavePeriodo','LIKE','%'.$search.'%')
-            ->orWhere('numZona','LIKE','%'.$search.'%')
-            ->orWhere('numDependencia','LIKE','%'.$search.'%')
-            ->orWhere('numArea','LIKE','%'.$search.'%')
-            ->orWhere('numPrograma','LIKE','%'.$search.'%')
-            ->orWhere('numPlaza','LIKE','%'.$search.'%')
-            ->orWhere('numHoras','LIKE','%'.$search.'%')
-            ->orWhere('numMateria','LIKE','%'.$search.'%')
-            ->orWhere('nombreMateria','LIKE','%'.$search.'%')
-            ->orWhere('grupo','LIKE','%'.$search.'%')
-            ->orWhere('subGrupo','LIKE','%'.$search.'%')
-            ->orWhere('numMotivo','LIKE','%'.$search.'%')
-            ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
-            ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
-            ->orWhere('plan','LIKE','%'.$search.'%')
-            ->orWhere('fechaApertura','LIKE','%'.$search.'%')
-            ->orWhere('fechaCierre','LIKE','%'.$search.'%')
-            ->orWhere('observaciones','LIKE','%'.$search.'%')
-            ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
+            ->where('numZona','LIKE','%'.$search.'%')
+             ->orWhere('numDependencia','LIKE','%'.$search.'%')
+             ->orWhere('numArea','LIKE','%'.$search.'%')
+             ->orWhere('numPrograma','LIKE','%'.$search.'%')
+             ->orWhere('numPlaza','LIKE','%'.$search.'%')
+             ->orWhere('numHoras','LIKE','%'.$search.'%')
+             ->orWhere('numMateria','LIKE','%'.$search.'%')
+             ->orWhere('nombreMateria','LIKE','%'.$search.'%')
+             ->orWhere('grupo','LIKE','%'.$search.'%')
+             ->orWhere('subGrupo','LIKE','%'.$search.'%')
+             ->orWhere('numMotivo','LIKE','%'.$search.'%')
+             ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
+             ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
+             ->orWhere('plan','LIKE','&'.$search.'%')
+             ->orWhere('observaciones','LIKE','%'.$search.'%')
+             ->orWhere('fechaAsignacion','LIKE','%'.$search.'%')
+             ->orWhere('fechaApertura','LIKE','%'.$search.'%')
+             ->orWhere('fechaCierre','LIKE','%'.$search.'%')
+             ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
+             ->orWhere('bancoHorasDisponible','LIKE','%'.$search.'%')
+
             ->orderBy('numDependencia','desc')
             ->paginate(15);
 
@@ -513,100 +594,34 @@ class VacanteController extends Controller
 
     public function busquedaEditor($search,$user){
 
-        $vacantes = DB::table('vacantes')->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+        $vacantes = DB::table('vacantes')->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
             'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
             'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
-            ->where(function ($query) use ($search,$user){
-                $query->where('periodo','LIKE','%'.$search.'%')
-                    //->where('numDependencia','=',auth()->user()->dependencia)
+            ->join('periodos', function($join) use ($user){
+                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                    ->where('periodos.actual',"=",1)
                     ->where('numDependencia','=',$user->dependencia)
+                    ->whereNull('deleted_at')
                 ;
             })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('clavePeriodo','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('numPrograma','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('numPlaza','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('numHoras','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('numMateria','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('nombreMateria','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('grupo','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('subGrupo','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('numMotivo','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('tipoAsignacion','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('numPersonalDocente','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('plan','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('fechaApertura','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('fechaCierre','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('observaciones','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('fechaRenuncia','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
-            ->orWhere(function ($query) use ($search,$user){
-                $query->where('bancoHorasDisponible','LIKE','%'.$search.'%')
-                    ->where('numDependencia','=',$user->dependencia)
-                ;
-            })
+            ->where('numPrograma','LIKE','%'.$search.'%')
+            ->orWhere('numPlaza','LIKE','%'.$search.'%')
+            ->orWhere('numHoras','LIKE','%'.$search.'%')
+            ->orWhere('numMateria','LIKE','%'.$search.'%')
+            ->orWhere('nombreMateria','LIKE','%'.$search.'%')
+            ->orWhere('grupo','LIKE','%'.$search.'%')
+            ->orWhere('subGrupo','LIKE','%'.$search.'%')
+            ->orWhere('numMotivo','LIKE','%'.$search.'%')
+            ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
+            ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
+            ->orWhere('plan','LIKE','&'.$search.'%')
+            ->orWhere('observaciones','LIKE','%'.$search.'%')
+            ->orWhere('fechaAsignacion','LIKE','%'.$search.'%')
+            ->orWhere('fechaApertura','LIKE','%'.$search.'%')
+            ->orWhere('fechaCierre','LIKE','%'.$search.'%')
+            ->orWhere('fechaRenuncia','LIKE','%'.$search.'%')
+            ->orWhere('bancoHorasDisponible','LIKE','%'.$search.'%')
+
             ->orderBy('numPrograma','desc')
             ->paginate(15)
         ;

@@ -10,11 +10,8 @@ class Zona extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nPersonal',
+        'id',
         'nombre',
-        'apellidoPaterno',
-        'apellidoMaterno',
-        'email',
     ];
 
     protected $guarded = [];

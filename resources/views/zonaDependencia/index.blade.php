@@ -5,12 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lista de Periodos</title>
+    <title>Lista de Dependencias</title>
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite('node_modules/flowbite/dist/flowbite.js')
     @livewireStyles
@@ -21,7 +19,7 @@
     <!--Menu-->
     @livewire('navigation-menu')
 
-    <form action="{{route('periodo.index')}}" method="GET" value="{{$search}}">
+    <form action="{{route('zonaDependencia.index')}}" method="GET" value="{{$search}}">
         <div class="flex shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
 
             <button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Filtrar <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
@@ -32,22 +30,29 @@
 
                     <li>
                         <div class="flex items-center">
-                            <input id="nPeriodo" type="radio" value="nPeriodo" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="nPeriodo" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">N° de Periodo</label>
+                            <input id="numeroZona" type="radio" value="numeroZona" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="numeroZona" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">N° Zona</label>
                         </div>
                     </li>
 
                     <li>
                         <div class="flex items-center">
-                            <input id="clavePeriodo" type="radio" value="clavePeriodo" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="clavePeriodo" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Clave de Periodo</label>
+                            <input id="nombreZona" type="radio" value="nombreZona" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="nombreZona" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre de la zona</label>
                         </div>
                     </li>
 
                     <li>
                         <div class="flex items-center">
-                            <input id="descripcion" type="radio" value="descripcion" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="descripcion" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Descripción</label>
+                            <input id="claveDependencia" type="radio" value="claveDependencia" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="claveDependencia" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Clave dependencia</label>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="flex items-center">
+                            <input id="nombreDependencia" type="radio" value="nombreDependencia" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="nombreDependencia" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre de la dependencia</label>
                         </div>
                     </li>
 
@@ -70,89 +75,74 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="py-3 px-6">
-                    N° de periodo
+                    N° de Zona
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Clave de periodo
+                    Nombre de la zona
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Descripción
+                    Clave de la dependencia
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Periodo Actual
+                    Nombre de la dependencia
                 </th>
                 <th scope="col" class="py-3 px-6">
-
+                    <span class="sr-only">Editar</span>
                 </th>
                 <th scope="col" class="py-3 px-6">
-
+                    <span class="sr-only">Eliminar</span>
                 </th>
             </tr>
             </thead>
             <tbody>
 
-            @if(count($periodos)<=0)
+            @if(count($dependencias)<=0)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="py-4 px-6">
-                        No se han encontrado periodos
+                        No se han encontrado dependencias
                     </td>
                 </tr>
             @else
-                @foreach($periodos as $periodo)
+                @foreach($dependencias as $dependencia)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$periodo->nPeriodo}}
+                            {{$dependencia->id_zona}}
                         </th>
 
                         <td class="py-4 px-6">
-                            {{$periodo->clavePeriodo}}
+                            {{$dependencia->nombre_zona}}
                         </td>
 
                         <td class="py-4 px-6">
-                            {{$periodo->descripcion}}
+                            {{$dependencia->clave_dependencia}}
                         </td>
 
-                        @if($periodo->actual)
-
-                            <td class="py-4 px-6">
-                                <form id="formPeriodoActual" action="{{ route('periodo.updatePA',$periodo->id) }}" method="POST">
-                                    @csrf
-                                    <input checked onchange="this.form.submit()" type="checkbox" id="cbActual" name="actual" value="False" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                </form>
-                            </td>
-
-                        @else
-
-                            <td class="py-4 px-6">
-                                <form id="formPeriodoActual" action="{{ route('periodo.updatePA',$periodo->id) }}" method="POST">
-                                    @csrf
-                                    <input onchange="this.form.submit()" type="checkbox" id="cbActual" name="actual" value="True" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                </form>
-                            </td>
-
-                        @endif
+                        <td class="py-4 px-6">
+                            {{$dependencia->nombre_dependencia}}
+                        </td>
 
                         <td class="py-4 px-6 text-right">
-                            <a href="{{route('periodo.edit',$periodo->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
+                            <a href="{{route('zonaDependencia.edit',$dependencia->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
                         </td>
 
                         <td class="py-4 px-6 text-right">
                             <button type="button"
                                     class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                    data-modal-toggle="delete-modal{{$periodo->id}}">Eliminar</button>
+                                    data-modal-toggle="delete-modal{{$dependencia->id}}">Eliminar</button>
                         </td>
 
                     </tr>
-                    @include('periodo.modalConfirmacionEliminar')
+                    @include('zonaDependencia.modalConfirmacionEliminar')
                 @endforeach
             @endif
             </tbody>
         </table>
+        {{ $dependencias->links() }}
     </div>
 
-    <a title="Añadir Periodo" href="{{ route('periodo.create') }}"
-       class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">+ <br> Añadir Periodo</a>
+    <a title="Añadir Motivo" href="{{ route('zonaDependencia.create') }}"
+       class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">+ <br> Añadir Dependencia</a>
 
 </div>
 

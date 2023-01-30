@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TipoAsignacionController;
 use App\Http\Controllers\MotivoController;
 use App\Http\Controllers\VacanteController;
+use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\ZonaDependenciaController;
+use App\Http\Controllers\ZonaDependenciaProgramaController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\ExperienciaEducativaController;
 use App\Http\Controllers\LogUserActivityController;
@@ -71,6 +73,9 @@ Route::controller(VacanteController::class)->group(function (){
 
 Route::post('api/fetch-dependencias', [ZonaDependenciaController::class, 'fetchDependencia']);
 Route::post('api/fetch-nombreExperienciaEducativa', [VacanteController::class, 'fetchNombreExperienciaEducativa']);
+Route::post('api/fetch-idNombreZona', [ZonaDependenciaController::class, 'fetchIdNombreZona']);
+Route::post('api/fetch-zonaDependencia', [ZonaDependenciaProgramaController::class, 'fetchZonaDependencia']);
+Route::post('api/fetch-nombreDependencia', [ZonaDependenciaProgramaController::class, 'fetchNombreDependencia']);
 
 Route::controller(DocenteController::class)->group(function (){
 
@@ -129,6 +134,9 @@ Route::controller(PeriodoController::class)->group(function (){
         Route::get('/periodo/edit/{id}','edit')->name('edit');
         Route::post('/periodo/update/{id}','update')->name('update');
 
+        Route::post('/periodo/updatePA/{id}','updatePA')->name('updatePA');
+
+
     });
 
 });
@@ -178,6 +186,38 @@ Route::controller(ZonaController::class)->group(function (){
 
         Route::get('/zona/edit/{id}','edit')->name('edit');
         Route::post('/zona/update/{id}','update')->name('update');
+
+    });
+
+});
+
+Route::controller(ZonaDependenciaProgramaController::class)->group(function (){
+
+    Route::name('zonaDependenciaPrograma.')->group(function (){
+
+        Route::get('/zonaDependenciaPrograma',  'index') ->name('index');
+        Route::get('/zonaDependenciaPrograma/create',  'create')->name('create');
+        Route::post('/zonaDependenciaPrograma',  'store')->name('store');
+        Route::delete('/zonaDependenciaPrograma/destroy/{id}',  'destroy')->name('destroy');
+
+        Route::get('/zonaDependenciaPrograma/edit/{id}','edit')->name('edit');
+        Route::post('/zonaDependenciaPrograma/update/{id}','update')->name('update');
+
+    });
+
+});
+
+Route::controller(ZonaDependenciaController::class)->group(function (){
+
+    Route::name('zonaDependencia.')->group(function (){
+
+        Route::get('/zonaDependencia',  'index') ->name('index');
+        Route::get('/zonaDependencia/create',  'create')->name('create');
+        Route::post('/zonaDependencia',  'store')->name('store');
+        Route::delete('/zonaDependencia/destroy/{id}',  'destroy')->name('destroy');
+
+        Route::get('/zonaDependencia/edit/{id}','edit')->name('edit');
+        Route::post('/zonaDependencia/update/{id}','update')->name('update');
 
     });
 

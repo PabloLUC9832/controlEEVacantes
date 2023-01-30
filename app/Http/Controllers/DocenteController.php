@@ -225,10 +225,16 @@ class DocenteController extends Controller
      */
     public function export()
     {
+        //images
+        $path = base_path('public/images/uv.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $uv = 'data:image/'.$type.';base64'.base64_encode($data);
+
         $listaDocentes = Docente::all();
-        $pdf = Pdf::loadView('pdf.template', [
-            'docentes' => $listaDocentes,
-        ]);
+        $pdf = Pdf::loadView('pdf.template', compact(
+                'listaDocentes', 'uv')
+        );
 
         $user = Auth::user();
         $data = "Generación de Reporte de Docentes";
@@ -239,6 +245,7 @@ class DocenteController extends Controller
         //descarga directa
         //return $pdf->download('Docentes.pdf');
         //return view('pdf.template',['docentes' => $listaDocentes]);
+
     }
 
 }

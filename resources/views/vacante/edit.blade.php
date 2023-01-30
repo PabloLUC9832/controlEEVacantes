@@ -64,13 +64,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                {{--
-                                <div class="col-span-6">
-                                    <label for="clavePeriodo" class="labelForms">Clave Periodo</label>
-                                    <input type="text" name="clavePeriodo" id="clavePeriodo" class="inputForms"
-                                           required value="{{$vacante->clavePeriodo}}">
-                                </div>
-                                --}}
+
                                 <div class="col-span-6">
                                     <label for="numZona" class="labelForms">Número de zona</label>
                                     <input type="number" name="numZona" id="numZona" class="inputForms"
@@ -94,8 +88,8 @@
                                     <select  id="numPrograma" name="numPrograma" class="estiloSelect">
                                         <option value="{{$vacante->numPrograma}}">{{$vacante->numPrograma}}</option>
                                         @foreach ($programas as $data)
-                                            <option value="{{$data->clave}}">
-                                                {{$data->clave}} {{$data->nombre}}
+                                            <option value="{{$data->clave_programa}}">
+                                                {{$data->nombre_zona}} {{$data->clave_programa}} {{$data->nombre_programa}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -152,13 +146,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-{{--                                <div class="col-span-6">
-                                    <label for="numPersonalDocente" class="labelForms">Número personal del
-                                        docente</label>
-                                    <input type="number" name="numPersonalDocente" id="numPersonalDocente"
-                                           class="inputForms" value="{{$vacante->numPersonalDocente}}">
-                                </div>--}}
 
                                 <div class="col-span-6">
                                     <label for="numPersonalDocente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
@@ -267,15 +254,14 @@
                                 </div>
 
                                 <div class="col-span-6">
-                                    <label for="bancoHorasDisponible" class="labelForms">Banco de horas
-                                        disponible</label>
+                                    <label for="bancoHorasDisponible" class="labelForms">Banco de horas</label>
                                     <input type="number" name="bancoHorasDisponible" id="bancoHorasDisponible"
                                            class="inputForms" value="{{$vacante->bancoHorasDisponible}}">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file">Documento actual</label>
-                                    <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}">{{$vacante->archivo}}</a>
+                                    <a class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline" target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}">{{$vacante->archivo}}</a>
                                     <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file" type="file" accept=".pdf" name="file">
                                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Formato permitido: PDF</p>
                                 </div>
