@@ -25,7 +25,7 @@
             <button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Filtrar <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
 
             <!-- Dropdown menu -->
-            <!--div id="dropdownBgHover" class="hidden z-10 w-48 bg-white rounded shadow dark:bg-gray-700">
+            <div id="dropdownBgHover" class="hidden z-10 w-48 bg-white rounded shadow dark:bg-gray-700">
                 <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBgHoverButton">
 
                     <li>
@@ -63,7 +63,7 @@
                         </div>
                     </li>
                 </ul>
-            </div-->
+            </div>
 
             <div class="relative w-full">
                 <input type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Ingresa tu búsqueda, recuerda que puedes aplicar los filtros que desees" name="search">
@@ -84,7 +84,13 @@
                     Zona
                 </th>
                 <th scope="col" class="py-3 px-6">
+                    Clave Dependencia
+                </th>
+                <th scope="col" class="py-3 px-6">
                     Dependencia
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Clave Programa
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Programa Educativo
@@ -98,12 +104,12 @@
                 <th scope="col" class="py-3 px-6">
                     Horas Disponibles
                 </th>
-                <!--th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-6">
                     <span class="sr-only">Editar</span>
                 </th>
                 <th scope="col" class="py-3 px-6">
                     <span class="sr-only">Eliminar</span>
-                </th-->
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -123,7 +129,15 @@
                         </th>
 
                         <td class="py-4 px-6">
+                            {{$zonaDependenciaPrograma->clave_dependencia}}
+                        </td>
+
+                        <td class="py-4 px-6">
                             {{$zonaDependenciaPrograma->nombre_dependencia}}
+                        </td>
+
+                        <td class="py-4 px-6">
+                            {{$zonaDependenciaPrograma->clave_programa}}
                         </td>
 
                         <td class="py-4 px-6">
@@ -142,14 +156,26 @@
                             {{$zonaDependenciaPrograma->horasDisponibles}}
                         </td>
 
+                        <td class="py-4 px-6 text-right">
+                            <a href="{{route('zonaDependenciaPrograma.edit',$zonaDependenciaPrograma->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
+                        </td>
+
+                        <td class="py-4 px-6 text-right">
+                            <button type="button"
+                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                    data-modal-toggle="delete-modal{{$zonaDependenciaPrograma->id}}">Eliminar</button>
+                        </td>
+
                     </tr>
+                    @include('zonaDependenciaPrograma.modalConfirmacionEliminar')
                 @endforeach
             @endif
             </tbody>
         </table>
         {{ $listaZonaDependenciaPrograma->links() }}
     </div>
-
+    <a title="Añadir Programa Educativo" href="{{ route('zonaDependenciaPrograma.create') }}"
+       class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">+ <br> Añadir Programa Educativo</a>
 </div>
 
 </body>

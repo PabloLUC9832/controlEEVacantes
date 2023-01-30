@@ -212,7 +212,7 @@ class ZonaDependenciaController extends Controller
     public function fetchDependencia(Request $request)
     {
         $data['dependencias'] = Zona_Dependencia::where("id_zona", $request->id_zona)
-                                ->get(["clave_dependencia","nombre"]);
+                                ->get(["clave_dependencia","nombre_dependencia"]);
 
         return response()->json($data);
     }

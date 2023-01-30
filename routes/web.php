@@ -74,6 +74,8 @@ Route::controller(VacanteController::class)->group(function (){
 Route::post('api/fetch-dependencias', [ZonaDependenciaController::class, 'fetchDependencia']);
 Route::post('api/fetch-nombreExperienciaEducativa', [VacanteController::class, 'fetchNombreExperienciaEducativa']);
 Route::post('api/fetch-idNombreZona', [ZonaDependenciaController::class, 'fetchIdNombreZona']);
+Route::post('api/fetch-zonaDependencia', [ZonaDependenciaProgramaController::class, 'fetchZonaDependencia']);
+Route::post('api/fetch-nombreDependencia', [ZonaDependenciaProgramaController::class, 'fetchNombreDependencia']);
 
 Route::controller(DocenteController::class)->group(function (){
 
@@ -194,6 +196,12 @@ Route::controller(ZonaDependenciaProgramaController::class)->group(function (){
     Route::name('zonaDependenciaPrograma.')->group(function (){
 
         Route::get('/zonaDependenciaPrograma',  'index') ->name('index');
+        Route::get('/zonaDependenciaPrograma/create',  'create')->name('create');
+        Route::post('/zonaDependenciaPrograma',  'store')->name('store');
+        Route::delete('/zonaDependenciaPrograma/destroy/{id}',  'destroy')->name('destroy');
+
+        Route::get('/zonaDependenciaPrograma/edit/{id}','edit')->name('edit');
+        Route::post('/zonaDependenciaPrograma/update/{id}','update')->name('update');
 
     });
 
