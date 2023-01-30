@@ -38,6 +38,7 @@
                     <li>Nombre de la dependencia</li>
                     <li>Clave del programa educativo</li>
                     <li>Nombre del programa educativo</li>
+                    <li>Horas iniciales del programa educativo</li>
                 </div>
             </div>
             <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
@@ -72,13 +73,13 @@
                                 <div class="col-span-6">
                                     <label for="horasUtilizadas" class="labelForms">Horas Utilizadas</label>
                                     <input type="number" name="horasUtilizadas" id="horasUtilizadas" class="inputForms"
-                                           placeholder="Ej. 10" required>
+                                           placeholder="Ej. 10">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="horasDisponibles" class="labelForms">Horas Disponibles</label>
                                     <input type="number" name="horasDisponibles" id="horasDisponibles" class="inputForms"
-                                           placeholder="Ej. 140" required>
+                                           placeholder="Ej. 140">
                                 </div>
 
                             </div>

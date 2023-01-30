@@ -53,13 +53,13 @@
                                 <div class="col-span-6">
                                     <label for="clavePrograma" class="labelForms">Clave del programa educativo</label>
                                     <input type="number" name="clavePrograma" id="clavePrograma" class="inputForms"
-                                           value="{{$programa->clave_programa}}">
+                                           value="{{$programa->clave_programa}}" required>
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="nombrePrograma" class="labelForms">Nombre del programa educativo</label>
                                     <input type="text" name="nombrePrograma" id="nombrePrograma" class="inputForms"
-                                           value="{{$programa->nombre_programa}}"
+                                           value="{{$programa->nombre_programa}}" required
                                            >
                                 </div>
 

@@ -80,6 +80,10 @@
                                         {{ __('Dependencias') }}
                                     </x-jet-dropdown-link>
 
+                                    <x-jet-dropdown-link href="{{ route('zonaDependenciaPrograma.index') }}">
+                                        {{ __('Programas Educativos') }}
+                                    </x-jet-dropdown-link>
+
                                 </x-slot>
 
                             </x-jet-dropdown>
