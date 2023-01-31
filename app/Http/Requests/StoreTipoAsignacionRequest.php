@@ -26,6 +26,7 @@ class StoreTipoAsignacionRequest extends FormRequest
     {
         return [
             'tipo'=> 'required|string|min:1',
+            'descripcion'=> 'nullable|string|min:1',
         ];
     }
 
