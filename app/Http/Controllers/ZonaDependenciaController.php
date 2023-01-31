@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreZonaDependenciaRequest;
 use App\Models\Dependencia;
+use App\Models\Periodo;
 use App\Models\Vacante;
 use Illuminate\Http\Request;
 use App\Models\Zona_Dependencia;
@@ -229,11 +230,22 @@ class ZonaDependenciaController extends Controller
 
     public function reporte($id)
     {
-        $listaVacantes = Vacante::where('numDependencia',$id)->get();
+        $periodoActual = Periodo::where('actual','1')->value('clavePeriodo');
+
+        $listaVacantes = Vacante::where('numDependencia',$id)
+            ->where(function ($query) use ($periodoActual){
+            $query->whereNull('deleted_at')
+                ->where('clavePeriodo',$periodoActual);
+        })->get();
+
+        //$listaVacantes = Vacante::where('numDependencia',$id)->get();
         $dependencia = Zona_Dependencia::where('clave_dependencia',$id)->value('nombre_dependencia');
+
+
         $pdf = Pdf::loadView('pdf.templateVacantesPorDependencia', compact(
                 'listaVacantes','dependencia')
         );
+
 
         $user = Auth::user();
         $data = "Generación de Reporte de Experiencias Vacantes de la dependencia: $id";

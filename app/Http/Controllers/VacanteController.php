@@ -20,6 +20,7 @@ use App\Providers\OperacionHorasVacante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use mysql_xdevapi\Table;
 
 class VacanteController extends Controller
 {
@@ -191,7 +192,17 @@ class VacanteController extends Controller
 
         }
 
-        return view('vacante.index', compact('vacantes','search','radioButton','isDeleted'));
+        $user = auth()->user();
+
+        //Obtener número y nombre de zona
+        $zonaUsuario = $user->zona;
+        $nombreZonaUsuario = DB::table('zonas')->where('id',$zonaUsuario)->value('nombre');
+
+        //Obtener número y nombre de dependencia
+        $dependenciaUsuario = $user->dependencia;
+        $nombreDependenciaUsuario = DB::table('zona__dependencias')->where('clave_dependencia',$dependenciaUsuario)->value('nombre_dependencia');
+
+        return view('vacante.index', compact('vacantes','search','radioButton','isDeleted','nombreZonaUsuario','nombreDependenciaUsuario'));
 
     }
 
@@ -202,6 +213,18 @@ class VacanteController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
+
+        //Obtener número y nombre de zona
+        $zonaUsuario = $user->zona;
+        $nombreZonaUsuario = DB::table('zonas')->where('id',$zonaUsuario)->value('nombre');
+        $numeroZonaUsuario = DB::table('zonas')->where('id',$zonaUsuario)->value('id');
+
+        //Obtener número y nombre de dependencia
+        $dependenciaUsuario = $user->dependencia;
+        $nombreDependenciaUsuario = DB::table('zona__dependencias')->where('clave_dependencia',$dependenciaUsuario)->value('nombre_dependencia');
+        $numeroDependenciaUsuario = DB::table('zona__dependencias')->where('clave_dependencia',$dependenciaUsuario)->value('clave_dependencia');
+
         $listaProgramas = Zona_Dependencia_Programa::all();
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
@@ -209,7 +232,7 @@ class VacanteController extends Controller
         $listaPeriodos = Periodo::all();
         $listaTiposAsignacion = TipoAsignacion::all();
 
-        $user = auth()->user();
+
 
         return view('vacante.create',['programas' => $listaProgramas,
                                            'user' => $user,
@@ -218,6 +241,10 @@ class VacanteController extends Controller
                                            'experienciasEducativas' => $listaExperienciasEducativas,
                                            'periodos' => $listaPeriodos,
                                            'tiposAsignacion' => $listaTiposAsignacion,
+                                           'nombreZonaUsuario' => $nombreZonaUsuario,
+                                           'numeroZonaUsuario' => $numeroZonaUsuario,
+                                           'nombreDependenciaUsuario' => $nombreDependenciaUsuario,
+                                           'numeroDependenciaUsuario' => $numeroDependenciaUsuario,
                                           ]);
     }
 
@@ -233,25 +260,26 @@ class VacanteController extends Controller
         $periodoCompleto = $request->periodo;
         $periodoPartes = explode("-",$periodoCompleto);
 
+        $zonaCompleta = $request->numZona;
+        $zonaPartes = explode("-",$zonaCompleta);
 
-        //$fileName = time() ."_" . $request->file->getClientOriginalName();
+        $dependenciaCompleta = $request->numDependencia;
+        $dependenciaPartes = explode("-",$dependenciaCompleta);
 
         if($request->file()){
             $fileName = time() ."_" . $request->file->getClientOriginalName();
         }
 
 
-
         $vacante = new Vacante();
-        /*
-        $vacante->periodo=$request->periodo;
-        $vacante->clavePeriodo=$request->clavePeriodo;
-        */
+
         $vacante->periodo=$periodoPartes[0];
         $vacante->clavePeriodo=$periodoPartes[1];
 
-        $vacante->numZona=$request->numZona;
-        $vacante->numDependencia=$request->numDependencia;
+        //$vacante->numZona=$request->numZona;
+        $vacante->numZona=$zonaPartes[0];
+        //$vacante->numDependencia=$request->numDependencia;
+        $vacante->numDependencia=$dependenciaPartes[0];
         //$vacante->numArea=$request->numArea;
         $vacante->numArea=3;
         $vacante->numPrograma=$request->numPrograma;
@@ -319,6 +347,29 @@ class VacanteController extends Controller
      */
     public function edit($id)
     {
+        $user = auth()->user();
+
+        //Obtener número y nombre de zona
+        $zonaUsuario = $user->zona;
+        $nombreZonaUsuario = DB::table('zonas')->where('id',$zonaUsuario)->value('nombre');
+        $numeroZonaUsuario = DB::table('zonas')->where('id',$zonaUsuario)->value('id');
+
+        //Obtener número y nombre de dependencia
+        $dependenciaUsuario = $user->dependencia;
+        $nombreDependenciaUsuario = DB::table('zona__dependencias')->where('clave_dependencia',$dependenciaUsuario)->value('nombre_dependencia');
+        $numeroDependenciaUsuario = DB::table('zona__dependencias')->where('clave_dependencia',$dependenciaUsuario)->value('clave_dependencia');
+
+        //Obtener nombre de programa educativo
+        $programaEducativoSeleccionado = DB::table('vacantes')->where('id',$id)->value('numPrograma');
+        $nombreProgramaEducativo = DB::table('zona__dependencia__programas')->where('clave_programa',$programaEducativoSeleccionado)->value('nombre_programa');
+
+        //Obtener nombre de zona del programa educativo
+        $zonaProgramaEducativo = DB::table('zona__dependencia__programas')->where('clave_programa',$programaEducativoSeleccionado)->value('nombre_zona');
+
+        //Obtener nombre de experiencia educativa
+        $eeSeleccionada = DB::table('vacantes')->where('id',$id)->value('numMateria');
+        $nombreEe = DB::table('experiencia_educativas')->where('nrc',$eeSeleccionada)->value('nombre');
+
         $vacante = Vacante::findOrFail($id);
 
         $listaProgramas = Zona_Dependencia_Programa::all();
@@ -328,7 +379,7 @@ class VacanteController extends Controller
         $listaPeriodos = Periodo::all();
         $listaTiposAsignacion = TipoAsignacion::all();
 
-        $user = auth()->user();
+
 
         $userEditor = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
 
@@ -340,6 +391,13 @@ class VacanteController extends Controller
                 'experienciasEducativas' => $listaExperienciasEducativas,
                 'periodos' => $listaPeriodos,
                 'tiposAsignacion' => $listaTiposAsignacion,
+                'nombreZonaUsuario' => $nombreZonaUsuario,
+                'numeroZonaUsuario' => $numeroZonaUsuario,
+                'nombreDependenciaUsuario' => $nombreDependenciaUsuario,
+                'numeroDependenciaUsuario' => $numeroDependenciaUsuario,
+                'nombreProgramaEducativo' => $nombreProgramaEducativo,
+                'zonaProgramaEducativo' => $zonaProgramaEducativo,
+                'nombreEe' => $nombreEe
             ]);
         }else{
             return view('vacante.editEditor', compact('vacante'),['programas' => $listaProgramas,
@@ -365,14 +423,22 @@ class VacanteController extends Controller
     {
         $vacante = Vacante::findOrFail($id);
 
+        $zonaCompleta = $request->numZona;
+        $zonaPartes = explode("-",$zonaCompleta);
+
+        $dependenciaCompleta = $request->numDependencia;
+        $dependenciaPartes = explode("-",$dependenciaCompleta);
+
         $periodoCompleto = $request->periodo;
         $periodoPartes = explode("-",$periodoCompleto);
 
         $periodo=$periodoPartes[0];
         $clavePeriodo=$periodoPartes[1];
 
-        $numZona=$request->numZona;
-        $numDependencia=$request->numDependencia;
+        //$numZona=$request->numZona;
+        $numZona=$zonaPartes[0];
+        //$numDependencia=$request->numDependencia;
+        $numDependencia=$dependenciaPartes[0];
 
         $numArea=3;
         $numPrograma=$request->numPrograma;

@@ -10,7 +10,7 @@
                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Experiencia Educativa: {{$vacante->nombreMateria}}</h3>
             </div>
             <div class="p-6 text-justify">
-                <form action="{{ route('vacante.update',$vacante->id) }}" method="POST">
+
                     <div class="col-span-6">
                         <label class="labelForms">Periodo: {{$vacante->periodo}}</label>
                     </div>
@@ -18,10 +18,10 @@
                         <label class="labelForms">Clave Periodo: {{$vacante->clavePeriodo}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de zona: {{$vacante->numZona}}</label>
+                        <label class="labelForms">Número de zona: {{$vacante->numZona}} - {{$nombreZonaUsuario}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de dependencia: {{$vacante->numDependencia}}</label>
+                        <label class="labelForms">Número de dependencia: {{$vacante->numDependencia}} - {{$nombreDependenciaUsuario}}</label>
                     </div>
                     <div class="col-span-6">
                         <label class="labelForms">Número de área: {{$vacante->numArea}}</label>
@@ -75,7 +75,7 @@
                         <p class="text-gray-500 dark:text-black-400">Documento: <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">{{$vacante->archivo}}</a> </p>
                     </div>
 
-                </form>
+
             </div>
             <div class="p-2 text-center">
                 <button data-modal-toggle="view-modal{{$vacante->id}}" type="button" class="text-white bg-gray-700 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Regresar</button>

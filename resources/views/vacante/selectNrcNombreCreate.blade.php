@@ -4,7 +4,7 @@
             <option>Selecciona el NRC</option>
                 @foreach ($experienciasEducativas as $data)
                     <option value="{{$data->nrc}}">
-                            {{$data->nrc}}
+                            {{$data->nrc}} {{$data->nombre}}
                     </option>
                 @endforeach
             </select>

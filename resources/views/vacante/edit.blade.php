@@ -67,26 +67,26 @@
 
                                 <div class="col-span-6">
                                     <label for="numZona" class="labelForms">Número de zona</label>
-                                    <input type="number" name="numZona" id="numZona" class="inputForms"
-                                           value="{{$vacante->numZona}}" readonly="readonly">
+                                    <input type="text" name="numZona" id="numZona" class="inputForms"
+                                           value="{{$numeroZonaUsuario}}-{{$nombreZonaUsuario}}" readonly="readonly">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="numDependencia" class="labelForms">Número de dependencia</label>
-                                    <input type="number" name="numDependencia" id="numDependencia"
-                                           class="inputForms" value="{{$vacante->numDependencia}}" readonly="readonly">
+                                    <input type="text" name="numDependencia" id="numDependencia"
+                                           class="inputForms" value="{{$numeroDependenciaUsuario}}-{{$nombreDependenciaUsuario}}" readonly="readonly">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="numArea" class="labelForms">Número de área</label>
                                     <input type="text" name="numArea" id="numArea" class="inputForms" disabled
-                                           value="3" readonly="readonly">
+                                           value="3 ECONÓMICO ADMINISTRATIVA" readonly="readonly">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="numPrograma" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Programa</label>
                                     <select  id="numPrograma" name="numPrograma" class="estiloSelect">
-                                        <option value="{{$vacante->numPrograma}}">{{$vacante->numPrograma}}</option>
+                                        <option value="{{$vacante->numPrograma}}">{{$zonaProgramaEducativo}} {{$vacante->numPrograma}} {{$nombreProgramaEducativo}}</option>
                                         @foreach ($programas as $data)
                                             <option value="{{$data->clave_programa}}">
                                                 {{$data->nombre_zona}} {{$data->clave_programa}} {{$data->nombre_programa}}

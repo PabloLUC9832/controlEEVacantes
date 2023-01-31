@@ -64,14 +64,14 @@
 
                                     <div class="col-span-6">
                                         <label for="numZona" class="labelForms">Número de zona</label>
-                                        <input type="number" name="numZona" id="numZona" class="inputForms"
-                                                 value="{{$user->zona}}" readonly="readonly">
+                                        <input type="text" name="numZona" id="numZona" class="inputForms"
+                                                 value="{{$numeroZonaUsuario}}-{{$nombreZonaUsuario}}" readonly="readonly">
                                     </div>
 
                                     <div class="col-span-6">
                                         <label for="numDependencia" class="labelForms">Número de dependencia</label>
-                                        <input type="number" name="numDependencia" id="numDependencia"
-                                               class="inputForms" value="{{$user->dependencia}}" readonly="readonly">
+                                        <input type="text" name="numDependencia" id="numDependencia"
+                                               class="inputForms" value="{{$numeroDependenciaUsuario}}-{{$nombreDependenciaUsuario}}" readonly="readonly">
                                     </div>
 
                                     <div class="col-span-6">
