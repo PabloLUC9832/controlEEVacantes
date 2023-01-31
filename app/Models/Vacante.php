@@ -28,6 +28,7 @@ class Vacante extends Model{
         'grupo',
         'subGrupo',
         'numMotivo',
+        'tipoContratacion',
         'tipoAsignacion',
         'numPersonalDocente',
         'plan',

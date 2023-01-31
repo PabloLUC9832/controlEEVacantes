@@ -28,6 +28,7 @@ return new class extends Migration
             $table->text('grupo');
             $table->text('subGrupo');
             $table->integer('numMotivo');
+            $table->text('tipoContratacion')->nullable();
             $table->text('tipoAsignacion')->nullable();
             $table->integer('numPersonalDocente')->nullable();
             $table->integer('plan')->nullable();

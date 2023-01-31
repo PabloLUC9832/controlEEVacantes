@@ -262,10 +262,12 @@ class VacanteController extends Controller
         $vacante->grupo=$request->grupo;
         $vacante->subGrupo=$request->subGrupo;
         $vacante->numMotivo=$request->numMotivo;
+        $vacante->tipoContratacion=$request->tipoContratacion;
         $vacante->tipoAsignacion=$request->tipoAsignacion;
         $vacante->numPersonalDocente=$request->numPersonalDocente;
         $vacante->plan=$request->plan;
         $vacante->observaciones=$request->observaciones;
+        $vacante->fechaAsignacion=$request->fechaAsignacion;
         $vacante->fechaAsignacion=$request->fechaAsignacion;
         $vacante->fechaApertura=$request->fechaApertura;
         $vacante->fechaCierre=$request->fechaCierre;
@@ -280,7 +282,7 @@ class VacanteController extends Controller
         $vacante->save();
 
         if (!empty($request->bancoHorasDisponible) && !empty($request->tipoAsignacion)){
-            event(new OperacionHorasVacante($request->bancoHorasDisponible,$request->numPrograma,$request->tipoAsignacion));
+            event(new OperacionHorasVacante($request->bancoHorasDisponible,$request->numPrograma,$request->tipoContratacion,$request->tipoAsignacion));
         }
 
         $user = Auth::user();
@@ -381,6 +383,7 @@ class VacanteController extends Controller
         $grupo=$request->grupo;
         $subGrupo=$request->subGrupo;
         $numMotivo=$request->numMotivo;
+        $tipoContratacion=$request->tipoContratacion;
         $tipoAsignacion=$request->tipoAsignacion;
         $numPersonalDocente=$request->numPersonalDocente;
         $plan=$request->plan;
@@ -413,6 +416,7 @@ class VacanteController extends Controller
             'grupo' => $grupo ,
             'subGrupo' => $subGrupo ,
             'numMotivo' => $numMotivo ,
+            'tipoContratacion' => $tipoContratacion ,
             'tipoAsignacion' => $tipoAsignacion ,
             'numPersonalDocente' => $numPersonalDocente ,
             'plan' => $plan ,
@@ -425,8 +429,8 @@ class VacanteController extends Controller
             'archivo' => $archivo ,
         ]);
 
-        if (!empty($bancoHorasDisponible) && !empty($tipoAsignacion)){
-            event(new OperacionHorasVacante($bancoHorasDisponible,$numPrograma,$tipoAsignacion));
+        if (!empty($bancoHorasDisponible) && !empty($tipoAsignacion) && !empty($tipoContratacion)){
+            event(new OperacionHorasVacante($bancoHorasDisponible,$numPrograma,$tipoContratacion,$tipoAsignacion));
         }
 
         $user = Auth::user();
