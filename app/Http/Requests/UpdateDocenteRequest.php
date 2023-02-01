@@ -29,7 +29,6 @@ class UpdateDocenteRequest extends FormRequest
         return [
             //'nPersonal'=> 'unique:App\Models\Docente,nPersonal|nullable|numeric|min:1',
             'nPersonal'=> [
-
                 'nullable',
                 'numeric',
                 'min:1',

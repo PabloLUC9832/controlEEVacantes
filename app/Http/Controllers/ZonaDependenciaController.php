@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreZonaDependenciaRequest;
+use App\Http\Requests\UpdateZonaDependenciaRequest;
 use App\Models\Dependencia;
 use App\Models\Periodo;
 use App\Models\Vacante;
@@ -181,7 +182,7 @@ class ZonaDependenciaController extends Controller
      * @param  \App\Models\Zona  $zona
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateZonaDependenciaRequest $request, $id)
     {
         $dependencia = Zona_Dependencia::findOrFail($id);
 

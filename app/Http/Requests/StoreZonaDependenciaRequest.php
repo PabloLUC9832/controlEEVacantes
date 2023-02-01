@@ -37,6 +37,7 @@ class StoreZonaDependenciaRequest extends FormRequest
             'id_zona.required' => 'La zona es obligatoria',
             //'nombreZona.required' => 'El nombre de la zona es obligatorio',
             'claveDependencia.required' => 'La clave de la dependencia es obligatorio',
+            'claveDependencia.unique' => 'La clave de la dependencia ingresada ya ha sido registrada',
             'nombreDependencia.required' => 'El nombre de la dependencia es obligatorio',
         ];
     }
