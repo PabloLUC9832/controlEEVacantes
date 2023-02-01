@@ -121,8 +121,12 @@ class ZonaDependenciaController extends Controller
     public function store(StoreZonaDependenciaRequest $request)
     {
         $dependencia = new Zona_Dependencia();
-        $dependencia->id_zona = $request->idZona;
-        $dependencia->nombre_zona = $request->nombreZona;
+
+        $zonaCompleta = $request->id_zona;
+        $zonaPartes = explode("~",$zonaCompleta);
+
+        $dependencia->id_zona = $zonaPartes[0];
+        $dependencia->nombre_zona = $zonaPartes[1];
         $dependencia->clave_dependencia = $request->claveDependencia;
         $dependencia->nombre_dependencia = $request->nombreDependencia;
 
@@ -157,9 +161,16 @@ class ZonaDependenciaController extends Controller
      */
     public function edit($id)
     {
+        //Obtener nombre de la zona
+        $nombreZona = Zona_Dependencia::where('id',$id)->value('nombre_zona');
+
+
         $dependencia = Zona_Dependencia::where('id',$id)->firstOrFail();
         $listaZonas = Zona::all();
-        return view('zonaDependencia.edit', compact('dependencia'),['zonas' => $listaZonas]);
+        return view('zonaDependencia.edit', ['dependencia' => $dependencia,
+                                                  'zonas' => $listaZonas,
+                                                  'nombreZona' => $nombreZona
+                                                ]);
 
     }
 
@@ -174,8 +185,12 @@ class ZonaDependenciaController extends Controller
     {
         $dependencia = Zona_Dependencia::findOrFail($id);
 
-        $id_zona=$request->idZona;
-        $nombre_zona=$request->nombreZona;
+        $zonaCompleta = $request->id_zona;
+        $zonaPartes = explode("~",$zonaCompleta);
+
+        $id_zona = $zonaPartes[0];
+        $nombre_zona = $zonaPartes[1];
+
         $clave_dependencia=$request->claveDependencia;
         $nombre_dependencia=$request->nombreDependencia;
 

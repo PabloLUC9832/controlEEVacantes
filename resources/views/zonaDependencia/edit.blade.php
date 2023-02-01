@@ -32,8 +32,7 @@
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Actualizar Dependencia</h3>
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Recuerda que los datos obligatiorios son:</b></p>
-                    <li>Id de la zona</li>
-                    <li>Nombre de la zona</li>
+                    <li>Zona</li>
                     <li>Clave de la dependencia</li>
                     <li>Nombre de la dependencia</li>
                 </div>
