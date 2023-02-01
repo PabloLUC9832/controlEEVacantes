@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateZonaDependenciaRequest extends FormRequest
 {
@@ -26,7 +27,13 @@ class UpdateZonaDependenciaRequest extends FormRequest
         return [
             'idZona' => 'required|numeric|min:1',
             'nombreZona' => 'required|string|min:1',
-            'claveDependencia' => 'required|numeric|min:1',
+            //'claveDependencia' => 'required|numeric|min:1',
+            'clave_dependencia' => [
+                'required',
+                'numeric',
+                'min:1',
+                Rule::unique('zona__dependencias')->ignore($this->route('id')),
+            ],
             'nombreDependencia' => 'required|string|min:1',
         ];
     }
@@ -36,7 +43,8 @@ class UpdateZonaDependenciaRequest extends FormRequest
         return [
             'idZona.required' => 'El id de la zona es obligatorio',
             'nombreZona.required' => 'El nombre de la zona es obligatorio',
-            'claveDependencia.required' => 'La clave de la dependencia es obligatorio',
+            'clave_dependencia.required' => 'La clave de la dependencia ingresada ya ha sido registrada',
+            //'clave_dependencia.unique' => 'La clave de la dependencia ingresada ya ha sido registrada',
             'nombreDependencia.required' => 'El nombre de la dependencia es obligatorio',
         ];
     }

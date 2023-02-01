@@ -25,14 +25,8 @@ class StoreMotivoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-            //'numeroMotivo'=> 'required|numeric|min:1',
-            'numeroMotivo' => [
-                'required',
-                'numeric',
-                'min:1',
-                Rule::unique('motivos')->ignore($this->route('id')),
-            ],
+            //unique:App\Models\Docente,nPersonal|
+            'numeroMotivo'=> 'unique:App\Models\Motivo,numeroMotivo|required|numeric|min:1',
             'nombre'=> 'required|string|min:1',
             'concepto'=> 'required|string|min:1',
         ];

@@ -25,7 +25,7 @@ class StorePeriodoRequest extends FormRequest
     {
         return [
             'nPeriodo'=> 'required|string|min:1',
-            'clavePeriodo'=> 'required|string|min:1',
+            'clavePeriodo'=> 'unique:App\Models\Periodo,clavePeriodo|required|string|min:1',
             'descripcion'=> 'required|string|min:1',
         ];
 
@@ -35,6 +35,7 @@ class StorePeriodoRequest extends FormRequest
     {
         return [
             'nPeriodo.required' => 'El número de periodo es obligatorio',
+            'clavePeriodo.unique' => 'La clave ingresada ya ha sido registrada',
             'clavePeriodo.required' => 'La clave es obligatoria',
             'descripcion.required' => 'La descripción es obligatoria',
         ];

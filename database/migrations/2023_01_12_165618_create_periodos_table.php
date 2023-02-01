@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('periodos', function (Blueprint $table) {
             $table->id();
             $table->text('nPeriodo');
-            $table->text('clavePeriodo');
+            $table->string('clavePeriodo')->unique();
             $table->text('descripcion');
             $table->boolean('actual')->nullable();
             $table->timestamps();
