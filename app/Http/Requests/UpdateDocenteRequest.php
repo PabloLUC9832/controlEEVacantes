@@ -24,7 +24,7 @@ class UpdateDocenteRequest extends FormRequest
      */
     public function rules()
     {
-        //$stringID = 'id';
+
         $intID = intval('id');
         return [
             //'nPersonal'=> 'unique:App\Models\Docente,nPersonal|nullable|numeric|min:1',

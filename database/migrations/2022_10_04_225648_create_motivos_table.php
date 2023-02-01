@@ -18,7 +18,7 @@ return new class extends Migration
     {
         Schema::create('motivos', function (Blueprint $table) {
             $table->id();
-            $table->integer('numeroMotivo');
+            $table->integer('numeroMotivo')->unique();
             $table->text('nombre');
             $table->text('concepto');
             $table->timestamps();

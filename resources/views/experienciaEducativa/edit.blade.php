@@ -56,7 +56,7 @@
                                 @csrf
 
                                 <div class="col-span-6">
-                                    <label for="numMateria" class="labelForms">NRC</label>
+                                    <label for="numMateria" class="labelForms">Número de Materia</label>
                                     <input type="number" name="numMateria" id="numMateria" class="inputForms"
                                            required value="{{$experienciaEducativa->numMateria}}">
                                 </div>
