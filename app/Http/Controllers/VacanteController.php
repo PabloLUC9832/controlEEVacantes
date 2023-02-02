@@ -256,7 +256,6 @@ class VacanteController extends Controller
      */
     public function store(StoreVacanteRequest $request)
     {
-
         $periodoCompleto = $request->periodo;
         $periodoPartes = explode("-",$periodoCompleto);
 
@@ -265,6 +264,9 @@ class VacanteController extends Controller
 
         $dependenciaCompleta = $request->numDependencia;
         $dependenciaPartes = explode("-",$dependenciaCompleta);
+
+        $experienciaEducativaCompleta = $request->numMateria;
+        $experienciaEducativaPartes = explode("~",$experienciaEducativaCompleta);
 
         if($request->file()){
             $fileName = time() ."_" . $request->file->getClientOriginalName();
@@ -285,8 +287,10 @@ class VacanteController extends Controller
         $vacante->numPrograma=$request->numPrograma;
         $vacante->numPlaza=$request->numPlaza;
         $vacante->numHoras=$request->numHoras;
-        $vacante->numMateria=$request->numMateria;
-        $vacante->nombreMateria=$request->nombreMateria;
+        //$vacante->numMateria=$request->numMateria;
+        //$vacante->nombreMateria=$request->nombreMateria;
+        $vacante->numMateria=$experienciaEducativaPartes[0];
+        $vacante->nombreMateria=$experienciaEducativaPartes[1];
         $vacante->grupo=$request->grupo;
         $vacante->subGrupo=$request->subGrupo;
         $vacante->numMotivo=$request->numMotivo;
@@ -440,12 +444,17 @@ class VacanteController extends Controller
         //$numDependencia=$request->numDependencia;
         $numDependencia=$dependenciaPartes[0];
 
+        $experienciaEducativaCompleta = $request->numMateria;
+        $experienciaEducativaPartes = explode("~",$experienciaEducativaCompleta);
+
         $numArea=3;
         $numPrograma=$request->numPrograma;
         $numPlaza=$request->numPlaza;
         $numHoras=$request->numHoras;
-        $numMateria=$request->numMateria;
-        $nombreMateria=$request->nombreMateria;
+        //$numMateria=$request->numMateria;
+        //$nombreMateria=$request->nombreMateria;
+        $numMateria=$experienciaEducativaPartes[0];
+        $nombreMateria=$experienciaEducativaPartes[1];
         $grupo=$request->grupo;
         $subGrupo=$request->subGrupo;
         $numMotivo=$request->numMotivo;

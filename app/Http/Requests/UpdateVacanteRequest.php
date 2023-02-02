@@ -30,7 +30,7 @@ class UpdateVacanteRequest extends FormRequest
             'numPlaza' => 'required|string|min:1',
             'numHoras' => 'required|numeric|min:1',
             'numMateria' => 'required|string|min:1',
-            'nombreMateria' => 'required|string|min:1',
+            //'nombreMateria' => 'required|string|min:1',
             'grupo' => 'required|string|min:1',
             'subGrupo' => 'required|string|min:1',
             'numMotivo' => 'required|string|min:1',
@@ -43,7 +43,7 @@ class UpdateVacanteRequest extends FormRequest
             'fechaApertura' => 'nullable|string|min:1',
             'fechaCierre' => 'nullable|string|min:1',
             'fechaRenuncia' => 'nullable|string|min:1',
-            'bancoHorasDisponible' => 'nullable|number|min:1',
+            'bancoHorasDisponible' => 'nullable|numeric|min:1',
         ];
     }
 
@@ -55,7 +55,7 @@ class UpdateVacanteRequest extends FormRequest
             'numPlaza.required' => 'El número de plaza es obligatorio',
             'numHoras.required' => 'El número de horases obligatorio',
             'numMateria.required' => 'El número de materia es obligatorio',
-            'nombreMateria.required' => 'El nombre de materia es obligatorio',
+            //'nombreMateria.required' => 'El nombre de materia es obligatorio',
             'grupo.required' => 'El grupo es obligatorio',
             'subGrupo.required' => 'El sub grupo es obligatorio',
             'numMotivo.required' => 'El motivo es obligatorio',
