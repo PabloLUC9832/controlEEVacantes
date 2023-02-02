@@ -69,8 +69,7 @@
                                 <div class="col-span-6">
                                     <label for="nombrePrograma" class="labelForms">Nombre del programa educativo</label>
                                     <input type="text" name="nombrePrograma" id="nombrePrograma" class="inputForms"
-                                           value="{{$programa->nombre_programa}}" required
-                                           >
+                                           value="{{$programa->nombre_programa}}" required>
                                 </div>
 
                                 <div class="col-span-6">

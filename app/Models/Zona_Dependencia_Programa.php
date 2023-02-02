@@ -16,6 +16,7 @@ class Zona_Dependencia_Programa extends Model
         'clave_dependencia',
         'nombre_dependencia',
         'clave_programa',
+        'nombre_programa',
         'horasIniciales',
         'horasUtilizadas',
         'horasDisponibles',
