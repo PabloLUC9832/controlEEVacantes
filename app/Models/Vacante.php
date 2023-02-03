@@ -31,6 +31,7 @@ class Vacante extends Model{
         'tipoContratacion',
         'tipoAsignacion',
         'numPersonalDocente',
+        'nombreDocente',
         'plan',
         'observaciones',
         'fechaAsignacion',

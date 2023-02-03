@@ -171,10 +171,10 @@
                                 <div class="col-span-6">
                                     <label for="numPersonalDocente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
                                     <select  id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect">
-                                        <option value="{{$vacante->numPersonalDocente}}">{{$vacante->numPersonalDocente}}</option>
+                                        <option value="{{$vacante->nombreDocente}}-{{$vacante->numPersonalDocente}}">{{$vacante->nombreDocente}}-{{$vacante->numPersonalDocente}}</option>
                                         @foreach ($docentes as $data)
-                                            <option value="{{$data->nPersonal}}">
-                                                {{$data->nPersonal}} {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}
+                                            <option value="{{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}">
+                                                {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}
                                             </option>
                                         @endforeach
                                     </select>
