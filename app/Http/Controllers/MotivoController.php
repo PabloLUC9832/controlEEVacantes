@@ -28,7 +28,7 @@ class MotivoController extends Controller
             ->orWhere('nombre','LIKE','%'.$search.'%')
             ->orWhere('concepto','LIKE','%'.$search.'%')
             ->orderBy('numeroMotivo','asc')
-            ->cursorPaginate(15);
+            ->paginate(15);
 
         if(isset($radioButton)){
 

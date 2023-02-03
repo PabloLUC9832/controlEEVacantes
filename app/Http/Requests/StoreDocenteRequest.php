@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreDocenteRequest extends FormRequest
 {
@@ -36,6 +37,7 @@ class StoreDocenteRequest extends FormRequest
     public function messages()
     {
         return [
+          //'nPersonal.unique' => 'El número de personal ingresado ya ha sido registrado',
           'nombre.required' => 'El nombre es obligatorio',
           'apellidoPaterno.required' => 'El apellido paterno es obligatorio',
         ];

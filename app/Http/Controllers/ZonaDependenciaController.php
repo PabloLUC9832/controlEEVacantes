@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreZonaDependenciaRequest;
+use App\Http\Requests\UpdateZonaDependenciaRequest;
 use App\Models\Dependencia;
+use App\Models\Periodo;
 use App\Models\Vacante;
 use Illuminate\Http\Request;
 use App\Models\Zona_Dependencia;
@@ -120,8 +122,12 @@ class ZonaDependenciaController extends Controller
     public function store(StoreZonaDependenciaRequest $request)
     {
         $dependencia = new Zona_Dependencia();
-        $dependencia->id_zona = $request->idZona;
-        $dependencia->nombre_zona = $request->nombreZona;
+
+        $zonaCompleta = $request->id_zona;
+        $zonaPartes = explode("~",$zonaCompleta);
+
+        $dependencia->id_zona = $zonaPartes[0];
+        $dependencia->nombre_zona = $zonaPartes[1];
         $dependencia->clave_dependencia = $request->claveDependencia;
         $dependencia->nombre_dependencia = $request->nombreDependencia;
 
@@ -156,9 +162,16 @@ class ZonaDependenciaController extends Controller
      */
     public function edit($id)
     {
+        //Obtener nombre de la zona
+        $nombreZona = Zona_Dependencia::where('id',$id)->value('nombre_zona');
+
+
         $dependencia = Zona_Dependencia::where('id',$id)->firstOrFail();
         $listaZonas = Zona::all();
-        return view('zonaDependencia.edit', compact('dependencia'),['zonas' => $listaZonas]);
+        return view('zonaDependencia.edit', ['dependencia' => $dependencia,
+                                                  'zonas' => $listaZonas,
+                                                  'nombreZona' => $nombreZona
+                                                ]);
 
     }
 
@@ -169,12 +182,16 @@ class ZonaDependenciaController extends Controller
      * @param  \App\Models\Zona  $zona
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateZonaDependenciaRequest $request, $id)
     {
         $dependencia = Zona_Dependencia::findOrFail($id);
 
-        $id_zona=$request->idZona;
-        $nombre_zona=$request->nombreZona;
+        $zonaCompleta = $request->id_zona;
+        $zonaPartes = explode("~",$zonaCompleta);
+
+        $id_zona = $zonaPartes[0];
+        $nombre_zona = $zonaPartes[1];
+
         $clave_dependencia=$request->claveDependencia;
         $nombre_dependencia=$request->nombreDependencia;
 
@@ -229,11 +246,22 @@ class ZonaDependenciaController extends Controller
 
     public function reporte($id)
     {
-        $listaVacantes = Vacante::where('numDependencia',$id)->get();
+        $periodoActual = Periodo::where('actual','1')->value('clavePeriodo');
+
+        $listaVacantes = Vacante::where('numDependencia',$id)
+            ->where(function ($query) use ($periodoActual){
+            $query->whereNull('deleted_at')
+                ->where('clavePeriodo',$periodoActual);
+        })->get();
+
+        //$listaVacantes = Vacante::where('numDependencia',$id)->get();
         $dependencia = Zona_Dependencia::where('clave_dependencia',$id)->value('nombre_dependencia');
+
+
         $pdf = Pdf::loadView('pdf.templateVacantesPorDependencia', compact(
                 'listaVacantes','dependencia')
         );
+
 
         $user = Auth::user();
         $data = "Generación de Reporte de Experiencias Vacantes de la dependencia: $id";

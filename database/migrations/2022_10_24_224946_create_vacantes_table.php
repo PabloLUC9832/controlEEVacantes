@@ -31,6 +31,7 @@ return new class extends Migration
             $table->text('tipoContratacion')->nullable();
             $table->text('tipoAsignacion')->nullable();
             $table->integer('numPersonalDocente')->nullable();
+            $table->text('nombreDocente')->nullable();
             $table->integer('plan')->nullable();
             $table->text('observaciones')->nullable();
             $table->text('fechaAsignacion')->nullable();

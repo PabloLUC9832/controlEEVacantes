@@ -32,15 +32,25 @@
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Actualizar programa educativo</h3>
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Recuerda que los datos obligatiorios son:</b></p>
-                    <li>Id de la zona</li>
-                    <li>Nombre de la zona</li>
-                    <li>Clave de la dependencia</li>
-                    <li>Nombre de la dependencia</li>
+                    <li>Zona</li>
+                    <li>Dependencia</li>
                     <li>Clave del programa educativo</li>
                     <li>Nombre del programa educativo</li>
                 </div>
             </div>
             <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
+
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            <span class="sr-only">Error</span>
+                            <div>
+                                <span class="font-medium"> {{$error}} </span>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
 
                 <form action="{{ route('zonaDependenciaPrograma.update',$programa->id) }}" method="POST" enctype="multipart/form-data">
                     <div class="overflow-hidden shadow sm:rounded-md">
@@ -59,8 +69,7 @@
                                 <div class="col-span-6">
                                     <label for="nombrePrograma" class="labelForms">Nombre del programa educativo</label>
                                     <input type="text" name="nombrePrograma" id="nombrePrograma" class="inputForms"
-                                           value="{{$programa->nombre_programa}}" required
-                                           >
+                                           value="{{$programa->nombre_programa}}" required>
                                 </div>
 
                                 <div class="col-span-6">

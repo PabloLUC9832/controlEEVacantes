@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreMotivoRequest extends FormRequest
 {
@@ -24,8 +25,8 @@ class StoreMotivoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-            'numeroMotivo'=> 'required|numeric|min:1',
+            //unique:App\Models\Docente,nPersonal|
+            'numeroMotivo'=> 'unique:App\Models\Motivo,numeroMotivo|required|numeric|min:1',
             'nombre'=> 'required|string|min:1',
             'concepto'=> 'required|string|min:1',
         ];
@@ -35,6 +36,7 @@ class StoreMotivoRequest extends FormRequest
     {
         return [
             'numeroMotivo.required' => 'El número de motivo es obligatorio',
+            'numeroMotivo.unique' => 'El número de motivo ingresado ya ha sido registrado',
             'nombre.required' => 'El nombre es obligatorio',
             'concepto.required' => 'El concepto es obligatorio',
         ];

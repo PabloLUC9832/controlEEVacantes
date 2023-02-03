@@ -25,7 +25,8 @@ class StoreTipoAsignacionRequest extends FormRequest
     public function rules()
     {
         return [
-            'tipo'=> 'required|string|min:1',
+            'tipo'=> 'unique:App\Models\TipoAsignacion,tipo|required|string|min:1',
+            'descripcion'=> 'nullable|string|min:1',
         ];
     }
 
@@ -33,6 +34,7 @@ class StoreTipoAsignacionRequest extends FormRequest
     {
         return [
             'tipo.required' => 'El tipo de asignaciones obligatorio',
+            'tipo.unique' => 'El tipo de asignación ingresado ya ha sido registrado',
         ];
     }
 

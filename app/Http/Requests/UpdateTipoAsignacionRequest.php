@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTipoAsignacionRequest extends FormRequest
 {
@@ -24,7 +25,14 @@ class UpdateTipoAsignacionRequest extends FormRequest
     public function rules()
     {
         return [
-            'tipo'=> 'required|string|min:1',
+            //'tipo'=> 'required|string|min:1',
+            'tipo' => [
+                'required',
+                'string',
+                'min:1',
+                Rule::unique('tipo_asignacions')->ignore($this->route('id')),
+            ],
+            'descripcion'=> 'nullable|string|min:1',
         ];
     }
 
@@ -32,6 +40,7 @@ class UpdateTipoAsignacionRequest extends FormRequest
     {
         return [
             'tipo.required' => 'El tipo de asignaciones obligatorio',
+            'tipo.unique' => 'El tipo de asignación ingresado ya ha sido registrado',
         ];
     }
 }

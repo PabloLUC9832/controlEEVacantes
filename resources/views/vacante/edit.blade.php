@@ -47,6 +47,18 @@
             </div>
             <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
 
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            <span class="sr-only">Error</span>
+                            <div>
+                                <span class="font-medium"> {{$error}} </span>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+
                 <form action="{{ route('vacante.update',$vacante->id) }}" method="POST" enctype="multipart/form-data">
                     <div class="overflow-hidden shadow sm:rounded-md">
                         <div class="bg-white px-4 py-5 sm:p-6">
@@ -67,26 +79,26 @@
 
                                 <div class="col-span-6">
                                     <label for="numZona" class="labelForms">Número de zona</label>
-                                    <input type="number" name="numZona" id="numZona" class="inputForms"
-                                           value="{{$vacante->numZona}}" readonly="readonly">
+                                    <input type="text" name="numZona" id="numZona" class="inputForms"
+                                           value="{{$numeroZonaUsuario}}-{{$nombreZonaUsuario}}" readonly="readonly">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="numDependencia" class="labelForms">Número de dependencia</label>
-                                    <input type="number" name="numDependencia" id="numDependencia"
-                                           class="inputForms" value="{{$vacante->numDependencia}}" readonly="readonly">
+                                    <input type="text" name="numDependencia" id="numDependencia"
+                                           class="inputForms" value="{{$numeroDependenciaUsuario}}-{{$nombreDependenciaUsuario}}" readonly="readonly">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="numArea" class="labelForms">Número de área</label>
                                     <input type="text" name="numArea" id="numArea" class="inputForms" disabled
-                                           value="3" readonly="readonly">
+                                           value="3 ECONÓMICO ADMINISTRATIVA" readonly="readonly">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="numPrograma" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Programa</label>
                                     <select  id="numPrograma" name="numPrograma" class="estiloSelect">
-                                        <option value="{{$vacante->numPrograma}}">{{$vacante->numPrograma}}</option>
+                                        <option value="{{$vacante->numPrograma}}">{{$zonaProgramaEducativo}} {{$vacante->numPrograma}} {{$nombreProgramaEducativo}}</option>
                                         @foreach ($programas as $data)
                                             <option value="{{$data->clave_programa}}">
                                                 {{$data->nombre_zona}} {{$data->clave_programa}} {{$data->nombre_programa}}
@@ -159,10 +171,10 @@
                                 <div class="col-span-6">
                                     <label for="numPersonalDocente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
                                     <select  id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect">
-                                        <option value="{{$vacante->numPersonalDocente}}">{{$vacante->numPersonalDocente}}</option>
+                                        <option value="{{$vacante->nombreDocente}}-{{$vacante->numPersonalDocente}}">{{$vacante->nombreDocente}}-{{$vacante->numPersonalDocente}}</option>
                                         @foreach ($docentes as $data)
-                                            <option value="{{$data->nPersonal}}">
-                                                {{$data->nPersonal}} {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}
+                                            <option value="{{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}">
+                                                {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}
                                             </option>
                                         @endforeach
                                     </select>

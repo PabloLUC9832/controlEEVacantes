@@ -16,11 +16,23 @@
         width: 100%;
         text-align: left;
         border-collapse: collapse;
+        margin-top: 10px;
     }
     .cabecera{
         background-color: royalblue;
         color: white;
     }
+
+    .encabezado{
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    .titulo{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
 
     h4{
         text-align: center;
@@ -44,8 +56,10 @@
 </style>
 
 <body>
-<h4>Dirección General del Área Académica Económico-Administrativo</h4>
-<h4>{{$dependencia}}</h4>
+<h4 class="encabezado">DIRECCIÓN GENERAL DEL ÁREA ACADÉMICA ECONÓMICO-ADMINISTRATIVA</h4>
+<h4 class="encabezado">{{$dependencia}}</h4>
+<h4 class="titulo">Reporte Experiencias Educativas Vacantes</h4>
+
 
 <div>
     <table class="tabla">

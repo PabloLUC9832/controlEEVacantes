@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateMotivoRequest extends FormRequest
 {
@@ -25,7 +26,13 @@ class UpdateMotivoRequest extends FormRequest
     {
         return [
             //
-            'numeroMotivo'=> 'required|numeric|min:1',
+            //'numeroMotivo'=> 'required|numeric|min:1',
+            'numeroMotivo' => [
+              'required',
+              'numeric',
+              'min:1',
+              Rule::unique('motivos')->ignore($this->route('id')),
+            ],
             'nombre'=> 'required|string|min:1',
             'concepto'=> 'required|string|min:1',
         ];
@@ -35,6 +42,7 @@ class UpdateMotivoRequest extends FormRequest
     {
         return [
             'numeroMotivo.required' => 'El número de motivo es obligatorio',
+            'numeroMotivo.unique' => 'El número de motivo ingresado ya ha sido registrado',
             'nombre.required' => 'El nombre es obligatorio',
             'concepto.required' => 'El concepto es obligatorio',
         ];

@@ -68,17 +68,24 @@ class ZonaDependenciaProgramaController extends Controller
     public function store(StoreZonaDependenciaProgramaRequest $request)
     {
         $programa = new Zona_Dependencia_Programa();
-        $programa->id_zona = $request->idZona;
-        $programa->nombre_zona = $request->nombreZona;
-        $programa->clave_dependencia = $request->claveDependencia;
-        $programa->nombre_dependencia = $request->nombreDependencia;
+
+        $zonaCompleta = $request->idZona;
+        $zonaPartes = explode("~",$zonaCompleta);
+
+        $dependenciaCompleta = $request->claveDependencia;
+        $dependenciaPartes = explode("~",$dependenciaCompleta);
+
+        $programa->id_zona = $zonaPartes[0];
+        $programa->nombre_zona = $zonaPartes[1];
+        $programa->clave_dependencia = $dependenciaPartes[0];
+        $programa->nombre_dependencia = $dependenciaPartes[1];
         $programa->clave_programa = $request->clavePrograma;
         $programa->nombre_programa = $request->nombrePrograma;
         $programa->horasIniciales = $request->horasIniciales;
         $programa->horasUtilizadas = $request->horasUtilizadas;
         $programa->horasDisponibles = $request->horasDisponibles;
 
-        //dd($dependencia);
+        //dd($programa);
 
         $programa->save();
 
@@ -111,7 +118,8 @@ class ZonaDependenciaProgramaController extends Controller
         $programa = Zona_Dependencia_Programa::where('id',$id)->firstOrFail();
         $zonas = Zona_Dependencia::distinct('id_zona')->get();
         $listaZonas = $zonas->unique('id_zona');
-        return view('zonaDependenciaPrograma.edit', compact('programa'),['zonas' => $listaZonas]);
+        return view('zonaDependenciaPrograma.edit', ['programa' => $programa,
+                                                          'zonas' => $listaZonas]);
 
     }
 
@@ -126,10 +134,16 @@ class ZonaDependenciaProgramaController extends Controller
     {
         $programa = Zona_Dependencia_Programa::findOrFail($id);
 
-        $id_zona=$request->idZona;
-        $nombre_zona=$request->nombreZona;
-        $clave_dependencia=$request->claveDependencia;
-        $nombre_dependencia=$request->nombreDependencia;
+        $zonaCompleta = $request->idZona;
+        $zonaPartes = explode("~",$zonaCompleta);
+
+        $dependenciaCompleta = $request->claveDependencia;
+        $dependenciaPartes = explode("~",$dependenciaCompleta);
+
+        $id_zona=$zonaPartes[0];
+        $nombre_zona=$zonaPartes[1];
+        $clave_dependencia=$dependenciaPartes[0];
+        $nombre_dependencia=$dependenciaPartes[1];
         $clave_programa=$request->clavePrograma;
         $nombre_programa=$request->nombrePrograma;
         $horasIniciales=$request->horasIniciales;
@@ -186,14 +200,12 @@ class ZonaDependenciaProgramaController extends Controller
         return response()->json($data);
     }
 
-    public function fetchNombreDependencia(Request $request)
+    /*public function fetchNombreDependencia(Request $request)
     {
         $data['nombre'] = Zona_Dependencia::where("clave_dependencia", $request->claveDependencia)
             ->get(["nombre_dependencia"]);
 
         return response()->json($data);
-    }
-
-
+    }*/
 
 }
