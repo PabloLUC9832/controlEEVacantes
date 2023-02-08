@@ -16,6 +16,7 @@ use App\Http\Requests\UpdateVacanteRequest;
 use App\Models\Zona;
 use App\Models\Zona_Dependencia_Programa;
 use App\Providers\LogUserActivity;
+use App\Providers\OperacionCierreVacante;
 use App\Providers\OperacionHorasVacante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -381,10 +382,6 @@ class VacanteController extends Controller
         //Obtener nombre de zona del programa educativo
         $zonaProgramaEducativo = DB::table('zona__dependencia__programas')->where('clave_programa',$programaEducativoSeleccionado)->value('nombre_zona');
 
-        //Obtener nombre de experiencia educativa
-        $eeSeleccionada = DB::table('vacantes')->where('id',$id)->value('numMateria');
-        $nombreEe = DB::table('experiencia_educativas')->where('nrc',$eeSeleccionada)->value('nombre');
-
         $vacante = Vacante::findOrFail($id);
 
         $listaProgramas = Zona_Dependencia_Programa::all();
@@ -412,7 +409,6 @@ class VacanteController extends Controller
                 'numeroDependenciaUsuario' => $numeroDependenciaUsuario,
                 'nombreProgramaEducativo' => $nombreProgramaEducativo,
                 'zonaProgramaEducativo' => $zonaProgramaEducativo,
-                'nombreEe' => $nombreEe
             ]);
         }else{
             return view('vacante.editEditor', compact('vacante'),['programas' => $listaProgramas,
@@ -574,11 +570,18 @@ class VacanteController extends Controller
     public function destroy($id)
     {
         $vacante = Vacante::findOrFail($id);
+
+        $numMotivo = $vacante->numMotivo;
+        $numHoras = $vacante->numHoras;
+        $numPrograma = $vacante->numPrograma;
+
         $vacante->delete();
 
         $user = Auth::user();
         $data = "Eliminación de Vacante ID: $id";
         event(new LogUserActivity($user,"Eliminación de Vacante ID: $id",$data));
+
+        event(new OperacionCierreVacante($numMotivo,$numHoras,$numPrograma));
 
         return redirect()->route('vacante.index');
     }
