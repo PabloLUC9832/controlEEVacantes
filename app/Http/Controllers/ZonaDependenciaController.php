@@ -246,6 +246,11 @@ class ZonaDependenciaController extends Controller
 
     public function reporte($id)
     {
+        $path = base_path('public/images/uv.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $uv = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
         $periodoActual = Periodo::where('actual','1')->value('clavePeriodo');
 
         $listaVacantes = Vacante::where('numDependencia',$id)
@@ -254,14 +259,11 @@ class ZonaDependenciaController extends Controller
                 ->where('clavePeriodo',$periodoActual);
         })->get();
 
-        //$listaVacantes = Vacante::where('numDependencia',$id)->get();
         $dependencia = Zona_Dependencia::where('clave_dependencia',$id)->value('nombre_dependencia');
 
-
         $pdf = Pdf::loadView('pdf.templateVacantesPorDependencia', compact(
-                'listaVacantes','dependencia')
+                'listaVacantes','dependencia', 'uv')
         );
-
 
         $user = Auth::user();
         $data = "Generación de Reporte de Experiencias Vacantes de la dependencia: $id";
