@@ -16,11 +16,11 @@ use App\Http\Requests\UpdateVacanteRequest;
 use App\Models\Zona;
 use App\Models\Zona_Dependencia_Programa;
 use App\Providers\LogUserActivity;
+use App\Providers\OperacionCierreVacante;
 use App\Providers\OperacionHorasVacante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Table;
 
 class VacanteController extends Controller
 {
@@ -51,7 +51,7 @@ class VacanteController extends Controller
                     case "vacante":
                         $vacantes = DB::table('vacantes')
                             ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->join('periodos',function ($join){
                                 $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
@@ -69,7 +69,7 @@ class VacanteController extends Controller
                     case "noVacante":
                         $vacantes = DB::table('vacantes')
                             ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->join('periodos',function ($join){
                                 $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
@@ -88,7 +88,7 @@ class VacanteController extends Controller
                         $isDeleted = true;
                         $vacantes = DB::table('vacantes')
                             ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->join('periodos',function ($join){
                                 $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
@@ -128,7 +128,7 @@ class VacanteController extends Controller
 
                         $vacantes = DB::table('vacantes')
                             ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->join('periodos', function($join) use ($user){
                                 $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
@@ -148,7 +148,7 @@ class VacanteController extends Controller
 
                         $vacantes = DB::table('vacantes')
                             ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->join('periodos', function($join) use ($user){
                                 $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
@@ -168,7 +168,7 @@ class VacanteController extends Controller
                         $isDeleted = true;
                         $vacantes = DB::table('vacantes')
                             ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaApertura','fechaCierre',
                                 'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
                             ->join('periodos', function($join) use ($user){
                                 $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
@@ -256,6 +256,16 @@ class VacanteController extends Controller
      */
     public function store(StoreVacanteRequest $request)
     {
+        $docenteCompleto = $request->numPersonalDocente;
+        $docentePartes = explode("-",$docenteCompleto);
+        $nombreDocente= $docentePartes[0];
+        $numDocente = $docentePartes[1] ;
+        //dd($docenteCompleto);
+        if(empty($numDocente)){
+            $numDocente= "";
+        }
+
+
         $periodoCompleto = $request->periodo;
         $periodoPartes = explode("-",$periodoCompleto);
 
@@ -296,7 +306,9 @@ class VacanteController extends Controller
         $vacante->numMotivo=$request->numMotivo;
         $vacante->tipoContratacion=$request->tipoContratacion;
         $vacante->tipoAsignacion=$request->tipoAsignacion;
-        $vacante->numPersonalDocente=$request->numPersonalDocente;
+        //$vacante->numPersonalDocente=$request->numPersonalDocente;
+        $vacante->nombreDocente=$nombreDocente;
+        $vacante->numPersonalDocente=$numDocente;
         $vacante->plan=$request->plan;
         $vacante->observaciones=$request->observaciones;
         $vacante->fechaAsignacion=$request->fechaAsignacion;
@@ -370,10 +382,6 @@ class VacanteController extends Controller
         //Obtener nombre de zona del programa educativo
         $zonaProgramaEducativo = DB::table('zona__dependencia__programas')->where('clave_programa',$programaEducativoSeleccionado)->value('nombre_zona');
 
-        //Obtener nombre de experiencia educativa
-        $eeSeleccionada = DB::table('vacantes')->where('id',$id)->value('numMateria');
-        $nombreEe = DB::table('experiencia_educativas')->where('nrc',$eeSeleccionada)->value('nombre');
-
         $vacante = Vacante::findOrFail($id);
 
         $listaProgramas = Zona_Dependencia_Programa::all();
@@ -401,7 +409,6 @@ class VacanteController extends Controller
                 'numeroDependenciaUsuario' => $numeroDependenciaUsuario,
                 'nombreProgramaEducativo' => $nombreProgramaEducativo,
                 'zonaProgramaEducativo' => $zonaProgramaEducativo,
-                'nombreEe' => $nombreEe
             ]);
         }else{
             return view('vacante.editEditor', compact('vacante'),['programas' => $listaProgramas,
@@ -426,6 +433,15 @@ class VacanteController extends Controller
     public function update(Request $request, $id)
     {
         $vacante = Vacante::findOrFail($id);
+
+        $docenteCompleto = $request->numPersonalDocente;
+        $docentePartes = explode("-",$docenteCompleto);
+        $nombreDocente= $docentePartes[0];
+        $numDocente = $docentePartes[1] ;
+
+        if(empty($numDocente)){
+            $numDocente= "";
+        }
 
         $zonaCompleta = $request->numZona;
         $zonaPartes = explode("-",$zonaCompleta);
@@ -460,7 +476,9 @@ class VacanteController extends Controller
         $numMotivo=$request->numMotivo;
         $tipoContratacion=$request->tipoContratacion;
         $tipoAsignacion=$request->tipoAsignacion;
-        $numPersonalDocente=$request->numPersonalDocente;
+        //$numPersonalDocente=$request->numPersonalDocente;
+        $numPersonalDocente = $numDocente;
+        $nombreCDocente = $nombreDocente;
         $plan=$request->plan;
         $observaciones=$request->observaciones;
         $fechaAsignacion=$request->fechaAsignacion;
@@ -494,6 +512,7 @@ class VacanteController extends Controller
             'tipoContratacion' => $tipoContratacion ,
             'tipoAsignacion' => $tipoAsignacion ,
             'numPersonalDocente' => $numPersonalDocente ,
+            'nombreDocente' => $nombreCDocente,
             'plan' => $plan ,
             'observaciones' => $observaciones ,
             'fechaAsignacion' => $fechaAsignacion ,
@@ -551,11 +570,18 @@ class VacanteController extends Controller
     public function destroy($id)
     {
         $vacante = Vacante::findOrFail($id);
+
+        $numMotivo = $vacante->numMotivo;
+        $numHoras = $vacante->numHoras;
+        $numPrograma = $vacante->numPrograma;
+
         $vacante->delete();
 
         $user = Auth::user();
         $data = "Eliminación de Vacante ID: $id";
         event(new LogUserActivity($user,"Eliminación de Vacante ID: $id",$data));
+
+        event(new OperacionCierreVacante($numMotivo,$numHoras,$numPrograma));
 
         return redirect()->route('vacante.index');
     }
@@ -635,7 +661,7 @@ class VacanteController extends Controller
            on v.clavePeriodo = p.clavePeriodo
            and p.actual = 1
          */
-         $vacantes = DB::table('vacantes')->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea',               'numPrograma','numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion', 'numPersonalDocente','plan','fechaApertura','fechaCierre','observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
+         $vacantes = DB::table('vacantes')->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea',               'numPrograma','numPlaza','numHoras','numMateria','nombreDocente','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion', 'numPersonalDocente','plan','fechaApertura','fechaCierre','observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
             ->join('periodos', function($join){
                 $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
                      ->where('periodos.actual',"=",1)
@@ -656,6 +682,7 @@ class VacanteController extends Controller
              ->orWhere('numMotivo','LIKE','%'.$search.'%')
              ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
              ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
+             ->orWhere('nombreDocente','LIKE','%'.$search.'%')
              ->orWhere('plan','LIKE','&'.$search.'%')
              ->orWhere('observaciones','LIKE','%'.$search.'%')
              ->orWhere('fechaAsignacion','LIKE','%'.$search.'%')
@@ -674,7 +701,7 @@ class VacanteController extends Controller
     public function busquedaEditor($search,$user){
 
         $vacantes = DB::table('vacantes')->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-            'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','plan','fechaApertura','fechaCierre',
+            'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaApertura','fechaCierre',
             'observaciones','fechaRenuncia','bancoHorasDisponible','archivo')
             ->join('periodos', function($join) use ($user){
                 $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
@@ -693,6 +720,7 @@ class VacanteController extends Controller
             ->orWhere('numMotivo','LIKE','%'.$search.'%')
             ->orWhere('tipoAsignacion','LIKE','%'.$search.'%')
             ->orWhere('numPersonalDocente','LIKE','%'.$search.'%')
+            ->orWhere('nombreDocente','LIKE','%'.$search.'%')
             ->orWhere('plan','LIKE','&'.$search.'%')
             ->orWhere('observaciones','LIKE','%'.$search.'%')
             ->orWhere('fechaAsignacion','LIKE','%'.$search.'%')

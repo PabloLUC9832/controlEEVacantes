@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreDocenteRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class StoreDocenteRequest extends FormRequest
     public function rules()
     {
         return [
-            'nPersonal'=> 'unique:App\Models\Docente,nPersonal|nullable|numeric|min:1',
+            'nPersonal'=> 'nullable|numeric|min:1',
             'nombre'=> 'required|string|min:1',
             'apellidoPaterno'=> 'required|string|min:1',
             'apellidoMaterno'=> 'nullable|string|min:1',
@@ -36,7 +37,7 @@ class StoreDocenteRequest extends FormRequest
     public function messages()
     {
         return [
-          'nPersonal.unique' => 'El número de personal ingresado ya ha sido registrado',
+          //'nPersonal.unique' => 'El número de personal ingresado ya ha sido registrado',
           'nombre.required' => 'El nombre es obligatorio',
           'apellidoPaterno.required' => 'El apellido paterno es obligatorio',
         ];

@@ -24,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         OperacionHorasVacante::class => [
             Operacion::class
         ],
+        OperacionCierreVacante::class => [
+            OperacionSumaCierre::class
+        ]
     ];
 
     /**
