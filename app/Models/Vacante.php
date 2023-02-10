@@ -38,7 +38,6 @@ class Vacante extends Model{
         'fechaApertura',
         'fechaCierre',
         'fechaRenuncia',
-        'bancoHorasDisponible',
         'archivo',
     ];
 

@@ -28,7 +28,7 @@ class UpdateVacanteRequest extends FormRequest
             'periodo' => 'required|string|min:1',
             'numPrograma' => 'required|string|min:1',
             'numPlaza' => 'required|string|min:1',
-            'numHoras' => 'required|numeric|min:1',
+            //'numHoras' => 'required|numeric|min:1',
             'numMateria' => 'required|string|min:1',
             //'nombreMateria' => 'required|string|min:1',
             'grupo' => 'required|string|min:1',
@@ -43,7 +43,6 @@ class UpdateVacanteRequest extends FormRequest
             'fechaApertura' => 'nullable|string|min:1',
             'fechaCierre' => 'nullable|string|min:1',
             'fechaRenuncia' => 'nullable|string|min:1',
-            'bancoHorasDisponible' => 'nullable|numeric|min:1',
         ];
     }
 

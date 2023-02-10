@@ -113,12 +113,6 @@
                                            required value="{{$vacante->numPlaza}}">
                                 </div>
 
-                                <div class="col-span-6">
-                                    <label for="numHoras" class="labelForms">Número de horas</label>
-                                    <input type="number" name="numHoras" id="numHoras" class="inputForms"
-                                           required value="{{$vacante->numHoras}}">
-                                </div>
-
                                 @include('vacante.selectNrcNombreEdit')
 
                                 <div class="col-span-6">
@@ -272,12 +266,6 @@
                                                value="{{$vacante->fechaRenuncia}}" id="fechaRenuncia"
                                                name="fechaRenuncia">
                                     </div>
-                                </div>
-
-                                <div class="col-span-6">
-                                    <label for="bancoHorasDisponible" class="labelForms">Banco de horas</label>
-                                    <input type="number" name="bancoHorasDisponible" id="bancoHorasDisponible"
-                                           class="inputForms" value="{{$vacante->bancoHorasDisponible}}">
                                 </div>
 
                                 <div class="col-span-6">

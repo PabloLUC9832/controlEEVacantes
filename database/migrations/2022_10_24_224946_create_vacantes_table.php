@@ -38,7 +38,6 @@ return new class extends Migration
             $table->text('fechaApertura')->nullable();
             $table->text('fechaCierre')->nullable();
             $table->text('fechaRenuncia')->nullable();
-            $table->integer('bancoHorasDisponible')->nullable();
             $table->text('archivo')->nullable();
             $table->timestamps();
             $table->softDeletes();
