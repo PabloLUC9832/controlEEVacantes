@@ -110,12 +110,6 @@
                                                placeholder="Ej. 1523" required>
                                     </div>
 
-                                    <div class="col-span-6">
-                                        <label for="numHoras" class="labelForms">Número de horas</label>
-                                        <input type="number" name="numHoras" id="numHoras" class="inputForms"
-                                               placeholder="Ej. 6" required>
-                                    </div>
-
                                     @include('vacante.selectNrcNombreCreate')
 
                                     <div class="col-span-6">
@@ -269,12 +263,6 @@
                                                    placeholder="Selecciona la fecha" id="fechaRenuncia"
                                                    name="fechaRenuncia">
                                         </div>
-                                    </div>
-
-                                    <div class="col-span-6">
-                                        <label for="bancoHorasDisponible" class="labelForms">Banco de horas</label>
-                                        <input type="number" name="bancoHorasDisponible" id="bancoHorasDisponible"
-                                               class="inputForms" placeholder="Ej. ">
                                     </div>
 
                                     <div class="col-span-6">

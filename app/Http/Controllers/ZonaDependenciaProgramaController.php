@@ -83,14 +83,14 @@ class ZonaDependenciaProgramaController extends Controller
         $programa->nombre_programa = $request->nombrePrograma;
         $programa->horasIniciales = $request->horasIniciales;
         $programa->horasUtilizadas = $request->horasUtilizadas;
-        $programa->horasDisponibles = $request->horasDisponibles;
+        $programa->horasDisponibles = $request->horasIniciales;
 
         //dd($programa);
 
         $programa->save();
 
         $user = Auth::user();
-        $data = $request->idZona ." ". $request->nombreZona ." ". $request->claveDependencia ." ". $request->nombreDependencia ." ". $request->clavePrograma ." ". $request->nombrePrograma ." ". $request->horasIniciales ." ". $request->horasUtilizadas ." ". $request->horasDisponibles;
+        $data = $request->idZona ." ". $request->nombreZona ." ". $request->claveDependencia ." ". $request->nombreDependencia ." ". $request->clavePrograma ." ". $request->nombrePrograma ." ". $request->horasIniciales ." ". $request->horasUtilizadas ." ". $request->horasIniciales;
         event(new LogUserActivity($user,"Creación de Programa Educativo",$data));
 
         return redirect()->route('zonaDependenciaPrograma.index');
@@ -199,13 +199,5 @@ class ZonaDependenciaProgramaController extends Controller
 
         return response()->json($data);
     }
-
-    /*public function fetchNombreDependencia(Request $request)
-    {
-        $data['nombre'] = Zona_Dependencia::where("clave_dependencia", $request->claveDependencia)
-            ->get(["nombre_dependencia"]);
-
-        return response()->json($data);
-    }*/
 
 }

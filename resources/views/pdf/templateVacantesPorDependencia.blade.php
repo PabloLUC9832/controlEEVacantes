@@ -24,17 +24,19 @@
     }
 
     .encabezado{
-        margin-top: 0;
+        margin-top: 10px;
         margin-bottom: 5px;
     }
 
-    .titulo{
+    .subTitulo{
         margin-top: 0;
-        margin-bottom: 0;
+        margin-bottom: 5px;
+        text-align: center;
     }
 
-
-    h4{
+    .titulo{
+        margin-top: 10px;
+        margin-bottom: 20px;
         text-align: center;
     }
 
@@ -53,13 +55,38 @@
         border: 1px solid #ddd;
     }
 
+    .imagen{
+        display: flex;
+        justify-content: center;
+    }
+
+    .right{
+        float: right;
+        width: 80%;
+        margin-top: 10px;
+    }
+
+    .left{
+        position:relative;
+        float: left;
+        width: 20%;
+        padding-bottom: 100px;
+    }
+
 </style>
 
 <body>
-<h4 class="encabezado">DIRECCIÓN GENERAL DEL ÁREA ACADÉMICA ECONÓMICO-ADMINISTRATIVA</h4>
-<h4 class="encabezado">{{$dependencia}}</h4>
-<h4 class="titulo">Reporte Experiencias Educativas Vacantes</h4>
 
+<div class="right">
+    <h5 class="encabezado">DIRECCIÓN GENERAL DEL ÁREA ACADÉMICA ECONÓMICO-ADMINISTRATIVA</h5>
+    <h5 class="subTitulo">{{$dependencia}}</h5>
+</div>
+
+<div class="left">
+    <img src="<?php echo $uv ?>" width="120px">
+</div>
+
+<h5 class="titulo">Reporte Experiencias Educativas Vacantes</h5>
 
 <div>
     <table class="tabla">
@@ -103,5 +130,6 @@
     </table>
 </div>
 
+</div>
 </body>
 </html>

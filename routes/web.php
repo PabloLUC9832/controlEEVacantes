@@ -72,10 +72,8 @@ Route::controller(VacanteController::class)->group(function (){
 });
 
 Route::post('api/fetch-dependencias', [ZonaDependenciaController::class, 'fetchDependencia']);
-Route::post('api/fetch-nombreExperienciaEducativa', [VacanteController::class, 'fetchNombreExperienciaEducativa']);
-Route::post('api/fetch-idNombreZona', [ZonaDependenciaController::class, 'fetchIdNombreZona']);
+Route::post('api/fetch-horasExperienciaEducativa', [VacanteController::class, 'fetchHorasExperienciaEducativa']);
 Route::post('api/fetch-zonaDependencia', [ZonaDependenciaProgramaController::class, 'fetchZonaDependencia']);
-Route::post('api/fetch-nombreDependencia', [ZonaDependenciaProgramaController::class, 'fetchNombreDependencia']);
 
 Route::controller(DocenteController::class)->group(function (){
 

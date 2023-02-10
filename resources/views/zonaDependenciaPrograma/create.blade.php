@@ -86,12 +86,6 @@
                                            placeholder="Ej. 10">
                                 </div>
 
-                                <div class="col-span-6">
-                                    <label for="horasDisponibles" class="labelForms">Horas Disponibles</label>
-                                    <input type="number" name="horasDisponibles" id="horasDisponibles" class="inputForms"
-                                           placeholder="Ej. 140">
-                                </div>
-
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
