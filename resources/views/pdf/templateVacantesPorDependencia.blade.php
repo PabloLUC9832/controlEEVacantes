@@ -19,13 +19,14 @@
         margin-top: 10px;
     }
     .cabecera{
-        background-color: royalblue;
+        background-color: #0D47A1;
         color: white;
     }
 
     .encabezado{
         margin-top: 10px;
         margin-bottom: 5px;
+        font-size: 14px;
     }
 
     .subTitulo{
@@ -35,8 +36,9 @@
     }
 
     .titulo{
-        margin-top: 10px;
-        margin-bottom: 20px;
+        margin-top: 20px;
+        font-size: 15px;
+        margin-bottom: 10px;
         text-align: center;
     }
 
@@ -51,7 +53,7 @@
     }
 
     tbody tr:nth-child(even) {
-        background-color: rgba(246, 240, 240, 0.72);
+        background-color: rgba(236, 230, 230, 0.72);
         border: 1px solid #ddd;
     }
 

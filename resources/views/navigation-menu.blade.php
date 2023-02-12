@@ -27,18 +27,17 @@
                             {{ __('E.E. Vacantes') }}
                         </x-jet-nav-link>
 
-                        <x-jet-nav-link href="{{ route('docente.index') }}" :active="request()->routeIs('docente.index')">
-                            {{ __('Docentes') }}
+                        <x-jet-nav-link href="{{ route('zonaDependencia.index') }}" :active="request()->routeIs('zonaDependencia.index')">
+                            {{ __('Dependencias') }}
+                        </x-jet-nav-link>
+
+                        <x-jet-nav-link href="{{ route('zonaDependenciaPrograma.index') }}" :active="request()->routeIs('zonaDependenciaPrograma.index')">
+                            {{ __('Programas Educativos') }}
                         </x-jet-nav-link>
 
                         <x-jet-nav-link href="{{ route('experienciaEducativa.index') }}" :active="request()->routeIs('experienciaEducativa.index')">
                             {{ __('Experiencias Educativas') }}
                         </x-jet-nav-link>
-
-                        <x-jet-nav-link href="{{ route('periodo.index') }}" :active="request()->routeIs('periodo.index')">
-                            {{ __('Periodos') }}
-                        </x-jet-nav-link>
-
 
                         <div class="hidden sm:flex sm:items-center sm:ml-l">
 
@@ -60,8 +59,8 @@
 
                                 <x-slot name="content">
 
-                                    <x-jet-dropdown-link href="{{ route('bitacora.index') }}">
-                                        {{ __('Bitácora') }}
+                                    <x-jet-dropdown-link href="{{ route('periodo.index') }}">
+                                        {{ __('Periodos') }}
                                     </x-jet-dropdown-link>
 
                                     <x-jet-dropdown-link href="{{ route('tipoAsignacion.index') }}">
@@ -76,12 +75,12 @@
                                         {{ __('Zonas') }}
                                     </x-jet-dropdown-link>
 
-                                    <x-jet-dropdown-link href="{{ route('zonaDependencia.index') }}">
-                                        {{ __('Dependencias') }}
+                                    <x-jet-dropdown-link href="{{ route('docente.index') }}">
+                                        {{ __('Docentes') }}
                                     </x-jet-dropdown-link>
 
-                                    <x-jet-dropdown-link href="{{ route('zonaDependenciaPrograma.index') }}">
-                                        {{ __('Programas Educativos') }}
+                                    <x-jet-dropdown-link href="{{ route('bitacora.index') }}">
+                                        {{ __('Bitácora') }}
                                     </x-jet-dropdown-link>
 
                                 </x-slot>

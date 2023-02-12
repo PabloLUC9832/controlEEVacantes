@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('numPrograma');
             $table->integer('numPlaza');
             $table->integer('numHoras');
-            $table->integer('numMateria');
+            $table->integer('numMateria')->nullable();
             $table->text('nombreMateria');
             $table->text('grupo');
             $table->text('subGrupo');
