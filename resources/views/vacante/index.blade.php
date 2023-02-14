@@ -219,7 +219,6 @@
                                 <a href="{{route('vacante.edit',$vacante->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
                             </td>
 
-
                         @endif
 
                     @endif
@@ -231,11 +230,16 @@
             @endif
             </tbody>
         </table>
+        <div class="hidden sm:block" aria-hidden="true">
+            <div class="py-8">
+                <div class="border-t border-gray-200"></div>
+            </div>
+        </div>
         {{ $vacantes->links() }}
     </div>
 
     <a title="Añadir EE Vacante" href="{{ route('vacante.create') }}"
-            class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">+ <br> Añadir EE Vacante</a>
+            class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">Añadir EE Vacante</a>
 
 </div>
 

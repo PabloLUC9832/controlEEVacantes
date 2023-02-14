@@ -13,30 +13,34 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-6 sm:-my-px sm:ml-10 sm:flex">
 
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" title="Inicio">
                         {{ __('Inicio') }}
                     </x-jet-nav-link>
 
                     @if ( Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin') )
 
-                        <x-jet-nav-link href="{{ route('vacante.import') }}" :active="request()->routeIs('vacante.import')">
+                        <x-jet-nav-link href="{{ route('vacante.import') }}" :active="request()->routeIs('vacante.import')" title="Carga de la base de datos">
                             {{ __('Cargar CSV') }}
                         </x-jet-nav-link>
 
-                        <x-jet-nav-link href="{{ route('vacante.index') }}" :active="request()->routeIs('vacante.index')">
+                        <x-jet-nav-link href="{{ route('vacante.index') }}" :active="request()->routeIs('vacante.index')" title="Gestión de las Experiencias Educativas Vacantes">
                             {{ __('E.E. Vacantes') }}
                         </x-jet-nav-link>
 
-                        <x-jet-nav-link href="{{ route('zonaDependencia.index') }}" :active="request()->routeIs('zonaDependencia.index')">
+                        <x-jet-nav-link href="{{ route('zonaDependencia.index') }}" :active="request()->routeIs('zonaDependencia.index')" title="Gestión de las Dependencias">
                             {{ __('Dependencias') }}
                         </x-jet-nav-link>
 
-                        <x-jet-nav-link href="{{ route('zonaDependenciaPrograma.index') }}" :active="request()->routeIs('zonaDependenciaPrograma.index')">
-                            {{ __('Programas Educativos') }}
+                        <x-jet-nav-link href="{{ route('zonaDependenciaPrograma.index') }}" :active="request()->routeIs('zonaDependenciaPrograma.index')" title="Gestión de los Programas Educativos">
+                            {{ __('Programas Educ.') }}
                         </x-jet-nav-link>
 
-                        <x-jet-nav-link href="{{ route('experienciaEducativa.index') }}" :active="request()->routeIs('experienciaEducativa.index')">
-                            {{ __('Experiencias Educativas') }}
+                        <x-jet-nav-link href="{{ route('experienciaEducativa.index') }}" :active="request()->routeIs('experienciaEducativa.index')" title="Gestión de Experiencias Educativas">
+                            {{ __('E.E') }}
+                        </x-jet-nav-link>
+
+                        <x-jet-nav-link href="{{ route('docente.index') }}" :active="request()->routeIs('docente.index')" title="Gestión de Docentes">
+                            {{ __('Docentes') }}
                         </x-jet-nav-link>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-l">
@@ -47,7 +51,7 @@
 
                             <span class="inline-flex rounded-md">
                             <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
-                                Otros
+                                Ver más
 
                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -59,27 +63,23 @@
 
                                 <x-slot name="content">
 
-                                    <x-jet-dropdown-link href="{{ route('periodo.index') }}">
+                                    <x-jet-dropdown-link href="{{ route('periodo.index') }}" title="Gestión de Periodos">
                                         {{ __('Periodos') }}
                                     </x-jet-dropdown-link>
 
-                                    <x-jet-dropdown-link href="{{ route('tipoAsignacion.index') }}">
+                                    <x-jet-dropdown-link href="{{ route('tipoAsignacion.index') }}" title="Gestión de los Tipos de Asignación">
                                         {{ __('Tipo de Asignación') }}
                                     </x-jet-dropdown-link>
 
-                                    <x-jet-dropdown-link href="{{ route('motivo.index') }}">
+                                    <x-jet-dropdown-link href="{{ route('motivo.index') }}" title="Gestión de los Motivos">
                                         {{ __('Motivos') }}
                                     </x-jet-dropdown-link>
 
-                                    <x-jet-dropdown-link href="{{ route('zona.index') }}">
+                                    <x-jet-dropdown-link href="{{ route('zona.index') }}" title="Gestión de las Zonas">
                                         {{ __('Zonas') }}
                                     </x-jet-dropdown-link>
 
-                                    <x-jet-dropdown-link href="{{ route('docente.index') }}">
-                                        {{ __('Docentes') }}
-                                    </x-jet-dropdown-link>
-
-                                    <x-jet-dropdown-link href="{{ route('bitacora.index') }}">
+                                    <x-jet-dropdown-link href="{{ route('bitacora.index') }}" title="Historial de Operaciones en el Sistema">
                                         {{ __('Bitácora') }}
                                     </x-jet-dropdown-link>
 
