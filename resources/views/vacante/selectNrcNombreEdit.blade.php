@@ -1,4 +1,4 @@
-<div class="col-span-6">
+<div class="col-span-6 sm:col-span-3 lg:col-span-3">
     <label for="numMateria-dropdown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">NRC</label>
     <select  id="numMateria-dropdown" name="numMateria" class="estiloSelect">
             <option value="{{$vacante->numMateria}}~{{$vacante->nombreMateria}}">{{$vacante->numMateria}}~{{$vacante->nombreMateria}}</option>
@@ -10,7 +10,7 @@
     </select>
 </div>
 
-<div class="col-span-6">
+<div class="col-span-6 sm:col-span-3 lg:col-span-3">
     <label for="numHoras-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Número de horas</label>
     <select id="numHoras-dropdown" class="estiloSelect" name="numHoras">
         <option value="{{$vacante->numHoras}}">{{$vacante->numHoras}}</option>
