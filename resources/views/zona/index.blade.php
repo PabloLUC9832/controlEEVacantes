@@ -19,8 +19,17 @@
     <!--Menu-->
     @livewire('navigation-menu')
 
+    <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
+        <div class="w-3/4">
+            <p class="text-2xl font-bold">Lista de Zonas</p>
+        </div>
+        <div class="w-1/4 flex flex-col items-end">
+            <a href="{{ route('zona.create') }}" class="text-white bg-azul-royal hover:bg-azul-royal-hover focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir Nueva</a>
+        </div>
+    </div>
+
     <form action="{{route('zona.index')}}" method="GET" value="{{$search}}">
-        <div class="flex shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
+        <div class="flex shadow-md sm:rounded-lg md:mt-5 md:mx-10 md:my-10">
 
 
             <div class="relative w-full">
