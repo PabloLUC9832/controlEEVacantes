@@ -19,8 +19,17 @@
     <!--Menu-->
     @livewire('navigation-menu')
 
+    <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
+        <div class="w-3/4">
+            <p class="text-2xl font-bold">Lista de Programas Educativos</p>
+        </div>
+        <div class="w-1/4 flex flex-col items-end">
+            <a href="{{ route('zonaDependenciaPrograma.create') }}" class="text-white bg-azul-royal hover:bg-azul-royal-hover focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir Nuevo</a>
+        </div>
+    </div>
+
     <form action="{{route('zonaDependenciaPrograma.index')}}" method="GET" value="{{$search}}">
-        <div class="flex shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
+        <div class="flex shadow-md sm:rounded-lg md:mt-5 md:mx-10 md:my-10">
 
             <div class="relative w-full">
                 <input type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Ingresa tu búsqueda" name="search">
@@ -131,8 +140,6 @@
         </table>
         {{ $listaZonaDependenciaPrograma->links() }}
     </div>
-    <a title="Añadir Programa Educativo" href="{{ route('zonaDependenciaPrograma.create') }}"
-       class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">+ <br> Añadir Programa Educativo</a>
 </div>
 
 </body>

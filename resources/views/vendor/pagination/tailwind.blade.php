@@ -25,17 +25,17 @@
         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
             <div>
                 <p class="text-sm text-gray-700 leading-5">
-                    {!! __('Mostrando resultados del') !!}
+                    {!! __('Mostrando') !!}
                     @if ($paginator->firstItem())
                         <span class="font-medium">{{ $paginator->firstItem() }}</span>
-                        {!! __('al') !!}
+                        {!! __(' - ') !!}
                         <span class="font-medium">{{ $paginator->lastItem() }}</span>
                     @else
                         {{ $paginator->count() }}
                     @endif
                     {!! __('de') !!}
                     <span class="font-medium">{{ $paginator->total() }}</span>
-                    {!! __('') !!}
+                    {!! __('Resultados') !!}
                 </p>
             </div>
 
