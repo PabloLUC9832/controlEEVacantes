@@ -217,7 +217,8 @@ class ZonaDependenciaController extends Controller
      */
     public function destroy($id)
     {
-        $dependenciaEliminarPrograma = DB::table('zona__dependencia__programas')->where("clave_dependencia",$id)->delete();
+        $claveDependenciaSeleccionada = Zona_Dependencia::where('id',$id)->value('clave_dependencia');
+        $dependenciaEliminarPrograma = DB::table('zona__dependencia__programas')->where("clave_dependencia",$claveDependenciaSeleccionada)->delete();
 
         $dependencia = Zona_Dependencia::findOrFail($id);
         $dependencia->delete();
