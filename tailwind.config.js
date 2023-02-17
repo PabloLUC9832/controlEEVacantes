@@ -31,6 +31,8 @@ module.exports = {
                 'color-sidebar-opciones':'#979DAA',
                 'rojo-primario':'#F9614D',
                 'rojo-secundario':'#F44336',
+                'azul-royal':'#00296b',
+                'azul-royal-hover':'#18458C',
             }
         },
     },

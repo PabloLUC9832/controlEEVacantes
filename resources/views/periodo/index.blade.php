@@ -21,8 +21,17 @@
     <!--Menu-->
     @livewire('navigation-menu')
 
+    <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
+        <div class="w-3/4">
+            <p class="text-2xl font-bold">Lista de Periodos</p>
+        </div>
+        <div class="w-1/4 flex flex-col items-end">
+            <a href="{{ route('periodo.create') }}" class="text-white bg-azul-royal hover:bg-azul-royal-hover focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir Nuevo</a>
+        </div>
+    </div>
+
     <form action="{{route('periodo.index')}}" method="GET" value="{{$search}}">
-        <div class="flex shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
+        <div class="flex shadow-md sm:rounded-lg md:mt-5 md:mx-10 md:my-10">
 
             <button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Filtrar <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
 
