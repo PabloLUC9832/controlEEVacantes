@@ -7,6 +7,7 @@
             </button>
             <div class="p-6 text-center">
                 <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="text-red-700 font-bold">Nota: Al eliminar esta dependencia, eliminaras los programas educativos asociadas a esta.</span>
                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Estás seguro de eliminar la dependencia {{$dependencia->nombre_dependencia}} de la zona {{$dependencia->nombre_zona}} ?</h3>
 
                 <form action="{{route('zonaDependencia.destroy', $dependencia->id)}}" method="POST">

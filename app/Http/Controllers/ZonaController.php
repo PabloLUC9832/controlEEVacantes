@@ -116,7 +116,9 @@ class ZonaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $zonaEliminarPrograma = DB::table('zona__dependencia__programas')->where("id_zona",$id)->delete();
+        $zonaEliminarDependencia = DB::table('zona__dependencias')->where('id_zona',$id)->delete();
+
         $zona = Zona::where('id',$id)->firstOrFail();
         $zona->delete($id);
 
