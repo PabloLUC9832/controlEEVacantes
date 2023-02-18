@@ -225,7 +225,8 @@ class VacanteController extends Controller
         $nombreDependenciaUsuario = DB::table('zona__dependencias')->where('clave_dependencia',$dependenciaUsuario)->value('nombre_dependencia');
         $numeroDependenciaUsuario = DB::table('zona__dependencias')->where('clave_dependencia',$dependenciaUsuario)->value('clave_dependencia');
 
-        $listaProgramas = Zona_Dependencia_Programa::all();
+        //$listaProgramas = Zona_Dependencia_Programa::all();
+        $listaProgramas = Zona_Dependencia_Programa::where('id_zona',$zonaUsuario)->get();
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
@@ -374,7 +375,8 @@ class VacanteController extends Controller
 
         $vacante = Vacante::findOrFail($id);
 
-        $listaProgramas = Zona_Dependencia_Programa::all();
+        //$listaProgramas = Zona_Dependencia_Programa::all();
+        $listaProgramas = Zona_Dependencia_Programa::where('id_zona',$zonaUsuario)->get();
         $listaMotivos = Motivo::all();
         $listaDocentes = Docente::all();
         $listaExperienciasEducativas = ExperienciaEducativa::all();
