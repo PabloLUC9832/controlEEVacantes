@@ -22,6 +22,7 @@ class LogUserActivityController extends Controller
             ->select('name', 'email','action','data','created_at')
             ->where('name','LIKE','%'.$search.'%')
             ->orWhere('email','LIKE','%'.$search.'%')
+            ->orWhere('action','LIKE','%'.$search.'%')
             ->orWhere('data','LIKE','%'.$search.'%')
             ->orWhere('created_at','LIKE','%'.$search.'%')
             ->orderBy('created_at','desc')

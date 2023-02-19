@@ -54,11 +54,23 @@
                         <div class="bg-white px-4 py-5 sm:p-6">
                             <div class="grid grid-cols-6 gap-6">
                                 @csrf
+{{--
 
                                 <div class="col-span-6">
                                     <label for="nPeriodo" class="labelForms">Número de periodo</label>
                                     <input type="number" name="nPeriodo" id="nPeriodo" class="inputForms"
                                            required value="{{$periodo->nPeriodo}}">
+                                </div>
+
+--}}
+
+                                <div class="col-span-6">
+                                    <label for="nPeriodo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Número de periodo</label>
+                                    <select  id="nPeriodo" name="nPeriodo" class="estiloSelect">
+                                        <option value="">{{$periodo->nPeriodo}}</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
                                 </div>
 
                                 <div class="col-span-6">

@@ -34,6 +34,7 @@ class ZonaDependenciaProgramaController extends Controller
             ->orWhere('nombre_programa','LIKE','%'.$search.'%')
             ->orWhere('horasIniciales','LIKE','%'.$search.'%')
             ->orWhere('horasUtilizadas','LIKE','%'.$search.'%')
+            ->orWhere('horasDisponibles','LIKE','%'.$search.'%')
             ->orderBy('id_zona','asc')
             ->paginate(15);
 
