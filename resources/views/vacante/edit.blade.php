@@ -77,19 +77,19 @@
                                     </select>
                                 </div>
 
-                                <div class="col-span-6">
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="numZona" class="labelForms">Número de zona</label>
                                     <input type="text" name="numZona" id="numZona" class="inputForms"
                                            value="{{$numeroZonaUsuario}}-{{$nombreZonaUsuario}}" readonly="readonly">
                                 </div>
 
-                                <div class="col-span-6">
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="numDependencia" class="labelForms">Número de dependencia</label>
                                     <input type="text" name="numDependencia" id="numDependencia"
                                            class="inputForms" value="{{$numeroDependenciaUsuario}}-{{$nombreDependenciaUsuario}}" readonly="readonly">
                                 </div>
 
-                                <div class="col-span-6">
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="numArea" class="labelForms">Número de área</label>
                                     <input type="text" name="numArea" id="numArea" class="inputForms" disabled
                                            value="3 ECONÓMICO ADMINISTRATIVA" readonly="readonly">
@@ -115,14 +115,14 @@
 
                                 @include('vacante.selectNrcNombreEdit')
 
-                                <div class="col-span-6">
+                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                                     <label for="grupo" class="labelForms">Grupo</label>
                                     <input type="text" name="grupo" id="grupo" class="inputForms"
                                            required
                                            value="{{$vacante->grupo}}">
                                 </div>
 
-                                <div class="col-span-6">
+                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                                     <label for="subGrupo" class="labelForms">Sub Grupo</label>
                                     <input type="text" name="subGrupo" id="subGrupo" class="inputForms"
                                            required
@@ -141,7 +141,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-span-6">
+                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                                     <label for="tipoContratacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Contratación</label>
                                     <select  id="tipoContratacion" name="tipoContratacion" class="estiloSelect">
                                         <option value="{{$vacante->tipoContratacion}}">{{$vacante->tipoContratacion}}</option>
@@ -150,7 +150,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-span-6">
+                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                                     <label for="tipoAsignacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Asignación</label>
                                     <select  id="tipoAsignacion" name="tipoAsignacion" class="estiloSelect">
                                         <option value="{{$vacante->tipoAsignacion}}">{{$vacante->tipoAsignacion}}</option>
@@ -201,7 +201,7 @@
                                                       clip-rule="evenodd"></path>
                                             </svg>
                                         </div>
-                                        <input datepicker type="text"
+                                        <input datepicker datepicker-format="dd/mm/yyyy" type="text"
                                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                value="{{$vacante->fechaAsignacion}}" id="fechaAsignacion"
                                                name="fechaAsignacion">

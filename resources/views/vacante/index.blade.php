@@ -126,9 +126,9 @@
 
                 @if ( Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin') )
 
-                <th scope="col" class="py-3 px-6">
-                    <span class="sr-only">Eliminar</span>
-                </th>
+                    <th scope="col" class="py-3 px-6">
+                        <span class="sr-only">Eliminar</span>
+                    </th>
 
                 @endif
             </tr>
@@ -143,99 +143,99 @@
                 </tr>
             @else
                 @foreach($vacantes as $vacante)
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
-                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$vacante->numPrograma}}
-                    </th>
+                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{$vacante->numPrograma}}
+                        </th>
 
-                    <td class="py-4 px-6">
-                        {{$vacante->nombreMateria}}
-                    </td>
-
-                    <td class="py-4 px-6">
-                        {{$vacante->numHoras}}
-                    </td>
-                    <td class="py-4 px-6">
-                        {{$vacante->grupo}}
-                    </td>
-
-                    <td class="py-4 px-6">
-                        {{$vacante->plan}}
-                    </td>
-
-                    <td class="py-4 px-6">
-                        {{$vacante->numPlaza}}
-                    </td>
-{{--
-
-                    <td class="py-4 px-2 text-right">
-                        <button type="button"
-                                class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
-                                data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
-                    </td>
---}}
-
-                    @if ( Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin') )
-
-                        @if($isDeleted)
-
-                        <td class="py-4 px-2 text-right">
-                            <button type="button"
-                                    class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
-                                    data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
+                        <td class="py-4 px-6">
+                            {{$vacante->nombreMateria}}
                         </td>
 
+                        <td class="py-4 px-6">
+                            {{$vacante->numHoras}}
+                        </td>
+                        <td class="py-4 px-6">
+                            {{$vacante->grupo}}
+                        </td>
+
+                        <td class="py-4 px-6">
+                            {{$vacante->plan}}
+                        </td>
+
+                        <td class="py-4 px-6">
+                            {{$vacante->numPlaza}}
+                        </td>
+                        {{--
+
+                                            <td class="py-4 px-2 text-right">
+                                                <button type="button"
+                                                        class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
+                                                        data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
+                                            </td>
+                        --}}
+
+                        @if ( Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin') )
+
+                            @if($isDeleted)
+
+                                <td class="py-4 px-2 text-right">
+                                    <button type="button"
+                                            class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
+                                            data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
+                                </td>
+
+                            @else
+
+                                <td class="py-4 px-2 text-right">
+                                    <button type="button"
+                                            class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
+                                            data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
+                                </td>
+
+                                <td class="py-4 px-2 text-right">
+                                    <a href="{{route('vacante.edit',$vacante->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
+                                </td>
+
+                                <td class="py-4 px-2 text-right">
+                                    <button type="button"
+                                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                            data-modal-toggle="delete-modal{{$vacante->id}}">Cerrar EE</button>
+                                </td>
+
+                            @endif
+
                         @else
 
-                            <td class="py-4 px-2 text-right">
-                                <button type="button"
-                                        class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
-                                        data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
-                            </td>
+                            @if($isDeleted)
 
-                            <td class="py-4 px-2 text-right">
-                                <a href="{{route('vacante.edit',$vacante->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
-                            </td>
+                                <td class="py-4 px-2 text-right">
+                                    <button type="button"
+                                            class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
+                                            data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
+                                </td>
 
-                            <td class="py-4 px-2 text-right">
-                                <button type="button"
-                                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                        data-modal-toggle="delete-modal{{$vacante->id}}">Cerrar EE</button>
-                            </td>
+                            @else
+
+                                <td class="py-4 px-2 text-right">
+                                    <button type="button"
+                                            class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
+                                            data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
+                                </td>
+
+                                <td class="py-4 px-2 text-right">
+                                    <a href="{{route('vacante.edit',$vacante->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
+                                </td>
+
+                            @endif
 
                         @endif
 
-                    @else
-
-                        @if($isDeleted)
-
-                    <td class="py-4 px-2 text-right">
-                        <button type="button"
-                                class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
-                                data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
-                    </td>
-
-                        @else
-
-                            <td class="py-4 px-2 text-right">
-                                <button type="button"
-                                        class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
-                                        data-modal-toggle="view-modal{{$vacante->id}}">Ver Info</button>
-                            </td>
-
-                            <td class="py-4 px-2 text-right">
-                                <a href="{{route('vacante.edit',$vacante->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
-                            </td>
-
-                        @endif
-
-                    @endif
-
-                </tr>
-                @include('vacante.modalConfirmacionEliminar')
-                @include('vacante.modalVisualizarVacante')
-               @endforeach
+                    </tr>
+                    @include('vacante.modalConfirmacionEliminar')
+                    @include('vacante.modalVisualizarVacante')
+                @endforeach
             @endif
             </tbody>
         </table>
