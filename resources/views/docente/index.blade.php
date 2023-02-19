@@ -162,12 +162,6 @@
         </table>
     </div>
 
-    <a title="Añadir Docente" href="{{ route('docente.create') }}"
-       class="btn fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">+ <br> Añadir Docente</a>
-
-    <a title="Generar Reporte" target="_blank" href="{{ route('docente.export') }}"
-       class="btn fixed z-90 bottom-32 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-center text-white text-sm hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-bounce duration-300">Generar Reporte</a>
-
 </div>
 
 </body>
