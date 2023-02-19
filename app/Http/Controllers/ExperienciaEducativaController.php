@@ -24,7 +24,8 @@ class ExperienciaEducativaController extends Controller
 
         $experienciasEducativas = DB::table('experiencia_educativas')
             ->select('id','numMateria','nrc','nombre','horas')
-            ->where('nrc','LIKE','%'.$search.'%')
+            ->where('numMateria','LIKE','%'.$search.'%')
+            ->orWhere('nrc','LIKE','%'.$search.'%')
             ->orWhere('nombre','LIKE','%'.$search.'%')
             ->orWhere('horas','LIKE','%'.$search.'%')
             ->orderBy('nombre','asc')
@@ -73,7 +74,8 @@ class ExperienciaEducativaController extends Controller
                 default:
                     $experienciasEducativas = DB::table('experiencia_educativas')
                     ->select('id','numMateria','nrc','nombre','horas')
-                    ->where('nrc','LIKE','%'.$search.'%')
+                        ->where('numMateria','LIKE','%'.$search.'%')
+                    ->orWhere('nrc','LIKE','%'.$search.'%')
                     ->orWhere('nombre','LIKE','%'.$search.'%')
                     ->orWhere('horas','LIKE','%'.$search.'%')
                     ->orderBy('nombre','asc')
