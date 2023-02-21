@@ -304,6 +304,7 @@ class VacanteController extends Controller
         $vacante->numPersonalDocente=$numDocente;
         $vacante->plan=$request->plan;
         $vacante->observaciones=$request->observaciones;
+        $vacante->fechaAviso=$request->fechaAviso;
         $vacante->fechaAsignacion=$request->fechaAsignacion;
         $vacante->fechaAsignacion=$request->fechaAsignacion;
         $vacante->fechaApertura=$request->fechaApertura;
@@ -325,7 +326,7 @@ class VacanteController extends Controller
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
                 . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
                 . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
-                . " " . $request->observaciones . " " . $request->fechaAsignacion . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia;
+                . " " . $request->observaciones . " " . " ". $request->fechaAviso . $request->fechaAsignacion . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia;
 
 
 
@@ -468,6 +469,7 @@ class VacanteController extends Controller
         $nombreCDocente = $nombreDocente;
         $plan=$request->plan;
         $observaciones=$request->observaciones;
+        $fechaAviso=$request->fechaAviso;
         $fechaAsignacion=$request->fechaAsignacion;
         $fechaApertura=$request->fechaApertura;
         $fechaCierre=$request->fechaCierre;
@@ -501,6 +503,7 @@ class VacanteController extends Controller
             'nombreDocente' => $nombreCDocente,
             'plan' => $plan ,
             'observaciones' => $observaciones ,
+            'fechaAviso' => $fechaAviso ,
             'fechaAsignacion' => $fechaAsignacion ,
             'fechaApertura' => $fechaApertura ,
             'fechaCierre' => $fechaCierre ,

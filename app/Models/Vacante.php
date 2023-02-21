@@ -34,6 +34,7 @@ class Vacante extends Model{
         'nombreDocente',
         'plan',
         'observaciones',
+        'fechaAviso',
         'fechaAsignacion',
         'fechaApertura',
         'fechaCierre',

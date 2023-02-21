@@ -34,6 +34,7 @@ return new class extends Migration
             $table->text('nombreDocente')->nullable();
             $table->integer('plan')->nullable();
             $table->text('observaciones')->nullable();
+            $table->text('fechaAviso')->nullable();
             $table->text('fechaAsignacion')->nullable();
             $table->text('fechaApertura')->nullable();
             $table->text('fechaCierre')->nullable();
