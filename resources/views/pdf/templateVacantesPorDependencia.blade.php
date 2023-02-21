@@ -24,21 +24,23 @@
     }
 
     .encabezado{
-        margin-top: 10px;
+        margin-top: 5px;
         margin-bottom: 5px;
-        font-size: 14px;
+        font-size: 20px;
     }
 
     .subTitulo{
         margin-top: 0;
         margin-bottom: 5px;
         text-align: center;
+        color: #0D47A1;
+        font-weight: bold;
     }
 
     .titulo{
-        margin-top: 20px;
-        font-size: 15px;
-        margin-bottom: 10px;
+        margin-top: 15px;
+        font-size: 18px;
+        margin-bottom: 5px;
         text-align: center;
     }
 
@@ -80,15 +82,15 @@
 <body>
 
 <div class="right">
-    <h5 class="encabezado">DIRECCIÓN GENERAL DEL ÁREA ACADÉMICA ECONÓMICO-ADMINISTRATIVA</h5>
-    <h5 class="subTitulo">{{$dependencia}}</h5>
+    <h2 class="encabezado">DIRECCIÓN GENERAL DEL ÁREA ACADÉMICA ECONÓMICO-ADMINISTRATIVA</h2>
+    <h4 class="subTitulo">{{$dependencia}}</h4>
 </div>
 
 <div class="left">
     <img src="<?php echo $uv ?>" width="120px">
 </div>
 
-<h5 class="titulo">Reporte Experiencias Educativas Vacantes</h5>
+<h4 class="titulo">Reporte Experiencias Educativas Vacantes</h4>
 
 <div>
     <table class="tabla">
