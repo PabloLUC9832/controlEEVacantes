@@ -34,164 +34,22 @@ class VacanteController extends Controller
     {
         //https://stackoverflow.com/questions/18564205/html-submit-form-on-radio-button-check
         $search = trim($request->get('search'));
-        $radioButton = $request->get('tipoV');
+        //$radioButton = $request->get('tipoV');
         $isDeleted = false;
+
+        $zona = $request->get('zona');
+        $dependencia = $request->get('dependencia');
+        $programa = $request->get('programa');
 
         $user = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
 
-        if ($user){
-            $vacantes = $this->busqueda($search);
-            if(isset($radioButton)){
-
-                switch ($radioButton){
-
-                    case "toda":
-                        $vacantes = $this->busqueda($search);
-                    break;
-
-                    case "vacante":
-                        $vacantes = DB::table('vacantes')
-                            ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaAviso','fechaAsignacion','fechaApertura','fechaCierre',
-                                'observaciones','fechaRenuncia','archivo')
-                            ->join('periodos',function ($join){
-                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
-                                    ->where('periodos.actual',"=",1)
-                                    ->whereNull('deleted_at')
-                                    ->whereNull('numPersonalDocente')
-                                ;
-                            })
-                            ///->whereNull('numPersonalDocente')
-                            ->orderBy('numDependencia', 'desc')
-                            ->paginate(15)
-                        ;
-                    break;
-
-                    case "noVacante":
-                        $vacantes = DB::table('vacantes')
-                            ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaAviso','fechaAsignacion','fechaApertura','fechaCierre',
-                                'observaciones','fechaRenuncia','archivo')
-                            ->join('periodos',function ($join){
-                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
-                                    ->where('periodos.actual',"=",1)
-                                    ->whereNull('deleted_at')
-                                    ->whereNotNull('numPersonalDocente')
-                                ;
-                            })
-                            //->whereNotNull('numPersonalDocente')
-                            ->orderBy('numDependencia', 'desc')
-                            ->paginate(15)
-                        ;
-                    break;
-
-                    case "vacanteCerrada":
-                        $isDeleted = true;
-                        $vacantes = DB::table('vacantes')
-                            ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaAviso','fechaAsignacion','fechaApertura','fechaCierre',
-                                'observaciones','fechaRenuncia','archivo')
-                            ->join('periodos',function ($join){
-                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
-                                    ->where('periodos.actual',"=",1)
-                                    ->whereNotNull('deleted_at')
-                                ;
-                            })
-                            //->whereNotNull('deleted_at')
-                            ->orderBy('numDependencia', 'desc')
-                            ->paginate(15)
-                        ;
-                    break;
-
-                    default:
-                        $vacantes = $this->busqueda($search);
-                }
-
-            }
-
-        }else{
-
-            $userE = auth()->user();
-
-            $vacantes = $this->busquedaEditor($search,$userE);
-
-            if(isset($radioButton)){
-
-                switch ($radioButton){
-
-                    case "toda":
-
-                        $vacantes = $this->busquedaEditor($search,$userE);
-
-                    break;
-
-                    case "vacante":
-
-                        $vacantes = DB::table('vacantes')
-                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaAviso','fechaAsignacion','fechaApertura','fechaCierre',
-                                'observaciones','fechaRenuncia','archivo')
-                            ->join('periodos', function($join) use ($user){
-                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
-                                    ->where('periodos.actual',"=",1)
-                                    ->where('numDependencia','=',$user->dependencia)
-                                    ->whereNull('deleted_at')
-                                    ->whereNull('numPersonalDocente')
-                                ;
-                            })
-                            ->orderBy('numPrograma', 'desc')
-                            ->paginate(15)
-                        ;
-
-                    break;
-
-                    case "noVacante":
-
-                        $vacantes = DB::table('vacantes')
-                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaAviso','fechaAsignacion','fechaApertura','fechaCierre',
-                                'observaciones','fechaRenuncia','archivo')
-                            ->join('periodos', function($join) use ($user){
-                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
-                                    ->where('periodos.actual',"=",1)
-                                    ->where('numDependencia','=',$user->dependencia)
-                                    ->whereNull('deleted_at')
-                                    ->whereNotNull('numPersonalDocente')
-                                ;
-                            })
-                            ->orderBy('numPrograma', 'desc')
-                            ->paginate(15)
-                        ;
-
-                    break;
-
-                    case "vacanteCerrada":
-                        $isDeleted = true;
-                        $vacantes = DB::table('vacantes')
-                            ->select('id','periodo','clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoAsignacion','numPersonalDocente','nombreDocente','plan','fechaAviso','fechaAsignacion','fechaApertura','fechaCierre',
-                                'observaciones','fechaRenuncia','archivo')
-                            ->join('periodos', function($join) use ($user){
-                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
-                                    ->where('periodos.actual',"=",1)
-                                    ->where('numDependencia','=',$user->dependencia)
-                                    ->whereNotNull('deleted_at')
-                                ;
-                            })
-                            ->orderBy('numDependencia', 'desc')
-                            ->paginate(15)
-                        ;
-                        break;
-
-                    default:
-                        $vacantes = $this->busquedaEditor($search,$userE);
-
-                }
-
-            }
-
-
-        }
+        $vacantes = DB::table('vacantes')
+            ->where('numZona','=',$zona)
+            ->where('numDependencia','=',$dependencia)
+            ->where('numPrograma','=',$programa)
+            ->where('nombreMateria','LIKE','%'.$search.'%')
+        ->orderBy('nombreMateria','asc')
+        ->paginate('15');
 
         $user = auth()->user();
 
@@ -205,7 +63,7 @@ class VacanteController extends Controller
 
         $zonas = Zona::all();
 
-        return view('vacante.index', compact('vacantes','search','radioButton','isDeleted','nombreZonaUsuario','nombreDependenciaUsuario','zonas'));
+        return view('vacante.index', compact('vacantes','search','isDeleted','nombreZonaUsuario','nombreDependenciaUsuario','zonas'));
 
     }
 
