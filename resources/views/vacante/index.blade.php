@@ -122,6 +122,12 @@
                     Plaza
                 </th>
                 <th scope="col" class="py-3 px-6">
+                    Docente
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Archivo
+                </th>
+                <th scope="col" class="py-3 px-6">
                     <span class="sr-only">Ver Información</span>
                 </th>
                 <th scope="col" class="py-3 px-6">
@@ -150,7 +156,8 @@
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$vacante->numPrograma}}
+                            {{$vacante->numPrograma}} -
+                            {{DB::table('zona__dependencia__programas')->where('clave_programa','=',$vacante->numPrograma)->value('nombre_programa') }}
                         </th>
 
                         <td class="py-4 px-6">
@@ -170,6 +177,30 @@
 
                         <td class="py-4 px-6">
                             {{$vacante->numPlaza}}
+                        </td>
+
+                        <td class="py-4 px-6">
+                            {{$vacante->nombreDocente}}
+                        </td>
+
+                        <td class="py-4 px-6">
+                            {{--{{$vacante->archivo}}
+                            <p class="truncate text-sm text-gray-700 dark:text-black-400">Documento: <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">{{$vacante->archivo}}</a> </p>--}}
+
+                            @if($vacante->archivo != null)
+
+                                <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">
+                                    <img src="{{asset('images/file.png')}}" alt="">
+                                </a>
+
+                            @else
+
+                                Inexistente
+
+                            @endif
+
+
+
                         </td>
                         {{--
 
