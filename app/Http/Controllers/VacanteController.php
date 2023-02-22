@@ -14,6 +14,7 @@ use App\Models\ExperienciaEducativa;
 use App\Http\Requests\StoreVacanteRequest;
 use App\Http\Requests\UpdateVacanteRequest;
 use App\Models\Zona;
+use App\Models\Zona_Dependencia;
 use App\Models\Zona_Dependencia_Programa;
 use App\Providers\LogUserActivity;
 use App\Providers\OperacionCierreVacante;
@@ -202,7 +203,9 @@ class VacanteController extends Controller
         $dependenciaUsuario = $user->dependencia;
         $nombreDependenciaUsuario = DB::table('zona__dependencias')->where('clave_dependencia',$dependenciaUsuario)->value('nombre_dependencia');
 
-        return view('vacante.index', compact('vacantes','search','radioButton','isDeleted','nombreZonaUsuario','nombreDependenciaUsuario'));
+        $zonas = Zona::all();
+
+        return view('vacante.index', compact('vacantes','search','radioButton','isDeleted','nombreZonaUsuario','nombreDependenciaUsuario','zonas'));
 
     }
 
@@ -720,6 +723,22 @@ class VacanteController extends Controller
 
         return $vacantes;
 
+    }
+
+    public function fetchDependenciaVacante(Request $request)
+    {
+        $data['dependenciaVacante'] = Zona_Dependencia::where("id_zona", $request->idZona)
+            ->get(["clave_dependencia","nombre_dependencia"]);
+
+        return response()->json($data);
+    }
+
+    public function fetchProgramaVacante(Request $request)
+    {
+        $data['programaVacante'] = Zona_Dependencia_Programa::where("clave_dependencia", $request->idDependencia)
+            ->get(["clave_programa","nombre_programa"]);
+
+        return response()->json($data);
     }
 
 }

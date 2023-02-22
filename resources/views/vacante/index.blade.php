@@ -31,6 +31,10 @@
         </div>
     </div>
 
+    <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
+    @include('vacante.filterZonaDependenciaPrograma')
+    </div>
+
     {{--<form action="{{route('vacante.index')}}" method="GET" value="{{$search}}">--}}
     <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-10">
 
