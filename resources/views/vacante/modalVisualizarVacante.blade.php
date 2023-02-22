@@ -24,10 +24,13 @@
                         <label class="labelForms">Número de dependencia: {{$vacante->numDependencia}} - {{$nombreDependenciaUsuario}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de área: {{$vacante->numArea}}</label>
+                        <label class="labelForms">Número de área: {{$vacante->numArea}} Económico Administrativa</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de programa: {{$vacante->numPrograma}}</label>
+                        <label class="labelForms">
+                            Número de programa: {{$vacante->numPrograma}} -
+                            {{DB::table('zona__dependencia__programas')->where('clave_programa','=',$vacante->numPrograma)->value('nombre_programa') }}
+                        </label>
                     </div>
                     <div class="col-span-6">
                         <label class="labelForms">Número de plaza: {{$vacante->numPlaza}}</label>
@@ -45,16 +48,30 @@
                         <label class="labelForms">Sub Grupo: {{$vacante->subGrupo}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Motivo: {{$vacante->numMotivo}}</label>
+                        <label class="labelForms">
+                            Motivo: {{$vacante->numMotivo}} -
+                            {{DB::table('motivos')->where('numeroMotivo','=',$vacante->numMotivo)->value('nombre') }}
+                        </label>
                     </div>
                     <div class="col-span-6">
                         <label class="labelForms">Tipo de asignación: {{$vacante->tipoAsignacion}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número personal del docente: {{$vacante->numPersonalDocente}}</label>
+                        <label class="labelForms">Número y nombre del docente: {{$vacante->numPersonalDocente}} - {{$vacante->nombreDocente}}</label>
                     </div>
+{{--
+                    <div class="col-span-6">
+                        <label class="labelForms">Nombre del docente: {{$vacante->nombreDocente}}</label>
+                    </div>
+--}}
                     <div class="col-span-6">
                         <label class="labelForms">Plan: {{$vacante->plan}}</label>
+                    </div>
+                    <div class="col-span-6">
+                        <label class="labelForms">Fecha de aviso: {{$vacante->fechaAviso}}</label>
+                    </div>
+                    <div class="col-span-6">
+                        <label class="labelForms">Fecha de asignación: {{$vacante->fechaAsignacion}}</label>
                     </div>
                     <div class="col-span-6">
                         <label class="labelForms">Fecha de apertura: {{$vacante->fechaApertura}}</label>
@@ -63,13 +80,13 @@
                         <label class="labelForms">Fecha de cierre: {{$vacante->fechaCierre}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Observaciones: {{$vacante->observaciones}}</label>
-                    </div>
-                    <div class="col-span-6">
                         <label class="labelForms">Fecha de renuncia: {{$vacante->fechaRenuncia}}</label>
                     </div>
                     <div class="col-span-6">
-                        <p class="text-gray-500 dark:text-black-400">Documento: <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">{{$vacante->archivo}}</a> </p>
+                        <label class="labelForms">Observaciones: {{$vacante->observaciones}}</label>
+                    </div>
+                    <div class="col-span-6">
+                        <p class="truncate text-sm text-gray-700 dark:text-black-400">Documento: <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">{{$vacante->archivo}}</a> </p>
                     </div>
 
 
