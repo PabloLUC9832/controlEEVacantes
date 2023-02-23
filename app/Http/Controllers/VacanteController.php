@@ -66,6 +66,9 @@ class VacanteController extends Controller
 
         $zonas = Zona::all();
 
+        //dd($request->get('zona'));
+        //dd($request->old($_GET['zona']));
+
         return view('vacante.index', compact('vacantes','search','isDeleted','nombreZonaUsuario','nombreDependenciaUsuario','zonas'));
 
     }
