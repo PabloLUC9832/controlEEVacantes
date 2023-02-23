@@ -40,7 +40,6 @@
                         <li>Nombre de materia</li>
                         <li>Grupo</li>
                         <li>Motivo</li>
-                        admin
                     </div>
                 </div>
                 <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
@@ -63,8 +62,8 @@
                                 <div class="grid grid-cols-6 gap-6">
                                     @csrf
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3" >
-                                        <label for="periodo" class="block text-sm font-medium text-gray-900 dark:text-gray-400">Periodo</label>
+                                    <div class="col-span-6" >
+                                        <label for="periodo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Periodo</label>
                                         <select  id="periodo" name="periodo" class="estiloSelect">
                                             <option value="">Selecciona el periodo</option>
                                             @foreach ($periodos as $data)
@@ -75,13 +74,35 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2 ">
+                                        <label for="numZona" class="labelForms">Número de zona</label>
+                                        <input type="text" name="numZona" id="numZona" class="inputForms"
+                                                 value="{{$numeroZonaUsuario}}" readonly="readonly">
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                        <label for="numDependencia" class="labelForms">Número de dependencia</label>
+                                        <input type="text" name="numDependencia" id="numDependencia"
+                                               class="inputForms" value="{{$numeroDependenciaUsuario}}" readonly="readonly">
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="numArea" class="labelForms">Número de área</label>
                                         <input type="text" name="numArea" id="numArea" class="inputForms" disabled
                                                value="3 ECONOMICO ADMINISTRATIVA">
                                     </div>
 
-                                    @include('vacante.selectZonaDependenciaProgramaCreate')
+                                    <div class="col-span-6">
+                                        <label for="numPrograma" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Programa</label>
+                                        <select  id="numPrograma" name="numPrograma" class="estiloSelect">
+                                            <option value="">Selecciona el programa</option>
+                                            @foreach ($programas as $data)
+                                                <option value="{{$data->clave_programa}}">
+                                                    {{$data->nombre_zona}} {{$data->clave_programa}} {{$data->nombre_programa}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
                                     <div class="col-span-6">
                                         <label for="numPlaza" class="labelForms">Número de plaza</label>
@@ -121,7 +142,7 @@
                                         <label for="tipoContratacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Contratación</label>
                                         <select  id="tipoContratacion" name="tipoContratacion" class="estiloSelect">
                                             <option value="">Selecciona el tipo de contratación</option>
-                                            <option value="Planta">Planta</option>
+                                            <option value="IOD">Planta</option>
                                             <option value="IOD">Contratación IOD</option>
                                             <option value="IPP">Contratación IPP</option>
                                         </select>

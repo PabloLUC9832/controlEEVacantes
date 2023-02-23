@@ -26,9 +26,11 @@
         <div class="w-3/4">
             <p class="text-2xl font-bold">Lista de Experiencias Educativas Vacantes</p>
         </div>
+
         <div class="w-1/4 flex flex-col items-end">
             <a href="{{ route('vacante.create') }}" class="text-white bg-azul-royal hover:bg-azul-royal-hover focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir Nueva</a>
         </div>
+
     </div>
 
     <div >
@@ -49,7 +51,7 @@
                     Horas
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Grupo
+                    Contratación
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Docente
@@ -98,7 +100,7 @@
                             {{$vacante->numHoras}}
                         </td>
                         <td class="py-4 px-6">
-                            {{$vacante->grupo}}
+                            {{$vacante->tipoContratacion}}
                         </td>
 
                         <td class="py-4 px-6">
@@ -184,7 +186,7 @@
             @endif
             </tbody>
         </table>
-    {{$vacantes->links()}}
+
     </div>
 
 </div>

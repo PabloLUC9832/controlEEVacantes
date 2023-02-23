@@ -57,6 +57,9 @@
                         <label class="labelForms">Tipo de asignación: {{$vacante->tipoAsignacion}}</label>
                     </div>
                     <div class="col-span-6">
+                        <label class="labelForms">Tipo de contratación: {{$vacante->tipoContratacion}}</label>
+                    </div>
+                    <div class="col-span-6">
                         <label class="labelForms">Número y nombre del docente: {{$vacante->numPersonalDocente}} - {{$vacante->nombreDocente}}</label>
                     </div>
 {{--
