@@ -1,13 +1,18 @@
-<form action="{{ route('vacante.index') }}" method="GET" enctype="multipart/form-data" >
+<form action="{{ route('vacante.index') }}" method="GET" >
+
     <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
         <div class="w-1/4">
             <label for="zona-dropdown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Zona</label>
             <select  id="zona-dropdown" name="zona" class="estiloSelect" required>
-                <option>{{ old('zona') }}</option>
+                {{--<option>{{ old('zona','Selecciona la zona') }}</option>--}}
+
+                <option value="{{request()->query('zona')}}">
+                    {{request()->query('zona')}}
+                </option>
+
                 @foreach ($zonas as $data)
                     <option value="{{$data->id}}">
                         {{$data->id}}~{{$data->nombre}}
-                        {{--{{ old('zona',$data->nombre) }}--}}
                     </option>
                 @endforeach
             </select>
@@ -15,12 +20,14 @@
         <div class="w-1/4 ml-8">
             <label for="dependencia-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Dependencia</label>
             <select id="dependencia-dropdown" class="estiloSelect" name="dependencia">
+                <option value="{{request()->query('dependencia')}}"> {{request()->query('dependencia')}} </option>
             </select>
         </div>
 
         <div class="w-1/4 ml-8">
             <label for="programa-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Programa Educativo</label>
             <select id="programa-dropdown" class="estiloSelect" name="programa">
+                <option value="{{request()->query('programa')}}"> {{request()->query('programa')}} </option>
             </select>
         </div>
 
