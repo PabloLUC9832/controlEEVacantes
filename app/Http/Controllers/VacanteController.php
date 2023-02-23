@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndexVacanteRequest;
 use App\Models\Area;
 use App\Models\Dependencia;
 use App\Models\Docente;
@@ -30,10 +31,12 @@ class VacanteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    /*public function index(Request $request)*/
+    public function index(IndexVacanteRequest $request)
     {
         //https://stackoverflow.com/questions/18564205/html-submit-form-on-radio-button-check
-        $search = trim($request->get('search'));
+        //$search = trim($request->get('search'));
+        $search = trim($request->search);
         //$radioButton = $request->get('tipoV');
         $isDeleted = false;
 
