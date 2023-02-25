@@ -3,7 +3,7 @@
     <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
         <div class="w-1/4">
             <label for="zona-dropdown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Zona</label>
-            <select  id="zona-dropdown" name="zona" class="estiloSelect" required>
+            <select  id="zona-dropdown" name="zona" class="estiloSelect">
                 {{--<option>{{ old('zona','Selecciona la zona') }}</option>--}}
 
                 <option value="{{request()->query('zona')}}">
@@ -32,12 +32,16 @@
         </div>
 
         <div class="w-1/4 ml-8">
-            <label for="filtroBusqueda-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Filtrar</label>
-            <select id="filtroBusqueda-dropdown" class="estiloSelect" name="filtroBusqueda">
+            <label for="filtro-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Filtrar</label>
+            <select id="filtro-dropdown" class="estiloSelect" name="filtro">
+                <option value="{{request()->query('filtro')}}"> {{request()->query('filtro')}} </option>
                 <option value="Todas">Todas</option>
                 <option value="Vacantes">Vacantes</option>
-                <option value="No Vacantes">No Vacantes</option>
-                <option value="Vacantes Cerradas">Vacantes Cerradas</option>
+                <option value="NoVacantes">No Vacantes</option>
+                <option value="VacantesCerradas">Vacantes Cerradas</option>
+                <option value="VacantesArchivos">Vacantes Con Archivos</option>
+                <option value="ComplementoCarga">Complemento de carga</option>
+                <option value="CargaObligatoria">Carga obligatoria</option>
             </select>
         </div>
     </div>

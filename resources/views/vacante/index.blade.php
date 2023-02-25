@@ -187,6 +187,18 @@
             </tbody>
         </table>
 
+        @if( !(isset($_GET['zona'])) )
+            {{ $vacantes->links() }}
+        @else
+            <div>
+                <p class="text-sm text-gray-700 leading-5">
+                    Mostrando
+                    <span class="font-medium">{{ $countVacantes }}</span>
+                    Resultados
+                </p>
+            </div>
+        @endif
+
     </div>
 
 </div>

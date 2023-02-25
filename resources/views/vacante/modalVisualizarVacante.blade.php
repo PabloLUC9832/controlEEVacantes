@@ -21,7 +21,7 @@
                         <label class="labelForms">Número de zona: {{$vacante->numZona}} - {{$nombreZonaUsuario}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de dependencia: {{$vacante->numDependencia}} - {{$nombreDependenciaUsuario}}</label>
+                        <label class="labelForms">Número de dependencia: {{$vacante->numDependencia}} </label>
                     </div>
                     <div class="col-span-6">
                         <label class="labelForms">Número de área: {{$vacante->numArea}} Económico Administrativa</label>
