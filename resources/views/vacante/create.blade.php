@@ -40,7 +40,17 @@
                         <li>Nombre de materia</li>
                         <li>Grupo</li>
                         <li>Motivo</li>
-                        admin
+                        <br>
+                        Si necesitas dar de alta a un Docente, Experiencia Educativa, puedes hacerlo con los siguientes enlaces.
+
+                        <div class="flex flex-col items-center mt-3">
+                            <a href="{{ route('docente.create') }}" class="text-white bg-azul-royal hover:bg-azul-royal-hover focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir Nuevo Docente</a>
+                        </div>
+
+                        <div class="flex flex-col items-center mt-3">
+                            <a href="{{ route('experienciaEducativa.create') }}" class="text-white bg-azul-royal hover:bg-azul-royal-hover focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir Nueva EE</a>
+                        </div>
+
                     </div>
                 </div>
                 <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">

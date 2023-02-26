@@ -62,8 +62,8 @@
                                 <div class="grid grid-cols-6 gap-6">
                                     @csrf
 
-                                    <div class="col-span-6" >
-                                        <label for="periodo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Periodo</label>
+                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                        <label for="periodo" class="block text-sm font-medium text-gray-900 dark:text-gray-400">Periodo</label>
                                         <select  id="periodo" name="periodo" class="estiloSelect">
                                             <option value="">Selecciona el periodo</option>
                                             @foreach ($periodos as $data)
@@ -74,31 +74,33 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2 ">
-                                        <label for="numZona" class="labelForms">Número de zona</label>
-                                        <input type="text" name="numZona" id="numZona" class="inputForms"
-                                                 value="{{$numeroZonaUsuario}}" readonly="readonly">
-                                    </div>
-
-                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
-                                        <label for="numDependencia" class="labelForms">Número de dependencia</label>
-                                        <input type="text" name="numDependencia" id="numDependencia"
-                                               class="inputForms" value="{{$numeroDependenciaUsuario}}" readonly="readonly">
-                                    </div>
-
-                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                                         <label for="numArea" class="labelForms">Número de área</label>
                                         <input type="text" name="numArea" id="numArea" class="inputForms" disabled
                                                value="3 ECONOMICO ADMINISTRATIVA">
                                     </div>
 
-                                    <div class="col-span-6">
-                                        <label for="numPrograma" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Programa</label>
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2 ">
+                                        <label for="numZona" class="labelForms">Número de zona</label>
+                                        <select id="numZona" class="estiloSelect" name="numZona">
+                                            <option value="{{$numeroZonaUsuario}}">{{$numeroZonaUsuario}}~{{$nombreZonaUsuario}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                        <label for="numDependencia" class="labelForms">Número de dependencia</label>
+                                        <select id="numDependencia" class="estiloSelect" name="numDependencia">
+                                            <option value="{{$numeroDependenciaUsuario}}">{{$numeroDependenciaUsuario}}~{{$nombreDependenciaUsuario}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                        <label for="numPrograma" class="block text-sm font-medium text-gray-900 dark:text-gray-400">Programa</label>
                                         <select  id="numPrograma" name="numPrograma" class="estiloSelect">
                                             <option value="">Selecciona el programa</option>
                                             @foreach ($programas as $data)
                                                 <option value="{{$data->clave_programa}}">
-                                                    {{$data->nombre_zona}} {{$data->clave_programa}} {{$data->nombre_programa}}
+                                                    {{$data->clave_programa}}~{{$data->nombre_programa}}
                                                 </option>
                                             @endforeach
                                         </select>
