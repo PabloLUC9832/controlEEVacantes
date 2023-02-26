@@ -21,7 +21,10 @@
                         <label class="labelForms">Número de zona: {{$vacante->numZona}} - {{$nombreZonaUsuario}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de dependencia: {{$vacante->numDependencia}} </label>
+                        <label class="labelForms">
+                            Número de dependencia: {{$vacante->numDependencia}} -
+                            {{DB::table('zona__dependencia__programas')->where('clave_dependencia','=',$vacante->numDependencia)->value('nombre_dependencia') }}
+                        </label>
                     </div>
                     <div class="col-span-6">
                         <label class="labelForms">Número de área: {{$vacante->numArea}} Económico Administrativa</label>

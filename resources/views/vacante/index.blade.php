@@ -34,7 +34,11 @@
     </div>
 
     <div >
-    @include('vacante.filterZonaDependenciaPrograma')
+    @if ( Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin') )
+        @include('vacante.filterZonaDependenciaPrograma')
+    @else
+        @include('vacante.filterZonaDependenciaProgramaEditor')
+    @endif
     </div>
 
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg md:mt-10 md:mx-10 md:my-10">
