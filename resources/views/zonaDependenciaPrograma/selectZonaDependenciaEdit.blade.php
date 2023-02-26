@@ -14,6 +14,11 @@
     <label for="claveDependencia-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Clave de la dependencia</label>
     <select id="claveDependencia-dropdown" class="estiloSelect" name="claveDependencia">
         <option value="{{$programa->clave_dependencia}}~{{$programa->nombre_dependencia}}">{{$programa->clave_dependencia}}~{{$programa->nombre_dependencia}}</option>
+        @foreach ($dependencias as $data)
+            <option value="{{$data->clave_dependencia}}~{{$data->nombre_dependencia}}">
+                {{$data->clave_dependencia}}~{{$data->nombre_dependencia}}
+            </option>
+        @endforeach
     </select>
 </div>
 

@@ -15,6 +15,11 @@
             <label for="dependencia-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Dependencia</label>
             <select id="dependencia-dropdown" class="estiloSelect" name="numDependencia">
                 <option value="{{$vacante->numDependencia}}">{{$vacante->numDependencia}}~{{$nombreDependenciaVacante}}</option>
+                @foreach ($listaDependencias as $data)
+                    <option value="{{$data->clave_dependencia}}">
+                        {{$data->clave_dependencia}}~{{$data->nombre_dependencia}}
+                    </option>
+                @endforeach
             </select>
         </div>
 
@@ -22,6 +27,11 @@
             <label for="programa-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Programa Educativo</label>
             <select id="programa-dropdown" class="estiloSelect" name="numPrograma">
                 <option value="{{$vacante->numPrograma}}">{{$vacante->numPrograma}}~{{$nombreProgramaEducativo}}</option>
+                @foreach ($listaProgramas as $data)
+                    <option value="{{$data->clave_programa}}">
+                        {{$data->clave_programa}}~{{$data->nombre_programa}}
+                    </option>
+                @endforeach
             </select>
         </div>
 

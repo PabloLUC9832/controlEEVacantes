@@ -119,8 +119,14 @@ class ZonaDependenciaProgramaController extends Controller
         $programa = Zona_Dependencia_Programa::where('id',$id)->firstOrFail();
         $zonas = Zona_Dependencia::distinct('id_zona')->get();
         $listaZonas = $zonas->unique('id_zona');
+
+        //Obtener numero de zona del programa enviado para obtener las dependencias drowpdown edit
+        $zonaProgramaSeleccionado = DB::table('zona__dependencia__programas')->where('id',$id)->value('id_zona');
+        $listaDependencias = Zona_Dependencia::all()->where('id_zona',$zonaProgramaSeleccionado);
+
         return view('zonaDependenciaPrograma.edit', ['programa' => $programa,
-                                                          'zonas' => $listaZonas]);
+                                                          'zonas' => $listaZonas,
+                                                          'dependencias' => $listaDependencias]);
 
     }
 

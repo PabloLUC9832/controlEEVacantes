@@ -1000,10 +1000,14 @@ class VacanteController extends Controller
             //Obtener nombre de la dependencia de la vacante
             $claveDependenciaVacante = DB::table('vacantes')->where('id',$id)->value('numDependencia');
             $nombreDependenciaVacante = DB::table('zona__dependencias')->where('clave_dependencia',$claveDependenciaVacante)->value('nombre_dependencia');
+            //Lista de dependencias ligadas a la zona al editar vacante para corregir el dropdown
+            $listaDependencias = Zona_Dependencia::all()->where('id_zona',$idZonaVacante);
 
             //Obtener nombre de programa educativo
             $programaEducativoSeleccionado = DB::table('vacantes')->where('id',$id)->value('numPrograma');
             $nombreProgramaEducativo = DB::table('zona__dependencia__programas')->where('clave_programa',$programaEducativoSeleccionado)->value('nombre_programa');
+            //Lista de programas ligados a la dependencia al editar vacante para corregir el dropdown
+            $listaProgramas = Zona_Dependencia_Programa::all()->where('clave_dependencia',$claveDependenciaVacante);
 
             return view('vacante.edit', compact('vacante'),
                 ['user' => $user,
@@ -1016,6 +1020,8 @@ class VacanteController extends Controller
                 'nombreZonaVacante' => $nombreZonaVacante,
                 'nombreDependenciaVacante' => $nombreDependenciaVacante,
                 'zonas' => $zonas,
+                    'listaDependencias' => $listaDependencias,
+                    'listaProgramas' => $listaProgramas,
             ]);
         }else{
             //Obtener número y nombre de zona
