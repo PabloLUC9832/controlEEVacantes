@@ -260,13 +260,17 @@ class ZonaDependenciaController extends Controller
             ->where(function ($query) use ($periodoActual){
             $query->whereNull('deleted_at')
                 ->where('clavePeriodo',$periodoActual);
-        })->get();
+        })
+            ->where(function ($query) {
+                $query->whereNull('numPersonalDocente');
+            })
+            ->get();
 
         $dependencia = Zona_Dependencia::where('clave_dependencia',$id)->value('nombre_dependencia');
 
         $pdf = Pdf::loadView('pdf.templateVacantesPorDependencia', compact(
                 'listaVacantes','dependencia', 'uv')
-        );
+        )->setPaper('a4','landscape');
 
         $user = Auth::user();
         $data = "Generación de Reporte de Experiencias Vacantes de la dependencia: $id";
