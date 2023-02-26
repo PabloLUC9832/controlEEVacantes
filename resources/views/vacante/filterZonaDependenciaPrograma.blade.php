@@ -3,7 +3,7 @@
     <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
         <div class="w-1/4">
             <label for="zona-dropdown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Zona</label>
-            <select  id="zona-dropdown" name="zona" class="estiloSelect">
+            <select  id="zona-dropdown" name="zona" class="estiloSelect" required>
                 {{--<option>{{ old('zona','Selecciona la zona') }}</option>--}}
 
                 <option value="{{request()->query('zona')}}">
@@ -19,14 +19,14 @@
         </div>
         <div class="w-1/4 ml-8">
             <label for="dependencia-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Dependencia</label>
-            <select id="dependencia-dropdown" class="estiloSelect" name="dependencia">
+            <select id="dependencia-dropdown" class="estiloSelect" name="dependencia" required>
                 <option value="{{request()->query('dependencia')}}"> {{request()->query('dependencia')}} </option>
             </select>
         </div>
 
         <div class="w-1/4 ml-8">
             <label for="programa-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Programa Educativo</label>
-            <select id="programa-dropdown" class="estiloSelect" name="programa">
+            <select id="programa-dropdown" class="estiloSelect" name="programa" required>
                 <option value="{{request()->query('programa')}}"> {{request()->query('programa')}} </option>
             </select>
         </div>
@@ -34,7 +34,13 @@
         <div class="w-1/4 ml-8">
             <label for="filtro-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Filtrar</label>
             <select id="filtro-dropdown" class="estiloSelect" name="filtro">
-                <option value="{{request()->query('filtro')}}"> {{request()->query('filtro')}} </option>
+
+                @if(request()->query('filtro'))
+                    <option value="{{request()->query('filtro')}}"> {{request()->query('filtro')}} </option>
+                @else
+                    <option value="Todas">Todas</option>
+                @endif
+
                 <option value="Todas">Todas</option>
                 <option value="Vacantes">Vacantes</option>
                 <option value="NoVacantes">No Vacantes</option>
@@ -45,9 +51,6 @@
             </select>
         </div>
     </div>
-{{--<div class="w-1/8 ml-8">
-    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mt-7 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aplicar</button>
-</div>--}}
 
     <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
         <div class="w-11/12">
