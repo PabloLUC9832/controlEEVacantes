@@ -24,7 +24,7 @@
 
         <div class="w-1/4 ml-8">
             <label for="programa-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Programa Educativo</label>
-            <select id="programa-dropdown" class="estiloSelect" name="programa">
+            <select id="programa-dropdown" class="estiloSelect" name="programa" required>
 
                 @if(request()->query('programa'))
                 <option value="{{request()->query('programa')}}"> {{request()->query('programa')}} </option>
