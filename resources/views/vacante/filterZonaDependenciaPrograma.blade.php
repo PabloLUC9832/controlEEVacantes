@@ -1,5 +1,6 @@
-<form action="{{ route('vacante.index') }}" method="GET" >
-
+{{--<form action="{{ route('vacante.index') }}" method="GET" >--}}
+<form action="{{ route('vacante.search') }}" method="POST" >
+@csrf
     <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
         <div class="w-1/4">
             <label for="zona-dropdown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Zona</label>
@@ -117,4 +118,3 @@
         });
     });
 </script>
-

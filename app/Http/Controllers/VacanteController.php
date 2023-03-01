@@ -8,6 +8,7 @@ use App\Models\Dependencia;
 use App\Models\Docente;
 use App\Models\Periodo;
 use App\Models\Programa;
+use App\Models\SearchVacante;
 use App\Models\TipoAsignacion;
 use App\Models\Vacante;
 use App\Models\Motivo;
@@ -20,8 +21,11 @@ use App\Models\Zona_Dependencia_Programa;
 use App\Providers\LogUserActivity;
 use App\Providers\OperacionCierreVacante;
 use App\Providers\OperacionHorasVacante;
+use App\Providers\SelectVacanteIndex;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 
 class VacanteController extends Controller
@@ -807,14 +811,41 @@ class VacanteController extends Controller
 
         $zonas = Zona::all();
 
-        //dd($request->get('zona'));
-        //dd($request->old($_GET['zona']));
+        //event(new SelectVacanteIndex($user->id,$zona,$dependencia,$programa,$filtro));
 
+        //id del usuario sesión actual
+        //$idUsuario = $user->id;
+
+        //obtener id_zona
+        //$busquedaUsuario = SearchVacante::where('id_user',$idUsuario)->get();
+
+        //return view('vacante.index', compact('vacantes','search','isDeleted','zonaUsuario','nombreZonaUsuario',
         return view('vacante.index', compact('vacantes','search','isDeleted','zonaUsuario','nombreZonaUsuario',
             'dependenciaUsuario','nombreDependenciaUsuario','zonas','countVacantes','programasEducUsuario'));
 
     }
 
+    public function search(Request $request){
+
+        $zona = $request->get('zona');
+        $dependencia = $request->get('dependencia');
+        $programa = $request->get('programa');
+        $filtro = $request->get('filtro');
+
+        $user = auth()->user();
+        //id del usuario sesión actual
+        $idUsuario = $user->id;
+
+        $zonas = Zona::all();
+        $vacantes = Vacante::all();
+        $isDeleted = true;
+
+        //obtener id_zona
+        $busquedaUsuario = SearchVacante::where('id_user',$idUsuario)->get();
+        event(new SelectVacanteIndex($user->id,$zona,$dependencia,$programa,$filtro));
+
+        return view('vacante.index', compact('zonas','vacantes','isDeleted'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -1049,6 +1080,10 @@ class VacanteController extends Controller
     {
         $vacante = Vacante::findOrFail($id);
 
+        $zonaAnterior=$vacante->numZona;
+        $dependenciaAnterior=$vacante->numDependencia;
+        $programaAnterior=$vacante->numPrograma;
+
         $docenteCompleto = $request->numPersonalDocente;
         $docentePartes = explode("-",$docenteCompleto);
         $nombreDocente= $docentePartes[0];
@@ -1144,7 +1179,19 @@ class VacanteController extends Controller
                 . " " . $request->observaciones . " " . $request->fechaAsignacion . " " .$request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia;
         event(new LogUserActivity($user,"Actualización de Vacante ID $id ",$data));
 
-        return redirect()->route('vacante.index');
+        //return redirect()->route('vacante.index');
+       //return back()->withInput();
+        //dd($request);
+        return to_route('vacante.index', [
+            /*'zona' => $_GET['zona'],*/
+            'zona' => $zonaAnterior,
+            'dependencia' => $dependenciaAnterior,
+            'programa' => $programaAnterior,
+            'filtro' => 'Todas',
+            'search' => '',
+        ]);
+
+
     }
 
     public function updateE(Request $request, $id)
@@ -1280,3 +1327,4 @@ class VacanteController extends Controller
     }
 
 }
+
