@@ -19,19 +19,21 @@ class SelectVacanteIndex
     public $clave_dependencia;
     public $clave_programa;
     public $filtro;
+    public $busqueda;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($id_user,$id_zona,$clave_dependencia,$clave_programa,$filtro)
+    public function __construct($id_user,$id_zona,$clave_dependencia,$clave_programa,$filtro,$busqueda)
     {
         $this->id_user =$id_user;
         $this->id_zona =$id_zona;
         $this->clave_dependencia =$clave_dependencia;
         $this->clave_programa =$clave_programa;
         $this->filtro =$filtro;
+        $this->busqueda =$busqueda;
     }
 
     /**

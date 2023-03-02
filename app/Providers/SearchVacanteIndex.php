@@ -35,6 +35,7 @@ class SearchVacanteIndex
         $dependencia = $event->clave_dependencia;
         $programa = $event->clave_programa;
         $filtro = $event->filtro;
+        $busqueda = $event->busqueda;
 
         $saveSearch = SearchVacante::updateOrCreate(
             ['id_user'=>$user],
@@ -44,6 +45,7 @@ class SearchVacanteIndex
              'clave_dependencia'=>$dependencia,
              'clave_programa'=>$programa,
              'filtro'=>$filtro,
+             'busqueda'=>$busqueda,
              'created_at' => $current_timestamp,
              'updated_at' => $current_timestamp,
             ]

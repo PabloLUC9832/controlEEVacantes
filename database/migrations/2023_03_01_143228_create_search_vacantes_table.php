@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('clave_dependencia');
             $table->integer('clave_programa');
             $table->string('filtro');
+            $table->string('busqueda');
             $table->timestamps();
         });
     }
