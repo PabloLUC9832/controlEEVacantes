@@ -5,10 +5,9 @@
         <div class="w-1/4">
             <label for="zona-dropdown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Zona</label>
             <select  id="zona-dropdown" name="zona" class="estiloSelect" required>
-                {{--<option>{{ old('zona','Selecciona la zona') }}</option>--}}
 
-                <option value="{{request()->query('zona')}}">
-                    {{request()->query('zona')}}
+                <option value="{{$zona}}">
+                    {{$zona}}
                 </option>
 
                 @foreach ($zonas as $data)
@@ -21,14 +20,16 @@
         <div class="w-1/4 ml-8">
             <label for="dependencia-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Dependencia</label>
             <select id="dependencia-dropdown" class="estiloSelect" name="dependencia" required>
-                <option value="{{request()->query('dependencia')}}"> {{request()->query('dependencia')}} </option>
+                {{--<option value="{{request()->query('dependencia')}}"> {{request()->query('dependencia')}} </option>--}}
+                <option value="{{$dependencia}}"> {{$dependencia}} </option>
             </select>
         </div>
 
         <div class="w-1/4 ml-8">
             <label for="programa-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Programa Educativo</label>
             <select id="programa-dropdown" class="estiloSelect" name="programa" required>
-                <option value="{{request()->query('programa')}}"> {{request()->query('programa')}} </option>
+                {{--<option value="{{request()->query('programa')}}"> {{request()->query('programa')}} </option>--}}
+                <option value="{{$programa}}"> {{$programa}} </option>
             </select>
         </div>
 
@@ -36,11 +37,7 @@
             <label for="filtro-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Filtrar</label>
             <select id="filtro-dropdown" class="estiloSelect" name="filtro">
 
-                @if(request()->query('filtro'))
-                    <option value="{{request()->query('filtro')}}"> {{request()->query('filtro')}} </option>
-                @else
-                    <option value="Todas">Todas</option>
-                @endif
+                <option value="{{$filtro}}"> {{$filtro}} </option>
 
                 <option value="Todas">Todas</option>
                 <option value="Vacantes">Vacantes</option>

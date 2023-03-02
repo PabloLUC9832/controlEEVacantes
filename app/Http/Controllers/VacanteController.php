@@ -27,6 +27,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\isEmpty;
 
 class VacanteController extends Controller
 {
@@ -41,7 +42,8 @@ class VacanteController extends Controller
 
         $user = auth()->user()->id;
         $userSelect = SearchVacante::where('id_user',$user)->first();
-        $userSearchCount = $userSelect->count();
+
+        //$userSearchCount = $userSelect->count();
         $userSelectZona = $userSelect->id_zona;
         $userSelectDependencia = $userSelect->clave_dependencia;
         $userSelectPrograma = $userSelect->clave_programa;
@@ -49,100 +51,117 @@ class VacanteController extends Controller
         $userSelectSearch = $userSelect->search;
 
 
-        $vacantes = "";
+        $vacantes = [];
         $countVacantes = 0;
-        $isDeleted = false;
 
-        if ($userSearchCount == 0){
-            $vacantes = Vacante::all();
-        }else{
+        $userSelect = SearchVacante::where('id_user',$user)->first();
+        $zona = $userSelect->id_zona;
+        $dependencia = $userSelect->clave_dependencia;
+        $programa = $userSelect->clave_programa;
+        $filtro = $userSelect->filtro;
 
-            $vacantes = DB::table('vacantes')
-                ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
-                    'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoContratacion',
-                    'tipoAsignacion', 'numPersonalDocente','nombreDocente','plan','observaciones','fechaAviso','fechaAsignacion',
-                    'fechaApertura','fechaCierre','fechaRenuncia','archivo')
-                ->join('periodos', function($join) use ($userSelectZona,$userSelectDependencia,$userSelectPrograma,$userSelectSearch,$userSelectFiltro){
-                    $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
-                        ->where('periodos.actual',"=",1)
-                        ->where('numZona','=',$userSelectZona)
-                        ->where('numDependencia','=',$userSelectDependencia)
-                        ->where('numPrograma','=',$userSelectPrograma)
-                        //->whereNull('deleted_at')
-                        ->when( $userSelectFiltro == "Todas" ,function($query){
-                            $query->whereNull('deleted_at');
-                        })
-                        ->when( $userSelectFiltro == "Vacantes" ,function($query){
-                            $query->whereNull('deleted_at')
-                                  ->whereNull('numPersonalDocente')
-                                  ;
-                        })
-                        ->when( $userSelectFiltro == "NoVacantes" ,function($query){
-                            $query->whereNull('deleted_at')
-                                  ->whereNotNull('numPersonalDocente')
-                                  ;
-                        })
-                        ->when( $userSelectFiltro == "VacantesCerradas" ,function($query){
-                            $query->whereNotNull('deleted_at')
-                                  ;
-                        })
-                        ->when( $userSelectFiltro == "VacantesArchivos" ,function($query){
-                            $query->whereNull('deleted_at')
-                                  ->whereNotNull('archivo')
-                                  ;
-                        })
-                        ->when( $userSelectFiltro == "ComplementoCarga" ,function($query){
-                            $query->whereNull('deleted_at')
-                                  ->where('tipoAsignacion','=','Complemento de carga')
-                                  ;
-                        })
-                        ->when( $userSelectFiltro == "CargaObligatoria" ,function($query){
-                            $query->whereNull('deleted_at')
-                                  ->where('tipoAsignacion','=','Carga obligatoria')
-                                  ;
-                        })
-                        ->where(function ($query) use ($userSelectSearch){
-                            $query->where('numPlaza','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('numHoras','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('numMateria','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('nombreMateria','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('grupo','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('subGrupo','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('numMotivo','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('tipoContratacion','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('tipoAsignacion','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('numPersonalDocente','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('nombreDocente','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('plan','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('observaciones','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('fechaAviso','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('fechaAsignacion','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('fechaApertura','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('fechaCierre','LIKE','%'.$userSelectSearch.'%')
-                                ->orWhere('fechaRenuncia','LIKE','%'.$userSelectSearch.'%')
-                            ;
-                        })
-                    ;
-                })
+        $isDeleted = $filtro=="VacantesCerradas";
+
+        $vacantes = DB::table('vacantes')
+            ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoContratacion',
+                'tipoAsignacion', 'numPersonalDocente','nombreDocente','plan','observaciones','fechaAviso','fechaAsignacion',
+                'fechaApertura','fechaCierre','fechaRenuncia','archivo')
+            ->join('periodos', function($join)
+            use ($userSelectZona,$userSelectDependencia,$userSelectPrograma,$userSelectSearch,$userSelectFiltro){
+                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                    ->where('periodos.actual',"=",1)
+                    ->where('numZona','=',$userSelectZona)
+                    ->where('numDependencia','=',$userSelectDependencia)
+                    ->where('numPrograma','=',$userSelectPrograma)
+                    ->when( $userSelectFiltro == "Todas" ,function($query){
+                        $query->whereNull('deleted_at');
+                    })
+                    ->when( $userSelectFiltro == "Vacantes" ,function($query){
+                        $query->whereNull('deleted_at')
+                            ->whereNull('numPersonalDocente')
+                        ;
+                    })
+                    ->when( $userSelectFiltro == "NoVacantes" ,function($query){
+                        $query->whereNull('deleted_at')
+                            ->whereNotNull('numPersonalDocente')
+                        ;
+                    })
+                    ->when( $userSelectFiltro == "VacantesCerradas" ,function($query)  {
+                        $query->whereNotNull('deleted_at')
+                        ;
+                    })
+                    ->when( $userSelectFiltro == "VacantesArchivos" ,function($query){
+                        $query->whereNull('deleted_at')
+                            ->whereNotNull('archivo')
+                        ;
+                    })
+                    ->when( $userSelectFiltro == "ComplementoCarga" ,function($query){
+                        $query->whereNull('deleted_at')
+                            ->where('tipoAsignacion','=','Complemento de carga')
+                        ;
+                    })
+                    ->when( $userSelectFiltro == "CargaObligatoria" ,function($query){
+                        $query->whereNull('deleted_at')
+                            ->where('tipoAsignacion','=','Carga obligatoria')
+                        ;
+                    })
+                    ->where(function ($query) use ($userSelectSearch){
+                        $query->where('numPlaza','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('numHoras','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('numMateria','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('nombreMateria','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('grupo','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('subGrupo','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('numMotivo','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('tipoContratacion','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('tipoAsignacion','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('numPersonalDocente','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('nombreDocente','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('plan','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('observaciones','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('fechaAviso','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('fechaAsignacion','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('fechaApertura','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('fechaCierre','LIKE','%'.$userSelectSearch.'%')
+                            ->orWhere('fechaRenuncia','LIKE','%'.$userSelectSearch.'%')
+                        ;
+                    })
+                ;
+            })
             ->get()
-            ;
+        ;
 
-            $countVacantes = $vacantes->count();
+        $countVacantes = $vacantes->count();
 
-        }
 
-        //dd($userSearchPrograma);
+
+
         $zonas = Zona::all();
 
         return view('vacante.index',compact(
             'vacantes',
             'isDeleted',
             'zonas',
-            'countVacantes'
+            'countVacantes',
+            'zona',
+            'dependencia',
+            'programa',
+            'filtro',
         ));
     }
 
     public function search(Request $request){
+
+        $user = auth()->user()->id;
+        $userSelect = SearchVacante::where('id_user',$user)->first();
+
+/*        $userSearchCount = $userSelect->count();
+        $userSelectZona = $userSelect->id_zona;
+        $userSelectDependencia = $userSelect->clave_dependencia;
+        $userSelectPrograma = $userSelect->clave_programa;
+        $userSelectFiltro = $userSelect->filtro;
+        $userSelectSearch = $userSelect->search;*/
 
         $zona = $request->get('zona');
         $dependencia = $request->get('dependencia');
@@ -156,13 +175,92 @@ class VacanteController extends Controller
 
         $zonas = Zona::all();
         $vacantes = Vacante::all();
-        $isDeleted = false;
-
+        $isDeleted = $filtro=="VacantesCerradas";
+        $countVacantes = 0;
         //obtener id_zona
         $busquedaUsuario = SearchVacante::where('id_user',$idUsuario)->get();
         event(new SelectVacanteIndex($user->id,$zona,$dependencia,$programa,$filtro,$busqueda));
 
-        return view('vacante.index', compact('zonas','vacantes','isDeleted'));
+        $vacantes = DB::table('vacantes')
+            ->select('vacantes.id','periodo','vacantes.clavePeriodo','numZona','numDependencia','numArea','numPrograma',
+                'numPlaza','numHoras','numMateria','nombreMateria','grupo','subGrupo','numMotivo','tipoContratacion',
+                'tipoAsignacion', 'numPersonalDocente','nombreDocente','plan','observaciones','fechaAviso','fechaAsignacion',
+                'fechaApertura','fechaCierre','fechaRenuncia','archivo')
+            ->join('periodos', function($join)
+                   use ($zona,$dependencia,$programa,$filtro,$busqueda,$isDeleted){
+                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                    ->where('periodos.actual',"=",1)
+                    ->where('numZona','=',$zona)
+                    ->where('numDependencia','=',$dependencia)
+                    ->where('numPrograma','=',$programa)
+                    //->whereNull('deleted_at')
+                    ->when( $filtro == "Todas" ,function($query){
+                        $query->whereNull('deleted_at');
+                    })
+                    ->when( $filtro == "Vacantes" ,function($query){
+                        $query->whereNull('deleted_at')
+                            ->whereNull('numPersonalDocente')
+                        ;
+                    })
+                    ->when( $filtro == "NoVacantes" ,function($query){
+                        $query->whereNull('deleted_at')
+                            ->whereNotNull('numPersonalDocente')
+                        ;
+                    })
+                    ->when( $filtro == "VacantesCerradas" ,function($query){
+                        $query->whereNotNull('deleted_at')
+                        ;
+                    })
+                    ->when( $filtro == "VacantesArchivos" ,function($query){
+                        $query->whereNull('deleted_at')
+                            ->whereNotNull('archivo')
+                        ;
+                    })
+                    ->when( $filtro == "ComplementoCarga" ,function($query){
+                        $query->whereNull('deleted_at')
+                            ->where('tipoAsignacion','=','Complemento de carga')
+                        ;
+                    })
+                    ->when( $filtro == "CargaObligatoria" ,function($query){
+                        $query->whereNull('deleted_at')
+                            ->where('tipoAsignacion','=','Carga obligatoria')
+                        ;
+                    })
+                    ->where(function ($query) use ($busqueda){
+                        $query->where('numPlaza','LIKE','%'.$busqueda.'%')
+                            ->orWhere('numHoras','LIKE','%'.$busqueda.'%')
+                            ->orWhere('numMateria','LIKE','%'.$busqueda.'%')
+                            ->orWhere('nombreMateria','LIKE','%'.$busqueda.'%')
+                            ->orWhere('grupo','LIKE','%'.$busqueda.'%')
+                            ->orWhere('subGrupo','LIKE','%'.$busqueda.'%')
+                            ->orWhere('numMotivo','LIKE','%'.$busqueda.'%')
+                            ->orWhere('tipoContratacion','LIKE','%'.$busqueda.'%')
+                            ->orWhere('tipoAsignacion','LIKE','%'.$busqueda.'%')
+                            ->orWhere('numPersonalDocente','LIKE','%'.$busqueda.'%')
+                            ->orWhere('nombreDocente','LIKE','%'.$busqueda.'%')
+                            ->orWhere('plan','LIKE','%'.$busqueda.'%')
+                            ->orWhere('observaciones','LIKE','%'.$busqueda.'%')
+                            ->orWhere('fechaAviso','LIKE','%'.$busqueda.'%')
+                            ->orWhere('fechaAsignacion','LIKE','%'.$busqueda.'%')
+                            ->orWhere('fechaApertura','LIKE','%'.$busqueda.'%')
+                            ->orWhere('fechaCierre','LIKE','%'.$busqueda.'%')
+                            ->orWhere('fechaRenuncia','LIKE','%'.$busqueda.'%')
+                        ;
+                    })
+                ;
+            })
+            ->get()
+        ;
+
+        $countVacantes = $vacantes->count();
+
+
+
+        return view('vacante.index', compact(
+               'zonas','vacantes','isDeleted','countVacantes',
+               'zona','dependencia','programa','filtro'
+
+        ));
     }
     /**
      * Show the form for creating a new resource.

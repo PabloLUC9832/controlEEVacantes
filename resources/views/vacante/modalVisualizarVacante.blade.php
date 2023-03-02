@@ -18,7 +18,10 @@
                         <label class="labelForms">Clave Periodo: {{$vacante->clavePeriodo}}</label>
                     </div>
                     <div class="col-span-6">
-                        <label class="labelForms">Número de zona: {{$vacante->numZona}} - {{$nombreZonaUsuario}}</label>
+                        <label class="labelForms">
+                            Zona: {{$vacante->numZona}} -
+                            {{DB::table('zona__dependencia__programas')->where('id_zona','=',$vacante->numZona)->value('nombre_zona') }}
+                        </label>
                     </div>
                     <div class="col-span-6">
                         <label class="labelForms">
@@ -65,11 +68,7 @@
                     <div class="col-span-6">
                         <label class="labelForms">Número y nombre del docente: {{$vacante->numPersonalDocente}} - {{$vacante->nombreDocente}}</label>
                     </div>
-{{--
-                    <div class="col-span-6">
-                        <label class="labelForms">Nombre del docente: {{$vacante->nombreDocente}}</label>
-                    </div>
---}}
+
                     <div class="col-span-6">
                         <label class="labelForms">Plan: {{$vacante->plan}}</label>
                     </div>

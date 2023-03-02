@@ -191,9 +191,9 @@
             </tbody>
         </table>
 
-        @if( !(isset($_GET['zona'])) )
-            {{ $vacantes->links() }}
-        @else
+{{--        @if( !(isset($_GET['zona'])) )
+            --}}{{--{{ $vacantes->links() }}--}}{{--
+        @else--}}
             <div>
                 <p class="text-sm text-gray-700 leading-5">
                     Mostrando
@@ -201,7 +201,7 @@
                     Resultados
                 </p>
             </div>
-        @endif
+        {{--@endif--}}
 
     </div>
 
