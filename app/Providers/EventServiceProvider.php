@@ -26,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         OperacionCierreVacante::class => [
             OperacionSumaCierre::class
+        ],
+        SelectVacanteIndex::class =>[
+            SearchVacanteIndex::class
         ]
     ];
 

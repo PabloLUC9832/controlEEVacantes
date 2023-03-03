@@ -191,7 +191,7 @@
             </tbody>
         </table>
 
-        @if( !(isset($_GET['zona'])) )
+        @if( $zona ==="" )
             {{ $vacantes->links() }}
         @else
             <div>
