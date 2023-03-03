@@ -39,13 +39,14 @@ class VacanteController extends Controller
         $countVacantes = 0;
 
         $userSelect = SearchVacante::where('id_user',$user)->first();
-
+        $programasEducUsuario = [];
         $userRol = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
 
         if($userRol){
 
             $vac= SearchVacante::where('id_user',$user)->get();
             if (count($vac) === 0 ){
+                $programasEducUsuario = [];
                 $zona = "";
                 $dependencia = "";
                 $programa = "";
