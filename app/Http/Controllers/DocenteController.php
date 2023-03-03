@@ -31,7 +31,7 @@ class DocenteController extends Controller
             ->orWhere('apellidoPaterno','LIKE','%'.$search.'%')
             ->orWhere('apellidoMaterno','LIKE','%'.$search.'%')
             ->orWhere('email','LIKE','%'.$search.'%')
-            ->orderBy('nPersonal','asc')
+            ->orderBy('apellidoPaterno','asc')
             ->paginate(15);
 
         if(isset($radioButton)){

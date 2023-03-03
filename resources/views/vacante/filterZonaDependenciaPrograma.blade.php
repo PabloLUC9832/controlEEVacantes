@@ -1,4 +1,3 @@
-{{--<form action="{{ route('vacante.index') }}" method="GET" >--}}
 <form action="{{ route('vacante.search') }}" method="POST" >
 @csrf
     <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
@@ -20,7 +19,6 @@
         <div class="w-1/4 ml-8">
             <label for="dependencia-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Dependencia</label>
             <select id="dependencia-dropdown" class="estiloSelect" name="dependencia" required>
-                {{--<option value="{{request()->query('dependencia')}}"> {{request()->query('dependencia')}} </option>--}}
                 <option value="{{$dependencia}}"> {{$dependencia}} </option>
             </select>
         </div>
@@ -28,7 +26,6 @@
         <div class="w-1/4 ml-8">
             <label for="programa-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Programa Educativo</label>
             <select id="programa-dropdown" class="estiloSelect" name="programa" required>
-                {{--<option value="{{request()->query('programa')}}"> {{request()->query('programa')}} </option>--}}
                 <option value="{{$programa}}"> {{$programa}} </option>
             </select>
         </div>

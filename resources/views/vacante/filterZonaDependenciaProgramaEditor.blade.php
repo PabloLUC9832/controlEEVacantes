@@ -1,12 +1,13 @@
-<form action="{{ route('vacante.index') }}" method="GET" >
-
+<form action="{{ route('vacante.search') }}" method="POST" >
+    @csrf
     <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
         <div class="w-1/4">
             <label for="zona-dropdown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Zona</label>
             <select  id="zona-dropdown" name="zona" class="estiloSelect">
 
-                <option value="{{$zonaUsuario}}">
-                    {{ $zonaUsuario }} - {{ $nombreZonaUsuario }}
+                <option value="{{$zona}}">
+                    {{ $zona }} -
+                    {{DB::table('zona__dependencia__programas')->where('id_zona','=',$zona)->value('nombre_zona') }}
                 </option>
 
             </select>
@@ -15,8 +16,9 @@
             <label for="dependencia-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Dependencia</label>
             <select id="dependencia-dropdown" class="estiloSelect" name="dependencia">
 
-                <option value="{{$dependenciaUsuario}}">
-                    {{ $dependenciaUsuario }} - {{ $nombreDependenciaUsuario }}
+                <option value="{{$dependencia}}">
+                    {{ $dependencia }} -
+                    {{DB::table('zona__dependencia__programas')->where('clave_dependencia','=',$dependencia)->value('nombre_dependencia') }}
                 </option>
 
             </select>
@@ -25,12 +27,7 @@
         <div class="w-1/4 ml-8">
             <label for="programa-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Programa Educativo</label>
             <select id="programa-dropdown" class="estiloSelect" name="programa" required>
-
-                @if(request()->query('programa'))
-                <option value="{{request()->query('programa')}}"> {{request()->query('programa')}} </option>
-                @else
-                <option value=""> Selecciona el programa educativo </option>
-                @endif
+                <option value="{{$programa}}"> {{$programa}} </option>
                 @foreach ($programasEducUsuario as $data)
                     <option value="{{$data->clave_programa}}">
                         {{$data->clave_programa}}~{{$data->nombre_programa}}
@@ -44,11 +41,7 @@
             <label for="filtro-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Filtrar</label>
             <select id="filtro-dropdown" class="estiloSelect" name="filtro">
 
-                @if(request()->query('filtro'))
-                <option value="{{request()->query('filtro')}}"> {{request()->query('filtro')}} </option>
-                @else
-                <option value="Todas">Todas</option>
-                @endif
+                <option value="{{$filtro}}"> {{$filtro}} </option>
                 <option value="Todas">Todas</option>
                 <option value="Vacantes">Vacantes</option>
                 <option value="NoVacantes">No Vacantes</option>

@@ -46,13 +46,6 @@
 
                     <li>
                         <div class="flex items-center">
-                            <input id="nombre" type="radio" value="nombre" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="nombre" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="flex items-center">
                             <input id="apellidoPaterno" type="radio" value="apellidoPaterno" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                             <label for="apellidoPaterno" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Apellido Paterno</label>
                         </div>
@@ -62,6 +55,13 @@
                         <div class="flex items-center">
                             <input id="apellidoMaterno" type="radio" value="apellidoMaterno" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                             <label for="apellidoMaterno" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Apellido Materno</label>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="flex items-center">
+                            <input id="nombre" type="radio" value="nombre" name="tipo" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="nombre" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
                         </div>
                     </li>
 
@@ -93,13 +93,13 @@
                     N° de personal
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Nombre
-                </th>
-                <th scope="col" class="py-3 px-6">
                     Apellido Paterno
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Apellido Materno
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Nombre
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Email
