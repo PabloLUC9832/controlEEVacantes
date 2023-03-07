@@ -6,7 +6,7 @@
             <select  id="zona-dropdown" name="zona" class="estiloSelect" required>
 
                 <option value="{{$zona}}">
-                    {{$zona}}
+                    {{$zona}}~{{$nombreZona}}
                 </option>
 
                 @foreach ($zonas as $data)
@@ -19,14 +19,14 @@
         <div class="w-1/4 ml-8">
             <label for="dependencia-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Dependencia</label>
             <select id="dependencia-dropdown" class="estiloSelect" name="dependencia" required>
-                <option value="{{$dependencia}}"> {{$dependencia}} </option>
+                <option value="{{$dependencia}}"> {{$dependencia}}~{{$nombreDependencia}} </option>
             </select>
         </div>
 
         <div class="w-1/4 ml-8">
             <label for="programa-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Programa Educativo</label>
             <select id="programa-dropdown" class="estiloSelect" name="programa" required>
-                <option value="{{$programa}}"> {{$programa}} </option>
+                <option value="{{$programa}}"> {{$programa}}~{{$nombrePrograma}} </option>
             </select>
         </div>
 

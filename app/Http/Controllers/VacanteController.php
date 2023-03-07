@@ -38,6 +38,10 @@ class VacanteController extends Controller
         $vacantes = [];
         $countVacantes = 0;
 
+        $nombreZona = "";
+        $nombreDependencia = "";
+        $nombrePrograma = "";
+
         $userSelect = SearchVacante::where('id_user',$user)->first();
         $programasEducUsuario = [];
         $userRol = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
@@ -73,11 +77,16 @@ class VacanteController extends Controller
                 $vacantes = $this->busquedaVacante($zona,$dependencia,$programa,$filtro,$busqueda);
                 $countVacantes = $vacantes->count();
 
+                $nombreZona = DB::table('zonas')->where('id',$zona)->value('nombre');
+                $nombreDependencia = DB::table('zona__dependencias')->where('clave_dependencia',$dependencia)->value('nombre_dependencia');
+                $nombrePrograma = DB::table('zona__dependencia__programas')->where('clave_programa',$programa)->value('nombre_programa');
+
             }
 
         }else{
 
             $vac= SearchVacante::where('id_user',$user)->get();
+            $programa = $userSelect->clave_programa;
 
             $user = auth()->user();
             $zona = $user->zona;
@@ -94,7 +103,7 @@ class VacanteController extends Controller
                 $busqueda = "";
                 $isDeleted = false;
 
-                dd($programasEducUsuario);
+                //dd($programasEducUsuario);
 
                 $vacantes = DB::table('vacantes')
                     ->join('periodos',function($join) use ($zona,$dependencia){
@@ -117,13 +126,14 @@ class VacanteController extends Controller
                 $vacantes = $this->busquedaVacante($zona,$dependencia,$programa,$filtro,$busqueda);
                 $countVacantes = $vacantes->count();
 
-
+                $nombrePrograma = DB::table('zona__dependencia__programas')->where('clave_programa',$programa)->value('nombre_programa');
             }
-
 
         }
 
         $zonas = Zona::all();
+
+        //dd($nombreZona);
 
         return view('vacante.index',compact(
             'vacantes',
@@ -134,7 +144,10 @@ class VacanteController extends Controller
             'dependencia',
             'programa',
             'filtro',
-            'programasEducUsuario'
+            'programasEducUsuario',
+            'nombreZona',
+            'nombreDependencia',
+            'nombrePrograma',
         ));
     }
 
@@ -148,6 +161,9 @@ class VacanteController extends Controller
         $filtro = $request->get('filtro');
         $busqueda = $request->get('search');
 
+        $nombreZona = DB::table('zonas')->where('id',$zona)->value('nombre');
+        $nombreDependencia = DB::table('zona__dependencias')->where('clave_dependencia',$dependencia)->value('nombre_dependencia');
+        $nombrePrograma = DB::table('zona__dependencia__programas')->where('clave_programa',$programa)->value('nombre_programa');
 
         $zonas = Zona::all();
 
@@ -163,7 +179,7 @@ class VacanteController extends Controller
 
         return view('vacante.index', compact(
             'vacantes','zona','zonas','dependencia','programa','filtro','isDeleted','countVacantes',
-                'programasEducUsuario'
+                'programasEducUsuario', 'nombreZona', 'nombreDependencia', 'nombrePrograma'
             )
         );
 
