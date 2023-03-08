@@ -129,15 +129,16 @@
                         </th>
 
                         <td class="py-4 px-6">
-                            {{$docente->nombre}}
-                        </td>
-
-                        <td class="py-4 px-6">
                             {{$docente->apellidoPaterno}}
+                            
                         </td>
 
                         <td class="py-4 px-6">
                             {{$docente->apellidoMaterno}}
+                        </td>
+
+                        <td class="py-4 px-6">                            
+                            {{$docente->nombre}}
                         </td>
 
                         <td class="py-4 px-6">

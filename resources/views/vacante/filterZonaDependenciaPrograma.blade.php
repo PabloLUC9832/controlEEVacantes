@@ -1,12 +1,12 @@
-<form action="{{ route('vacante.search') }}" method="POST" >
-@csrf
+<form action="{{ route('vacante.search') }}" method="GET" >
+
     <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
         <div class="w-1/4">
             <label for="zona-dropdown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Zona</label>
             <select  id="zona-dropdown" name="zona" class="estiloSelect" required>
 
                 <option value="{{$zona}}">
-                    {{$zona}}
+                    {{$zona}}~{{$nombreZona}}
                 </option>
 
                 @foreach ($zonas as $data)
@@ -19,14 +19,26 @@
         <div class="w-1/4 ml-8">
             <label for="dependencia-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Dependencia</label>
             <select id="dependencia-dropdown" class="estiloSelect" name="dependencia" required>
-                <option value="{{$dependencia}}"> {{$dependencia}} </option>
+                <option value="{{$dependencia}}"> {{$dependencia}}~{{$nombreDependencia}} </option>
+
+                @foreach($listaDependenciasSelect as $data)
+                    <option value="{{$data->clave_dependencia}}">
+                        {{$data->clave_dependencia}}~{{$data->nombre_dependencia}}
+                    </option>
+                @endforeach
             </select>
         </div>
 
         <div class="w-1/4 ml-8">
             <label for="programa-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Programa Educativo</label>
             <select id="programa-dropdown" class="estiloSelect" name="programa" required>
-                <option value="{{$programa}}"> {{$programa}} </option>
+                <option value="{{$programa}}"> {{$programa}}~{{$nombrePrograma}} </option>
+
+                @foreach($listaProgramasSelect as $data)
+                    <option value="{{$data->clave_programa}}">
+                        {{$data->clave_programa}}~{{$data->nombre_programa}}
+                    </option>
+                @endforeach
             </select>
         </div>
 
@@ -70,6 +82,7 @@
             var zonaSeleccionadaCompleta = zonaSeleccionada.split('~');
             var idZonaSeleccionada = zonaSeleccionadaCompleta[0];
             $("#dependencia-dropdown").html('');
+            $("#programa-dropdown").html('');
             $.ajax({
                 url: "{{url('api/fetch-dependenciaVacante')}}",
                 type: "POST",

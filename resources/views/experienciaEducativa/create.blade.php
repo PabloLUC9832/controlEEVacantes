@@ -65,7 +65,7 @@
                                 <div class="col-span-6">
                                     <label for="nrc" class="labelForms">NRC</label>
                                     <input type="number" name="nrc" id="nrc" class="inputForms"
-                                           placeholder="Ej. 69477">
+                                           placeholder="Ej. 69477" required>
                                 </div>
 
                                 <div class="col-span-6">

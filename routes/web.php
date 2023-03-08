@@ -56,7 +56,7 @@ Route::controller(VacanteController::class)->group(function (){
     Route::name('vacante.')->group(function (){
 
         Route::get('/vacante',  'index') ->name('index');
-        Route::post('/vacante/search',  'search') ->name('search');
+        Route::get('/vacante/search',  'search') ->name('search');
 
         Route::get('/vacante/create',  'create')->name('create');
         Route::post('/vacante',  'store')->name('store');
