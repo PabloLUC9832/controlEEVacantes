@@ -42,6 +42,9 @@ class VacanteController extends Controller
         $nombreDependencia = "";
         $nombrePrograma = "";
 
+        $listaDependenciasSelect = "";
+        $listaProgramasSelect = "";
+
         $userSelect = SearchVacante::where('id_user',$user)->first();
         $programasEducUsuario = [];
         $userRol = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
@@ -81,6 +84,8 @@ class VacanteController extends Controller
                 $nombreDependencia = DB::table('zona__dependencias')->where('clave_dependencia',$dependencia)->value('nombre_dependencia');
                 $nombrePrograma = DB::table('zona__dependencia__programas')->where('clave_programa',$programa)->value('nombre_programa');
 
+                $listaDependenciasSelect = Zona_Dependencia::all()->where('id_zona',$zona);
+                $listaProgramasSelect = Zona_Dependencia_Programa::all()->where('clave_dependencia',$dependencia);
             }
 
         }else{
@@ -132,8 +137,6 @@ class VacanteController extends Controller
 
         $zonas = Zona::all();
 
-        //dd($nombreZona);
-
         return view('vacante.index',compact(
             'vacantes',
             'isDeleted',
@@ -147,6 +150,8 @@ class VacanteController extends Controller
             'nombreZona',
             'nombreDependencia',
             'nombrePrograma',
+            'listaDependenciasSelect',
+            'listaProgramasSelect'
         ));
     }
 
@@ -164,6 +169,9 @@ class VacanteController extends Controller
         $nombreDependencia = DB::table('zona__dependencias')->where('clave_dependencia',$dependencia)->value('nombre_dependencia');
         $nombrePrograma = DB::table('zona__dependencia__programas')->where('clave_programa',$programa)->value('nombre_programa');
 
+        $listaDependenciasSelect = Zona_Dependencia::all()->where('id_zona',$zona);
+        $listaProgramasSelect = Zona_Dependencia_Programa::all()->where('clave_dependencia',$dependencia);
+
         $zonas = Zona::all();
 
         event(new SelectVacanteIndex($user,$zona,$dependencia,$programa,$filtro,$busqueda));
@@ -178,7 +186,8 @@ class VacanteController extends Controller
 
         return view('vacante.index', compact(
             'vacantes','zona','zonas','dependencia','programa','filtro','isDeleted','countVacantes',
-                'programasEducUsuario', 'nombreZona', 'nombreDependencia', 'nombrePrograma'
+                'programasEducUsuario', 'nombreZona', 'nombreDependencia', 'nombrePrograma', 'listaDependenciasSelect',
+                'listaProgramasSelect'
             )
         );
 
