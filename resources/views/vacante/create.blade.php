@@ -44,12 +44,19 @@
                         Si necesitas dar de alta a un Docente, Experiencia Educativa, puedes hacerlo con los siguientes enlaces.
 
                         <div class="flex flex-col items-center mt-3">
-                            <a href="{{ route('docente.create') }}" target="_blank" class="text-white bg-azul-royal hover:bg-azul-royal-hover focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir Nuevo Docente</a>
+                            <button data-modal-target="docente-modal" data-modal-toggle="docente-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                Crear Docente
+                            </button>
                         </div>
 
                         <div class="flex flex-col items-center mt-3">
-                            <a href="{{ route('experienciaEducativa.create') }}" target="_blank" class="text-white bg-azul-royal hover:bg-azul-royal-hover focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir Nueva EE</a>
+                            <button data-modal-target="ee-modal" data-modal-toggle="ee-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                Crear Experiencia Educativa
+                            </button>
                         </div>
+
+                        @include('vacante.createDocente')
+                        @include('vacante.createEE')
 
                     </div>
                 </div>

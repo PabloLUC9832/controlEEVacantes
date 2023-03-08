@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\IndexVacanteRequest;
+use App\Http\Requests\StoreDocenteRequest;
+use App\Http\Requests\StoreExperienciaEducativaRequest;
 use App\Models\Area;
 use App\Models\Docente;
 use App\Models\Periodo;
@@ -333,6 +335,53 @@ class VacanteController extends Controller
 
         //return redirect()->route('dashboard');
         return redirect()->route('vacante.index');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreDocenteRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeDocente(StoreDocenteRequest $request){
+
+        $docente = new Docente();
+        $docente->nPersonal = $request->nPersonal;
+        $docente->nombre = $request->nombre;
+        $docente->apellidoPaterno = $request->apellidoPaterno;
+        $docente->apellidoMaterno = $request->apellidoMaterno;
+        $docente->email = $request->email;
+
+        $docente->save();
+
+        $user = Auth::user();
+        $data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
+        event(new LogUserActivity($user,"Creación de Docente",$data));
+
+        return redirect()->back();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreExperienciaEducativaRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeEe(StoreExperienciaEducativaRequest $request){
+
+        $ee = new ExperienciaEducativa();
+        $ee->numMateria = $request->numMateria;
+        $ee->nrc = $request->nrc;
+        $ee->nombre = $request->nombre;
+        $ee->horas = $request->horas;
+
+        $ee->save();
+
+        $user = Auth::user();
+        $data = $request->numMateria ." " . $request->nrc ." ". $request->nombre ." ". $request->horas;
+        event(new LogUserActivity($user,"Creación de Experiencia Educativa",$data));
+
+        return redirect()->back();
     }
 
     /**
