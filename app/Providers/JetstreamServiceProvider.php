@@ -64,20 +64,19 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::defaultApiTokenPermissions(['read']);
 
         //Jetstream::role('admin', 'Administrator', [
-        Jetstream::role('admin', 'Administrador', [
+        Jetstream::role('admin', 'DGAAEA', [
             'create',
             'read',
             'update',
             'delete',
-        //])->description('Administrator users can perform any action.');
-        ])->description('Los administradores pueden realizar cualquier acción.');
+        ])->description('Los usuarios del DGAAEA pueden realizar cualquier acción.');
 
         //Jetstream::role('editor', 'Editor', [
-        Jetstream::role('editor', 'Editor', [
+        Jetstream::role('editor', 'Facultad', [
             'read',
             'create',
             'update',
         //])->description('Editor users have the ability to read, create, and update.');
-        ])->description('Los editores pueden consultar, crear y actualizar.');
+        ])->description('Los usuarios pueden consultar, crear y actualizar las vacantes de su facultad.');
     }
 }
