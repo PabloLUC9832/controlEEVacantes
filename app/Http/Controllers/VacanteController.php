@@ -86,7 +86,6 @@ class VacanteController extends Controller
         }else{
 
             $vac= SearchVacante::where('id_user',$user)->get();
-            $programa = $userSelect->clave_programa;
 
             $user = auth()->user();
             $zona = $user->zona;
