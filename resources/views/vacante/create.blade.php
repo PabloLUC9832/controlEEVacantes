@@ -82,7 +82,7 @@
 
                                     <div class="col-span-6 sm:col-span-3 lg:col-span-3" >
                                         <label for="periodo" class="block text-sm font-medium text-gray-900 dark:text-gray-400">Periodo</label>
-                                        <select  id="periodo" name="periodo" class="estiloSelect">
+                                        <select  id="periodo" name="periodo" class="estiloSelect" required>
                                             <option value="">Selecciona el periodo</option>
                                             @foreach ($periodos as $data)
                                                 <option value="{{$data->nPeriodo}}-{{$data->clavePeriodo}}">

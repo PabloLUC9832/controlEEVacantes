@@ -20,10 +20,12 @@ use App\Models\Zona_Dependencia_Programa;
 use App\Providers\LogUserActivity;
 use App\Providers\OperacionCierreVacante;
 use App\Providers\OperacionHorasVacante;
+use App\Providers\RenunciaDocente;
 use App\Providers\SelectVacanteIndex;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\isEmpty;
 
 class VacanteController extends Controller
 {
@@ -480,6 +482,12 @@ class VacanteController extends Controller
         $nombreDocente= $docentePartes[0];
         $numDocente = $docentePartes[1] ;
 
+        //comparar nombre actual en la BD
+        $nombreDocenteActual = $vacante->nombreDocente;
+        $fechaAvisoActual = $vacante->fechaAviso;
+        $fechaAsignacionActual = $vacante->fechaAsignacion;
+        //$fechaRenunciaActual = $vacante->fechaRenuncia;
+
         if(empty($numDocente)){
             $numDocente= "";
         }
@@ -561,6 +569,10 @@ class VacanteController extends Controller
 
         if (!empty($numHoras) && !empty($tipoAsignacion) && !empty($tipoContratacion)){
             event(new OperacionHorasVacante($numHoras,$numPrograma,$tipoContratacion,$tipoAsignacion));
+        }
+
+        if($nombreDocenteActual != $nombreCDocente && $nombreDocenteActual != ""){
+            event(new RenunciaDocente($id,$numPersonalDocente,$nombreDocenteActual,$fechaAvisoActual,$fechaAsignacionActual,$fechaRenuncia));
         }
 
         $user = Auth::user();

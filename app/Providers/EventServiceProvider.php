@@ -29,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         SelectVacanteIndex::class =>[
             SearchVacanteIndex::class
+        ],
+        RenunciaDocente::class =>[
+            OperacionRenunciaDocente::class
         ]
     ];
 
