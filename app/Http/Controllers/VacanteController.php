@@ -25,7 +25,6 @@ use App\Providers\SelectVacanteIndex;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use function PHPUnit\Framework\isEmpty;
 
 class VacanteController extends Controller
 {
@@ -51,8 +50,9 @@ class VacanteController extends Controller
 
         $userSelect = SearchVacante::where('id_user',$user)->first();
         $programasEducUsuario = [];
-        $userRol = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
 
+        $userRol = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
+        //Si el rol es admin
         if($userRol){
 
             $vac= SearchVacante::where('id_user',$user)->get();
@@ -111,8 +111,6 @@ class VacanteController extends Controller
                 $busqueda = "";
                 $isDeleted = false;
 
-                //dd($programasEducUsuario);
-
                 $vacantes = DB::table('vacantes')
                     ->join('periodos',function($join) use ($zona,$dependencia){
                         $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
@@ -158,6 +156,13 @@ class VacanteController extends Controller
             'listaProgramasSelect'
         ));
     }
+
+    /**
+     * Retorna variables al index para cargar los resultados de la búsqueda
+     * @access public
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
 
     public function search(Request $request){
 
@@ -315,6 +320,7 @@ class VacanteController extends Controller
         $vacante->fechaRenuncia=$request->fechaRenuncia;
 
         if (isset($request->file) ){
+            //Storage::makeDirectory($vacante->id);
             $request->file('file')->storeAs('/', $fileName, 'azure');
             $vacante->archivo = $fileName;
         }
@@ -533,7 +539,9 @@ class VacanteController extends Controller
 
         if (isset($request->file) ){
             $fileName = time() ."_" . $request->file->getClientOriginalName();
-            $request->file('file')->storeAs('/', $fileName, 'azure');
+
+            Storage::makeDirectory($id);
+            $request->file('file')->storeAs('/'.$id.'/', $fileName, 'azure');
             $archivo = $fileName;
         }else{
             $archivo = $vacante->archivo;
@@ -694,6 +702,16 @@ class VacanteController extends Controller
         }
     }
 
+    /**
+     * Función para buscar las horas de la experiencia educativa de acuerdo al option del select seleccionado.
+     * Trabajo en conjunto con JS, en las vistas: vacante.SelectNrcNombreCreate , vacante.SelectNrcNombreEdit
+     *
+     * @link https://programmingpot.com/dependent-droop-down-in-laravel/
+     * @link https://www.itsolutionstuff.com/post/how-to-make-simple-dependent-dropdown-using-jquery-ajax-in-laravel-5example.html
+     * @link https://youtu.be/CBCo5wgiPs8
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function fetchHorasExperienciaEducativa(Request $request)
     {
         $data['horasExperienciaEducativa'] = ExperienciaEducativa::where("nrc", $request->nrc)
@@ -702,7 +720,17 @@ class VacanteController extends Controller
         return response()->json($data);
     }
 
-
+    /**
+     *
+     * Función para buscar las dependencias de las respectivas dependencias
+     *
+     * @link https://programmingpot.com/dependent-droop-down-in-laravel/
+     * @link https://www.itsolutionstuff.com/post/how-to-make-simple-dependent-dropdown-using-jquery-ajax-in-laravel-5example.html
+     * @link https://youtu.be/CBCo5wgiPs8
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function fetchDependenciaVacante(Request $request)
     {
         $data['dependenciaVacante'] = Zona_Dependencia::where("id_zona", $request->idZona)
@@ -711,6 +739,11 @@ class VacanteController extends Controller
         return response()->json($data);
     }
 
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function fetchProgramaVacante(Request $request)
     {
         $data['programaVacante'] = Zona_Dependencia_Programa::where("clave_dependencia", $request->idDependencia)
@@ -719,6 +752,19 @@ class VacanteController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * Función para realizar las búsquedas usadas en el método de index y search
+     *
+     * @link https://laravel.com/docs/9.x/queries#joins
+     * @link https://laravel.com/docs/9.x/queries#conditional-clauses
+     *
+     * @param $userSelectZona
+     * @param $userSelectDependencia
+     * @param $userSelectPrograma
+     * @param $userSelectFiltro
+     * @param $userSelectSearch
+     * @return \Illuminate\Support\Collection
+     */
     public function busquedaVacante($userSelectZona,$userSelectDependencia,$userSelectPrograma,$userSelectFiltro,$userSelectSearch){
 
         $vacantes = DB::table('vacantes')
@@ -791,13 +837,9 @@ class VacanteController extends Controller
             ->get()
         ;
 
-        //$countVacantes = $vacantes->count();
-
-        //return compact('vacantes','countVacantes');
         return $vacantes;
 
     }
-
 
 }
 
