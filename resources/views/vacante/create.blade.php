@@ -100,29 +100,34 @@
 
                                     @include('vacante.selectZonaDependenciaProgramaCreate')
 
-                                    <div class="col-span-6">
-                                        <label for="numPlaza" class="labelForms">Número de plaza</label>
-                                        <input type="number" name="numPlaza" id="numPlaza" class="inputForms"
-                                               placeholder="Ej. 1523" required>
-                                    </div>
-
                                     @include('vacante.selectNrcNombreCreate')
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="grupo" class="labelForms">Grupo</label>
                                         <input type="text" name="grupo" id="grupo" class="inputForms"
                                                placeholder="Ej. SEC1"
                                                required>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="subGrupo" class="labelForms">Sub Grupo</label>
                                         <input type="text" name="subGrupo" id="subGrupo" class="inputForms"
                                                placeholder="Ej. 19"
                                                required>
                                     </div>
 
-                                    <div class="col-span-6">
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                        <label for="numPlaza" class="labelForms">Número de plaza</label>
+                                        <input type="number" name="numPlaza" id="numPlaza" class="inputForms"
+                                               placeholder="Ej. 1523" required>
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                        <label for="plan" class="labelForms">Plan</label>
+                                        <input type="number" name="plan" id="plan" class="inputForms" placeholder="Ej. ">
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="numMotivo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Motivo</label>
                                         <select  id="numMotivo" name="numMotivo" class="estiloSelect">
                                             <option value="">Selecciona el motivo</option>
@@ -134,7 +139,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="tipoContratacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Contratación</label>
                                         <select  id="tipoContratacion" name="tipoContratacion" class="estiloSelect">
                                             <option value="">Selecciona el tipo de contratación</option>
@@ -144,7 +149,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="tipoAsignacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Asignación</label>
                                         <select  id="tipoAsignacion" name="tipoAsignacion" class="estiloSelect">
                                             <option value="">Selecciona el tipo de asignación</option>
@@ -156,8 +161,8 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-span-6">
-                                        <label for="numPersonalDocente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
+                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                        <label for="numPersonalDocente" class="block mb-0 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
                                         <select  id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect">
                                             <option value="">Selecciona al docente</option>
                                             @foreach ($docentes as $data)
@@ -168,21 +173,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-span-6">
-                                        <label for="plan" class="labelForms">Plan</label>
-                                        <input type="number" name="plan" id="plan" class="inputForms" placeholder="Ej. ">
-                                    </div>
-
-                                    <div class="col-span-6">
-                                        <label for="observaciones" class="labelForms">Observaciones</label>
-                                        <div class="mt-1">
-                                        <textarea id="observaciones" name="observaciones" rows="3"
-                                                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                                  placeholder="Ej. Alguna observación"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-span-6">
+                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                                         <label for="fechaAviso" class="labelForms">Fecha de aviso</label>
                                         <div class="relative">
                                             <div
@@ -283,6 +274,15 @@
                                     </div>
 
                                     <div class="col-span-6">
+                                        <label for="observaciones" class="labelForms">Observaciones</label>
+                                        <div class="mt-1">
+                                        <textarea id="observaciones" name="observaciones" rows="3"
+                                                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                                  placeholder="Ej. Alguna observación"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-6">
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file">Documento</label>
                                         <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file" type="file" accept=".pdf" name="file">
                                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Formato permitido: PDF</p>
@@ -290,6 +290,7 @@
 
                                 </div>
                             </div>
+
                             <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
                                 <button type="submit" class="btnGuardar">Registar Vacante</button>
                             </div>
