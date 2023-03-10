@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\IndexVacanteRequest;
+use App\Http\Requests\StoreDocenteRequest;
+use App\Http\Requests\StoreExperienciaEducativaRequest;
 use App\Models\Area;
 use App\Models\Docente;
+use App\Models\HistoricoDocente;
 use App\Models\Periodo;
 use App\Models\SearchVacante;
 use App\Models\TipoAsignacion;
@@ -18,10 +21,12 @@ use App\Models\Zona_Dependencia_Programa;
 use App\Providers\LogUserActivity;
 use App\Providers\OperacionCierreVacante;
 use App\Providers\OperacionHorasVacante;
+use App\Providers\RenunciaDocente;
 use App\Providers\SelectVacanteIndex;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\isEmpty;
 
 class VacanteController extends Controller
 {
@@ -336,6 +341,53 @@ class VacanteController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreDocenteRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeDocente(StoreDocenteRequest $request){
+
+        $docente = new Docente();
+        $docente->nPersonal = $request->nPersonal;
+        $docente->nombre = $request->nombre;
+        $docente->apellidoPaterno = $request->apellidoPaterno;
+        $docente->apellidoMaterno = $request->apellidoMaterno;
+        $docente->email = $request->email;
+
+        $docente->save();
+
+        $user = Auth::user();
+        $data = $request->nPersonal ." ". $request->nombre ." ". $request->apellidoPaterno ." ". $request->apellidoMaterno ." ".$request->email;
+        event(new LogUserActivity($user,"Creación de Docente",$data));
+
+        return redirect()->back();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreExperienciaEducativaRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeEe(StoreExperienciaEducativaRequest $request){
+
+        $ee = new ExperienciaEducativa();
+        $ee->numMateria = $request->numMateria;
+        $ee->nrc = $request->nrc;
+        $ee->nombre = $request->nombre;
+        $ee->horas = $request->horas;
+
+        $ee->save();
+
+        $user = Auth::user();
+        $data = $request->numMateria ." " . $request->nrc ." ". $request->nombre ." ". $request->horas;
+        event(new LogUserActivity($user,"Creación de Experiencia Educativa",$data));
+
+        return redirect()->back();
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Vacante  $vacante
@@ -386,6 +438,9 @@ class VacanteController extends Controller
             //Lista de programas ligados a la dependencia al editar vacante para corregir el dropdown
             $listaProgramas = Zona_Dependencia_Programa::all()->where('clave_dependencia',$claveDependenciaVacante);
 
+            //obtener histórico docentes
+            $listaDocentesHistorico = DB::table('historico_docente')->where('vacanteID',$id)->get();
+
             return view('vacante.edit', compact('vacante'),
                 ['user' => $user,
                 'motivos' => $listaMotivos,
@@ -399,6 +454,7 @@ class VacanteController extends Controller
                 'zonas' => $zonas,
                     'listaDependencias' => $listaDependencias,
                     'listaProgramas' => $listaProgramas,
+                    'listaDocentesHistorico' => $listaDocentesHistorico,
             ]);
         }else{
             //Obtener número y nombre de zona
@@ -430,6 +486,12 @@ class VacanteController extends Controller
         $docentePartes = explode("-",$docenteCompleto);
         $nombreDocente= $docentePartes[0];
         $numDocente = $docentePartes[1] ;
+
+        //comparar nombre actual en la BD
+        $nombreDocenteActual = $vacante->nombreDocente;
+        $fechaAvisoActual = $vacante->fechaAviso;
+        $fechaAsignacionActual = $vacante->fechaAsignacion;
+        //$fechaRenunciaActual = $vacante->fechaRenuncia;
 
         if(empty($numDocente)){
             $numDocente= "";
@@ -512,6 +574,10 @@ class VacanteController extends Controller
 
         if (!empty($numHoras) && !empty($tipoAsignacion) && !empty($tipoContratacion)){
             event(new OperacionHorasVacante($numHoras,$numPrograma,$tipoContratacion,$tipoAsignacion));
+        }
+
+        if($nombreDocenteActual != $nombreCDocente && $nombreDocenteActual != ""){
+            event(new RenunciaDocente($id,$numPersonalDocente,$nombreDocenteActual,$fechaAviso,$fechaAsignacion,$fechaRenuncia));
         }
 
         $user = Auth::user();

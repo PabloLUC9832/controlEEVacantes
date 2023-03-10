@@ -29,7 +29,8 @@
         <div class="md:grid md:grid-cols-3 md:gap-6">
             <div class="md:col-span-1">
                 <div class="px-4 sm:px-5">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">Actualizar Experiencia Educativa Vacante</h3>
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">Actualizar Experiencia Educativa
+                        Vacante</h3>
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Recuerda que los datos obligatiorios son:</b></p>
                     <li>Periodo</li>
@@ -44,15 +45,27 @@
                     <li>Grupo</li>
                     <li>Motivo</li>
                     <br>
-                    Si necesitas dar de alta a un Docente, Experiencia Educativa, puedes hacerlo con los siguientes enlaces.
+                    Si necesitas dar de alta a un Docente, Experiencia Educativa, puedes hacerlo con los siguientes
+                    enlaces.
 
                     <div class="flex flex-col items-center mt-3">
-                        <a href="{{ route('docente.create') }}" class="text-white bg-azul-royal hover:bg-azul-royal-hover focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir Nuevo Docente</a>
+                        <button data-modal-target="docente-modal" data-modal-toggle="docente-modal"
+                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button">
+                            Crear Docente
+                        </button>
                     </div>
 
                     <div class="flex flex-col items-center mt-3">
-                        <a href="{{ route('experienciaEducativa.create') }}" class="text-white bg-azul-royal hover:bg-azul-royal-hover focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Añadir Nueva EE</a>
+                        <button data-modal-target="ee-modal" data-modal-toggle="ee-modal"
+                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button">
+                            Crear Experiencia Educativa
+                        </button>
                     </div>
+
+                    @include('vacante.createDocente')
+                    @include('vacante.createEE')
 
                 </div>
             </div>
@@ -60,8 +73,15 @@
 
                 @if ($errors->any())
                     @foreach ($errors->all() as $error)
-                        <div class="flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
-                            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                        <div
+                            class="flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                            role="alert">
+                            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
                             <span class="sr-only">Error</span>
                             <div>
                                 <span class="font-medium"> {{$error}} </span>
@@ -76,10 +96,13 @@
                             <div class="grid grid-cols-6 gap-6">
                                 @csrf
 
-                                <div class="col-span-6 sm:col-span3 lg:col-span-3">
-                                    <label for="periodo" class="block text-sm font-medium text-gray-900 dark:text-gray-400">Periodo</label>
-                                    <select  id="periodo" name="periodo" class="estiloSelect">
-                                        <option value="{{$vacante->periodo}}-{{$vacante->clavePeriodo}}">{{$vacante->periodo}}-{{$vacante->clavePeriodo}}</option>
+                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                    <label for="periodo"
+                                           class="block text-sm font-medium text-gray-900 dark:text-gray-400">Periodo</label>
+                                    <select id="periodo" name="periodo" class="estiloSelect">
+                                        <option
+                                            value="{{$vacante->periodo}}-{{$vacante->clavePeriodo}}">{{$vacante->periodo}}
+                                            -{{$vacante->clavePeriodo}}</option>
                                         @foreach ($periodos as $data)
                                             <option value="{{$data->nPeriodo}}-{{$data->clavePeriodo}}">
                                                 {{$data->nPeriodo}}-{{$data->clavePeriodo}}-{{$data->descripcion}}
@@ -96,31 +119,38 @@
 
                                 @include('vacante.selectZonaDependenciaProgramaEdit')
 
-                                <div class="col-span-6">
-                                    <label for="numPlaza" class="labelForms">Número de plaza</label>
-                                    <input type="number" name="numPlaza" id="numPlaza" class="inputForms"
-                                           required value="{{$vacante->numPlaza}}">
-                                </div>
-
                                 @include('vacante.selectNrcNombreEdit')
 
-                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="grupo" class="labelForms">Grupo</label>
                                     <input type="text" name="grupo" id="grupo" class="inputForms"
                                            required
                                            value="{{$vacante->grupo}}">
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="subGrupo" class="labelForms">Sub Grupo</label>
                                     <input type="text" name="subGrupo" id="subGrupo" class="inputForms"
                                            required
                                            value="{{$vacante->subGrupo}}">
                                 </div>
 
-                                <div class="col-span-6">
-                                    <label for="numMotivo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Motivo</label>
-                                    <select  id="numMotivo" name="numMotivo" class="estiloSelect">
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                    <label for="numPlaza" class="labelForms">Número de plaza</label>
+                                    <input type="number" name="numPlaza" id="numPlaza" class="inputForms"
+                                           required value="{{$vacante->numPlaza}}">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                    <label for="plan" class="labelForms">Plan</label>
+                                    <input type="number" name="plan" id="plan" class="inputForms"
+                                           value="{{$vacante->plan}}">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                    <label for="numMotivo"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Motivo</label>
+                                    <select id="numMotivo" name="numMotivo" class="estiloSelect">
                                         <option value="{{$vacante->numMotivo}}">{{$vacante->numMotivo}}</option>
                                         @foreach ($motivos as $data)
                                             <option value="{{$data->numeroMotivo}}">
@@ -130,20 +160,26 @@
                                     </select>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
-                                    <label for="tipoContratacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Contratación</label>
-                                    <select  id="tipoContratacion" name="tipoContratacion" class="estiloSelect">
-                                        <option value="{{$vacante->tipoContratacion}}">{{$vacante->tipoContratacion}}</option>
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                    <label for="tipoContratacion"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo
+                                        de Contratación</label>
+                                    <select id="tipoContratacion" name="tipoContratacion" class="estiloSelect">
+                                        <option
+                                            value="{{$vacante->tipoContratacion}}">{{$vacante->tipoContratacion}}</option>
                                         <option value="IOD">Planta</option>
                                         <option value="IOD">Contratación IOD</option>
                                         <option value="IPP">Contratación IPP</option>
                                     </select>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
-                                    <label for="tipoAsignacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Asignación</label>
-                                    <select  id="tipoAsignacion" name="tipoAsignacion" class="estiloSelect">
-                                        <option value="{{$vacante->tipoAsignacion}}">{{$vacante->tipoAsignacion}}</option>
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                    <label for="tipoAsignacion"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo
+                                        de Asignación</label>
+                                    <select id="tipoAsignacion" name="tipoAsignacion" class="estiloSelect">
+                                        <option
+                                            value="{{$vacante->tipoAsignacion}}">{{$vacante->tipoAsignacion}}</option>
                                         @foreach ($tiposAsignacion as $data)
                                             <option value="{{$data->tipo}}">
                                                 {{$data->tipo}}
@@ -152,33 +188,42 @@
                                     </select>
                                 </div>
 
-                                <div class="col-span-6">
-                                    <label for="numPersonalDocente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
-                                    <select  id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect">
-                                        <option value="{{$vacante->nombreDocente}}-{{$vacante->numPersonalDocente}}">{{$vacante->nombreDocente}}-{{$vacante->numPersonalDocente}}</option>
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                    <label for="numPersonalDocente"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
+                                    <select id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect">
+                                        <option
+                                            value="{{$vacante->nombreDocente}}-{{$vacante->numPersonalDocente}}">{{$vacante->nombreDocente}}
+                                            -{{$vacante->numPersonalDocente}}</option>
                                         @foreach ($docentes as $data)
-                                            <option value="{{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}">
-                                                {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}
+                                            <option
+                                                value="{{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}">
+                                                {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}
+                                                -{{$data->nPersonal}}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
 
-                                <div class="col-span-6">
-                                    <label for="plan" class="labelForms">Plan</label>
-                                    <input type="number" name="plan" id="plan" class="inputForms" value="{{$vacante->plan}}">
-                                </div>
-
-                                <div class="col-span-6">
-                                    <label for="observaciones" class="labelForms">Observaciones</label>
-                                    <div class="mt-1">
-                                        <textarea id="observaciones" name="observaciones" rows="3"
-                                                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                                  placeholder="Ej. Alguna observación">{{$vacante->observaciones}}</textarea>
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                    <div class="md:w-3/3 flex flex-col items-center">
+                                        <label for="numPersonalDocente"
+                                               class="block mb-0 text-sm font-medium text-gray-900 dark:text-gray-400">Docentes anteriores</label>
                                     </div>
+
+
+                                    <div class="md:w-3/3 flex flex-col items-center">
+                                    <button id="dropdownDocentesButton" data-dropdown-toggle="dropdownDocentes{{$vacante->id}}"
+                                            class="items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
+                                            type="button">
+                                        <svg class="w-40 h-14 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                    </button>
+                                        </div>
                                 </div>
 
-                                <div class="col-span-6">
+                                @include('vacante.dropdownDocentesHistorico')
+
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="fechaAviso" class="labelForms">Fecha de aviso</label>
                                     <div class="relative">
                                         <div
@@ -253,7 +298,7 @@
                                         </div>
                                         <input datepicker datepicker-format="dd/mm/yyyy" type="text"
                                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               value="{{$vacante->fechaCierre}}"  id="fechaCierre"
+                                               value="{{$vacante->fechaCierre}}" id="fechaCierre"
                                                name="fechaCierre">
                                     </div>
                                 </div>
@@ -279,10 +324,26 @@
                                 </div>
 
                                 <div class="col-span-6">
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file">Documento actual</label>
-                                    <a class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline" target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}">{{$vacante->archivo}}</a>
-                                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file" type="file" accept=".pdf" name="file">
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Formato permitido: PDF</p>
+                                    <label for="observaciones" class="labelForms">Observaciones</label>
+                                    <div class="mt-1">
+                                        <textarea id="observaciones" name="observaciones" rows="3"
+                                                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                                  placeholder="Ej. Alguna observación">{{$vacante->observaciones}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-span-6">
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                           for="file">Documento actual</label>
+                                    <a class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
+                                       target="_blank"
+                                       href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}">{{$vacante->archivo}}</a>
+                                    <input
+                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        aria-describedby="file_input_help" id="file" type="file" accept=".pdf"
+                                        name="file">
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
+                                        Formato permitido: PDF</p>
                                 </div>
 
                             </div>

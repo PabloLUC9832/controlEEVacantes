@@ -32,6 +32,7 @@
             var zonaSeleccionadaCompleta = zonaSeleccionada.split('~');
             var idZonaSeleccionada = zonaSeleccionadaCompleta[0];
             $("#dependencia-dropdown").html('');
+            $("#programa-dropdown").html('');
             $.ajax({
                 url: "{{url('api/fetch-dependenciaVacante')}}",
                 type: "POST",
