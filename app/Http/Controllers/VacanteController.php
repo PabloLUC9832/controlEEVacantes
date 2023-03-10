@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDocenteRequest;
 use App\Http\Requests\StoreExperienciaEducativaRequest;
 use App\Models\Area;
 use App\Models\Docente;
+use App\Models\HistoricoDocente;
 use App\Models\Periodo;
 use App\Models\SearchVacante;
 use App\Models\TipoAsignacion;
@@ -443,6 +444,9 @@ class VacanteController extends Controller
             //Lista de programas ligados a la dependencia al editar vacante para corregir el dropdown
             $listaProgramas = Zona_Dependencia_Programa::all()->where('clave_dependencia',$claveDependenciaVacante);
 
+            //obtener histórico docentes
+            $listaDocentesHistorico = DB::table('historico_docente')->where('vacanteID',$id)->get();
+
             return view('vacante.edit', compact('vacante'),
                 ['user' => $user,
                 'motivos' => $listaMotivos,
@@ -456,6 +460,7 @@ class VacanteController extends Controller
                 'zonas' => $zonas,
                     'listaDependencias' => $listaDependencias,
                     'listaProgramas' => $listaProgramas,
+                    'listaDocentesHistorico' => $listaDocentesHistorico,
             ]);
         }else{
             //Obtener número y nombre de zona
@@ -580,7 +585,7 @@ class VacanteController extends Controller
         }
 
         if($nombreDocenteActual != $nombreCDocente && $nombreDocenteActual != ""){
-            event(new RenunciaDocente($id,$numPersonalDocente,$nombreDocenteActual,$fechaAvisoActual,$fechaAsignacionActual,$fechaRenuncia));
+            event(new RenunciaDocente($id,$numPersonalDocente,$nombreDocenteActual,$fechaAviso,$fechaAsignacion,$fechaRenuncia));
         }
 
         $user = Auth::user();
