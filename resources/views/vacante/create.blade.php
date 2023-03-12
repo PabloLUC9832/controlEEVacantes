@@ -40,6 +40,9 @@
                         <li>Nombre de materia</li>
                         <li>Grupo</li>
                         <li>Motivo</li>
+                        <li>Tipo de contratación</li>
+                        <li>Tipo de asignación</li>
+                        <li>Docente</li>
                         <br>
                         Si necesitas dar de alta a un Docente, Experiencia Educativa, puedes hacerlo con los siguientes enlaces.
 
@@ -141,7 +144,7 @@
 
                                     <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="tipoContratacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Contratación</label>
-                                        <select  id="tipoContratacion" name="tipoContratacion" class="estiloSelect">
+                                        <select  id="tipoContratacion" name="tipoContratacion" class="estiloSelect" required>
                                             <option value="">Selecciona el tipo de contratación</option>
                                             <option value="Planta">Planta</option>
                                             <option value="IOD">Contratación IOD</option>
@@ -151,7 +154,7 @@
 
                                     <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="tipoAsignacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo de Asignación</label>
-                                        <select  id="tipoAsignacion" name="tipoAsignacion" class="estiloSelect">
+                                        <select  id="tipoAsignacion" name="tipoAsignacion" class="estiloSelect" required>
                                             <option value="">Selecciona el tipo de asignación</option>
                                             @foreach ($tiposAsignacion as $data)
                                                 <option value="{{$data->tipo}}">
@@ -163,7 +166,7 @@
 
                                     <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                                         <label for="numPersonalDocente" class="block mb-0 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
-                                        <select  id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect">
+                                        <select  id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect" required>
                                             <option value="">Selecciona al docente</option>
                                             @foreach ($docentes as $data)
                                                 <option value="{{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}">

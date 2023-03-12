@@ -114,10 +114,35 @@
                         <td class="py-4 px-6">
 
                             @if($vacante->archivo != null)
-
+                                {{--
                                 <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">
                                     <img src="{{asset('images/file.png')}}" alt="">
                                 </a>
+                                --}}
+
+                                <?php
+                                $path = "vac-{$vacante->id}";
+                                $disk = Storage::disk('azure');
+                                $files = $disk->files($path);
+                                $filesList = array();
+                                foreach ($files as $file){
+                                    $filename = "$file";
+                                    $item = array(
+                                        'name' => $filename,
+                                    );
+                                    array_push($filesList,$item);
+                                }
+                                ?>
+                                @foreach ($filesList as $file)
+
+                                    {{--<a class="font-medium text-sm text-blue-600 underline dark:text-blue-500 hover:no-underline"
+                                       target="_blank"
+                                       href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}">{{$file["name"]}}</a>--}}
+                                    <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">
+                                        <img src="{{asset('images/file.png')}}" alt="{{$file["name"]}}" title="{{$file["name"]}}">
+                                    </a>
+                                    <br>
+                                @endforeach
 
                             @else
 

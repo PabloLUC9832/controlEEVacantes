@@ -26,6 +26,9 @@ use App\Providers\SelectVacanteIndex;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 
 class VacanteController extends Controller
 {
@@ -320,13 +323,36 @@ class VacanteController extends Controller
         $vacante->fechaCierre=$request->fechaCierre;
         $vacante->fechaRenuncia=$request->fechaRenuncia;
 
+        $lastID = DB::select("SELECT IDENT_CURRENT('vacantes')");
+        $myArr = get_object_vars($lastID[0]);
+        $oo = $myArr[""];
+        $ulti = $oo + 1;
+        //dd($lastID);
+        //dd($oo);
+        //print_r($ulti);
+        //var_dump($lastID);
+        //dd($ulti);
+        //die();
+
+        $vacante->archivo = "vac-{$ulti}";
+        /*
         if (isset($request->file) ){
             //Storage::makeDirectory($vacante->id);
             $request->file('file')->storeAs('/', $fileName, 'azure');
             $vacante->archivo = $fileName;
         }
-
+*/
         $vacante->save();
+        if (isset($request->file) ){
+            $directory="vac-{$vacante->id}";
+            Storage::makeDirectory($directory);
+            $request->file('file')->storeAs('/'.$directory.'/', $fileName, 'azure');
+            //$vacante->archivo = $fileName;
+            //$vacante->archivo = "vac-".$vacante->id;
+        }
+
+        //dd($vacante->id);
+        //die();
 
         if (!empty($request->numHoras) && !empty($request->tipoAsignacion)){
             event(new OperacionHorasVacante($request->numHoras,$request->numPrograma,$request->tipoContratacion,$request->tipoAsignacion));
@@ -447,6 +473,29 @@ class VacanteController extends Controller
             //obtener histórico docentes
             $listaDocentesHistorico = DB::table('historico_docente')->where('vacanteID',$id)->get();
 
+            /*
+            *Obtener los archivos
+            *@link https://www.jhanley.com/blog/laravel-adding-azure-blob-storage/
+            */
+            $path = "vac-{$id}";
+            $disk = Storage::disk('azure');
+            $files = $disk->files($path);
+            $filesList = array();
+            foreach ($files as $file){
+                //$filename = "$path/$file";
+                $filename = "$file";
+                $item = array(
+                    'name' => $filename,
+                );
+                array_push($filesList,$item);
+            }
+            //$results = json_encode($list, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            //dd($list);
+            //print_r($filesList);
+            //var_dump($filesList[0]["name"]);
+            //die();
+
+
             return view('vacante.edit', compact('vacante'),
                 ['user' => $user,
                 'motivos' => $listaMotivos,
@@ -458,9 +507,10 @@ class VacanteController extends Controller
                 'nombreZonaVacante' => $nombreZonaVacante,
                 'nombreDependenciaVacante' => $nombreDependenciaVacante,
                 'zonas' => $zonas,
-                    'listaDependencias' => $listaDependencias,
-                    'listaProgramas' => $listaProgramas,
-                    'listaDocentesHistorico' => $listaDocentesHistorico,
+                'listaDependencias' => $listaDependencias,
+                'listaProgramas' => $listaProgramas,
+                'listaDocentesHistorico' => $listaDocentesHistorico,
+                'files' => $filesList,
             ]);
         }else{
             //Obtener número y nombre de zona
@@ -541,7 +591,9 @@ class VacanteController extends Controller
         $fechaApertura=$request->fechaApertura;
         $fechaCierre=$request->fechaCierre;
         $fechaRenuncia=$request->fechaRenuncia;
+        //$archivo = $vacante->archivo;
 
+        /*
         if (isset($request->file) ){
             $fileName = time() ."_" . $request->file->getClientOriginalName();
 
@@ -550,6 +602,13 @@ class VacanteController extends Controller
             $archivo = $fileName;
         }else{
             $archivo = $vacante->archivo;
+        }*/
+
+        if (isset($request->file) ){
+            $directory="vac-{$vacante->id}";
+            $fileName = time() ."_" . $request->file->getClientOriginalName();
+            $request->file('file')->storeAs('/'.$directory.'/', $fileName, 'azure');
+            //$archivo = $fileName;
         }
 
         $vacante->update([
@@ -577,7 +636,7 @@ class VacanteController extends Controller
             'fechaApertura' => $fechaApertura ,
             'fechaCierre' => $fechaCierre ,
             'fechaRenuncia' => $fechaRenuncia ,
-            'archivo' => $archivo ,
+            //'archivo' => $archivo ,
         ]);
 
         if (!empty($numHoras) && !empty($tipoAsignacion) && !empty($tipoContratacion)){
