@@ -334,34 +334,38 @@
 
                                 <div class="col-span-6">
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                           for="file">Documento actual</label>
-                                    <a class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
-                                       target="_blank"
-                                       href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}">{{$vacante->archivo}}</a>
-                                    <input
-                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                        aria-describedby="file_input_help" id="file" type="file" accept=".pdf"
-                                        name="file">
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
-                                        Formato permitido: PDF</p>
-                                </div>
+                                           for="file">Documento(s) actual(es)</label>
 
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                            <button type="submit" class="btnGuardar">Actualizar Vacante</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            </form>
-        </div>
-    </div>
+                                    @foreach ($files as $file)
+                                       <a class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
+                                          target="_blank"
+                                          href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}">{{$file["name"]}}</a>
+                                        <br>
+                                   @endforeach
+                                   <input
+                                       class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                       aria-describedby="file_input_help" id="file" type="file" accept=".pdf"
+                                       name="file">
+                                   <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
+                                       Formato permitido: PDF</p>
+                               </div>
+
+                           </div>
+                       </div>
+                       <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                           <button type="submit" class="btnGuardar">Actualizar Vacante</button>
+                       </div>
+                   </div>
+               </form>
+           </div>
+           </form>
+       </div>
+   </div>
 </div>
 
 <div class="hidden sm:block" aria-hidden="true">
-    <div class="py-5">
-    </div>
+   <div class="py-5">
+   </div>
 </div>
 
 </div>

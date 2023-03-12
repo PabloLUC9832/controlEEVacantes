@@ -91,7 +91,29 @@
                         <label class="labelForms">Observaciones: {{$vacante->observaciones}}</label>
                     </div>
                     <div class="col-span-6">
-                        <p class="truncate text-sm text-gray-700 dark:text-black-400">Documento: <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$vacante->archivo}}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">{{$vacante->archivo}}</a> </p>
+
+                        <p class="truncate text-sm text-gray-700 dark:text-black-400">Documento(s):  </p>
+                        <?php
+                        $path = "vac-{$vacante->id}";
+                        $disk = Storage::disk('azure');
+                        $files = $disk->files($path);
+                        $filesList = array();
+                        foreach ($files as $file){
+                            $filename = "$file";
+                            $item = array(
+                                'name' => $filename,
+                            );
+                            array_push($filesList,$item);
+                        }
+                        ?>
+                        @foreach ($filesList as $file)
+                            ●
+                            <a class="font-medium text-sm text-blue-600 underline dark:text-blue-500 hover:no-underline"
+                               target="_blank"
+                               href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}">{{$file["name"]}}</a>
+                            <br>
+                        @endforeach
+
                     </div>
 
 
