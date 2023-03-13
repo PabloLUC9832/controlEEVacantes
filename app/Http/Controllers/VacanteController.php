@@ -471,13 +471,13 @@ class VacanteController extends Controller
             $listaProgramas = Zona_Dependencia_Programa::all()->where('clave_dependencia',$claveDependenciaVacante);
 
             //obtener histórico docentes
-            $listaDocentesHistorico = DB::table('historico_docente')->where('vacanteID',$id)->get();
+            $listaDocentesHistorico = DB::table('historico_docentes')->where('vacanteID',$id)->get();
 
             /*
             *Obtener los archivos
             *@link https://www.jhanley.com/blog/laravel-adding-azure-blob-storage/
             */
-            $path = "vac-{$id}";
+            /*$path = "vac-{$id}";
             $disk = Storage::disk('azure');
             $files = $disk->files($path);
             $filesList = array();
@@ -489,6 +489,7 @@ class VacanteController extends Controller
                 );
                 array_push($filesList,$item);
             }
+            */
             //$results = json_encode($list, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
             //dd($list);
             //print_r($filesList);
@@ -510,7 +511,7 @@ class VacanteController extends Controller
                 'listaDependencias' => $listaDependencias,
                 'listaProgramas' => $listaProgramas,
                 'listaDocentesHistorico' => $listaDocentesHistorico,
-                'files' => $filesList,
+                //'files' => $filesList,
             ]);
         }else{
             //Obtener número y nombre de zona
@@ -544,10 +545,10 @@ class VacanteController extends Controller
         $numDocente = $docentePartes[1] ;
 
         //comparar nombre actual en la BD
+        $numPersonalDocenteActual = $vacante->numPersonalDocente;
         $nombreDocenteActual = $vacante->nombreDocente;
         $fechaAvisoActual = $vacante->fechaAviso;
         $fechaAsignacionActual = $vacante->fechaAsignacion;
-        //$fechaRenunciaActual = $vacante->fechaRenuncia;
 
         if(empty($numDocente)){
             $numDocente= "";
@@ -644,7 +645,7 @@ class VacanteController extends Controller
         }
 
         if($nombreDocenteActual != $nombreCDocente && $nombreDocenteActual != ""){
-            event(new RenunciaDocente($id,$numPersonalDocente,$nombreDocenteActual,$fechaAviso,$fechaAsignacion,$fechaRenuncia));
+            event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,$fechaAsignacionActual,$fechaRenuncia));
         }
 
         $user = Auth::user();
