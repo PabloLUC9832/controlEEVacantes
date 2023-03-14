@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\HistoricoDocente;
 use App\Providers\RenunciaDocente;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -28,17 +29,17 @@ class OperacionRenunciaDocente
     public function handle(RenunciaDocente $event)
     {
         $current_timestamp = now();
-        $saveActivity = DB::table('historico_docente')
-                        ->insert([
-                            'vacanteID' => $event->vacanteID,
-                            'nPersonal' => $event->nPersonalDocente,
-                            'nombreDocente' => $event->docenteNombre,
-                            'fechaAviso' => $event->fechaAviso,
-                            'fechaAsignacion' => $event->fechaAsignacion ,
-                            'fechaRenuncia' => $event->fechaRenuncia,
-                            'created_at' => $current_timestamp,
-                            'updated_at' => $current_timestamp,
-                        ]);
+        $saveActivity = DB::table('historico_docentes')
+            ->insert([
+                'vacanteID' => $event->vacanteID,
+                'nPersonal' => $event->nPersonalDocente,
+                'nombreDocente' => $event->docenteNombre,
+                'fechaAviso' => $event->fechaAviso,
+                'fechaAsignacion' => $event->fechaAsignacion ,
+                'fechaRenuncia' => $event->fechaRenuncia,
+                'created_at' => $current_timestamp,
+                'updated_at' => $current_timestamp,
+            ]);
         return $saveActivity;
     }
 }

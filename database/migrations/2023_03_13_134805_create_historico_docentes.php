@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('historico_docente', function (Blueprint $table) {
+        Schema::create('historico_docentes', function (Blueprint $table) {
             $table->id();
             $table->integer('vacanteID');
             $table->integer('nPersonal')->nullable();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historico_docente');
+        Schema::dropIfExists('historico_docentes');
     }
 };

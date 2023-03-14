@@ -135,9 +135,6 @@
                                 ?>
                                 @foreach ($filesList as $file)
 
-                                    {{--<a class="font-medium text-sm text-blue-600 underline dark:text-blue-500 hover:no-underline"
-                                       target="_blank"
-                                       href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}">{{$file["name"]}}</a>--}}
                                     <a target="_blank" href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">
                                         <img src="{{asset('images/file.png')}}" alt="{{$file["name"]}}" title="{{$file["name"]}}">
                                     </a>

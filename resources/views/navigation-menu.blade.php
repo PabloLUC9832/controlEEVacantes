@@ -136,11 +136,19 @@
                                         {{ __('Configuración de equipo') }}
                                     </x-jet-dropdown-link>
 
+                                    {{--
                                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
                                         <x-jet-dropdown-link href="{{ route('teams.create') }}">
                                             {{ __('Crear nuevo equipo') }}
                                         </x-jet-dropdown-link>
                                     @endcan
+                                    --}}
+                                    @if ( Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin') )
+                                        <x-jet-dropdown-link href="{{ route('teams.create') }}">
+                                            {{ __('Crear nuevo equipo') }}
+                                        </x-jet-dropdown-link>
+                                    @endif
+
 
                                     <div class="border-t border-gray-100"></div>
 
