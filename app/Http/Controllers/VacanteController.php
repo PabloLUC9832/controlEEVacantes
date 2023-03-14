@@ -69,13 +69,13 @@ class VacanteController extends Controller
                 $busqueda = "";
                 $isDeleted = false;
                 $vacantes = DB::table('vacantes')
-                            ->join('periodos',function($join){
-                                $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
-                                     ->where('periodos.actual',"=",1)
-                                     ->whereNull('deleted_at');
-                            })
-                            ->paginate('15')
-                            ;
+                    ->join('periodos',function($join){
+                        $join->on('vacantes.clavePeriodo','=','periodos.clavePeriodo')
+                            ->where('periodos.actual',"=",1)
+                            ->whereNull('deleted_at');
+                    })
+                    ->paginate('15')
+                ;
             }else{
 
                 $zona = $userSelect->id_zona;
@@ -198,7 +198,7 @@ class VacanteController extends Controller
             ->get();
 
         return view('vacante.index', compact(
-            'vacantes','zona','zonas','dependencia','programa','filtro','isDeleted','countVacantes',
+                'vacantes','zona','zonas','dependencia','programa','filtro','isDeleted','countVacantes',
                 'programasEducUsuario', 'nombreZona', 'nombreDependencia', 'nombrePrograma', 'listaDependenciasSelect',
                 'listaProgramasSelect'
             )
@@ -237,32 +237,32 @@ class VacanteController extends Controller
 
         if($userAdmin){
 
-        return view('vacante.create',['programas' => $listaProgramas,
-                                           'user' => $user,
-                                           'motivos' => $listaMotivos,
-                                           'docentes' => $listaDocentes,
-                                           'experienciasEducativas' => $listaExperienciasEducativas,
-                                           'periodos' => $listaPeriodos,
-                                           'tiposAsignacion' => $listaTiposAsignacion,
-                                           'nombreZonaUsuario' => $nombreZonaUsuario,
-                                           'numeroZonaUsuario' => $numeroZonaUsuario,
-                                           'nombreDependenciaUsuario' => $nombreDependenciaUsuario,
-                                           'numeroDependenciaUsuario' => $numeroDependenciaUsuario,
-                                           'zonas' => $zonas,
-                                          ]);
+            return view('vacante.create',['programas' => $listaProgramas,
+                'user' => $user,
+                'motivos' => $listaMotivos,
+                'docentes' => $listaDocentes,
+                'experienciasEducativas' => $listaExperienciasEducativas,
+                'periodos' => $listaPeriodos,
+                'tiposAsignacion' => $listaTiposAsignacion,
+                'nombreZonaUsuario' => $nombreZonaUsuario,
+                'numeroZonaUsuario' => $numeroZonaUsuario,
+                'nombreDependenciaUsuario' => $nombreDependenciaUsuario,
+                'numeroDependenciaUsuario' => $numeroDependenciaUsuario,
+                'zonas' => $zonas,
+            ]);
         }else{
-                return view('vacante.createEditor',['programas' => $listaProgramas,
-                    'user' => $user,
-                    'motivos' => $listaMotivos,
-                    'docentes' => $listaDocentes,
-                    'experienciasEducativas' => $listaExperienciasEducativas,
-                    'periodos' => $listaPeriodos,
-                    'tiposAsignacion' => $listaTiposAsignacion,
-                    'nombreZonaUsuario' => $nombreZonaUsuario,
-                    'numeroZonaUsuario' => $numeroZonaUsuario,
-                    'nombreDependenciaUsuario' => $nombreDependenciaUsuario,
-                    'numeroDependenciaUsuario' => $numeroDependenciaUsuario,
-                ]);
+            return view('vacante.createEditor',['programas' => $listaProgramas,
+                'user' => $user,
+                'motivos' => $listaMotivos,
+                'docentes' => $listaDocentes,
+                'experienciasEducativas' => $listaExperienciasEducativas,
+                'periodos' => $listaPeriodos,
+                'tiposAsignacion' => $listaTiposAsignacion,
+                'nombreZonaUsuario' => $nombreZonaUsuario,
+                'numeroZonaUsuario' => $numeroZonaUsuario,
+                'nombreDependenciaUsuario' => $nombreDependenciaUsuario,
+                'numeroDependenciaUsuario' => $numeroDependenciaUsuario,
+            ]);
         }
 
     }
@@ -327,28 +327,14 @@ class VacanteController extends Controller
         $myArr = get_object_vars($lastID[0]);
         $oo = $myArr[""];
         $ulti = $oo + 1;
-        //dd($lastID);
-        //dd($oo);
-        //print_r($ulti);
-        //var_dump($lastID);
-        //dd($ulti);
-        //die();
 
         $vacante->archivo = "vac-{$ulti}";
-        /*
-        if (isset($request->file) ){
-            //Storage::makeDirectory($vacante->id);
-            $request->file('file')->storeAs('/', $fileName, 'azure');
-            $vacante->archivo = $fileName;
-        }
-*/
+
         $vacante->save();
         if (isset($request->file) ){
             $directory="vac-{$vacante->id}";
             Storage::makeDirectory($directory);
             $request->file('file')->storeAs('/'.$directory.'/', $fileName, 'azure');
-            //$vacante->archivo = $fileName;
-            //$vacante->archivo = "vac-".$vacante->id;
         }
 
         //dd($vacante->id);
@@ -360,9 +346,9 @@ class VacanteController extends Controller
 
         $user = Auth::user();
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
-                . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
-                . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
-                . " " . $request->observaciones . " " . " ". $request->fechaAviso . $request->fechaAsignacion . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia;
+            . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
+            . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
+            . " " . $request->observaciones . " " . " ". $request->fechaAviso . $request->fechaAsignacion . " " . $request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia;
 
 
 
@@ -477,7 +463,7 @@ class VacanteController extends Controller
             *Obtener los archivos
             *@link https://www.jhanley.com/blog/laravel-adding-azure-blob-storage/
             */
-            /*$path = "vac-{$id}";
+            $path = "vac-{$id}";
             $disk = Storage::disk('azure');
             $files = $disk->files($path);
             $filesList = array();
@@ -489,30 +475,24 @@ class VacanteController extends Controller
                 );
                 array_push($filesList,$item);
             }
-            */
-            //$results = json_encode($list, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-            //dd($list);
-            //print_r($filesList);
-            //var_dump($filesList[0]["name"]);
-            //die();
 
 
             return view('vacante.edit', compact('vacante'),
                 ['user' => $user,
-                'motivos' => $listaMotivos,
-                'docentes' => $listaDocentes,
-                'experienciasEducativas' => $listaExperienciasEducativas,
-                'periodos' => $listaPeriodos,
-                'tiposAsignacion' => $listaTiposAsignacion,
-                'nombreProgramaEducativo' => $nombreProgramaEducativo,
-                'nombreZonaVacante' => $nombreZonaVacante,
-                'nombreDependenciaVacante' => $nombreDependenciaVacante,
-                'zonas' => $zonas,
-                'listaDependencias' => $listaDependencias,
-                'listaProgramas' => $listaProgramas,
-                'listaDocentesHistorico' => $listaDocentesHistorico,
-                //'files' => $filesList,
-            ]);
+                    'motivos' => $listaMotivos,
+                    'docentes' => $listaDocentes,
+                    'experienciasEducativas' => $listaExperienciasEducativas,
+                    'periodos' => $listaPeriodos,
+                    'tiposAsignacion' => $listaTiposAsignacion,
+                    'nombreProgramaEducativo' => $nombreProgramaEducativo,
+                    'nombreZonaVacante' => $nombreZonaVacante,
+                    'nombreDependenciaVacante' => $nombreDependenciaVacante,
+                    'zonas' => $zonas,
+                    'listaDependencias' => $listaDependencias,
+                    'listaProgramas' => $listaProgramas,
+                    'listaDocentesHistorico' => $listaDocentesHistorico,
+                    'files' => $filesList,
+                ]);
         }else{
             //Obtener número y nombre de zona
             $zonaUsuario = $user->zona;
@@ -522,8 +502,8 @@ class VacanteController extends Controller
 
             return view('vacante.editEditor', compact('vacante'),
                 ['programas' => $listaProgramasEditor,
-                'user' => $user,
-            ]);
+                    'user' => $user,
+                ]);
         }
 
     }
@@ -544,7 +524,7 @@ class VacanteController extends Controller
         $nombreDocente= $docentePartes[0];
         $numDocente = $docentePartes[1] ;
 
-        //comparar nombre actual en la BD
+        //comparar nombre actual en la
         $numPersonalDocenteActual = $vacante->numPersonalDocente;
         $nombreDocenteActual = $vacante->nombreDocente;
         $fechaAvisoActual = $vacante->fechaAviso;
@@ -592,24 +572,14 @@ class VacanteController extends Controller
         $fechaApertura=$request->fechaApertura;
         $fechaCierre=$request->fechaCierre;
         $fechaRenuncia=$request->fechaRenuncia;
-        //$archivo = $vacante->archivo;
+        $archivo = "vac-{$id}";
 
-        /*
-        if (isset($request->file) ){
-            $fileName = time() ."_" . $request->file->getClientOriginalName();
-
-            Storage::makeDirectory($id);
-            $request->file('file')->storeAs('/'.$id.'/', $fileName, 'azure');
-            $archivo = $fileName;
-        }else{
-            $archivo = $vacante->archivo;
-        }*/
-
-        if (isset($request->file) ){
+        if($request->hasFile('files')){
             $directory="vac-{$vacante->id}";
-            $fileName = time() ."_" . $request->file->getClientOriginalName();
-            $request->file('file')->storeAs('/'.$directory.'/', $fileName, 'azure');
-            //$archivo = $fileName;
+            foreach ($request->file('files') as $file){
+                $fileName = time() ."_" . $file->getClientOriginalName();
+                $file->storeAs('/'.$directory.'/', $fileName, 'azure');
+            }
         }
 
         $vacante->update([
@@ -637,7 +607,7 @@ class VacanteController extends Controller
             'fechaApertura' => $fechaApertura ,
             'fechaCierre' => $fechaCierre ,
             'fechaRenuncia' => $fechaRenuncia ,
-            //'archivo' => $archivo ,
+            'archivo' => $archivo ,
         ]);
 
         if (!empty($numHoras) && !empty($tipoAsignacion) && !empty($tipoContratacion)){
@@ -650,9 +620,9 @@ class VacanteController extends Controller
 
         $user = Auth::user();
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
-                . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
-                . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
-                . " " . $request->observaciones . " " . $request->fechaAsignacion . " " .$request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia;
+            . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
+            . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
+            . " " . $request->observaciones . " " . $request->fechaAsignacion . " " .$request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia;
         event(new LogUserActivity($user,"Actualización de Vacante ID $id ",$data));
 
         return redirect()->route('vacante.index');
@@ -708,8 +678,18 @@ class VacanteController extends Controller
         return redirect()->route('vacante.index');
     }
 
+    public function deleteFile($id,$file)
+    {
+        $directory = $id.'/'.$file;
+        //dd($d);
+        Storage::disk('azure')->delete($directory);
+        //Storage::disk('azure')->delete('vac-223/1678734935_matricula.pdf');
+
+        return redirect()->back();
+    }
+
     /**
-     * Mostrar la vista
+     * Mostrar la vista para importar el CSV
      */
     public function import(Request $request){
 
@@ -780,7 +760,7 @@ class VacanteController extends Controller
     public function fetchHorasExperienciaEducativa(Request $request)
     {
         $data['horasExperienciaEducativa'] = ExperienciaEducativa::where("nrc", $request->nrc)
-                                ->get(["nrc","horas"]);
+            ->get(["nrc","horas"]);
 
         return response()->json($data);
     }
@@ -907,4 +887,3 @@ class VacanteController extends Controller
     }
 
 }
-

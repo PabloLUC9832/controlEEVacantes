@@ -72,6 +72,8 @@ Route::controller(VacanteController::class)->group(function (){
         Route::post('/vacante/storeDocente', 'storeDocente')->name('storeDocente');
         Route::post('/vacante/storeEe', 'storeEe')->name('storeEe');
 
+        Route::post('/vacante/deleteFile/{id}/{file}', 'deleteFile')->name('deleteFile');
+
     });
 
 });

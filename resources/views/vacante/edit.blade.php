@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -45,6 +45,13 @@
                     <li>Grupo</li>
                     <li>Motivo</li>
                     <br>
+
+                    <div class="hidden sm:block" aria-hidden="true">
+                        <div class="py-5">
+                            <div class="border-t border-gray-200"></div>
+                        </div>
+                    </div>
+
                     Si necesitas dar de alta a un Docente, Experiencia Educativa, puedes hacerlo con los siguientes
                     enlaces.
 
@@ -63,6 +70,39 @@
                             Crear Experiencia Educativa
                         </button>
                     </div>
+
+                    <div class="hidden sm:block" aria-hidden="true">
+                        <div class="py-5">
+                            <div class="border-t border-gray-200"></div>
+                        </div>
+                    </div>
+
+
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-medium" >Documento(s) actual(es)</label>
+
+                    @foreach ($files as $file)
+                        <div class="gap-6">
+                            <a class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
+                               target="_blank"
+                               href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}">{{$file["name"]}}
+                            </a>
+                                <?php
+                                $archivo = $file["name"];
+                                $archivoPartes = explode("/",$archivo);
+                                $vacanteArchivo= $archivoPartes[0];
+                                $nombreArchivo = $archivoPartes[1] ;
+                                ?>
+
+                            <form action="{{ route('vacante.deleteFile',['id' =>$vacanteArchivo,'file' => $nombreArchivo ]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="px-6 font-medium text-red-600 underline dark:text-blue-500 hover:no-underline">Eliminar</button>
+                            </form>
+
+                            <br>
+                        </div>
+                    @endforeach
+
+
 
                     @include('vacante.createDocente')
                     @include('vacante.createEE')
@@ -337,15 +377,18 @@
                                            for="file">Documento(s) actual(es)</label>
 
                                     @foreach ($files as $file)
+                                        <div class="gap-6">
                                        <a class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
                                           target="_blank"
-                                          href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}">{{$file["name"]}}</a>
+                                          href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}">{{$file["name"]}}
+                                       </a>
                                         <br>
+                                        </div>
                                    @endforeach
                                    <input
                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                        aria-describedby="file_input_help" id="file" type="file" accept=".pdf"
-                                       name="file">
+                                       name="files[]" multiple>
                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
                                        Formato permitido: PDF</p>
                                </div>
@@ -358,8 +401,8 @@
                    </div>
                </form>
            </div>
-           </form>
-       </div>
+
+        </div>
    </div>
 </div>
 
