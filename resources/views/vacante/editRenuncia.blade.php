@@ -32,6 +32,7 @@
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Actualizar Renuncia</h3>
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Los datos que puedes modificar son los siguientes:</b></p>
+                    <li>Tipo de Asignación</li>
                     <li>Fecha de Aviso</li>
                     <li>Fecha de Asignación</li>
                     <li>Fecha de Cierre</li>
@@ -47,18 +48,33 @@
                             <div class="grid grid-cols-6 gap-6">
                                 @csrf
 
-                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="docente" class="labelForms">Número de personal</label>
                                     <input type="text" id="docente" class="inputForms"
                                            readonly
                                            value="{{$docente->nPersonal}}">
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="docente" class="labelForms">Docente</label>
                                     <input type="text" id="docente" class="inputForms"
                                            readonly
                                            value="{{$docente->nombreDocente}}">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
+                                    <label for="tipoAsignacion"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Tipo
+                                        de Asignación</label>
+                                    <select id="tipoAsignacion" name="tipoAsignacion" class="estiloSelect">
+                                        <option
+                                            value="{{$docente->tipoAsignacion}}">{{$docente->tipoAsignacion}}</option>
+                                        @foreach ($listaTiposAsignacion as $data)
+                                            <option value="{{$data->tipo}}">
+                                                {{$data->tipo}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-2 lg:col-span-2">

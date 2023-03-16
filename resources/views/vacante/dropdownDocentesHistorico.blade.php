@@ -17,6 +17,7 @@
                 <div class="w-full pl-3">
                     <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">Número de personal: <span class="font-semibold text-gray-900 dark:text-white">{{$docente->nPersonal}}</span></div>
                     <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">Nombre del docente: <span class="font-semibold text-gray-900 dark:text-white">{{$docente->nombreDocente}}</span></div>
+                    <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">Tipo de asignación: <span class="font-semibold text-gray-900 dark:text-white">{{$docente->tipoAsignacion}}</span></div>
                     <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">Fecha de aviso: <span class="font-semibold text-gray-900 dark:text-white">{{$docente->fechaAviso}}</span></div>
                     <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">Fecha de asignación: <span class="font-semibold text-gray-900 dark:text-white">{{$docente->fechaAsignacion}}</span></div>
                     <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">Fecha de renuncia: <span class="font-semibold text-gray-900 dark:text-white">{{$docente->fechaRenuncia}}</span></div>

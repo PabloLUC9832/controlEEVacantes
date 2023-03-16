@@ -17,6 +17,7 @@ class RenunciaDocente
     public $vacanteID;
     public $nPersonalDocente;
     public $docenteNombre;
+    public $tipoAsignacion;
     public  $fechaAviso;
     public  $fechaAsignacion;
     public  $fechaRenuncia;
@@ -26,11 +27,12 @@ class RenunciaDocente
      *
      * @return void
      */
-    public function __construct($vacanteID,$nPersonalDocente,$docenteNombre,$fechaAviso,$fechaAsignacion,$fechaRenuncia)
+    public function __construct($vacanteID,$nPersonalDocente,$docenteNombre,$tipoAsignacion,$fechaAviso,$fechaAsignacion,$fechaRenuncia)
     {
         $this->vacanteID = $vacanteID;
         $this->nPersonalDocente = $nPersonalDocente;
         $this->docenteNombre = $docenteNombre;
+        $this->tipoAsignacion = $tipoAsignacion;
         $this->fechaAviso = $fechaAviso;
         $this->fechaAsignacion = $fechaAsignacion;
         $this->fechaRenuncia = $fechaRenuncia;

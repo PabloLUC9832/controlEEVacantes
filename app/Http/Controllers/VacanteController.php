@@ -508,8 +508,9 @@ class VacanteController extends Controller
     public function editRenuncia($id)
     {
         $docente = HistoricoDocente::findOrFail($id);
+        $listaTiposAsignacion = TipoAsignacion::all();
 
-        return view('vacante.editRenuncia', compact('docente'));
+        return view('vacante.editRenuncia', compact('docente','listaTiposAsignacion'));
     }
 
     /**
@@ -531,6 +532,7 @@ class VacanteController extends Controller
         //comparar docente y fechas actual en la vacante
         $numPersonalDocenteActual = $vacante->numPersonalDocente;
         $nombreDocenteActual = $vacante->nombreDocente;
+        $tipoAsignacionActual = $vacante->tipoAsignacion;
         $fechaAvisoActual = $vacante->fechaAviso;
         $fechaAsignacionActual = $vacante->fechaAsignacion;
         $fechaRenunciaActual = $vacante->fechaRenuncia;
@@ -625,25 +627,25 @@ class VacanteController extends Controller
         if($numPersonalDocenteActual != $numPersonalDocenteHistorico){
             if($nombreDocenteActual != $nombreCDocente && $nombreDocenteActual != ""){
                 if($fechaAvisoActual != null && $fechaAsignacionActual != null && $fechaRenunciaActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,$fechaAsignacionActual,$fechaRenunciaActual));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,$fechaAsignacionActual,$fechaRenunciaActual));
                 }
                 elseif($fechaAvisoActual == null || $fechaAsignacionActual != null && $fechaRenunciaActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,"",$fechaAsignacionActual,$fechaRenunciaActual));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,"",$fechaAsignacionActual,$fechaRenunciaActual));
                 }
                 elseif($fechaAsignacionActual == null || $fechaAvisoActual != null && $fechaRenunciaActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,"",$fechaRenunciaActual));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,"",$fechaRenunciaActual));
                 }
                 elseif($fechaRenunciaActual == null || $fechaAvisoActual != null && $fechaAsignacionActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,$fechaAsignacionActual,""));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,$fechaAsignacionActual,""));
                 }
                 elseif($fechaAvisoActual == null && $fechaAsignacionActual != null || $fechaRenunciaActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,"","",$fechaRenunciaActual));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,"","",$fechaRenunciaActual));
                 }
                 elseif($fechaAsignacionActual == null && $fechaRenunciaActual != null || $fechaAvisoActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,"",""));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,"",""));
                 }
                 elseif($fechaRenunciaActual == null && $fechaAvisoActual != null || $fechaAsignacionActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,"",$fechaAsignacionActual,""));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,"",$fechaAsignacionActual,""));
                 }
             }
         }
@@ -687,18 +689,20 @@ class VacanteController extends Controller
 
         $docente = HistoricoDocente::findOrFail($id);
 
+        $tipoAsignacion = $request->tipoAsignacion;
         $fechaAviso=$request->fechaAviso;
         $fechaAsignacion=$request->fechaAsignacion;
         $fechaRenuncia=$request->fechaRenuncia;
 
         $docente->update([
+            'tipoAsignacion' => $tipoAsignacion,
             'fechaAviso' => $fechaAviso,
             'fechaAsignacion' => $fechaAsignacion,
             'fechaRenuncia' => $fechaRenuncia
         ]);
 
         $user = Auth::user();
-        $data = $request->fechaAviso . " " . $request->fechaAsignacion . " " . $request->fechaRenuncia;
+        $data = $tipoAsignacion . " " . $request->fechaAviso . " " . $request->fechaAsignacion . " " . $request->fechaRenuncia;
         event(new LogUserActivity($user,"Actualización de Renuncia ID $id ",$data));
 
         return redirect()->to('vacante/edit/'.$docente->vacanteID);
