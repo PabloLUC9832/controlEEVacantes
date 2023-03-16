@@ -636,6 +636,15 @@ class VacanteController extends Controller
                 elseif($fechaRenunciaActual == null || $fechaAvisoActual != null && $fechaAsignacionActual != null){
                     event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,$fechaAsignacionActual,""));
                 }
+                elseif($fechaAvisoActual == null && $fechaAsignacionActual != null || $fechaRenunciaActual != null){
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,"","",$fechaRenunciaActual));
+                }
+                elseif($fechaAsignacionActual == null && $fechaRenunciaActual != null || $fechaAvisoActual != null){
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,"",""));
+                }
+                elseif($fechaRenunciaActual == null && $fechaAvisoActual != null || $fechaAsignacionActual != null){
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,"",$fechaAsignacionActual,""));
+                }
             }
         }
 
