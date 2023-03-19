@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('vacanteID');
             $table->integer('nPersonal')->nullable();
             $table->text('nombreDocente');
+            $table->text('tipoAsignacion')->nullable();
             $table->text('fechaAviso')->nullable();
             $table->text('fechaAsignacion')->nullable();
             $table->text('fechaRenuncia')->nullable();

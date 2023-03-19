@@ -289,11 +289,11 @@ class VacanteController extends Controller
 
         $experienciaEducativaCompleta = $request->numMateria;
         $experienciaEducativaPartes = explode("~",$experienciaEducativaCompleta);
-
+        /*
         if($request->file()){
             $fileName = time() ."_" . $request->file->getClientOriginalName();
         }
-
+        */
         $vacante = new Vacante();
 
         $vacante->periodo=$periodoPartes[0];
@@ -328,14 +328,20 @@ class VacanteController extends Controller
         $oo = $myArr[""];
         $ulti = $oo + 1;
 
-        $vacante->archivo = "vac-{$ulti}";
+        //$vacante->archivo = "vac-{$ulti}";
+        $vacante->archivo = "Inexistente";
+
+        if($request->hasFile('files')){
+            $directory="vac-{$ulti}";
+            $vacante->archivo = "vac-{$ulti}";
+            Storage::makeDirectory($directory);
+            foreach ($request->file('files') as $file){
+                $fileName = time() ."_" . $file->getClientOriginalName();
+                $file->storeAs('/'.$directory.'/', $fileName, 'azure');
+            }
+        }
 
         $vacante->save();
-        if (isset($request->file) ){
-            $directory="vac-{$vacante->id}";
-            Storage::makeDirectory($directory);
-            $request->file('file')->storeAs('/'.$directory.'/', $fileName, 'azure');
-        }
 
         if (!empty($request->numHoras) && !empty($request->tipoAsignacion)){
             event(new OperacionHorasVacante($request->numHoras,$request->numPrograma,$request->tipoContratacion,$request->tipoAsignacion));
@@ -351,7 +357,6 @@ class VacanteController extends Controller
 
         event(new LogUserActivity($user,"Creación de Vacante",$data));
 
-        //return redirect()->route('dashboard');
         return redirect()->route('vacante.index');
     }
 
@@ -508,8 +513,9 @@ class VacanteController extends Controller
     public function editRenuncia($id)
     {
         $docente = HistoricoDocente::findOrFail($id);
+        $listaTiposAsignacion = TipoAsignacion::all();
 
-        return view('vacante.editRenuncia', compact('docente'));
+        return view('vacante.editRenuncia', compact('docente','listaTiposAsignacion'));
     }
 
     /**
@@ -531,6 +537,7 @@ class VacanteController extends Controller
         //comparar docente y fechas actual en la vacante
         $numPersonalDocenteActual = $vacante->numPersonalDocente;
         $nombreDocenteActual = $vacante->nombreDocente;
+        $tipoAsignacionActual = $vacante->tipoAsignacion;
         $fechaAvisoActual = $vacante->fechaAviso;
         $fechaAsignacionActual = $vacante->fechaAsignacion;
         $fechaRenunciaActual = $vacante->fechaRenuncia;
@@ -577,10 +584,12 @@ class VacanteController extends Controller
         $fechaApertura=$request->fechaApertura;
         $fechaCierre=$request->fechaCierre;
         $fechaRenuncia=$request->fechaRenuncia;
-        $archivo = "vac-{$id}";
+        //$archivo = "vac-{$id}";
+        $archivo = $vacante->archivo;
 
         if($request->hasFile('files')){
             $directory="vac-{$vacante->id}";
+            $archivo = $directory;
             foreach ($request->file('files') as $file){
                 $fileName = time() ."_" . $file->getClientOriginalName();
                 $file->storeAs('/'.$directory.'/', $fileName, 'azure');
@@ -625,25 +634,25 @@ class VacanteController extends Controller
         if($numPersonalDocenteActual != $numPersonalDocenteHistorico){
             if($nombreDocenteActual != $nombreCDocente && $nombreDocenteActual != ""){
                 if($fechaAvisoActual != null && $fechaAsignacionActual != null && $fechaRenunciaActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,$fechaAsignacionActual,$fechaRenunciaActual));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,$fechaAsignacionActual,$fechaRenunciaActual));
                 }
                 elseif($fechaAvisoActual == null || $fechaAsignacionActual != null && $fechaRenunciaActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,"",$fechaAsignacionActual,$fechaRenunciaActual));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,"",$fechaAsignacionActual,$fechaRenunciaActual));
                 }
                 elseif($fechaAsignacionActual == null || $fechaAvisoActual != null && $fechaRenunciaActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,"",$fechaRenunciaActual));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,"",$fechaRenunciaActual));
                 }
                 elseif($fechaRenunciaActual == null || $fechaAvisoActual != null && $fechaAsignacionActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,$fechaAsignacionActual,""));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,$fechaAsignacionActual,""));
                 }
                 elseif($fechaAvisoActual == null && $fechaAsignacionActual != null || $fechaRenunciaActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,"","",$fechaRenunciaActual));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,"","",$fechaRenunciaActual));
                 }
                 elseif($fechaAsignacionActual == null && $fechaRenunciaActual != null || $fechaAvisoActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,"",""));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,"",""));
                 }
                 elseif($fechaRenunciaActual == null && $fechaAvisoActual != null || $fechaAsignacionActual != null){
-                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,"",$fechaAsignacionActual,""));
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,"",$fechaAsignacionActual,""));
                 }
             }
         }
@@ -687,18 +696,20 @@ class VacanteController extends Controller
 
         $docente = HistoricoDocente::findOrFail($id);
 
+        $tipoAsignacion = $request->tipoAsignacion;
         $fechaAviso=$request->fechaAviso;
         $fechaAsignacion=$request->fechaAsignacion;
         $fechaRenuncia=$request->fechaRenuncia;
 
         $docente->update([
+            'tipoAsignacion' => $tipoAsignacion,
             'fechaAviso' => $fechaAviso,
             'fechaAsignacion' => $fechaAsignacion,
             'fechaRenuncia' => $fechaRenuncia
         ]);
 
         $user = Auth::user();
-        $data = $request->fechaAviso . " " . $request->fechaAsignacion . " " . $request->fechaRenuncia;
+        $data = $tipoAsignacion . " " . $request->fechaAviso . " " . $request->fechaAsignacion . " " . $request->fechaRenuncia;
         event(new LogUserActivity($user,"Actualización de Renuncia ID $id ",$data));
 
         return redirect()->to('vacante/edit/'.$docente->vacanteID);
@@ -736,6 +747,35 @@ class VacanteController extends Controller
         //dd($d);
         Storage::disk('azure')->delete($directory);
         //Storage::disk('azure')->delete('vac-223/1678734935_matricula.pdf');
+
+        $archivoPartes = explode("-",$id);
+        $vacanteArchivo= $archivoPartes[0];
+        $idVac = $archivoPartes[1] ;
+
+        $vacante = Vacante::findOrFail($idVac);
+
+        $path = "vac-" . $vacante->id;
+        $disk = Storage::disk('azure');
+        $files = $disk->files($path);
+        $filesList = array();
+        foreach ($files as $file){
+            $filename = "$file";
+            $item = array(
+                'name' => $filename,
+            );
+            array_push($filesList,$item);
+        }
+
+        $nFile = count($filesList);
+        if(empty($nFile) ){
+            $vacante->update([
+                'archivo' => "Inexistente" ,
+            ]);
+        }
+        //dd($filesList);
+        //die();
+        //dd($vacante);
+        //die();
 
         return redirect()->back();
     }
@@ -850,6 +890,24 @@ class VacanteController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchFiltroNombre(Request $request)
+    {
+        $rangoLetrasApellido = $request->rangoLetrasApellido;
+
+        //$data['filtroNombre'] = Docente::where("nombre",'LIKE', '[a-c]%')
+        $data['filtroNombre'] = Docente::where("nombre",'LIKE','['.$request->rangoLetrasNombre.']%')
+            ->where(function ($query) use ($rangoLetrasApellido){
+                $query->where("apellidoPaterno",'LIKE','['.$rangoLetrasApellido.']%');
+            })
+            ->get(["nPersonal","nombre","apellidoPaterno","apellidoMaterno"]);
+
+        return response()->json($data);
+    }
+
+    /**
      * Función para realizar las búsquedas usadas en el método de index y search
      *
      * @link https://laravel.com/docs/9.x/queries#joins
@@ -895,7 +953,8 @@ class VacanteController extends Controller
                     })
                     ->when( $userSelectFiltro == "VacantesArchivos" ,function($query){
                         $query->whereNull('deleted_at')
-                            ->whereNotNull('archivo')
+                            //->whereNotNull('archivo')
+                            ->where('archivo','<>','Inexistente')
                         ;
                     })
                     ->when( $userSelectFiltro == "ComplementoCarga" ,function($query){
