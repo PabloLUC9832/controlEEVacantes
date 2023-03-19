@@ -279,7 +279,7 @@ class VacanteController extends Controller
         $docentePartes = explode("-",$docenteCompleto);
         $nombreDocente= $docentePartes[0];
         $numDocente = $docentePartes[1] ;
-        //dd($docenteCompleto);
+
         if(empty($numDocente)){
             $numDocente= "";
         }
@@ -510,6 +510,14 @@ class VacanteController extends Controller
 
     }
 
+    public function editRenuncia($id)
+    {
+        $docente = HistoricoDocente::findOrFail($id);
+        $listaTiposAsignacion = TipoAsignacion::all();
+
+        return view('vacante.editRenuncia', compact('docente','listaTiposAsignacion'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -526,11 +534,13 @@ class VacanteController extends Controller
         $nombreDocente= $docentePartes[0];
         $numDocente = $docentePartes[1] ;
 
-        //comparar nombre actual en la
+        //comparar docente y fechas actual en la vacante
         $numPersonalDocenteActual = $vacante->numPersonalDocente;
         $nombreDocenteActual = $vacante->nombreDocente;
+        $tipoAsignacionActual = $vacante->tipoAsignacion;
         $fechaAvisoActual = $vacante->fechaAviso;
         $fechaAsignacionActual = $vacante->fechaAsignacion;
+        $fechaRenunciaActual = $vacante->fechaRenuncia;
 
         if(empty($numDocente)){
             $numDocente= "";
@@ -618,8 +628,33 @@ class VacanteController extends Controller
             event(new OperacionHorasVacante($numHoras,$numPrograma,$tipoContratacion,$tipoAsignacion));
         }
 
-        if($nombreDocenteActual != $nombreCDocente && $nombreDocenteActual != ""){
-            event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$fechaAvisoActual,$fechaAsignacionActual,$fechaRenuncia));
+        //comparar número de personal del docente en vacante y en historico docente
+        $numPersonalDocenteHistorico = DB::table('historico_docentes')->where('nPersonal',$numPersonalDocenteActual)->value('nPersonal');
+
+        if($numPersonalDocenteActual != $numPersonalDocenteHistorico){
+            if($nombreDocenteActual != $nombreCDocente && $nombreDocenteActual != ""){
+                if($fechaAvisoActual != null && $fechaAsignacionActual != null && $fechaRenunciaActual != null){
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,$fechaAsignacionActual,$fechaRenunciaActual));
+                }
+                elseif($fechaAvisoActual == null || $fechaAsignacionActual != null && $fechaRenunciaActual != null){
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,"",$fechaAsignacionActual,$fechaRenunciaActual));
+                }
+                elseif($fechaAsignacionActual == null || $fechaAvisoActual != null && $fechaRenunciaActual != null){
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,"",$fechaRenunciaActual));
+                }
+                elseif($fechaRenunciaActual == null || $fechaAvisoActual != null && $fechaAsignacionActual != null){
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,$fechaAsignacionActual,""));
+                }
+                elseif($fechaAvisoActual == null && $fechaAsignacionActual != null || $fechaRenunciaActual != null){
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,"","",$fechaRenunciaActual));
+                }
+                elseif($fechaAsignacionActual == null && $fechaRenunciaActual != null || $fechaAvisoActual != null){
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,$fechaAvisoActual,"",""));
+                }
+                elseif($fechaRenunciaActual == null && $fechaAvisoActual != null || $fechaAsignacionActual != null){
+                    event(new RenunciaDocente($id,$numPersonalDocenteActual,$nombreDocenteActual,$tipoAsignacionActual,"",$fechaAsignacionActual,""));
+                }
+            }
         }
 
         $user = Auth::user();
@@ -655,6 +690,30 @@ class VacanteController extends Controller
         event(new LogUserActivity($user,"Actualización de Vacante ID $id ",$data));
 
         return redirect()->route('vacante.index');
+    }
+
+    public function updateRenuncia(Request $request, $id){
+
+        $docente = HistoricoDocente::findOrFail($id);
+
+        $tipoAsignacion = $request->tipoAsignacion;
+        $fechaAviso=$request->fechaAviso;
+        $fechaAsignacion=$request->fechaAsignacion;
+        $fechaRenuncia=$request->fechaRenuncia;
+
+        $docente->update([
+            'tipoAsignacion' => $tipoAsignacion,
+            'fechaAviso' => $fechaAviso,
+            'fechaAsignacion' => $fechaAsignacion,
+            'fechaRenuncia' => $fechaRenuncia
+        ]);
+
+        $user = Auth::user();
+        $data = $tipoAsignacion . " " . $request->fechaAviso . " " . $request->fechaAsignacion . " " . $request->fechaRenuncia;
+        event(new LogUserActivity($user,"Actualización de Renuncia ID $id ",$data));
+
+        return redirect()->to('vacante/edit/'.$docente->vacanteID);
+
     }
 
     /**
@@ -826,6 +885,24 @@ class VacanteController extends Controller
     {
         $data['programaVacante'] = Zona_Dependencia_Programa::where("clave_dependencia", $request->idDependencia)
             ->get(["clave_programa","nombre_programa"]);
+
+        return response()->json($data);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchFiltroNombre(Request $request)
+    {
+        $rangoLetrasApellido = $request->rangoLetrasApellido;
+
+        //$data['filtroNombre'] = Docente::where("nombre",'LIKE', '[a-c]%')
+        $data['filtroNombre'] = Docente::where("nombre",'LIKE','['.$request->rangoLetrasNombre.']%')
+            ->where(function ($query) use ($rangoLetrasApellido){
+                $query->where("apellidoPaterno",'LIKE','['.$rangoLetrasApellido.']%');
+            })
+            ->get(["nPersonal","nombre","apellidoPaterno","apellidoMaterno"]);
 
         return response()->json($data);
     }
