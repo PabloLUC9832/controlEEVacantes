@@ -78,7 +78,8 @@
                     </div>
 
 
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-medium" >Documento(s) actual(es)</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-medium">Documento(s)
+                        actual(es)</label>
 
                     @foreach ($files as $file)
                         <div class="gap-6">
@@ -88,14 +89,19 @@
                             </a>
                                 <?php
                                 $archivo = $file["name"];
-                                $archivoPartes = explode("/",$archivo);
-                                $vacanteArchivo= $archivoPartes[0];
-                                $nombreArchivo = $archivoPartes[1] ;
+                                $archivoPartes = explode("/", $archivo);
+                                $vacanteArchivo = $archivoPartes[0];
+                                $nombreArchivo = $archivoPartes[1];
                                 ?>
 
-                            <form action="{{ route('vacante.deleteFile',['id' =>$vacanteArchivo,'file' => $nombreArchivo ]) }}" method="POST">
+                            <form
+                                action="{{ route('vacante.deleteFile',['id' =>$vacanteArchivo,'file' => $nombreArchivo ]) }}"
+                                method="POST">
                                 @csrf
-                                <button type="submit" class="px-6 font-medium text-red-600 underline dark:text-blue-500 hover:no-underline">Eliminar</button>
+                                <button type="submit"
+                                        class="px-6 font-medium text-red-600 underline dark:text-blue-500 hover:no-underline">
+                                    Eliminar
+                                </button>
                             </form>
 
                             <br>
@@ -228,37 +234,29 @@
                                     </select>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
-                                    <label for="numPersonalDocente"
-                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
-                                    <select id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect">
-                                        <option
-                                            value="{{$vacante->nombreDocente}}-{{$vacante->numPersonalDocente}}">{{$vacante->nombreDocente}}
-                                            -{{$vacante->numPersonalDocente}}</option>
-                                        @foreach ($docentes as $data)
-                                            <option
-                                                value="{{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}">
-                                                {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}
-                                                -{{$data->nPersonal}}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                @include('vacante.filterNombreDocenteEdit')
 
                                 <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <div class="md:w-3/3 flex flex-col items-center">
                                         <label for="numPersonalDocente"
-                                               class="block mb-0 text-sm font-medium text-gray-900 dark:text-gray-400">Docentes anteriores</label>
+                                               class="block mb-0 text-sm font-medium text-gray-900 dark:text-gray-400">Docentes
+                                            anteriores</label>
                                     </div>
 
 
                                     <div class="md:w-3/3 flex flex-col items-center">
-                                    <button id="dropdownDocentesButton" data-dropdown-toggle="dropdownDocentes{{$vacante->id}}"
-                                            class="items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
-                                            type="button">
-                                        <svg class="w-40 h-14 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                    </button>
-                                        </div>
+                                        <button id="dropdownDocentesButton"
+                                                data-dropdown-toggle="dropdownDocentes{{$vacante->id}}"
+                                                class="items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
+                                                type="button">
+                                            <svg class="w-40 h-14 mx-1.5" aria-hidden="true" fill="currentColor"
+                                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                      clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 @include('vacante.dropdownDocentesHistorico')
@@ -283,7 +281,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="fechaAsignacion" class="labelForms">Fecha de asignación</label>
                                     <div class="relative">
                                         <div
@@ -303,7 +301,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="fechaApertura" class="labelForms">Fecha de apertura</label>
                                     <div class="relative">
                                         <div
@@ -378,37 +376,37 @@
 
                                     @foreach ($files as $file)
                                         <div class="gap-6">
-                                       <a class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
-                                          target="_blank"
-                                          href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}">{{$file["name"]}}
-                                       </a>
-                                        <br>
+                                            <a class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
+                                               target="_blank"
+                                               href="https://filesdgaaea.blob.core.windows.net/files/{{$file["name"]}}">{{$file["name"]}}
+                                            </a>
+                                            <br>
                                         </div>
-                                   @endforeach
-                                   <input
-                                       class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                       aria-describedby="file_input_help" id="file" type="file" accept=".pdf"
-                                       name="files[]" multiple>
-                                   <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
-                                       Formato permitido: PDF</p>
-                               </div>
+                                    @endforeach
+                                    <input
+                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        aria-describedby="file_input_help" id="file" type="file" accept=".pdf"
+                                        name="files[]" multiple>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
+                                        Formato permitido: PDF</p>
+                                </div>
 
-                           </div>
-                       </div>
-                       <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                           <button type="submit" class="btnGuardar">Actualizar Vacante</button>
-                       </div>
-                   </div>
-               </form>
-           </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                            <button type="submit" class="btnGuardar">Actualizar Vacante</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
         </div>
-   </div>
+    </div>
 </div>
 
 <div class="hidden sm:block" aria-hidden="true">
-   <div class="py-5">
-   </div>
+    <div class="py-5">
+    </div>
 </div>
 
 </div>

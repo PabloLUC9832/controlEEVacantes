@@ -854,6 +854,24 @@ class VacanteController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchFiltroNombre(Request $request)
+    {
+        $rangoLetrasApellido = $request->rangoLetrasApellido;
+
+        //$data['filtroNombre'] = Docente::where("nombre",'LIKE', '[a-c]%')
+        $data['filtroNombre'] = Docente::where("nombre",'LIKE','['.$request->rangoLetrasNombre.']%')
+            ->where(function ($query) use ($rangoLetrasApellido){
+                $query->where("apellidoPaterno",'LIKE','['.$rangoLetrasApellido.']%');
+            })
+            ->get(["nPersonal","nombre","apellidoPaterno","apellidoMaterno"]);
+
+        return response()->json($data);
+    }
+
+    /**
      * Función para realizar las búsquedas usadas en el método de index y search
      *
      * @link https://laravel.com/docs/9.x/queries#joins

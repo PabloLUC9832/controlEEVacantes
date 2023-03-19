@@ -164,19 +164,10 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
-                                        <label for="numPersonalDocente" class="block mb-0 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
-                                        <select  id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect" required>
-                                            <option value="">Selecciona al docente</option>
-                                            @foreach ($docentes as $data)
-                                                <option value="{{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}">
-                                                    {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    @include('vacante.filterNombreDocenteCreate')
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="fechaAviso" class="labelForms">Fecha de aviso</label>
                                         <div class="relative">
                                             <div
@@ -196,7 +187,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="fechaAsignacion" class="labelForms">Fecha de asignación</label>
                                         <div class="relative">
                                             <div
@@ -216,7 +207,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="fechaApertura" class="labelForms">Fecha de apertura</label>
                                         <div class="relative">
                                             <div
