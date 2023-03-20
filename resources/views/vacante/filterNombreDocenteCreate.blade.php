@@ -63,7 +63,22 @@
                 dataType: 'json',
                 success: function (result) {
                     $.each(result.filtroNombre, function (key, value) {
-                        $("#numPersonalDocente-dropdowm").append('<option value="' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '">' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '</option>');
+                        if(value.nPersonal == null && value.apellidoMaterno == null){
+                            value.nPersonal = " ";
+                            value.apellidoMaterno = " ";
+                            $("#numPersonalDocente-dropdowm").append('<option value="' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '">' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '</option>');
+                        }
+                        else if(value.nPersonal == null){
+                            value.nPersonal = " ";
+                            $("#numPersonalDocente-dropdowm").append('<option value="' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '">' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '</option>');
+                        }
+                        else if(value.apellidoMaterno == null){
+                            value.apellidoMaterno = " ";
+                            $("#numPersonalDocente-dropdowm").append('<option value="' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '">' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '</option>');
+                        }
+                        else{
+                            $("#numPersonalDocente-dropdowm").append('<option value="' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '">' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '</option>');
+                        }
                     });
                 }
             });
@@ -91,7 +106,22 @@
                 dataType: 'json',
                 success: function (result) {
                     $.each(result.filtroNombre, function (key, value) {
-                        $("#numPersonalDocente-dropdowm").append('<option value="' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '">' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '</option>');
+                        if(value.nPersonal == null && value.apellidoMaterno == null){
+                            value.nPersonal = " ";
+                            value.apellidoMaterno = " ";
+                            $("#numPersonalDocente-dropdowm").append('<option value="' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '">' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '</option>');
+                        }
+                        else if(value.nPersonal == null){
+                            value.nPersonal = " ";
+                            $("#numPersonalDocente-dropdowm").append('<option value="' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '">' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '</option>');
+                        }
+                        else if(value.apellidoMaterno == null){
+                            value.apellidoMaterno = " ";
+                            $("#numPersonalDocente-dropdowm").append('<option value="' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '">' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '</option>');
+                        }
+                        else{
+                            $("#numPersonalDocente-dropdowm").append('<option value="' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '">' + value.nombre +" "+ value.apellidoPaterno + " " + value.apellidoMaterno + "-" + value.nPersonal + '</option>');
+                        }
                     });
                 }
             });
