@@ -289,11 +289,11 @@ class VacanteController extends Controller
 
         $experienciaEducativaCompleta = $request->numMateria;
         $experienciaEducativaPartes = explode("~",$experienciaEducativaCompleta);
-
+        /*
         if($request->file()){
             $fileName = time() ."_" . $request->file->getClientOriginalName();
         }
-
+        */
         $vacante = new Vacante();
 
         $vacante->periodo=$periodoPartes[0];
@@ -328,14 +328,20 @@ class VacanteController extends Controller
         $oo = $myArr[""];
         $ulti = $oo + 1;
 
-        $vacante->archivo = "vac-{$ulti}";
+        //$vacante->archivo = "vac-{$ulti}";
+        $vacante->archivo = "Inexistente";
+
+        if($request->hasFile('files')){
+            $directory="vac-{$ulti}";
+            $vacante->archivo = "vac-{$ulti}";
+            Storage::makeDirectory($directory);
+            foreach ($request->file('files') as $file){
+                $fileName = time() ."_" . $file->getClientOriginalName();
+                $file->storeAs('/'.$directory.'/', $fileName, 'azure');
+            }
+        }
 
         $vacante->save();
-        if (isset($request->file) ){
-            $directory="vac-{$vacante->id}";
-            Storage::makeDirectory($directory);
-            $request->file('file')->storeAs('/'.$directory.'/', $fileName, 'azure');
-        }
 
         if (!empty($request->numHoras) && !empty($request->tipoAsignacion)){
             event(new OperacionHorasVacante($request->numHoras,$request->numPrograma,$request->tipoContratacion,$request->tipoAsignacion));
@@ -351,7 +357,6 @@ class VacanteController extends Controller
 
         event(new LogUserActivity($user,"Creación de Vacante",$data));
 
-        //return redirect()->route('dashboard');
         return redirect()->route('vacante.index');
     }
 
@@ -579,10 +584,12 @@ class VacanteController extends Controller
         $fechaApertura=$request->fechaApertura;
         $fechaCierre=$request->fechaCierre;
         $fechaRenuncia=$request->fechaRenuncia;
-        $archivo = "vac-{$id}";
+        //$archivo = "vac-{$id}";
+        $archivo = $vacante->archivo;
 
         if($request->hasFile('files')){
             $directory="vac-{$vacante->id}";
+            $archivo = $directory;
             foreach ($request->file('files') as $file){
                 $fileName = time() ."_" . $file->getClientOriginalName();
                 $file->storeAs('/'.$directory.'/', $fileName, 'azure');
@@ -740,6 +747,35 @@ class VacanteController extends Controller
         //dd($d);
         Storage::disk('azure')->delete($directory);
         //Storage::disk('azure')->delete('vac-223/1678734935_matricula.pdf');
+
+        $archivoPartes = explode("-",$id);
+        $vacanteArchivo= $archivoPartes[0];
+        $idVac = $archivoPartes[1] ;
+
+        $vacante = Vacante::findOrFail($idVac);
+
+        $path = "vac-" . $vacante->id;
+        $disk = Storage::disk('azure');
+        $files = $disk->files($path);
+        $filesList = array();
+        foreach ($files as $file){
+            $filename = "$file";
+            $item = array(
+                'name' => $filename,
+            );
+            array_push($filesList,$item);
+        }
+
+        $nFile = count($filesList);
+        if(empty($nFile) ){
+            $vacante->update([
+                'archivo' => "Inexistente" ,
+            ]);
+        }
+        //dd($filesList);
+        //die();
+        //dd($vacante);
+        //die();
 
         return redirect()->back();
     }
@@ -917,7 +953,8 @@ class VacanteController extends Controller
                     })
                     ->when( $userSelectFiltro == "VacantesArchivos" ,function($query){
                         $query->whereNull('deleted_at')
-                            ->whereNotNull('archivo')
+                            //->whereNotNull('archivo')
+                            ->where('archivo','<>','Inexistente')
                         ;
                     })
                     ->when( $userSelectFiltro == "ComplementoCarga" ,function($query){
