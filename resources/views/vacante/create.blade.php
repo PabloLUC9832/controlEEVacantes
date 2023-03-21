@@ -164,19 +164,10 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
-                                        <label for="numPersonalDocente" class="block mb-0 text-sm font-medium text-gray-900 dark:text-gray-400">Docente</label>
-                                        <select  id="numPersonalDocente" name="numPersonalDocente" class="estiloSelect" required>
-                                            <option value="">Selecciona al docente</option>
-                                            @foreach ($docentes as $data)
-                                                <option value="{{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}">
-                                                    {{$data->nombre}} {{$data->apellidoPaterno}} {{$data->apellidoMaterno}}-{{$data->nPersonal}}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    @include('vacante.filterNombreDocenteCreate')
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="fechaAviso" class="labelForms">Fecha de aviso</label>
                                         <div class="relative">
                                             <div
@@ -196,7 +187,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="fechaAsignacion" class="labelForms">Fecha de asignación</label>
                                         <div class="relative">
                                             <div
@@ -216,7 +207,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3 lg:col-span-3">
+                                    <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                         <label for="fechaApertura" class="labelForms">Fecha de apertura</label>
                                         <div class="relative">
                                             <div
@@ -287,7 +278,7 @@
 
                                     <div class="col-span-6">
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file">Documento</label>
-                                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file" type="file" accept=".pdf" name="file">
+                                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file" type="file" accept=".pdf" name="files[]" multiple>
                                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Formato permitido: PDF</p>
                                     </div>
 

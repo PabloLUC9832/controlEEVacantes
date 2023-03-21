@@ -34,6 +34,7 @@ class OperacionRenunciaDocente
                 'vacanteID' => $event->vacanteID,
                 'nPersonal' => $event->nPersonalDocente,
                 'nombreDocente' => $event->docenteNombre,
+                'tipoAsignacion' => $event->tipoAsignacion,
                 'fechaAviso' => $event->fechaAviso,
                 'fechaAsignacion' => $event->fechaAsignacion ,
                 'fechaRenuncia' => $event->fechaRenuncia,

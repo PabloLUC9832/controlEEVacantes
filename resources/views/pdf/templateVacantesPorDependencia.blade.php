@@ -46,17 +46,11 @@
 
     td,th{
         border: 1px solid #939090;
+        white-space: normal;
     }
 
-    tbody tr:nth-child(odd) {
-        background-color: white;
-        text-align: left;
-        border: 1px solid #ddd;
-    }
-
-    tbody tr:nth-child(even) {
-        background-color: rgba(236, 230, 230, 0.72);
-        border: 1px solid #ddd;
+    td{
+        font-size: 13px;
     }
 
     .imagen{
@@ -96,41 +90,37 @@
     <table class="tabla">
         <thead class="cabecera">
         <tr>
-            <th>N° Programa</th>
-            <th>N° Horas</th>
-            <th>N° Materia</th>
-            <th>Nombre Materia</th>
+            <th>Programa</th>
+            <th>Horas</th>
+            <th>Materia</th>
             <th>Grupo</th>
         </tr>
         </thead>
 
-            @foreach($listaVacantes as $vacante)
-                <tr>
+        <tbody>
+        @foreach($listaVacantes as $vacante)
+            <tr>
 
-                    <td>
-                        {{$vacante->numPrograma}}
-                    </td>
+                <td>
+                    {{$vacante->numPrograma}}-{{DB::table('zona__dependencia__programas')->where('clave_programa',$vacante->numPrograma)->value('nombre_programa')}}
+                </td>
 
-                    <td>
-                        {{$vacante->numHoras}}
-                    </td>
+                <td>
+                    {{$vacante->numHoras}}
+                </td>
 
-                    <td >
-                        {{$vacante->numMateria}}
-                    </td>
+                <td>
+                    {{$vacante->numMateria}} - {{$vacante->nombreMateria}}
+                </td>
 
-                    <td>
-                        {{$vacante->nombreMateria}}
-                    </td>
+                <td>
+                    {{DB::table('motivos')->where('numeroMotivo',$vacante->numMotivo)->value('nombre')}}
+                </td>
 
-                    <td>
-                        {{$vacante->grupo}}
-                    </td>
-
-                </tr>
+            </tr>
             @endforeach
 
-        </tbody>
+            </tbody>
     </table>
 </div>
 
