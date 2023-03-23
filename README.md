@@ -21,6 +21,7 @@ El sitio web auxiliará al Área Académica Económico - Administrativa en el pr
 - [Drivers SQLServer](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver15)
 - [Node](https://nodejs.org/en/download)
 - [Git](https://git-scm.com/downloads)
+- [Composer](https://getcomposer.org/download/)
 
 ###### Ayuda adicional 
 [Cómo instalar y configurar SQL Server 2019](https://youtu.be/YOaC_TyOrdk)
