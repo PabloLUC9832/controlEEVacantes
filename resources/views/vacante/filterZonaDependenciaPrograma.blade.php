@@ -44,7 +44,7 @@
 
         <div class="w-1/4 ml-8">
             <label for="filtro-dropdown" class="block mb-2 text-sm  text-gray-900 dark:text-gray-400" >Filtrar</label>
-            <select id="filtro-dropdown" class="estiloSelect" name="filtro">
+            <select id="filtro-dropdown" class="estiloSelect" name="filtro" required>
 
                 <option value="{{$filtro}}"> {{$filtro}} </option>
 
@@ -62,7 +62,7 @@
     <div class="flex sm:rounded-lg md:mt-5 md:mx-10 md:my-0">
         <div class="w-11/12">
             <input type="search" id="search-dropdown" class=" p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50
-            border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Ingresa tu búsqueda. Para volver a ver la lista completa solo presiona nuevamente el botón de Buscar o la tecla Enter." name="search">
+            border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Ingresa tu búsqueda." name="search">
         </div>
 
         <div class="w-1/12">

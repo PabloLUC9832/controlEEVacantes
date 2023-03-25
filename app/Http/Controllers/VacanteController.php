@@ -34,10 +34,11 @@ class VacanteController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * Función para mostrar las vacantes y su respectiva información al presionar Ver Info
+     * Usada en la vista vacante.index
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function index(Request $request)*/
     public function index(IndexVacanteRequest $request)
     {
 
@@ -56,6 +57,7 @@ class VacanteController extends Controller
         $programasEducUsuario = [];
 
         $userRol = Auth::user()->hasTeamRole(auth()->user()->currentTeam, 'admin');
+
         //Si el rol es admin
         if($userRol){
 
@@ -162,7 +164,10 @@ class VacanteController extends Controller
     }
 
     /**
-     * Retorna variables al index para cargar los resultados de la búsqueda
+     * Función para retornar variables al index, para cargar los resultados de la búsqueda
+     *
+     * @link https://laravel.com/docs/9.x/requests#accessing-the-request
+     * @link https://laravel.com/docs/9.x/events#main-content
      * @access public
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -207,6 +212,7 @@ class VacanteController extends Controller
     }
     /**
      * Show the form for creating a new resource.
+     * Retorna las variables que se cargarán como apoyo en el formulario
      *
      * @return \Illuminate\Http\Response
      */
@@ -270,6 +276,18 @@ class VacanteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * Si en algún momento se añade un nuevo atributo al Modelo
+     * @see Vacante
+     *
+     * @link https://laravel.com/docs/9.x/eloquent#inserts
+     * @link https://laravel.com/docs/9.x/requests#accessing-the-request
+     * @link https://www.php.net/manual/en/function.explode.php
+     * @link https://laravel.com/docs/9.x/filesystem#create-a-directory
+     * @link https://www.jhanley.com/blog/laravel-adding-azure-blob-storage/
+     * @link https://laravel.com/docs/9.x/filesystem#specifying-a-file-name
+     * @link https://learn.microsoft.com/en-us/sql/t-sql/functions/ident-current-transact-sql?view=sql-server-ver16
+     * @link https://laravel.com/docs/9.x/validation#form-request-validation
+     *
      * @param  \App\Http\Requests\StoreVacanteRequest  $request
      * @return \Illuminate\Http\Response
      */
@@ -289,11 +307,7 @@ class VacanteController extends Controller
 
         $experienciaEducativaCompleta = $request->numMateria;
         $experienciaEducativaPartes = explode("~",$experienciaEducativaCompleta);
-        /*
-        if($request->file()){
-            $fileName = time() ."_" . $request->file->getClientOriginalName();
-        }
-        */
+
         $vacante = new Vacante();
 
         $vacante->periodo=$periodoPartes[0];
@@ -328,7 +342,6 @@ class VacanteController extends Controller
         $oo = $myArr[""];
         $ulti = $oo + 1;
 
-        //$vacante->archivo = "vac-{$ulti}";
         $vacante->archivo = "Inexistente";
 
         if($request->hasFile('files')){
@@ -362,7 +375,12 @@ class VacanteController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * Modal de creación de nuevo docente desde el botón Añadir docente desde las vistas de crear vacante y editar vacante
      *
+     * @see Docente
+     * @link https://laravel.com/docs/9.x/eloquent#inserts
+     *
+     * @link https://laravel.com/docs/9.x/validation#form-request-validation
      * @param  \App\Http\Requests\StoreDocenteRequest  $request
      * @return \Illuminate\Http\Response
      */
@@ -386,7 +404,13 @@ class VacanteController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * Modal de creación de nueva experiencia educativa desde el botón Añadir Experiencia educativa desde las vistas de crear
+     * vacante y editar vacante
      *
+     * @link https://flowbite.com/docs/components/modal/#form-element
+     * @link https://laravel.com/docs/9.x/eloquent#inserts
+     *
+     * @see ExperienciaEducativa
      * @param  \App\Http\Requests\StoreExperienciaEducativaRequest  $request
      * @return \Illuminate\Http\Response
      */
@@ -420,6 +444,7 @@ class VacanteController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * Retorna las variables que se cargarán como apoyo en el formulario
      *
      * @param  \App\Models\Vacante  $vacante
      * @return \Illuminate\Http\Response
@@ -510,6 +535,13 @@ class VacanteController extends Controller
 
     }
 
+    /**
+     * Muestra el formulario para editar los docentes del historial de renuncias
+     *
+     * @param $id
+     * @link https://laravel.com/docs/10.x/views
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function editRenuncia($id)
     {
         $docente = HistoricoDocente::findOrFail($id);
@@ -584,7 +616,6 @@ class VacanteController extends Controller
         $fechaApertura=$request->fechaApertura;
         $fechaCierre=$request->fechaCierre;
         $fechaRenuncia=$request->fechaRenuncia;
-        //$archivo = "vac-{$id}";
         $archivo = $vacante->archivo;
 
         if($request->hasFile('files')){
@@ -631,6 +662,7 @@ class VacanteController extends Controller
         //comparar número de personal del docente en vacante y en historico docente
         $numPersonalDocenteHistorico = DB::table('historico_docentes')->where('nPersonal',$numPersonalDocenteActual)->value('nPersonal');
 
+        //condiciones para indicar que datos se guardaran en cada renuncia, en el caso de que alguno de los campos este vacío
         if($numPersonalDocenteActual != $numPersonalDocenteHistorico){
             if($nombreDocenteActual != $nombreCDocente && $nombreDocenteActual != ""){
                 if($fechaAvisoActual != null && $fechaAsignacionActual != null && $fechaRenunciaActual != null){
@@ -657,17 +689,31 @@ class VacanteController extends Controller
             }
         }
 
+        //Obtener el usuario actual
         $user = Auth::user();
+        //Concatenación de variables para mandarlo al event
         $data = $request->periodo .  " " . $request->clavePeriodo . " " . $request->numZona . " " . $request->numDependencia . " " . $request->numPlaza
             . " " . $request->numHoras . " " . $request->numMateria . " " . $request->nombreMateria . " " . $request->grupo . " " . $request->subGrupo
             . " " . $request->numMotivo . " " . $request->tipoAsignacion . " " . $request->numPersonalDocente . " " . $request->plan
             . " " . $request->observaciones . " " . $request->fechaAsignacion . " " .$request->fechaApertura . " " . $request->fechaCierre . " " . $request->fechaRenuncia;
+
         event(new LogUserActivity($user,"Actualización de Vacante ID $id ",$data));
 
         return redirect()->route('vacante.index');
 
 
     }
+
+    /**
+     * Función para actualizar las vacantes para el rol de facultad
+     * Usada en la vista: vacante.editEditor
+     *
+     * @link https://laravel.com/docs/9.x/eloquent#inserting-and-updating-models
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function updateE(Request $request, $id)
     {
@@ -691,6 +737,17 @@ class VacanteController extends Controller
 
         return redirect()->route('vacante.index');
     }
+
+    /**
+     * Función para actualizar la información de una renuncia
+     * Usada en la vista: vacante.updateRenuncia
+     *
+     * @link https://laravel.com/docs/9.x/eloquent#inserting-and-updating-models
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function updateRenuncia(Request $request, $id){
 
@@ -718,6 +775,7 @@ class VacanteController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * Usada en la vista: vacante.index
      *
      * @param  \App\Models\Vacante  $vacante
      * @return \Illuminate\Http\Response
@@ -741,12 +799,20 @@ class VacanteController extends Controller
         return redirect()->route('vacante.index');
     }
 
+    /**
+     * Función para eliminar los documentos cargados en las vacantes.
+     * Usada en las vistas: vacante.edit
+     *
+     * @link https://laravel.com/docs/9.x/filesystem#deleting-files
+     * @param $id
+     * @param $file
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
     public function deleteFile($id,$file)
     {
         $directory = $id.'/'.$file;
-        //dd($d);
         Storage::disk('azure')->delete($directory);
-        //Storage::disk('azure')->delete('vac-223/1678734935_matricula.pdf');
 
         $archivoPartes = explode("-",$id);
         $vacanteArchivo= $archivoPartes[0];
@@ -772,16 +838,13 @@ class VacanteController extends Controller
                 'archivo' => "Inexistente" ,
             ]);
         }
-        //dd($filesList);
-        //die();
-        //dd($vacante);
-        //die();
 
         return redirect()->back();
     }
 
     /**
      * Mostrar la vista para importar el CSV
+     * Es utilizada en la vista: navigation-menu
      */
     public function import(Request $request){
 
@@ -790,11 +853,16 @@ class VacanteController extends Controller
     }
 
     /**
-     * Carga el archivo CSV
+     * Función para cargar el archivo CSV de las vacantes a la base de datos
+     * Es utilizada en la vista: vacante.import
+     * También se utiliza el evento LogUserActivity -> UserActions ubicados en app/Providers, para guardar registro de la acción realizada en la bitácora.
+     *
+     * @link https://stackoverflow.com/questions/28757076/php-how-to-return-false-with-file-for-an-empty-csv-file
+     * @link https://youtu.be/ap7A1uav-tc
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function uploadCSV(Request $request){
-
-        //https://stackoverflow.com/questions/28757076/php-how-to-return-false-with-file-for-an-empty-csv-file
         $request->validate([
             'file' => 'required|mimes:csv,txt'
         ]);
@@ -813,39 +881,20 @@ class VacanteController extends Controller
 
         $user = Auth::user();
         $data = $request->file->getClientOriginalName();
-        //var_dump($request->file);
         event(new LogUserActivity($user,"Importación de archivo CSV",$data));
 
         return redirect()->route("vacante.index");
 
-
-    }
-
-    public function uploadFile(Request $request){
-
-        /*$request->validate([
-            'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
-        ]);*/
-
-        if($request->file()) {
-            //$fileName = time().'_'.$request->file->getClientOriginalName();
-            $fileName = $request->file->getClientOriginalName();
-            // save file to azure blob virtual directory uplaods in your container
-            $filePath = $request->file('file')->storeAs('/', $fileName, 'azure');
-
-            return back()
-                ->with('success','File has been uploaded.');
-
-        }
     }
 
     /**
      * Función para buscar las horas de la experiencia educativa de acuerdo al option del select seleccionado.
-     * Trabajo en conjunto con JS, en las vistas: vacante.SelectNrcNombreCreate , vacante.SelectNrcNombreEdit
+     * Trabajo en conjunto con JS, en las vistas: vacante.selectNrcNombreCreate, vacante.selectNrcNombreEdit
      *
      * @link https://programmingpot.com/dependent-droop-down-in-laravel/
      * @link https://www.itsolutionstuff.com/post/how-to-make-simple-dependent-dropdown-using-jquery-ajax-in-laravel-5example.html
      * @link https://youtu.be/CBCo5wgiPs8
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -858,8 +907,8 @@ class VacanteController extends Controller
     }
 
     /**
-     *
-     * Función para buscar las dependencias de las respectivas dependencias
+     * Función para buscar las dependencias de las respectivas zonas de forma dinámica, utilizada en la gestión de vacantes y programas educativos.
+     * Trabajo en conjunto con JS, en las vistas: vacante.filterZonaDependenciaPrograma, vacante.selectZonaDependenciaProgramaCreate, vacante.selectZonaDependenciaProgramaEdit
      *
      * @link https://programmingpot.com/dependent-droop-down-in-laravel/
      * @link https://www.itsolutionstuff.com/post/how-to-make-simple-dependent-dropdown-using-jquery-ajax-in-laravel-5example.html
@@ -878,6 +927,13 @@ class VacanteController extends Controller
 
 
     /**
+     * Función para filtrar los programas educativos pertenecientes a una determinada dependencia de forma dinámica, utilizada en la gestión de vacantes y programas educativos.
+     * Trabajo en conjunto con JS, en las vistas: vacante.filterZonaDependenciaPrograma, vacante.selectZonaDependenciaProgramaCreate, vacante.selectZonaDependenciaProgramaEdit
+     *
+     * @link https://programmingpot.com/dependent-droop-down-in-laravel/
+     * @link https://www.itsolutionstuff.com/post/how-to-make-simple-dependent-dropdown-using-jquery-ajax-in-laravel-5example.html
+     * @link https://youtu.be/CBCo5wgiPs8
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -890,6 +946,13 @@ class VacanteController extends Controller
     }
 
     /**
+     * Función para filtrar la lista de docentes al momento de crear y editar una vacante de forma dinámica, por nombre y apellido paterno.
+     * Trabajo en conjunto con JS, en las vistas: vacante.filterNombreDocenteCreate, vacante.filterNombreDocenteEdit
+     *
+     * @link https://programmingpot.com/dependent-droop-down-in-laravel/
+     * @link https://www.itsolutionstuff.com/post/how-to-make-simple-dependent-dropdown-using-jquery-ajax-in-laravel-5example.html
+     * @link https://youtu.be/CBCo5wgiPs8
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -897,7 +960,6 @@ class VacanteController extends Controller
     {
         $rangoLetrasApellido = $request->rangoLetrasApellido;
 
-        //$data['filtroNombre'] = Docente::where("nombre",'LIKE', '[a-c]%')
         $data['filtroNombre'] = Docente::where("nombre",'LIKE','['.$request->rangoLetrasNombre.']%')
             ->where(function ($query) use ($rangoLetrasApellido){
                 $query->where("apellidoPaterno",'LIKE','['.$rangoLetrasApellido.']%');
@@ -908,7 +970,7 @@ class VacanteController extends Controller
     }
 
     /**
-     * Función para realizar las búsquedas usadas en el método de index y search
+     * Función para realizar las búsquedas invocada en el método de index y search
      *
      * @link https://laravel.com/docs/9.x/queries#joins
      * @link https://laravel.com/docs/9.x/queries#conditional-clauses
@@ -953,7 +1015,6 @@ class VacanteController extends Controller
                     })
                     ->when( $userSelectFiltro == "VacantesArchivos" ,function($query){
                         $query->whereNull('deleted_at')
-                            //->whereNotNull('archivo')
                             ->where('archivo','<>','Inexistente')
                         ;
                     })

@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/*
+ * Atributos que pueden asignarse
+ *
+ * @link https://laravel.com/docs/9.x/eloquent#mass-assignment
+ */
 class Vacante extends Model{
 
     use HasFactory;
@@ -43,6 +48,13 @@ class Vacante extends Model{
     ];
 
     protected $guarded = [];
+
+    /**
+     * Función para cargar el archivo CSV
+     *
+     * @link https://youtu.be/ap7A1uav-tc
+     * @return void
+     */
     public function importToDB(){
         $path = resource_path('pending-files/*.csv');
         $files = glob($path);

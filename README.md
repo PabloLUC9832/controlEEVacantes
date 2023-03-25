@@ -1,66 +1,67 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Control de Experiencias Educativas Vacantes
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<p align="center"><a href="https://www.uv.mx/economicoa/" target="_blank"><img src="http://colaboracion.uv.mx/afbg-combas/imagenespublicas/Flor1024x768SinFondo.png" width="200" alt="Universidad Veracruzana"></a></p>
+
+<h1 align="center">
+Control de Experiencias Educativas Vacantes
+</h1>
+
+## Descripción
+
+<p align="justify">
+El sitio web auxiliará al Área Académica Económico - Administrativa en el proceso de la gestión del control de las experiencias educativas vacantes, solicitadas por las diversas dependencias pertenecientes al área a lo largo del semestre.
 </p>
 
-## About Laravel
+## Requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Laravel 9](https://laravel.com/docs/9.x/releases)
+- [PHP 8.0 - 8.2](https://www.php.net/downloads) o [XAMPP ](https://www.apachefriends.org/es/download.html)
+- [SQLServer ](https://www.microsoft.com/es-mx/sql-server/sql-server-downloads?rtc=1) Nota: El SQLServer debe descargarse el modo desarrollador e instalar la forma personalizada.
+- [SQLServer Managment Studio](https://learn.microsoft.com/es-es/sql/ssms/download-sql-server-management-studio-ssms?redirectedfrom=MSDN&view=sql-server-ver16)
+- [Drivers SQLServer](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver15)
+- [Node](https://nodejs.org/en/download)
+- [Git](https://git-scm.com/downloads)
+- [Composer](https://getcomposer.org/download/)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+###### Ayuda adicional 
+[Cómo instalar y configurar SQL Server 2019](https://youtu.be/YOaC_TyOrdk)
+[Conectando SQLServer con Laravel](https://www.youtube.com/watch?v=Poj5Kz6zZIA)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+##### Opcional 
+- [PhpStorm](https://www.jetbrains.com/es-es/phpstorm/)
 
-## Learning Laravel
+## Clonando el repositorio
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Una vez clonado el repositorio deberas hacer lo siguiente:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. Copiar el archivo env.example y renombrarlo como .env 
+2. Ejecutar<b><i>php artisan key:generate</i></b>
+3. Instalar las dependencias de composer ejecutando <b><i>composer install</i></b>
+4. Instalar las dependencias de NPM ejecutando <b><i>npm install</i></b>
+5. Crear la base de datos  <b><i>controleevacantes </i></b> en SQLServer.
+6. Realizar la migración ejecutando <b><i>php artisan migrate</i></b>
+7. Iniciar el servidor de Laravel ejecutando <b><i>php artisan serve</i></b>
+8. Iniciar el servidor de Node ejecutando <b><i>npm run dev</i></b>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+###### Ayuda adicional 
+[Introducción a Artisan](https://laravel.com/docs/9.x/artisan#introduction)
+[Comandos básicos de Artisan](https://jrgonzalez.es/guia-comandos-artisan)
 
-## Laravel Sponsors
+## Flowbite
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+[Flowbite](https://flowbite.com/docs/getting-started/introduction/) es un plugin que puede ser incluido en los proyectos de Tailwind.
+Flowbite fue usada para la creación de componentes en las vistas de la aplicación.
 
-### Premium Partners
+## Despliegue
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Para realizar el despliegue o deployment se optó por Azure, debido a que Azure brinda alojamiento, base de datos y almacenamiento de archivos.
 
-## Contributing
+[Creación de servidor y base de datos en Azure](https://youtu.be/MLFU3CkOd1o)
+[NGINX](https://laravel.com/docs/9.x/deployment#nginx)
+[Añadiendo Blob Storage en Azure](https://www.jhanley.com/blog/laravel-adding-azure-blob-storage/)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Documentación técnica
 
-## Code of Conduct
+- [Lista de casos de uso, diagrama entidad - asociación y diagrama de clases ](https://drive.google.com/file/d/1FfCBYKxhVCDCc5jiQlSBOeNFUO6XY7JP/view?usp=sharing)
+- [Descripción de casos de uso](https://drive.google.com/drive/folders/1gxtZjq4dU8hbj77NAcJ9jzURyuYFoI9l?usp=sharing)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
