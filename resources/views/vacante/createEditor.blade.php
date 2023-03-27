@@ -33,12 +33,14 @@
                         <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                         <p><b>Recuerda que los datos obligatiorios son:</b></p>
                         <li>Periodo</li>
-                        <li>Número de programa</li>
-                        <li>Número de plaza</li>
-                        <li>Número de horas</li>
-                        <li>Número de materia</li>
-                        <li>Nombre de materia</li>
+                        <li>Zona</li>
+                        <li>Dependencia</li>
+                        <li>Programa educativo</li>
+                        <li>Experiencia Educativa</li>
+                        <li>Horas</li>
                         <li>Grupo</li>
+                        <li>SubGrupo</li>
+                        <li>Número de plaza</li>
                         <li>Motivo</li>
                         <li>Tipo de contratación</li>
                         <li>Tipo de asignación</li>
