@@ -34,16 +34,18 @@
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Recuerda que los datos obligatiorios son:</b></p>
                     <li>Periodo</li>
-                    <li>Número de zona</li>
-                    <li>Número de dependencia</li>
-                    <li>Número de área</li>
-                    <li>Número de programa</li>
-                    <li>Número de plaza</li>
-                    <li>Número de horas</li>
-                    <li>Número de materia</li>
-                    <li>Nombre de materia</li>
+                    <li>Zona</li>
+                    <li>Dependencia</li>
+                    <li>Programa educativo</li>
+                    <li>Experiencia Educativa</li>
+                    <li>Horas</li>
                     <li>Grupo</li>
+                    <li>SubGrupo</li>
+                    <li>Número de plaza</li>
                     <li>Motivo</li>
+                    <li>Tipo de contratación</li>
+                    <li>Tipo de asignación</li>
+                    <li>Docente</li>
                     <br>
 
                     <div class="hidden sm:block" aria-hidden="true">
@@ -196,7 +198,7 @@
                                 <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                                     <label for="numMotivo"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Motivo</label>
-                                    <select id="numMotivo" name="numMotivo" class="estiloSelect">
+                                    <select id="numMotivo" name="numMotivo" class="estiloSelect" required>
                                         <option value="{{$vacante->numMotivo}}">{{$vacante->numMotivo}}</option>
                                         @foreach ($motivos as $data)
                                             <option value="{{$data->numeroMotivo}}">
