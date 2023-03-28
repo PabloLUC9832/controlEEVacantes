@@ -55,13 +55,13 @@
 
                                 <div class="col-span-6">
                                     <label for="tipo" class="labelForms">Tipo de Asignación</label>
-                                    <input type="text" name="tipo" id="tipo" class="inputForms"
+                                    <input type="text" name="tipo" value="{{ old('tipo') }}" id="tipo" class="inputForms"
                                            placeholder="Ej. Carga obligatoria" required>
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="descripcion" class="labelForms">Descripción</label>
-                                    <input type="text" name="descripcion" id="descripcion" class="inputForms"
+                                    <input type="text" name="descripcion" value="{{ old('descripcion') }}" id="descripcion" class="inputForms"
                                            placeholder="Ej. Consiste en...">
                                 </div>
 

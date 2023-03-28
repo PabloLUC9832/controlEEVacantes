@@ -57,19 +57,19 @@
 
                                 <div class="col-span-6">
                                     <label for="numeroMotivo" class="labelForms">N° del Motivo</label>
-                                    <input type="number" name="numeroMotivo" id="numeroMotivo" class="inputForms"
+                                    <input type="number" name="numeroMotivo" value="{{ old('numeroMotivo') }}" id="numeroMotivo" class="inputForms"
                                            placeholder="Ej. 15123" required>
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="nombre" class="labelForms">Nombre del Motivo</label>
-                                    <input type="text" name="nombre" id="nombre" class="inputForms"
+                                    <input type="text" name="nombre" value="{{ old('nombre') }}" id="nombre" class="inputForms"
                                            placeholder="Ej. INCAPACIDAD" required>
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="concepto" class="labelForms">Concepto</label>
-                                    <input type="text" name="concepto" id="concepto" class="inputForms"
+                                    <input type="text" name="concepto" value="{{ old('concepto') }}" id="concepto" class="inputForms"
                                            placeholder="Ej. SE PRODUCE CUANDO UN DOCENTE NO PUEDE..." required>
                                 </div>
 

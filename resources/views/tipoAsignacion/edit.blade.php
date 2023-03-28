@@ -56,13 +56,13 @@
                                 <div class="col-span-6">
                                     <label for="tipo" class="labelForms">Tipo de Asignación</label>
                                     <input type="text" name="tipo" id="tipo" class="inputForms"
-                                           required value="{{$tiposAsignacion->tipo}}">
+                                           required value="{{old('tipo',$tiposAsignacion->tipo)}}">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="descripcion" class="labelForms">Descripción</label>
                                     <input type="text" name="descripcion" id="descripcion" class="inputForms"
-                                           value="{{$tiposAsignacion->descripcion}}">
+                                           value="{{old('descripcion',$tiposAsignacion->descripcion)}}">
                                 </div>
 
                             </div>
