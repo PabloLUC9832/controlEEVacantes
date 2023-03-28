@@ -64,7 +64,7 @@
 --}}
                                 <div class="col-span-6">
                                     <label for="nPeriodo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Número de periodo</label>
-                                    <select  id="nPeriodo" name="nPeriodo" class="estiloSelect">
+                                    <select  id="nPeriodo" name="nPeriodo" class="estiloSelect" required>
                                         <option value="">Selecciona el número de periodo</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
