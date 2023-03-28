@@ -390,7 +390,7 @@
                                         aria-describedby="file_input_help" id="file" type="file" accept=".pdf"
                                         name="files[]" multiple>
                                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
-                                        Formato permitido: PDF</p>
+                                        Formato permitido: PDF Tamaño maximo de archivos 2 MBs</p>
                                 </div>
 
                             </div>
