@@ -62,13 +62,13 @@
                                 <div class="col-span-6">
                                     <label for="claveDependencia" class="labelForms">Clave de la dependencia</label>
                                     <input type="number" name="claveDependencia" id="claveDependencia" class="inputForms"
-                                           value="{{$dependencia->clave_dependencia}}" required>
+                                           value="{{old('claveDependencia',$dependencia->clave_dependencia)}}" required>
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="nombreDependencia" class="labelForms">Nombre de la dependencia</label>
                                     <input type="text" name="nombreDependencia" id="nombreDependencia" class="inputForms"
-                                           value="{{$dependencia->nombre_dependencia}}" required>
+                                           value="{{old('nombreDependencia',$dependencia->nombre_dependencia)}}" required>
                                 </div>
 
                             </div>
