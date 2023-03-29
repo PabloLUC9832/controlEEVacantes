@@ -30,8 +30,7 @@
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Actualizar Tipo de Asignación</h3>
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Recuerda que los datos obligatiorios son:</b></p>
-                    <li>Tipo</li>
-                    <li>Descripción</li>
+                    <li>Tipo de Asignación</li>
                 </div>
             </div>
             <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
@@ -57,13 +56,13 @@
                                 <div class="col-span-6">
                                     <label for="tipo" class="labelForms">Tipo de Asignación</label>
                                     <input type="text" name="tipo" id="tipo" class="inputForms"
-                                           required value="{{$tiposAsignacion->tipo}}">
+                                           required value="{{old('tipo',$tiposAsignacion->tipo)}}">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="descripcion" class="labelForms">Descripción</label>
                                     <input type="text" name="descripcion" id="descripcion" class="inputForms"
-                                           value="{{$tiposAsignacion->descripcion}}" required>
+                                           value="{{old('descripcion',$tiposAsignacion->descripcion)}}">
                                 </div>
 
                             </div>

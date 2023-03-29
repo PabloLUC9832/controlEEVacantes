@@ -76,13 +76,13 @@
                                 <div class="col-span-6">
                                     <label for="clavePeriodo" class="labelForms">Clave del periodo</label>
                                     <input type="text" name="clavePeriodo" id="clavePeriodo" class="inputForms"
-                                           value="{{$periodo->clavePeriodo}}" required>
+                                           value="{{old('clavePeriodo',$periodo->clavePeriodo)}}" required>
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="descripcion" class="labelForms">Descripción</label>
                                     <input type="text" name="descripcion" id="descripcion" class="inputForms"
-                                           value="{{$periodo->descripcion}}" required>
+                                           value="{{old('descripcion',$periodo->descripcion)}}" required>
                                 </div>
 
                             </div>

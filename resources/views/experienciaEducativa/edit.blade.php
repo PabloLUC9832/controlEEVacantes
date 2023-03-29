@@ -59,25 +59,25 @@
                                 <div class="col-span-6">
                                     <label for="numMateria" class="labelForms">Número de Materia</label>
                                     <input type="number" name="numMateria" id="numMateria" class="inputForms"
-                                           required value="{{$experienciaEducativa->numMateria}}">
+                                           required value="{{old('numMateria',$experienciaEducativa->numMateria)}}">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="nrc" class="labelForms">NRC</label>
                                     <input type="number" name="nrc" id="nrc" class="inputForms"
-                                           value="{{$experienciaEducativa->nrc}}">
+                                           value="{{old('nrc',$experienciaEducativa->nrc)}}">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="nombre" class="labelForms">Nombre de la Experiencia Educativa</label>
                                     <input type="text" name="nombre" id="nombre" class="inputForms"
-                                           value="{{$experienciaEducativa->nombre}}" required>
+                                           value="{{old('nombre',$experienciaEducativa->nombre)}}" required>
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="horas" class="labelForms">Horas</label>
                                     <input type="number" name="horas" id="horas" class="inputForms"
-                                           value="{{$experienciaEducativa->horas}}" required>
+                                           value="{{old('horas',$experienciaEducativa->horas)}}" required>
                                 </div>
                             </div>
                         </div>

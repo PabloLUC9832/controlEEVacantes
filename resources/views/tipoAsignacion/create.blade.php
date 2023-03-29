@@ -31,7 +31,6 @@
                     <p class="mt-1 text-sm text-gray-600">Por favor ingresa los datos solicitados.</p><br>
                     <p><b>Recuerda que los datos obligatiorios son:</b></p>
                     <li>Tipo de Asignación</li>
-                    <li>Descripción</li>
                 </div>
             </div>
             <div class="mt-5 md:col-span-2 md:mt-0 md:mr-5">
@@ -56,13 +55,13 @@
 
                                 <div class="col-span-6">
                                     <label for="tipo" class="labelForms">Tipo de Asignación</label>
-                                    <input type="text" name="tipo" id="tipo" class="inputForms"
+                                    <input type="text" name="tipo" value="{{ old('tipo') }}" id="tipo" class="inputForms"
                                            placeholder="Ej. Carga obligatoria" required>
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="descripcion" class="labelForms">Descripción</label>
-                                    <input type="text" name="descripcion" id="descripcion" class="inputForms"
+                                    <input type="text" name="descripcion" value="{{ old('descripcion') }}" id="descripcion" class="inputForms"
                                            placeholder="Ej. Consiste en...">
                                 </div>
 

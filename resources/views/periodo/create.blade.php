@@ -64,7 +64,7 @@
 --}}
                                 <div class="col-span-6">
                                     <label for="nPeriodo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Número de periodo</label>
-                                    <select  id="nPeriodo" name="nPeriodo" class="estiloSelect">
+                                    <select  id="nPeriodo" name="nPeriodo" class="estiloSelect" required>
                                         <option value="">Selecciona el número de periodo</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -73,13 +73,13 @@
 
                                 <div class="col-span-6">
                                     <label for="clavePeriodo" class="labelForms">Clave de periodo</label>
-                                    <input type="text" name="clavePeriodo" id="clavePeriodo" class="inputForms"
+                                    <input type="text" name="clavePeriodo" value="{{ old('clavePeriodo') }}" id="clavePeriodo" class="inputForms"
                                            placeholder="Ej. 202351" required>
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="descripcion" class="labelForms">Descripción</label>
-                                    <input type="text" name="descripcion" id="descripcion" class="inputForms"
+                                    <input type="text" name="descripcion" value="{{ old('descripcion') }}" id="descripcion" class="inputForms"
                                            placeholder="01 AGO. 2022 AL 31 ENE. 2023" required>
                                 </div>
 
