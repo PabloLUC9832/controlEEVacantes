@@ -58,19 +58,19 @@
                                 <div class="col-span-6">
                                     <label for="numeroMotivo" class="labelForms">N° del Motivo</label>
                                     <input type="number" name="numeroMotivo" id="numeroMotivo" class="inputForms"
-                                           required value="{{$motivo->numeroMotivo}}">
+                                           required value="{{old('numeroMotivo',$motivo->numeroMotivo)}}">
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="nombre" class="labelForms">Nombre del Motivo</label>
                                     <input type="text" name="nombre" id="nombre" class="inputForms"
-                                           value="{{$motivo->nombre}}" required>
+                                           value="{{old('nombre',$motivo->nombre)}}" required>
                                 </div>
 
                                 <div class="col-span-6">
                                     <label for="concepto" class="labelForms">Concepto</label>
                                     <input type="text" name="concepto" id="concepto" class="inputForms"
-                                           value="{{$motivo->concepto}}" required>
+                                           value="{{old('concepto',$motivo->concepto)}}" required>
                                 </div>
 
                             </div>

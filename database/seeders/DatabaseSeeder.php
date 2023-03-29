@@ -29,8 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MotivoSeeder::class,
             ZonaSeeder::class,
-            DependenciaSeeder::class,
-            ProgramaSeeder::class,
             ZonaDependenciaSeeder::class,
             PeriodoSeeder::class,
         ]);

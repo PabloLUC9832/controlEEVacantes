@@ -64,7 +64,7 @@
             <x-jet-label for="email" value="{{ __('Email') }}" />
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
-        
+
         <!-- Número de área -->
         <div class="col-span-6 sm:col-span-4 py-4">
             <x-jet-label for="name" value="{{ __('Área') }}" />
@@ -86,7 +86,7 @@
         <!-- Dependencia -->
         <div class="col-span-6 sm:col-span-4 py-3">
             <x-jet-label for="name" value="{{ __('Dependencia') }}" />
-            <x-jet-input id="name" type="text" class="mt-1 block w-full" value="{{$nombreDependencia = DB::table('dependencias')->select('nombre')->where('clave','=',Auth::user()->dependencia)->value('nombre');}}" readonly/>
+            <x-jet-input id="name" type="text" class="mt-1 block w-full" value="{{$nombreDependencia = DB::table('zona__dependencias')->select('nombre_dependencia')->where('clave_dependencia','=',Auth::user()->dependencia)->value('nombre_dependencia');}}" readonly/>
         </div>
 
         <!-- Número de zona -->
