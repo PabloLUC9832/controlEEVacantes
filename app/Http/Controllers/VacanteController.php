@@ -50,8 +50,10 @@ class VacanteController extends Controller
         $nombreDependencia = "";
         $nombrePrograma = "";
 
-        $listaDependenciasSelect = "";
-        $listaProgramasSelect = "";
+        //$listaDependenciasSelect = "";
+        $listaDependenciasSelect = [];
+        //$listaProgramasSelect = "";
+        $listaProgramasSelect = [];
 
         $userSelect = SearchVacante::where('id_user',$user)->first();
         $programasEducUsuario = [];
