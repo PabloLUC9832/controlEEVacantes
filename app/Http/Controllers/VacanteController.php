@@ -346,6 +346,11 @@ class VacanteController extends Controller
 
         $vacante->archivo = "Inexistente";
 
+        $request->validate([
+            'files' => 'nullable',
+            'files.*' => 'mimes:pdf|max:2048'
+        ]);
+
         if($request->hasFile('files')){
             $directory="vac-{$ulti}";
             $vacante->archivo = "vac-{$ulti}";
@@ -619,6 +624,11 @@ class VacanteController extends Controller
         $fechaCierre=$request->fechaCierre;
         $fechaRenuncia=$request->fechaRenuncia;
         $archivo = $vacante->archivo;
+
+        $request->validate([
+            'files' => 'nullable',
+            'files.*' => 'mimes:pdf|max:2048'
+        ]);
 
         if($request->hasFile('files')){
             $directory="vac-{$vacante->id}";
